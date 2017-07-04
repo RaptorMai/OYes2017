@@ -1,0 +1,451 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B923972008960BA0C6E80A83 /* Pods_Chat_App_For_iOS_10.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5945AB69EAB629C7CA078093 /* Pods_Chat_App_For_iOS_10.framework */; };
+		FA12B0BB1DE58CC100E7788A /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12B0BA1DE58CC100E7788A /* ChatVC.swift */; };
+		FA12B0BD1DE5D4EB00E7788A /* MessagesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12B0BC1DE5D4EB00E7788A /* MessagesHandler.swift */; };
+		FA1483401DE4425700ED0407 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA14833F1DE4425700ED0407 /* SignInVC.swift */; };
+		FA1483421DE4437D00ED0407 /* ContactsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1483411DE4437D00ED0407 /* ContactsVC.swift */; };
+		FA1483441DE44F7800ED0407 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA1483431DE44F7800ED0407 /* GoogleService-Info.plist */; };
+		FA1483461DE47AEF00ED0407 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1483451DE47AEF00ED0407 /* AuthProvider.swift */; };
+		FA1483481DE487E200ED0407 /* DBProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1483471DE487E200ED0407 /* DBProvider.swift */; };
+		FA14834A1DE48CFD00ED0407 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1483491DE48CFD00ED0407 /* Constants.swift */; };
+		FA14834C1DE4B8DC00ED0407 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA14834B1DE4B8DC00ED0407 /* Contact.swift */; };
+		FA22F3DF1DE34FA400EC4270 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA22F3DE1DE34FA400EC4270 /* AppDelegate.swift */; };
+		FA22F3E41DE34FA400EC4270 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA22F3E21DE34FA400EC4270 /* Main.storyboard */; };
+		FA22F3E61DE34FA400EC4270 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA22F3E51DE34FA400EC4270 /* Assets.xcassets */; };
+		FA22F3E91DE34FA400EC4270 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA22F3E71DE34FA400EC4270 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5945AB69EAB629C7CA078093 /* Pods_Chat_App_For_iOS_10.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_App_For_iOS_10.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		97609E2E69BDAC4FD8C8D412 /* Pods-Chat App For iOS 10.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat App For iOS 10.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chat App For iOS 10/Pods-Chat App For iOS 10.release.xcconfig"; sourceTree = "<group>"; };
+		98E4D84534ACB29213ACE1FC /* Pods-Chat App For iOS 10.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat App For iOS 10.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chat App For iOS 10/Pods-Chat App For iOS 10.debug.xcconfig"; sourceTree = "<group>"; };
+		FA12B0BA1DE58CC100E7788A /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
+		FA12B0BC1DE5D4EB00E7788A /* MessagesHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesHandler.swift; sourceTree = "<group>"; };
+		FA14833F1DE4425700ED0407 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
+		FA1483411DE4437D00ED0407 /* ContactsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsVC.swift; sourceTree = "<group>"; };
+		FA1483431DE44F7800ED0407 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FA1483451DE47AEF00ED0407 /* AuthProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
+		FA1483471DE487E200ED0407 /* DBProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBProvider.swift; sourceTree = "<group>"; };
+		FA1483491DE48CFD00ED0407 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FA14834B1DE4B8DC00ED0407 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		FA22F3DB1DE34FA400EC4270 /* Chat App For iOS 10.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chat App For iOS 10.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA22F3DE1DE34FA400EC4270 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FA22F3E31DE34FA400EC4270 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FA22F3E51DE34FA400EC4270 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA22F3E81DE34FA400EC4270 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FA22F3EA1DE34FA400EC4270 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA22F3D81DE34FA400EC4270 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B923972008960BA0C6E80A83 /* Pods_Chat_App_For_iOS_10.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		997AEC55251730F1D2807974 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5945AB69EAB629C7CA078093 /* Pods_Chat_App_For_iOS_10.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C0569D3239C6619AE6C2B461 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				98E4D84534ACB29213ACE1FC /* Pods-Chat App For iOS 10.debug.xcconfig */,
+				97609E2E69BDAC4FD8C8D412 /* Pods-Chat App For iOS 10.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FA14833B1DE4421700ED0407 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA1483491DE48CFD00ED0407 /* Constants.swift */,
+				FA14834B1DE4B8DC00ED0407 /* Contact.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		FA14833C1DE4421E00ED0407 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		FA14833D1DE4422300ED0407 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FA14833F1DE4425700ED0407 /* SignInVC.swift */,
+				FA1483411DE4437D00ED0407 /* ContactsVC.swift */,
+				FA12B0BA1DE58CC100E7788A /* ChatVC.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		FA14833E1DE4423600ED0407 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				FA1483451DE47AEF00ED0407 /* AuthProvider.swift */,
+				FA1483471DE487E200ED0407 /* DBProvider.swift */,
+				FA12B0BC1DE5D4EB00E7788A /* MessagesHandler.swift */,
+			);
+			name = Plugins;
+			sourceTree = "<group>";
+		};
+		FA22F3D21DE34FA400EC4270 = {
+			isa = PBXGroup;
+			children = (
+				FA22F3DD1DE34FA400EC4270 /* Chat App For iOS 10 */,
+				FA22F3DC1DE34FA400EC4270 /* Products */,
+				C0569D3239C6619AE6C2B461 /* Pods */,
+				997AEC55251730F1D2807974 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		FA22F3DC1DE34FA400EC4270 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA22F3DB1DE34FA400EC4270 /* Chat App For iOS 10.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA22F3DD1DE34FA400EC4270 /* Chat App For iOS 10 */ = {
+			isa = PBXGroup;
+			children = (
+				FA14833E1DE4423600ED0407 /* Plugins */,
+				FA14833D1DE4422300ED0407 /* Controller */,
+				FA14833C1DE4421E00ED0407 /* View */,
+				FA14833B1DE4421700ED0407 /* Model */,
+				FA22F3DE1DE34FA400EC4270 /* AppDelegate.swift */,
+				FA22F3E21DE34FA400EC4270 /* Main.storyboard */,
+				FA22F3E51DE34FA400EC4270 /* Assets.xcassets */,
+				FA22F3E71DE34FA400EC4270 /* LaunchScreen.storyboard */,
+				FA22F3EA1DE34FA400EC4270 /* Info.plist */,
+				FA1483431DE44F7800ED0407 /* GoogleService-Info.plist */,
+			);
+			path = "Chat App For iOS 10";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA22F3DA1DE34FA400EC4270 /* Chat App For iOS 10 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA22F3ED1DE34FA400EC4270 /* Build configuration list for PBXNativeTarget "Chat App For iOS 10" */;
+			buildPhases = (
+				359CEC5F530DC2E82EF3E694 /* [CP] Check Pods Manifest.lock */,
+				FA22F3D71DE34FA400EC4270 /* Sources */,
+				FA22F3D81DE34FA400EC4270 /* Frameworks */,
+				FA22F3D91DE34FA400EC4270 /* Resources */,
+				8CD7AA6798E4280C15FFCE83 /* [CP] Embed Pods Frameworks */,
+				2EE1463C141586FDE885AB50 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Chat App For iOS 10";
+			productName = "Chat App For iOS 10";
+			productReference = FA22F3DB1DE34FA400EC4270 /* Chat App For iOS 10.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA22F3D31DE34FA400EC4270 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "Awesome Tuts";
+				TargetAttributes = {
+					FA22F3DA1DE34FA400EC4270 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = NMX59CFY8C;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = FA22F3D61DE34FA400EC4270 /* Build configuration list for PBXProject "Chat App For iOS 10" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FA22F3D21DE34FA400EC4270;
+			productRefGroup = FA22F3DC1DE34FA400EC4270 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FA22F3DA1DE34FA400EC4270 /* Chat App For iOS 10 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA22F3D91DE34FA400EC4270 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA22F3E91DE34FA400EC4270 /* LaunchScreen.storyboard in Resources */,
+				FA1483441DE44F7800ED0407 /* GoogleService-Info.plist in Resources */,
+				FA22F3E61DE34FA400EC4270 /* Assets.xcassets in Resources */,
+				FA22F3E41DE34FA400EC4270 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2EE1463C141586FDE885AB50 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chat App For iOS 10/Pods-Chat App For iOS 10-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		359CEC5F530DC2E82EF3E694 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8CD7AA6798E4280C15FFCE83 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chat App For iOS 10/Pods-Chat App For iOS 10-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA22F3D71DE34FA400EC4270 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA12B0BD1DE5D4EB00E7788A /* MessagesHandler.swift in Sources */,
+				FA12B0BB1DE58CC100E7788A /* ChatVC.swift in Sources */,
+				FA1483401DE4425700ED0407 /* SignInVC.swift in Sources */,
+				FA22F3DF1DE34FA400EC4270 /* AppDelegate.swift in Sources */,
+				FA1483481DE487E200ED0407 /* DBProvider.swift in Sources */,
+				FA1483461DE47AEF00ED0407 /* AuthProvider.swift in Sources */,
+				FA1483421DE4437D00ED0407 /* ContactsVC.swift in Sources */,
+				FA14834A1DE48CFD00ED0407 /* Constants.swift in Sources */,
+				FA14834C1DE4B8DC00ED0407 /* Contact.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		FA22F3E21DE34FA400EC4270 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA22F3E31DE34FA400EC4270 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FA22F3E71DE34FA400EC4270 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA22F3E81DE34FA400EC4270 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FA22F3EB1DE34FA400EC4270 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FA22F3EC1DE34FA400EC4270 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FA22F3EE1DE34FA400EC4270 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98E4D84534ACB29213ACE1FC /* Pods-Chat App For iOS 10.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = NMX59CFY8C;
+				INFOPLIST_FILE = "Chat App For iOS 10/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = YueMing.ChatAppDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		FA22F3EF1DE34FA400EC4270 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 97609E2E69BDAC4FD8C8D412 /* Pods-Chat App For iOS 10.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = NMX59CFY8C;
+				INFOPLIST_FILE = "Chat App For iOS 10/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = YueMing.ChatAppDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA22F3D61DE34FA400EC4270 /* Build configuration list for PBXProject "Chat App For iOS 10" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA22F3EB1DE34FA400EC4270 /* Debug */,
+				FA22F3EC1DE34FA400EC4270 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA22F3ED1DE34FA400EC4270 /* Build configuration list for PBXNativeTarget "Chat App For iOS 10" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA22F3EE1DE34FA400EC4270 /* Debug */,
+				FA22F3EF1DE34FA400EC4270 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FA22F3D31DE34FA400EC4270 /* Project object */;
+}
