@@ -1,10 +1,9 @@
 
-
 import UIKit
 import CoreData
 import Fabric
 import Crashlytics
-import HyphenateLite
+import Hyphenate
 import Firebase
 
 @UIApplicationMain
@@ -12,7 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     /** Hyphenate configuration constants **/
     static let kHyphenateAppKey = "1500170706002947#instasolve-hyphenate-messenger"
-    static let kHyphenatePushServiceDevelopment = "InstaSolveHyphenateSampleCert" //"SwiftDemoDevelopment"
+    static let kHyphenatePushServiceDevelopment = "InstaSolveHyphenateSampleCert"
     static let kHyphenatePushServiceProduction = "SwiftDemoProduction"
     static let kSDKConfigEnableConsoleLogger = "SDKConfigEnableConsoleLogger"
     
@@ -34,8 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if DEBUG
             apnsCertName = AppDelegate.kHyphenatePushServiceDevelopment
         #else
-            apnsCertName = AppDelegate.kHyphenatePushServiceDevelopment
-            //apnsCertName = AppDelegate.kHyphenatePushServiceProduction
+            apnsCertName = AppDelegate.kHyphenatePushServiceDevelopment //kHyphenatePushServiceProduction
         #endif
         
         let pushSettings = UIUserNotificationSettings(types:[UIUserNotificationType.badge ,UIUserNotificationType.sound ,UIUserNotificationType.alert], categories: nil)

@@ -2,6 +2,8 @@
 import Foundation
 import UIKit
 
+
+
 class ContactTableViewCell:UITableViewCell{
 
     @IBOutlet weak var photoView: UIImageView!

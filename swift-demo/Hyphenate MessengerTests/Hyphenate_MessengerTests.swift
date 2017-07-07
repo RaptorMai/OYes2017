@@ -1,6 +1,6 @@
 
 import XCTest
-//@testable import Hyphenate_Messenger
+@testable import Hyphenate_Messenger
 
 class Hyphenate_MessengerTests: XCTestCase {
     

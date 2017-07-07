@@ -1,6 +1,6 @@
 
 import UIKit
-import HyphenateLite
+import Hyphenate
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 

@@ -1,6 +1,6 @@
 
 import Foundation
-import HyphenateLite
+import Hyphenate
 import SlimeRefresh
 
 class GroupListViewController:UITableViewController,UISearchBarDelegate, UISearchDisplayDelegate, EMGroupManagerDelegate, SRRefreshDelegate{

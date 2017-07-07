@@ -1,7 +1,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
-#import <HyphenateLite/HyphenateLite.h>
+#import <Hyphenate/Hyphenate.h>
 
 #define kLocalCallBitrate @"HyphenateLocalCallBitrate"
 

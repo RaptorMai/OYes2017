@@ -1,6 +1,6 @@
 
 import UIKit
-import HyphenateLite
+import Hyphenate
 
 public enum DeleteConvesationType: Int {
     case deleteConvesationOnly

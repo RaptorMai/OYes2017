@@ -2,7 +2,7 @@
 #import "EaseRefreshTableViewController.h"
 #import "EaseConversationModel.h"
 #import "EaseConversationCell.h"
-#import <HyphenateLite/HyphenateLite.h>
+#import <Hyphenate/Hyphenate.h>
 
 typedef NS_ENUM(int, DXDeleteConvesationType) {
     DXDeleteConvesationOnly,

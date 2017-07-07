@@ -2,7 +2,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import <HyphenateLite/HyphenateLite.h>
+#import <Hyphenate/Hyphenate.h>
 
 #define KNOTIFICATION_CALL @"callOutWithChatter"
 #define KNOTIFICATION_CALL_CLOSE @"callControllerClose"

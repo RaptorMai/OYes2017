@@ -1,6 +1,5 @@
-
 import UIKit
-import HyphenateLite
+import Hyphenate
 
 class ContactsTableViewController:UITableViewController,EMGroupManagerDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
 

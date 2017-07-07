@@ -18,7 +18,7 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
-  - HyphenateLite (3.3.2)
+  - Hyphenate (3.3.2)
   - SlimeRefresh (0.0.1)
 
 DEPENDENCIES:
@@ -26,7 +26,7 @@ DEPENDENCIES:
   - Fabric
   - Firebase/Analytics
   - Firebase/Core
-  - HyphenateLite
+  - Hyphenate
   - SlimeRefresh
 
 SPEC CHECKSUMS:
@@ -37,9 +37,9 @@ SPEC CHECKSUMS:
   FirebaseCore: c709067051de07bdaffdc4e735cd7299a23c463a
   FirebaseInstanceID: 9fbf536668f4d3f0880e7438456dabd1376e294b
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
-  HyphenateLite: 54ffda162deec2cedf156185a707b86678ae914a
+  Hyphenate: b596a794ec253b089a6e5c952d718aeedd85c76c
   SlimeRefresh: c70e370dccfa8d74d4c3ff9702769d2b156a50e6
 
-PODFILE CHECKSUM: d0e3521b4004830498b2680f90d4ad5a710b7bcb
+PODFILE CHECKSUM: 4fa1eae54b8d4681aacb271c27715e8a40b59476
 
 COCOAPODS: 1.2.1
