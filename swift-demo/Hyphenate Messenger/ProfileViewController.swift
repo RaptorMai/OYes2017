@@ -7,8 +7,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var audioCallButton: UIButton!
-    @IBOutlet weak var videoCallButton: UIButton!
+//    @IBOutlet weak var audioCallButton: UIButton!
+//    @IBOutlet weak var videoCallButton: UIButton!
     @IBOutlet weak var chatButton: UIButton!
     @IBOutlet weak var usernameLabel: UILabel!
 
@@ -124,10 +124,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.navigationController!.pushViewController(chatController!, animated: true)
     }
     
-    @IBAction func audioCallButtonAction(_ sender: AnyObject) {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: KNOTIFICATION_CALL), object: ["chatter": username, "type": Int(0)])
-    }
-    
+//    @IBAction func audioCallButtonAction(_ sender: AnyObject) {
+//        NotificationCenter.default.post(name: Notification.Name(rawValue: KNOTIFICATION_CALL), object: ["chatter": username, "type": Int(0)])
+//    }
+//    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

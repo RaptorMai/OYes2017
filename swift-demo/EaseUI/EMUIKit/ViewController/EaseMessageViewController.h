@@ -139,14 +139,14 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 
 - (void)sendImageMessage:(UIImage *)image;
 
-- (void)sendLocationMessageLatitude:(double)latitude
-                          longitude:(double)longitude
-                         andAddress:(NSString *)address;
+//TODO: remove functions
+//- (void)sendLocationMessageLatitude:(double)latitude
+//                          longitude:(double)longitude
+//                         andAddress:(NSString *)address;
+//- (void)sendVoiceMessageWithLocalPath:(NSString *)localPath
+//                             duration:(NSInteger)duration;
+//- (void)sendVideoMessageWithURL:(NSURL *)url;
 
-- (void)sendVoiceMessageWithLocalPath:(NSString *)localPath
-                             duration:(NSInteger)duration;
-
-- (void)sendVideoMessageWithURL:(NSURL *)url;
 
 -(void)addMessageToDataSource:(EMMessage *)message
                      progress:(id)progress;

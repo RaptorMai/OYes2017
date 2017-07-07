@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hyphenate Messenger/HyphenateMessengerHelper.swift"
+            timestampString = "521147386.885664"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "470"
+            endingLineNumber = "470"
+            landmarkName = "makeCall(notification:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Hyphenate_Messenger.HyphenateMessengerHelper.makeCall (notification : Foundation.Notification) -&gt; ()"
+                  moduleName = "Hyphenate Messenger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/geniusming/Dropbox/Career/OYes2017/swift-demo/Hyphenate%20Messenger/HyphenateMessengerHelper.swift"
+                  timestampString = "521159596.059397"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "470"
+                  endingLineNumber = "470"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Hyphenate_Messenger.HyphenateMessengerHelper.makeCall (notification : Foundation.Notification) -&gt; ()"
+                  moduleName = "Hyphenate Messenger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/geniusming/Dropbox/Career/OYes2017/swift-demo/Hyphenate%20Messenger/HyphenateMessengerHelper.swift"
+                  timestampString = "521159596.062691"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "470"
+                  endingLineNumber = "470"
+                  offsetFromSymbolStart = "340">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hyphenate Messenger/HyphenateMessengerHelper.swift"
+            timestampString = "521148398.509086"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "480"
+            endingLineNumber = "480"
+            landmarkName = "callDidReceive(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hyphenate Messenger/HyphenateMessengerHelper.swift"
+            timestampString = "521148403.486532"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "500"
+            endingLineNumber = "500"
+            landmarkName = "callDidConnect(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EaseUI/EMUIKit/Views/conversation/toolbar/MoreView/EaseChatBarMoreView.m"
+            timestampString = "521149302.056588"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "takePicButton"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[EaseChatBarMoreView takePicButton]"
+                  moduleName = "Hyphenate Messenger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/geniusming/Dropbox/Career/OYes2017/swift-demo/EaseUI/EMUIKit/Views/conversation/toolbar/MoreView/EaseChatBarMoreView.m"
+                  timestampString = "521149302.428132"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[EaseChatBarMoreView setTakePicButton:]"
+                  moduleName = "Hyphenate Messenger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/geniusming/Dropbox/Career/OYes2017/swift-demo/EaseUI/EMUIKit/Views/conversation/toolbar/MoreView/EaseChatBarMoreView.m"
+                  timestampString = "521149302.430607"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EaseUI/EMUIKit/Views/conversation/toolbar/MoreView/EaseChatBarMoreView.m"
+            timestampString = "521152649.96653"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
+            landmarkName = "@implementation EaseChatBarMoreView"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EaseUI/EMUIKit/Views/conversation/toolbar/MoreView/EaseChatBarMoreView.m"
+            timestampString = "521152649.96653"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
+            landmarkName = "@implementation EaseChatBarMoreView"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EaseUI/EMUIKit/Views/conversation/toolbar/MoreView/EaseChatBarMoreView.m"
+            timestampString = "521152649.96653"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
+            landmarkName = "@implementation EaseChatBarMoreView"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

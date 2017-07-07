@@ -1308,31 +1308,30 @@
 #endif
 }
 
-- (void)moreViewLocationAction:(EaseChatBarMoreView *)moreView
-{
-    // Hide the keyboard
-    [self.chatToolbar endEditing:YES];
-    
-    EaseLocationViewController *locationController = [[EaseLocationViewController alloc] init];
-    locationController.delegate = self;
-    [self.navigationController pushViewController:locationController animated:YES];
-}
-
-- (void)moreViewAudioCallAction:(EaseChatBarMoreView *)moreView
-{
-    // Hide the keyboard
-    [self.chatToolbar endEditing:YES];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:0]}];
-}
-
-- (void)moreViewVideoCallAction:(EaseChatBarMoreView *)moreView
-{
-    // Hide the keyboard
-    [self.chatToolbar endEditing:YES];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:1]}];
-}
+//TODO: remove functions
+//- (void)moreViewLocationAction:(EaseChatBarMoreView *)moreView
+//{
+//    // Hide the keyboard
+//    [self.chatToolbar endEditing:YES];
+//    
+//    EaseLocationViewController *locationController = [[EaseLocationViewController alloc] init];
+//    locationController.delegate = self;
+//    [self.navigationController pushViewController:locationController animated:YES];
+//}
+//- (void)moreViewAudioCallAction:(EaseChatBarMoreView *)moreView
+//{
+//    // Hide the keyboard
+//    [self.chatToolbar endEditing:YES];
+//    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:0]}];
+//}
+//- (void)moreViewVideoCallAction:(EaseChatBarMoreView *)moreView
+//{
+//    // Hide the keyboard
+//    [self.chatToolbar endEditing:YES];
+//    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:1]}];
+//}
 
 #pragma mark - EMLocationViewDelegate
 

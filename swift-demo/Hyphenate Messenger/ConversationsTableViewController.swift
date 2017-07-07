@@ -122,6 +122,7 @@ open class ConversationsTableViewController: UITableViewController, EMChatManage
             let dateString = formatter.string(from: date)
             cell.timeLabel.text = dateString
             
+            //TODO: if last msg is photo app crashes
             let textMessageBody: EMTextMessageBody = latestMessage.body as! EMTextMessageBody
             cell.lastMessageLabel.text = textMessageBody.text
             

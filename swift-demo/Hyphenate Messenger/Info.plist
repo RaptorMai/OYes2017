@@ -55,6 +55,10 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Upload Photo In Camera Roll</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Upload Photo With Camera</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
