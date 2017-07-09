@@ -12,11 +12,11 @@ class EntryViewController: UIViewController {
     
 
     @IBAction func Login(_ sender: UIButton) {
-        performSegue(withIdentifier: "EntryRegisterToPhoneNum", sender: sender)
+        performSegue(withIdentifier: "EntryLoginToPhoneNum", sender: sender)
     }
 
     @IBAction func Register(_ sender: UIButton) {
-         performSegue(withIdentifier: "EntryLoginToPhoneNum", sender: sender)
+         performSegue(withIdentifier: "EntryRegisterToPhoneNum", sender: sender)
     }
 
     override func viewDidLoad() {

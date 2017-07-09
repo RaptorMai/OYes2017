@@ -9,7 +9,30 @@
 import UIKit
 
 class RegisterViewController: UIViewController {
-
+    
+    @IBOutlet weak var PhoneNum: UITextField!
+    
+    @IBAction func RequestCode(_ sender: UIButton) {
+        //check for valid number in PhoneNum
+        let PhoneNumValid = true
+        if PhoneNumValid {
+            performSegue(withIdentifier: "RegisterPhoneNumToCode", sender: sender)
+        } else {
+            //insert error for invalid number
+        }
+    }
+    
+    @IBOutlet weak var Code: UITextField!
+    
+    @IBAction func Register(_ sender: UIButton) {
+        let CodeValid = true
+        if CodeValid {
+            performSegue(withIdentifier: "RegisterToHome", sender: sender)
+        } else {
+            //insert error for invalid code
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,16 +43,5 @@ class RegisterViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
