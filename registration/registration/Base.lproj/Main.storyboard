@@ -173,7 +173,6 @@
         <!--Home-->
         <scene sceneID="eXd-Wi-hbD">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SPU-jY-GVZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="w0m-hK-Iue" customClass="HomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jNm-rY-JpT"/>
@@ -183,18 +182,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Logged In!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYp-Au-iRU">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logged In!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYp-Au-iRU">
                                 <rect key="frame" x="143" y="323" width="89" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="89" id="ixd-jW-bQh"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qMg-RD-H2s">
+                                <rect key="frame" x="164" y="352" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qMg-RD-H2s" firstAttribute="centerX" secondItem="K9R-3P-YQ5" secondAttribute="centerX" id="93r-n4-Wcp"/>
+                            <constraint firstItem="AYp-Au-iRU" firstAttribute="centerY" secondItem="K9R-3P-YQ5" secondAttribute="centerY" id="Dqq-x6-lck"/>
+                            <constraint firstItem="AYp-Au-iRU" firstAttribute="centerX" secondItem="qMg-RD-H2s" secondAttribute="centerX" id="hme-07-A4S"/>
+                            <constraint firstItem="qMg-RD-H2s" firstAttribute="top" secondItem="AYp-Au-iRU" secondAttribute="bottom" constant="8" symbolic="YES" id="rxw-8t-8al"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="TTE-QW-x4p"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SPU-jY-GVZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2492" y="590"/>
         </scene>
