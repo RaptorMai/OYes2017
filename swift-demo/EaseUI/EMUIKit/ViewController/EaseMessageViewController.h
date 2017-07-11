@@ -41,9 +41,9 @@
             didSelectMoreView:(EaseChatBarMoreView *)moreView
                       AtIndex:(NSInteger)index;
 
-- (void)messageViewController:(EaseMessageViewController *)viewController
-              didSelectRecordView:(UIView *)recordView
-                withEvenType:(EaseRecordViewType)type;
+//- (void)messageViewController:(EaseMessageViewController *)viewController
+//              didSelectRecordView:(UIView *)recordView
+//                withEvenType:(EaseRecordViewType)type;
 @end
 
 
@@ -122,7 +122,7 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 
 @property(strong, nonatomic) EaseFaceView *faceView;
 
-@property(strong, nonatomic) EaseRecordView *recordView;
+//@property(strong, nonatomic) EaseRecordView *recordView;
 
 @property (strong, nonatomic) UIMenuController *menuController;
 

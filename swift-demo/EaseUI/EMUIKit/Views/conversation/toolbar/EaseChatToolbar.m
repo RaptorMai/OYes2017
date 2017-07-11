@@ -19,7 +19,7 @@
 @property (nonatomic) BOOL isShowButtomView;
 @property (strong, nonatomic) UIView *activityButtomView;
 @property (strong, nonatomic) UIView *toolbarView;
-@property (strong, nonatomic) UIButton *recordButton;
+//@property (strong, nonatomic) UIButton *recordButton;
 @property (strong, nonatomic) UIButton *moreButton;
 @property (strong, nonatomic) UIButton *faceButton;
 @property (nonatomic) CGFloat previousTextViewContentHeight;
@@ -32,7 +32,7 @@
 
 @synthesize faceView = _faceView;
 @synthesize moreView = _moreView;
-@synthesize recordView = _recordView;
+//@synthesize recordView = _recordView;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -122,33 +122,34 @@
     _previousTextViewContentHeight = [self _getTextViewContentH:_inputTextView];
     [_toolbarView addSubview:_inputTextView];
     
+    //TODO: clean up commented code related to record message
     //change input type
-    UIButton *styleChangeButton = [[UIButton alloc] init];
-    styleChangeButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [styleChangeButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_record"] forState:UIControlStateNormal];
-    [styleChangeButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_keyboard"] forState:UIControlStateSelected];
-    [styleChangeButton addTarget:self action:@selector(styleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    EaseChatToolbarItem *styleItem = [[EaseChatToolbarItem alloc] initWithButton:styleChangeButton withView:nil];
-    [self setInputViewLeftItems:@[styleItem]];
+//    UIButton *styleChangeButton = [[UIButton alloc] init];
+//    styleChangeButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+//    [styleChangeButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_record"] forState:UIControlStateNormal];
+//    [styleChangeButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_keyboard"] forState:UIControlStateSelected];
+//    [styleChangeButton addTarget:self action:@selector(styleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    EaseChatToolbarItem *styleItem = [[EaseChatToolbarItem alloc] initWithButton:styleChangeButton withView:nil];
+//    [self setInputViewLeftItems:@[styleItem]];
     
     //record
-    self.recordButton = [[UIButton alloc] initWithFrame:self.inputTextView.frame];
-    self.recordButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_recordBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
-    [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
-    [self.recordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
-    self.recordButton.hidden = YES;
-    [self.recordButton addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDown];
-    [self.recordButton addTarget:self action:@selector(recordButtonTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
-    [self.recordButton addTarget:self action:@selector(recordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
-    [self.recordButton addTarget:self action:@selector(recordDragOutside) forControlEvents:UIControlEventTouchDragExit];
-    [self.recordButton addTarget:self action:@selector(recordDragInside) forControlEvents:UIControlEventTouchDragEnter];
-    self.recordButton.hidden = YES;
-    [self.toolbarView addSubview:self.recordButton];
-    
+//    self.recordButton = [[UIButton alloc] initWithFrame:self.inputTextView.frame];
+//    self.recordButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
+//    [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+//    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_recordBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
+//    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
+//    [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
+//    [self.recordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
+//    self.recordButton.hidden = YES;
+//    [self.recordButton addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDown];
+//    [self.recordButton addTarget:self action:@selector(recordButtonTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
+//    [self.recordButton addTarget:self action:@selector(recordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
+//    [self.recordButton addTarget:self action:@selector(recordDragOutside) forControlEvents:UIControlEventTouchDragExit];
+//    [self.recordButton addTarget:self action:@selector(recordDragInside) forControlEvents:UIControlEventTouchDragEnter];
+//    self.recordButton.hidden = YES;
+//    [self.toolbarView addSubview:self.recordButton];
+//    
     //emoji
     self.faceButton = [[UIButton alloc] init];
     self.faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -181,14 +182,14 @@
 
 #pragma mark - getter
 
-- (UIView *)recordView
-{
-    if (_recordView == nil) {
-        _recordView = [[EaseRecordView alloc] initWithFrame:CGRectMake(90, 130, 140, 140)];
-    }
-    
-    return _recordView;
-}
+//- (UIView *)recordView
+//{
+//    if (_recordView == nil) {
+//        _recordView = [[EaseRecordView alloc] initWithFrame:CGRectMake(90, 130, 140, 140)];
+//    }
+//    
+//    return _recordView;
+//}
 
 - (UIView *)faceView
 {
@@ -223,12 +224,12 @@
     }
 }
 
-- (void)setRecordView:(UIView *)recordView
-{
-    if(_recordView != recordView){
-        _recordView = recordView;
-    }
-}
+//- (void)setRecordView:(UIView *)recordView
+//{
+//    if(_recordView != recordView){
+//        _recordView = recordView;
+//    }
+//}
 
 - (void)setMoreView:(UIView *)moreView
 {
@@ -303,10 +304,10 @@
     inputFrame.size.width += value;
     self.inputTextView.frame = inputFrame;
     
-    CGRect recordFrame = self.recordButton.frame;
-    recordFrame.origin.x = inputFrame.origin.x;
-    recordFrame.size.width = inputFrame.size.width;
-    self.recordButton.frame = recordFrame;
+//    CGRect recordFrame = self.recordButton.frame;
+//    recordFrame.origin.x = inputFrame.origin.x;
+//    recordFrame.size.width = inputFrame.size.width;
+//    self.recordButton.frame = recordFrame;
 }
 
 - (NSArray*)inputViewRightItems
@@ -357,10 +358,10 @@
     inputFrame.size.width += value;
     self.inputTextView.frame = inputFrame;
     
-    CGRect recordFrame = self.recordButton.frame;
-    recordFrame.origin.x = inputFrame.origin.x;
-    recordFrame.size.width = inputFrame.size.width;
-    self.recordButton.frame = recordFrame;
+//    CGRect recordFrame = self.recordButton.frame;
+//    recordFrame.origin.x = inputFrame.origin.x;
+//    recordFrame.size.width = inputFrame.size.width;
+//    self.recordButton.frame = recordFrame;
 }
 
 #pragma mark - private input view
@@ -651,7 +652,7 @@
     }
     
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.recordButton.hidden = !button.selected;
+        //self.recordButton.hidden = !button.selected;
         self.inputTextView.hidden = button.selected;
     } completion:nil];
 }
@@ -680,7 +681,7 @@
         
         [self _willShowBottomView:faceItem.button2View];
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.recordButton.hidden = button.selected;
+            //self.recordButton.hidden = button.selected;
             self.inputTextView.hidden = !button.selected;
         } completion:^(BOOL finished) {
             
@@ -714,7 +715,7 @@
         
         [self _willShowBottomView:moreItem.button2View];
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.recordButton.hidden = button.selected;
+            //self.recordButton.hidden = button.selected;
             self.inputTextView.hidden = !button.selected;
         } completion:nil];
     }
@@ -724,46 +725,46 @@
     }
 }
 
-- (void)recordButtonTouchDown
-{
-    if (_delegate && [_delegate respondsToSelector:@selector(didStartRecordingVoiceAction:)]) {
-        [_delegate didStartRecordingVoiceAction:self.recordView];
-    }
-}
+//- (void)recordButtonTouchDown
+//{
+//    if (_delegate && [_delegate respondsToSelector:@selector(didStartRecordingVoiceAction:)]) {
+//        [_delegate didStartRecordingVoiceAction:self.recordView];
+//    }
+//}
+//
+//- (void)recordButtonTouchUpOutside
+//{
+//    if (_delegate && [_delegate respondsToSelector:@selector(didCancelRecordingVoiceAction:)])
+//    {
+//        [_delegate didCancelRecordingVoiceAction:self.recordView];
+//    }
+//}
 
-- (void)recordButtonTouchUpOutside
-{
-    if (_delegate && [_delegate respondsToSelector:@selector(didCancelRecordingVoiceAction:)])
-    {
-        [_delegate didCancelRecordingVoiceAction:self.recordView];
-    }
-}
+//- (void)recordButtonTouchUpInside
+//{
+//    self.recordButton.enabled = NO;
+//    if ([self.delegate respondsToSelector:@selector(didFinishRecoingVoiceAction:)])
+//    {
+//        [self.delegate didFinishRecoingVoiceAction:self.recordView];
+//    }
+//    self.recordButton.enabled = YES;
+//}
 
-- (void)recordButtonTouchUpInside
-{
-    self.recordButton.enabled = NO;
-    if ([self.delegate respondsToSelector:@selector(didFinishRecoingVoiceAction:)])
-    {
-        [self.delegate didFinishRecoingVoiceAction:self.recordView];
-    }
-    self.recordButton.enabled = YES;
-}
-
-- (void)recordDragOutside
-{
-    if ([self.delegate respondsToSelector:@selector(didDragOutsideAction:)])
-    {
-        [self.delegate didDragOutsideAction:self.recordView];
-    }
-}
-
-- (void)recordDragInside
-{
-    if ([self.delegate respondsToSelector:@selector(didDragInsideAction:)])
-    {
-        [self.delegate didDragInsideAction:self.recordView];
-    }
-}
+//- (void)recordDragOutside
+//{
+//    if ([self.delegate respondsToSelector:@selector(didDragOutsideAction:)])
+//    {
+//        [self.delegate didDragOutsideAction:self.recordView];
+//    }
+//}
+//
+//- (void)recordDragInside
+//{
+//    if ([self.delegate respondsToSelector:@selector(didDragInsideAction:)])
+//    {
+//        [self.delegate didDragInsideAction:self.recordView];
+//    }
+//}
 
 #pragma mark - public
 
@@ -784,13 +785,13 @@
     return result;
 }
 
-- (void)cancelTouchRecord
-{
-    if ([_recordView isKindOfClass:[EaseRecordView class]]) {
-        [(EaseRecordView *)_recordView recordButtonTouchUpInside];
-        [_recordView removeFromSuperview];
-    }
-}
+//- (void)cancelTouchRecord
+//{
+//    if ([_recordView isKindOfClass:[EaseRecordView class]]) {
+//        [(EaseRecordView *)_recordView recordButtonTouchUpInside];
+//        [_recordView removeFromSuperview];
+//    }
+//}
 
 - (void)willShowBottomView:(UIView *)bottomView
 {

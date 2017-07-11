@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		39062AE81D9F0D4400EE8412 /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39062AE71D9F0D4400EE8412 /* ContactTableViewCell.xib */; };
 		5C226CB1BB2ACE14FE2BC796 /* Pods_Hyphenate_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */; };
+		5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */; };
 		9A06AB141DB09CBC003A5B2E /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB131DB09CBC003A5B2E /* CallViewController.m */; };
 		9A06AB171DB0A49D003A5B2E /* UIColor+Hyphenate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB161DB0A49D003A5B2E /* UIColor+Hyphenate.m */; };
 		9A06AB191DB584BA003A5B2E /* SettingsAboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB181DB584BA003A5B2E /* SettingsAboutTableViewController.swift */; };
@@ -40,8 +41,6 @@
 		9A3149901DA429E80081DB04 /* FriendRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A31498F1DA429E80081DB04 /* FriendRequestViewController.swift */; };
 		9A3149921DA42B360081DB04 /* FriendRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A3149911DA42B360081DB04 /* FriendRequest.storyboard */; };
 		9A3970A71DBF43E200D68937 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3970A61DBF43E200D68937 /* UIImage+animatedGIF.m */; };
-		9A3970A91DBF464600D68937 /* Splash.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9A3970A81DBF464600D68937 /* Splash.gif */; };
-		9A51E5281DBF5EDD00B3695B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A51E5271DBF5EDD00B3695B /* LaunchScreen.storyboard */; };
 		9A545C891DA0CB2200DEFBC7 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A545C871DA0CB2200DEFBC7 /* ConversationTableViewCell.swift */; };
 		9A545C8A1DA0CB2200DEFBC7 /* ConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A545C881DA0CB2200DEFBC7 /* ConversationTableViewCell.xib */; };
 		9A702B9D1DA3401F005ED10C /* FriendRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A702B9B1DA3401F005ED10C /* FriendRequestTableViewCell.swift */; };
@@ -226,6 +225,7 @@
 /* Begin PBXFileReference section */
 		39062AE71D9F0D4400EE8412 /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContactTableViewCell.xib; path = Views/ContactTableViewCell.xib; sourceTree = "<group>"; };
 		46CB1D5CA6E51EFA21BD9A5F /* Pods-Hyphenate Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.release.xcconfig"; sourceTree = "<group>"; };
+		5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScr.storyboard; sourceTree = "<group>"; };
 		71E15A43B314CB255A946243 /* Pods-Hyphenate Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hyphenate_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A06AB121DB09CBC003A5B2E /* CallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallViewController.h; sourceTree = "<group>"; };
@@ -269,8 +269,6 @@
 		9A37B30B1DCF205A00A781EE /* Hyphenate Messenger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Hyphenate Messenger.entitlements"; sourceTree = "<group>"; };
 		9A3970A51DBF43E200D68937 /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		9A3970A61DBF43E200D68937 /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
-		9A3970A81DBF464600D68937 /* Splash.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Splash.gif; sourceTree = "<group>"; };
-		9A51E5271DBF5EDD00B3695B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A545C871DA0CB2200DEFBC7 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		9A545C881DA0CB2200DEFBC7 /* ConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationTableViewCell.xib; sourceTree = "<group>"; };
 		9A702B9B1DA3401F005ED10C /* FriendRequestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequestTableViewCell.swift; sourceTree = "<group>"; };
@@ -649,7 +647,6 @@
 				9A17BDFA1D9E1FB70075EF9F /* Assets.xcassets */,
 				9A17BDFF1D9E1FB70075EF9F /* Info.plist */,
 				9A17BDF71D9E1FB70075EF9F /* Hyphenate_Messenger.xcdatamodeld */,
-				9A3970A81DBF464600D68937 /* Splash.gif */,
 				B634674A1D9E4AD500CBEAE2 /* Hyphenate-Bridging-Header.h */,
 				C469D79D1DD2ADE300CB634F /* GoogleService-Info.plist */,
 			);
@@ -803,7 +800,7 @@
 				9AFE4D711D9E2731007862CA /* Main.storyboard */,
 				9A7FB37F1DA1EDA7005CC8C3 /* Profile.storyboard */,
 				9A3149911DA42B360081DB04 /* FriendRequest.storyboard */,
-				9A51E5271DBF5EDD00B3695B /* LaunchScreen.storyboard */,
+				5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -1584,7 +1581,6 @@
 				9A702BA01DA370FC005ED10C /* requestHeaderView.xib in Resources */,
 				9AC132391DA0DFE500A2BD05 /* SwitchTableViewCell.xib in Resources */,
 				9A702B9E1DA3401F005ED10C /* FriendRequestTableViewCell.xib in Resources */,
-				9A51E5281DBF5EDD00B3695B /* LaunchScreen.storyboard in Resources */,
 				9A2E70AF1DA224FA00D3EE94 /* ProfileNameTableViewCell.xib in Resources */,
 				9A06AB251DB68FB5003A5B2E /* TextfieldTableViewCell.xib in Resources */,
 				B6346B671D9E6C5D00CBEAE2 /* EaseUIResource.bundle in Resources */,
@@ -1592,11 +1588,11 @@
 				9A545C8A1DA0CB2200DEFBC7 /* ConversationTableViewCell.xib in Resources */,
 				B6346B0A1D9E6C5100CBEAE2 /* MJRefresh.bundle in Resources */,
 				9A7FB3801DA1EDA7005CC8C3 /* Profile.storyboard in Resources */,
+				5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */,
 				39062AE81D9F0D4400EE8412 /* ContactTableViewCell.xib in Resources */,
 				9A17BDFB1D9E1FB70075EF9F /* Assets.xcassets in Resources */,
 				B6346B501D9E6C5100CBEAE2 /* EMContactDetailedTableViewCell.xib in Resources */,
 				C469D79E1DD2ADE300CB634F /* GoogleService-Info.plist in Resources */,
-				9A3970A91DBF464600D68937 /* Splash.gif in Resources */,
 				B6346B351D9E6C5100CBEAE2 /* MWPhotoBrowser.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

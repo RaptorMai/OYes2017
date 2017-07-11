@@ -312,7 +312,7 @@
         [(EaseChatToolbar *)self.chatToolbar setDelegate:self];
         self.chatBarMoreView = (EaseChatBarMoreView*)[(EaseChatToolbar *)self.chatToolbar moreView];
         self.faceView = (EaseFaceView*)[(EaseChatToolbar *)self.chatToolbar faceView];
-        self.recordView = (EaseRecordView*)[(EaseChatToolbar *)self.chatToolbar recordView];
+        //self.recordView = (EaseRecordView*)[(EaseChatToolbar *)self.chatToolbar recordView];
     }
 }
 
@@ -690,6 +690,7 @@
     }
 }
 
+/* TODO: clean functions related to ardio message
 - (void)_audioMessageCellSelected:(id<IMessageModel>)model
 {
     self.scrollToLatestMessage = NO;
@@ -731,7 +732,7 @@
         }
     }
 }
-
+*/
 #pragma mark - pivate data
 
 - (void)loadMessagesBefore:(NSString*)messageId
@@ -1086,11 +1087,11 @@
             [self _locationMessageCellSelected:model];
         }
             break;
-        case EMMessageBodyTypeVoice:
-        {
-            [self _audioMessageCellSelected:model];
-        }
-            break;
+//        case EMMessageBodyTypeVoice:
+//        {
+//            [self _audioMessageCellSelected:model];
+//        }
+//            break;
         case EMMessageBodyTypeVideo:
         {
             [self _videoMessageCellSelected:model];
@@ -1181,92 +1182,92 @@
     }
 }
 
-- (void)didStartRecordingVoiceAction:(UIView *)recordView
-{
-    if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectRecordView:withEvenType:)]) {
-        [self.delegate messageViewController:self didSelectRecordView:recordView withEvenType:EaseRecordViewTypeTouchDown];
-    } else {
-        if ([self.recordView isKindOfClass:[EaseRecordView class]]) {
-            [(EaseRecordView *)self.recordView recordButtonTouchDown];
-        }
-    }
-    
-    if ([self _canRecord]) {
-        EaseRecordView *tmpView = (EaseRecordView *)recordView;
-        tmpView.center = self.view.center;
-        [self.view addSubview:tmpView];
-        [self.view bringSubviewToFront:recordView];
-        int x = arc4random() % 100000;
-        NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-        NSString *fileName = [NSString stringWithFormat:@"%d%d",(int)time,x];
-        
-        [[EMCDDeviceManager sharedInstance] asyncStartRecordingWithFileName:fileName completion:^(NSError *error)
-         {
-             if (error) {
-                 NSLog(@"%@",NSEaseLocalizedString(@"message.startRecordFail", @"failure to start recording"));
-             }
-         }];
-    }
-}
-
-- (void)didCancelRecordingVoiceAction:(UIView *)recordView
-{
-    [[EMCDDeviceManager sharedInstance] cancelCurrentRecording];
-    if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectRecordView:withEvenType:)]) {
-        [self.delegate messageViewController:self didSelectRecordView:recordView withEvenType:EaseRecordViewTypeTouchUpOutside];
-    } else {
-        if ([self.recordView isKindOfClass:[EaseRecordView class]]) {
-            [(EaseRecordView *)self.recordView recordButtonTouchUpOutside];
-        }
-        [self.recordView removeFromSuperview];
-    }
-}
-
-- (void)didFinishRecoingVoiceAction:(UIView *)recordView
-{
-    if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectRecordView:withEvenType:)]) {
-        [self.delegate messageViewController:self didSelectRecordView:recordView withEvenType:EaseRecordViewTypeTouchUpInside];
-    } else {
-        if ([self.recordView isKindOfClass:[EaseRecordView class]]) {
-            [(EaseRecordView *)self.recordView recordButtonTouchUpInside];
-        }
-        [self.recordView removeFromSuperview];
-    }
-    __weak typeof(self) weakSelf = self;
-    [[EMCDDeviceManager sharedInstance] asyncStopRecordingWithCompletion:^(NSString *recordPath, NSInteger aDuration, NSError *error) {
-        if (!error) {
-            [weakSelf sendVoiceMessageWithLocalPath:recordPath duration:aDuration];
-        }
-        else {
-            [weakSelf showHudInView:self.view hint:NSEaseLocalizedString(@"media.timeShort", @"The recording time is too short")];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [weakSelf hideHud];
-            });
-        }
-    }];
-}
-
-- (void)didDragInsideAction:(UIView *)recordView
-{
-    if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectRecordView:withEvenType:)]) {
-        [self.delegate messageViewController:self didSelectRecordView:recordView withEvenType:EaseRecordViewTypeDragInside];
-    } else {
-        if ([self.recordView isKindOfClass:[EaseRecordView class]]) {
-            [(EaseRecordView *)self.recordView recordButtonDragInside];
-        }
-    }
-}
-
-- (void)didDragOutsideAction:(UIView *)recordView
-{
-    if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectRecordView:withEvenType:)]) {
-        [self.delegate messageViewController:self didSelectRecordView:recordView withEvenType:EaseRecordViewTypeDragOutside];
-    } else {
-        if ([self.recordView isKindOfClass:[EaseRecordView class]]) {
-            [(EaseRecordView *)self.recordView recordButtonDragOutside];
-        }
-    }
-}
+//- (void)didStartRecordingVoiceAction:(UIView *)recordView
+//{
+//    if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectRecordView:withEvenType:)]) {
+//        [self.delegate messageViewController:self didSelectRecordView:recordView withEvenType:EaseRecordViewTypeTouchDown];
+//    } else {
+//        if ([self.recordView isKindOfClass:[EaseRecordView class]]) {
+//            [(EaseRecordView *)self.recordView recordButtonTouchDown];
+//        }
+//    }
+//    
+//    if ([self _canRecord]) {
+//        EaseRecordView *tmpView = (EaseRecordView *)recordView;
+//        tmpView.center = self.view.center;
+//        [self.view addSubview:tmpView];
+//        [self.view bringSubviewToFront:recordView];
+//        int x = arc4random() % 100000;
+//        NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+//        NSString *fileName = [NSString stringWithFormat:@"%d%d",(int)time,x];
+//        
+//        [[EMCDDeviceManager sharedInstance] asyncStartRecordingWithFileName:fileName completion:^(NSError *error)
+//         {
+//             if (error) {
+//                 NSLog(@"%@",NSEaseLocalizedString(@"message.startRecordFail", @"failure to start recording"));
+//             }
+//         }];
+//    }
+//}
+//
+//- (void)didCancelRecordingVoiceAction:(UIView *)recordView
+//{
+//    [[EMCDDeviceManager sharedInstance] cancelCurrentRecording];
+//    if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectRecordView:withEvenType:)]) {
+//        [self.delegate messageViewController:self didSelectRecordView:recordView withEvenType:EaseRecordViewTypeTouchUpOutside];
+//    } else {
+//        if ([self.recordView isKindOfClass:[EaseRecordView class]]) {
+//            [(EaseRecordView *)self.recordView recordButtonTouchUpOutside];
+//        }
+//        [self.recordView removeFromSuperview];
+//    }
+//}
+//
+//- (void)didFinishRecoingVoiceAction:(UIView *)recordView
+//{
+//    if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectRecordView:withEvenType:)]) {
+//        [self.delegate messageViewController:self didSelectRecordView:recordView withEvenType:EaseRecordViewTypeTouchUpInside];
+//    } else {
+//        if ([self.recordView isKindOfClass:[EaseRecordView class]]) {
+//            [(EaseRecordView *)self.recordView recordButtonTouchUpInside];
+//        }
+//        [self.recordView removeFromSuperview];
+//    }
+//    __weak typeof(self) weakSelf = self;
+//    [[EMCDDeviceManager sharedInstance] asyncStopRecordingWithCompletion:^(NSString *recordPath, NSInteger aDuration, NSError *error) {
+//        if (!error) {
+//            [weakSelf sendVoiceMessageWithLocalPath:recordPath duration:aDuration];
+//        }
+//        else {
+//            [weakSelf showHudInView:self.view hint:NSEaseLocalizedString(@"media.timeShort", @"The recording time is too short")];
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [weakSelf hideHud];
+//            });
+//        }
+//    }];
+//}
+//
+//- (void)didDragInsideAction:(UIView *)recordView
+//{
+//    if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectRecordView:withEvenType:)]) {
+//        [self.delegate messageViewController:self didSelectRecordView:recordView withEvenType:EaseRecordViewTypeDragInside];
+//    } else {
+//        if ([self.recordView isKindOfClass:[EaseRecordView class]]) {
+//            [(EaseRecordView *)self.recordView recordButtonDragInside];
+//        }
+//    }
+//}
+//
+//- (void)didDragOutsideAction:(UIView *)recordView
+//{
+//    if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectRecordView:withEvenType:)]) {
+//        [self.delegate messageViewController:self didSelectRecordView:recordView withEvenType:EaseRecordViewTypeDragOutside];
+//    } else {
+//        if ([self.recordView isKindOfClass:[EaseRecordView class]]) {
+//            [(EaseRecordView *)self.recordView recordButtonDragOutside];
+//        }
+//    }
+//}
 
 #pragma mark - EaseChatBarMoreViewDelegate
 
@@ -1360,6 +1361,32 @@
         }
     }
 }
+
+//TODO: add local notification
+//- (void)messagesDidReceive:(NSArray *)aMessages
+//{
+//    [self setupUnreadMessageCount];
+//    
+//#if !TARGET_IPHONE_SIMULATOR
+//    for (EMMessage *message in aMessages) {
+//        
+//        UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+//        switch (state) {
+//            case UIApplicationStateActive:
+//                [self playSoundAndVibration];
+//                break;
+//            case UIApplicationStateInactive:
+//                [self playSoundAndVibration];
+//                break;
+//            case UIApplicationStateBackground:
+//                [self showNotificationWithMessage:message];
+//                break;
+//            default:
+//                break;
+//        }
+//    }
+//#endif
+//}
 
 - (void)cmdMessagesDidReceive:(NSArray *)aCmdMessages
 {

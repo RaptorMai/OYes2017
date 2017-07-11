@@ -1,5 +1,6 @@
 
 import UIKit
+//import UserNotifications
 import CoreData
 import Fabric
 import Crashlytics
@@ -10,9 +11,9 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     /** Hyphenate configuration constants **/
-    static let kHyphenateAppKey = "1500170706002947#instasolve-hyphenate-messenger"
-    static let kHyphenatePushServiceDevelopment = "InstaSolveHyphenateSampleCert"
-    static let kHyphenatePushServiceProduction = "SwiftDemoProduction"
+    static let kHyphenateAppKey = "1500170706002947#instasolve"
+    static let kHyphenatePushServiceDevelopment = "InstasolveDevCertificates"
+    static let kHyphenatePushServiceProduction = "InstasolveDevCertificates"
     static let kSDKConfigEnableConsoleLogger = "SDKConfigEnableConsoleLogger"
     
     /** Google Analytics configuration constants **/
@@ -26,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
  
-        showSplashAnimation()
+        //TODO: create our own gif with our logo, need to add our gif to "copy bundle researces" under "build phase"
+        //showSplashAnimation()
 
         var apnsCertName : String? = nil
         
@@ -36,9 +38,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             apnsCertName = AppDelegate.kHyphenatePushServiceDevelopment //kHyphenatePushServiceProduction
         #endif
         
+        //UIUserNotification Deprecated in ios10
         let pushSettings = UIUserNotificationSettings(types:[UIUserNotificationType.badge ,UIUserNotificationType.sound ,UIUserNotificationType.alert], categories: nil)
-        
         application.registerUserNotificationSettings(pushSettings)
+        
+        
+//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){(granted, error) in
+//            if !granted{
+//                print("Notification Not Granted")
+//            }
+//        }
+        
         application.registerForRemoteNotifications()
         
         UINavigationBar.appearance().tintColor = UIColor.hiPrimary()
@@ -51,6 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    /*
     func showSplashAnimation() {
         let background = UIView(frame: CGRect(x: 0, y: 0, width: (window?.bounds.size.width)!, height: (window?.bounds.size.height)!))
         background.backgroundColor = UIColor(red: 62/255, green: 92/255, blue: 120/255, alpha: 1)
@@ -71,6 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             background.removeFromSuperview()
         }
     }
+    */
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -81,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         EMClient.shared().applicationDidEnterBackground(application)
-
+        //self.saveContext()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -174,7 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         EMClient.shared().registerForRemoteNotifications(withDeviceToken: deviceToken) { (error) in
             if ((error) != nil) {
-                print("Error!!! Failed to register remote notification - \(error?.description)")
+                print("Error!!! Failed to register remote notification - \(error?.description ?? "Remote Notification Failed")")
             }
         }
     }
