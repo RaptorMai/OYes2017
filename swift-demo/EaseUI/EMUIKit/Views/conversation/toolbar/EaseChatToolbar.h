@@ -4,7 +4,7 @@
 
 #import "EaseFaceView.h"
 #import "EaseTextView.h"
-#import "EaseRecordView.h"
+//#import "EaseRecordView.h"
 #import "EaseChatBarMoreView.h"
 #import "EaseChatToolbarItem.h"
 
@@ -40,7 +40,7 @@
 
 @property (strong, nonatomic) UIView *faceView;
 
-@property (strong, nonatomic) UIView *recordView;
+//@property (strong, nonatomic) UIView *recordView;
 
 - (instancetype)initWithFrame:(CGRect)frame
                          type:(EMChatToolbarType)type;
@@ -82,15 +82,15 @@
 
 - (void)didSendFace:(NSString *)faceLocalPath;
 
-- (void)didStartRecordingVoiceAction:(UIView *)recordView;
-
-- (void)didCancelRecordingVoiceAction:(UIView *)recordView;
-
-- (void)didFinishRecoingVoiceAction:(UIView *)recordView;
-
-- (void)didDragOutsideAction:(UIView *)recordView;
-
-- (void)didDragInsideAction:(UIView *)recordView;
+//- (void)didStartRecordingVoiceAction:(UIView *)recordView;
+//
+//- (void)didCancelRecordingVoiceAction:(UIView *)recordView;
+//
+//- (void)didFinishRecoingVoiceAction:(UIView *)recordView;
+//
+//- (void)didDragOutsideAction:(UIView *)recordView;
+//
+//- (void)didDragInsideAction:(UIView *)recordView;
 
 @required
 
