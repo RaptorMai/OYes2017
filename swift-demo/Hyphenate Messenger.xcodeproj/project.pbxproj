@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		39062AE81D9F0D4400EE8412 /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39062AE71D9F0D4400EE8412 /* ContactTableViewCell.xib */; };
 		5C226CB1BB2ACE14FE2BC796 /* Pods_Hyphenate_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */; };
+		5D809DAA1F157DE90001BF06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D809DA81F157AC10001BF06 /* Assets.xcassets */; };
 		5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */; };
 		9A06AB141DB09CBC003A5B2E /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB131DB09CBC003A5B2E /* CallViewController.m */; };
 		9A06AB171DB0A49D003A5B2E /* UIColor+Hyphenate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB161DB0A49D003A5B2E /* UIColor+Hyphenate.m */; };
@@ -21,7 +22,6 @@
 		9A06AB251DB68FB5003A5B2E /* TextfieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A06AB231DB68FB5003A5B2E /* TextfieldTableViewCell.xib */; };
 		9A17BDF11D9E1FB70075EF9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A17BDF01D9E1FB70075EF9F /* AppDelegate.swift */; };
 		9A17BDF91D9E1FB70075EF9F /* Hyphenate_Messenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9A17BDF71D9E1FB70075EF9F /* Hyphenate_Messenger.xcdatamodeld */; };
-		9A17BDFB1D9E1FB70075EF9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A17BDFA1D9E1FB70075EF9F /* Assets.xcassets */; };
 		9A17BE091D9E1FB70075EF9F /* Hyphenate_MessengerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A17BE081D9E1FB70075EF9F /* Hyphenate_MessengerTests.swift */; };
 		9A17BE141D9E1FB70075EF9F /* Hyphenate_MessengerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A17BE131D9E1FB70075EF9F /* Hyphenate_MessengerUITests.swift */; };
 		9A17BE2A1D9E20190075EF9F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A17BE221D9E20190075EF9F /* LoginViewController.swift */; };
@@ -225,6 +225,7 @@
 /* Begin PBXFileReference section */
 		39062AE71D9F0D4400EE8412 /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContactTableViewCell.xib; path = Views/ContactTableViewCell.xib; sourceTree = "<group>"; };
 		46CB1D5CA6E51EFA21BD9A5F /* Pods-Hyphenate Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.release.xcconfig"; sourceTree = "<group>"; };
+		5D809DA81F157AC10001BF06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScr.storyboard; sourceTree = "<group>"; };
 		71E15A43B314CB255A946243 /* Pods-Hyphenate Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hyphenate_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -242,7 +243,6 @@
 		9A17BDED1D9E1FB70075EF9F /* Hyphenate Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hyphenate Messenger.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A17BDF01D9E1FB70075EF9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A17BDF81D9E1FB70075EF9F /* Hyphenate_Messenger.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Hyphenate_Messenger.xcdatamodel; sourceTree = "<group>"; };
-		9A17BDFA1D9E1FB70075EF9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A17BDFF1D9E1FB70075EF9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A17BE041D9E1FB70075EF9F /* Hyphenate MessengerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hyphenate MessengerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A17BE081D9E1FB70075EF9F /* Hyphenate_MessengerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hyphenate_MessengerTests.swift; sourceTree = "<group>"; };
@@ -644,8 +644,8 @@
 				9A17BE361D9E20C50075EF9F /* View */,
 				9A17BE211D9E200B0075EF9F /* View Controllers */,
 				9A17BDF01D9E1FB70075EF9F /* AppDelegate.swift */,
-				9A17BDFA1D9E1FB70075EF9F /* Assets.xcassets */,
 				9A17BDFF1D9E1FB70075EF9F /* Info.plist */,
+				5D809DA81F157AC10001BF06 /* Assets.xcassets */,
 				9A17BDF71D9E1FB70075EF9F /* Hyphenate_Messenger.xcdatamodeld */,
 				B634674A1D9E4AD500CBEAE2 /* Hyphenate-Bridging-Header.h */,
 				C469D79D1DD2ADE300CB634F /* GoogleService-Info.plist */,
@@ -1575,6 +1575,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D809DAA1F157DE90001BF06 /* Assets.xcassets in Resources */,
 				9A3149921DA42B360081DB04 /* FriendRequest.storyboard in Resources */,
 				9AFE4D721D9E2731007862CA /* Main.storyboard in Resources */,
 				9A2E70B31DA2250D00D3EE94 /* ProfileSwitchTableViewCell.xib in Resources */,
@@ -1590,7 +1591,6 @@
 				9A7FB3801DA1EDA7005CC8C3 /* Profile.storyboard in Resources */,
 				5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */,
 				39062AE81D9F0D4400EE8412 /* ContactTableViewCell.xib in Resources */,
-				9A17BDFB1D9E1FB70075EF9F /* Assets.xcassets in Resources */,
 				B6346B501D9E6C5100CBEAE2 /* EMContactDetailedTableViewCell.xib in Resources */,
 				C469D79E1DD2ADE300CB634F /* GoogleService-Info.plist in Resources */,
 				B6346B351D9E6C5100CBEAE2 /* MWPhotoBrowser.bundle in Resources */,

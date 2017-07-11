@@ -12,10 +12,14 @@ class MainViewController: UITabBarController {
         let conversationsViewController:ConversationsTableViewController = ConversationsTableViewController()
         let conversationRootViewController:UINavigationController = UINavigationController(rootViewController: conversationsViewController)
         
+        //Ming: added session tab for past sessions
+        let sessionsViewController:ConversationsTableViewController = ConversationsTableViewController()
+        let sessionsRootViewController:UINavigationController = UINavigationController(rootViewController: sessionsViewController)
+        
         let settingsViewController:SettingsTableViewController = SettingsTableViewController()
         let settingsRootViewController:UINavigationController = UINavigationController(rootViewController: settingsViewController)
         
-        self.setViewControllers([contactsRootViewController, conversationRootViewController, settingsRootViewController], animated: true)
+        self.setViewControllers([contactsRootViewController, conversationRootViewController, sessionsRootViewController, settingsRootViewController], animated: true)
         
         let contactsTabItem:UITabBarItem = self.tabBar.items![0]
         contactsTabItem.image = UIImage(named:  "contactsTab")
@@ -26,8 +30,14 @@ class MainViewController: UITabBarController {
         conversationsTabItem.image = UIImage(named:  "chatsTab")
         conversationsTabItem.selectedImage = UIImage(named:  "chatsTab_selected")
         conversationsTabItem.imageInsets = UIEdgeInsetsMake(8, 0, -8, 0);
+        
+        //Ming: added session tab for past sessions
+        let sessionsTabItem:UITabBarItem = self.tabBar.items![2]
+        sessionsTabItem.image = UIImage(named: "sessionsTab")
+        sessionsTabItem.selectedImage = UIImage(named: "sessionsTab_selected")
+        sessionsTabItem.imageInsets = UIEdgeInsetsMake(8, 0, -8, 0)
 
-        let settingsTabItem:UITabBarItem = self.tabBar.items![2]
+        let settingsTabItem:UITabBarItem = self.tabBar.items![3]
         settingsTabItem.image = UIImage(named:  "settingsTab")
         settingsTabItem.selectedImage = UIImage(named:  "settingsTab_selected")
         settingsTabItem.imageInsets = UIEdgeInsetsMake(8, 0, -8, 0);
