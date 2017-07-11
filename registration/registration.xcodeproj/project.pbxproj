@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		72250018DA5FC94D82412109 /* Pods_registration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF88387E64AC654AE5D26F17 /* Pods_registration.framework */; };
 		B04567691F12C2CF00538BEB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B04567681F12C2CF00538BEB /* GoogleService-Info.plist */; };
+		B045676C1F150FC500538BEB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B045676B1F150FC500538BEB /* MainViewController.swift */; };
 		B086D8D31F103BA400154543 /* EntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B086D8D21F103BA400154543 /* EntryViewController.swift */; };
 		B086D8D71F105EEC00154543 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B086D8D61F105EEC00154543 /* RegisterViewController.swift */; };
 		B086D8D91F105F3A00154543 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B086D8D81F105F3A00154543 /* HomeViewController.swift */; };
@@ -24,6 +25,7 @@
 		8E8E9265924E1F1B59104D72 /* Pods-registration.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-registration.release.xcconfig"; path = "Pods/Target Support Files/Pods-registration/Pods-registration.release.xcconfig"; sourceTree = "<group>"; };
 		B04567681F12C2CF00538BEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B045676A1F12C3C800538BEB /* registration.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = registration.entitlements; sourceTree = "<group>"; };
+		B045676B1F150FC500538BEB /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B086D8D21F103BA400154543 /* EntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
 		B086D8D61F105EEC00154543 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		B086D8D81F105F3A00154543 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				B086D8D61F105EEC00154543 /* RegisterViewController.swift */,
 				B086D8DB1F10656800154543 /* LoginViewController.swift */,
 				B086D8D81F105F3A00154543 /* HomeViewController.swift */,
+				B045676B1F150FC500538BEB /* MainViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B045676C1F150FC500538BEB /* MainViewController.swift in Sources */,
 				B086D8DC1F10656800154543 /* LoginViewController.swift in Sources */,
 				B086D8D71F105EEC00154543 /* RegisterViewController.swift in Sources */,
 				B0E39ED01F0FEF0100B6ADB9 /* ViewController.swift in Sources */,

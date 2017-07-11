@@ -1,15 +1,14 @@
 //
-//  HomeViewController.swift
+//  MainViewController.swift
 //  registration
 //
-//  Created by devuser on 2017-07-07.
+//  Created by devuser on 2017-07-11.
 //  Copyright © 2017 devuser. All rights reserved.
 //
 
 import UIKit
 
-class HomeViewController: UIViewController {
-    
+class MainViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
