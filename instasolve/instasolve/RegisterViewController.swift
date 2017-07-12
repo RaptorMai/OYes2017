@@ -53,6 +53,14 @@ class RegisterViewController: UIViewController {
         Auth.auth().signIn(with: credential) { (user, error) in
             if error != nil {
                 print("error: \(String(describing: error?.localizedDescription))")
+                
+                //Popup error indicating an error occured
+
+                let alert = UIAlertController(title: "Error", message: "An error has occured", preferredStyle: .alert)
+                let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(okay)
+                self.present(alert, animated: true, completion: nil)
+                
             } else{
                 print("Phone number: \(String(describing: user?.phoneNumber))")
                 let userInfo = user?.providerData[0]
