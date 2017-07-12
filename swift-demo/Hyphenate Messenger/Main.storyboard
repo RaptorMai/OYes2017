@@ -302,7 +302,7 @@
             <objects>
                 <navigationController storyboardIdentifier="loginScene" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Vyd-z9-jwz" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" backIndicatorImage="back" id="too-Ml-Gkz">
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" misplaced="YES" backIndicatorImage="back" id="too-Ml-Gkz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -317,7 +317,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back" width="10" height="17"/>
+        <image name="back" width="17" height="17"/>
         <image name="logo" width="100" height="92"/>
     </resources>
     <inferredMetricsTieBreakers>
