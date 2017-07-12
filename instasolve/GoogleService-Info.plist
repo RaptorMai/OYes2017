@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>228427583083-tte91pnv62c6rjtc9qlhhag86rquqal2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.228427583083-tte91pnv62c6rjtc9qlhhag86rquqal2</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB0M_hB0Qf6tbh3XQ1ivWZiriz5I6YC5uY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>228427583083</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.instasolve.instasolve</string>
+	<key>PROJECT_ID</key>
+	<string>instasolve-8efe2</string>
+	<key>STORAGE_BUCKET</key>
+	<string>instasolve-8efe2.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:228427583083:ios:66144f3da7cc41c9</string>
+	<key>DATABASE_URL</key>
+	<string>https://instasolve-8efe2.firebaseio.com</string>
+</dict>
+</plist>
