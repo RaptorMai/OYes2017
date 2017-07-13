@@ -6,7 +6,7 @@ use_frameworks!
 target 'Hyphenate Messenger' do
     
     pod 'Hyphenate'
-    pod 'Firebase/Analytics'
+    #pod 'Firebase/Analytics'
     pod 'Fabric'
     pod 'Crashlytics'
 
