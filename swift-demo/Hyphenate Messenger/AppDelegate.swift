@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mainViewController: MainViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        FirebaseApp.configure()
  
         //TODO: create our own gif with our logo, need to add our gif to "copy bundle researces" under "build phase"
         //showSplashAnimation()

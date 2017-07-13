@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yQw-CV-GOo" customClass="HyphenateTextField" customModule="Hyphenate_Messenger" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Verification Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yQw-CV-GOo" customClass="HyphenateTextField" customModule="Hyphenate_Messenger" customModuleProvider="target">
                                 <rect key="frame" x="45" y="310" width="285" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="95V-qJ-A7n"/>
@@ -43,9 +43,9 @@
                                 <rect key="frame" x="137.5" y="100" width="100" height="92"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XbG-6A-XCL">
-                                <rect key="frame" x="67.5" y="380" width="240" height="30"/>
+                                <rect key="frame" x="87.5" y="380" width="200" height="30"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yay! New to Hyphenate?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wel-pG-1gv">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New to InstaSolve?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wel-pG-1gv">
                                         <rect key="frame" x="0.0" y="0.0" width="186" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="SdY-zf-hEA"/>
@@ -56,7 +56,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P5C-sF-bXV">
-                                        <rect key="frame" x="186" y="0.0" width="54" height="30"/>
+                                        <rect key="frame" x="146" y="0.0" width="54" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="7yL-je-y0k"/>
                                             <constraint firstAttribute="width" constant="54" id="hZB-mC-kB6"/>
@@ -80,7 +80,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="3UI-cL-djg"/>
-                                    <constraint firstAttribute="width" constant="240" id="HFk-hM-Yag"/>
+                                    <constraint firstAttribute="width" constant="200" id="HFk-hM-Yag"/>
                                     <constraint firstItem="Wel-pG-1gv" firstAttribute="top" secondItem="XbG-6A-XCL" secondAttribute="top" id="JZx-3a-Dok"/>
                                     <constraint firstItem="P5C-sF-bXV" firstAttribute="top" secondItem="XbG-6A-XCL" secondAttribute="top" id="huR-ZU-BLy"/>
                                     <constraint firstItem="Wel-pG-1gv" firstAttribute="leading" secondItem="XbG-6A-XCL" secondAttribute="leading" id="qMR-iI-YjX"/>
@@ -101,7 +101,7 @@
                                     <action selector="loginAction:" destination="aq0-8E-OHS" eventType="touchUpInside" id="neq-C6-V0W"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Hyphenate ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KxP-KA-288" customClass="HyphenateTextField" customModule="Hyphenate_Messenger" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KxP-KA-288" customClass="HyphenateTextField" customModule="Hyphenate_Messenger" customModuleProvider="target">
                                 <rect key="frame" x="45" y="245" width="285" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="v0e-BM-ITk"/>
@@ -122,6 +122,14 @@
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
                                 <color key="color" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfD-8r-Ca6">
+                                <rect key="frame" x="233" y="255" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Request Code"/>
+                                <connections>
+                                    <action selector="loginRequestCodeAction:" destination="aq0-8E-OHS" eventType="touchUpInside" id="Adn-DB-A2A"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.25098039220000001" green="0.36862745099999999" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -147,8 +155,8 @@
                         <outlet property="activityIndicator" destination="8dE-jV-AZ7" id="sE4-UK-ifk"/>
                         <outlet property="loginButton" destination="3HR-jZ-Wr0" id="FXB-w6-7AZ"/>
                         <outlet property="loginButtonBottomConstraint" destination="rbt-ck-3s1" id="30H-y9-GP9"/>
-                        <outlet property="passwordTextField" destination="yQw-CV-GOo" id="ICe-Gf-Ddd"/>
-                        <outlet property="userNameTextField" destination="KxP-KA-288" id="qhR-Rr-Z6U"/>
+                        <outlet property="phoneNumber" destination="KxP-KA-288" id="YR1-Jb-HZM"/>
+                        <outlet property="verificationCode" destination="yQw-CV-GOo" id="qPw-Ge-bVl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kkL-SW-XCJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -181,7 +189,7 @@
                                     <action selector="signupAction:" destination="9cT-Qu-4Vn" eventType="touchUpInside" id="2Gu-nc-Dxb"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Hyphenate ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eye-iE-8T6" customClass="HyphenateTextField" customModule="Hyphenate_Messenger" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eye-iE-8T6" customClass="HyphenateTextField" customModule="Hyphenate_Messenger" customModuleProvider="target">
                                 <rect key="frame" x="45" y="245" width="285" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="4MF-Ef-ifq"/>
@@ -198,7 +206,7 @@
                                     <outlet property="delegate" destination="9cT-Qu-4Vn" id="qrN-Jz-U8p"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hFP-1W-1Td" customClass="HyphenateTextField" customModule="Hyphenate_Messenger" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Verification Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hFP-1W-1Td" customClass="HyphenateTextField" customModule="Hyphenate_Messenger" customModuleProvider="target">
                                 <rect key="frame" x="45" y="309" width="285" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="OdJ-BM-dVp"/>
@@ -219,7 +227,7 @@
                                 <rect key="frame" x="137.5" y="100" width="100" height="92"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FbX-Pl-h0O">
-                                <rect key="frame" x="97.5" y="389" width="180" height="30"/>
+                                <rect key="frame" x="87.5" y="389" width="200" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have an account?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tfh-Pw-uYX">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="30"/>
@@ -232,7 +240,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BxR-Ko-YdK">
-                                        <rect key="frame" x="126" y="0.0" width="54" height="30"/>
+                                        <rect key="frame" x="146" y="0.0" width="54" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="54" id="XV8-kV-O18"/>
                                             <constraint firstAttribute="height" constant="30" id="bHR-SF-6ai"/>
@@ -258,7 +266,7 @@
                                     <constraint firstAttribute="trailing" secondItem="BxR-Ko-YdK" secondAttribute="trailing" id="W31-15-4g1"/>
                                     <constraint firstItem="BxR-Ko-YdK" firstAttribute="top" secondItem="FbX-Pl-h0O" secondAttribute="top" id="haW-Ms-I1H"/>
                                     <constraint firstItem="Tfh-Pw-uYX" firstAttribute="top" secondItem="FbX-Pl-h0O" secondAttribute="top" id="oLr-KU-h2d"/>
-                                    <constraint firstAttribute="width" constant="180" id="oer-ei-oxw"/>
+                                    <constraint firstAttribute="width" constant="200" id="oer-ei-oxw"/>
                                     <constraint firstItem="Tfh-Pw-uYX" firstAttribute="leading" secondItem="FbX-Pl-h0O" secondAttribute="leading" id="yO2-ct-FuX"/>
                                 </constraints>
                             </view>
@@ -266,6 +274,14 @@
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
                                 <color key="color" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9pF-4j-0zF">
+                                <rect key="frame" x="233" y="255" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Request Code"/>
+                                <connections>
+                                    <action selector="signupRequestCodeAction:" destination="9cT-Qu-4Vn" eventType="touchUpInside" id="5eT-Fr-w1K"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.25098039220000001" green="0.36862745099999999" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -289,20 +305,20 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="gvd-p1-5OB" id="9eU-UJ-DAE"/>
-                        <outlet property="passwordTextfield" destination="hFP-1W-1Td" id="Wy3-Hc-6PK"/>
-                        <outlet property="usernameTextfield" destination="eye-iE-8T6" id="NqS-g5-h17"/>
+                        <outlet property="phoneNumber" destination="eye-iE-8T6" id="NUd-L4-yrK"/>
+                        <outlet property="verificationCode" destination="hFP-1W-1Td" id="j25-vE-70i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3nf-jl-zCh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2703.1999999999998" y="458.32083958020991"/>
+            <point key="canvasLocation" x="2650" y="467"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SdA-za-2Gu">
             <objects>
                 <navigationController storyboardIdentifier="loginScene" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Vyd-z9-jwz" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" misplaced="YES" backIndicatorImage="back" id="too-Ml-Gkz">
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" backIndicatorImage="back" id="too-Ml-Gkz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
