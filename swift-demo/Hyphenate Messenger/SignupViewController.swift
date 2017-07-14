@@ -95,10 +95,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                                 EMClient.shared().options.isAutoLogin = true
                                 
                                 //register & login finished, segue to main view
+                                //self.performSegue(withIdentifier: "SignupToHome", sender: Any?.self)
                                 let mainVC = MainViewController()
                                 HyphenateMessengerHelper.sharedInstance.mainVC = mainVC
                                 self.navigationController?.pushViewController(mainVC, animated: true)
-                                //self.performSegue(withIdentifier: "RegisterToHome", sender: Any?.self)
                             }
                         })
                     }

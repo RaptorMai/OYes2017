@@ -218,23 +218,21 @@ extension AppDelegate {
         
         // Hyphenate
         HyphenateMessengerHelper.sharedInstance.loadConversationFromDB()
-        
         // Fabric
         Fabric.with([Crashlytics.self])
     }
     
     // login
     func proceedLogin() {
-        
         if (self.mainViewController == nil) {
             self.mainViewController = MainViewController()
         }
-        
         HyphenateMessengerHelper.sharedInstance.mainVC = mainViewController
         HyphenateMessengerHelper.sharedInstance.loadConversationFromDB()
         HyphenateMessengerHelper.sharedInstance.loadPushOptions()
         HyphenateMessengerHelper.sharedInstance.loadGroupFromServer()
-        window?.rootViewController = self.mainViewController
+        window?.rootViewController = UINavigationController(rootViewController: mainViewController!)
+        window?.makeKeyAndVisible()
     }
     
     // logout

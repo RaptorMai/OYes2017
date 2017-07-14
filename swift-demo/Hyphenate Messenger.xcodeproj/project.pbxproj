@@ -11,6 +11,9 @@
 		5C226CB1BB2ACE14FE2BC796 /* Pods_Hyphenate_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */; };
 		5D809DAA1F157DE90001BF06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D809DA81F157AC10001BF06 /* Assets.xcassets */; };
 		5D9F39E81F182EA000D388D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D9F39E71F182EA000D388D9 /* GoogleService-Info.plist */; };
+		5D9F39EA1F187B9300D388D9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39E91F187B9300D388D9 /* HomeViewController.swift */; };
+		5D9F39EC1F1946A700D388D9 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39EB1F1946A700D388D9 /* HistoryTableViewController.swift */; };
+		5D9F39EE1F1946FE00D388D9 /* ShopTableVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */; };
 		5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */; };
 		9A06AB141DB09CBC003A5B2E /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB131DB09CBC003A5B2E /* CallViewController.m */; };
 		9A06AB171DB0A49D003A5B2E /* UIColor+Hyphenate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB161DB0A49D003A5B2E /* UIColor+Hyphenate.m */; };
@@ -228,6 +231,9 @@
 		46CB1D5CA6E51EFA21BD9A5F /* Pods-Hyphenate Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.release.xcconfig"; sourceTree = "<group>"; };
 		5D809DA81F157AC10001BF06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D9F39E71F182EA000D388D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5D9F39E91F187B9300D388D9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		5D9F39EB1F1946A700D388D9 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopTableVIewController.swift; sourceTree = "<group>"; };
 		5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScr.storyboard; sourceTree = "<group>"; };
 		71E15A43B314CB255A946243 /* Pods-Hyphenate Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hyphenate_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -599,6 +605,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D9F39F11F19491700D388D9 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				5D9F39EB1F1946A700D388D9 /* HistoryTableViewController.swift */,
+			);
+			name = History;
+			sourceTree = "<group>";
+		};
+		5D9F39F21F19492000D388D9 /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */,
+			);
+			name = Shop;
+			sourceTree = "<group>";
+		};
+		5D9F39F31F19494900D388D9 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				5D9F39E91F187B9300D388D9 /* HomeViewController.swift */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
 		9A06AB111DB09CB5003A5B2E /* Call */ = {
 			isa = PBXGroup;
 			children = (
@@ -678,8 +708,11 @@
 			isa = PBXGroup;
 			children = (
 				9A17BE231D9E20190075EF9F /* MainViewController.swift */,
-				9A06AB111DB09CB5003A5B2E /* Call */,
+				5D9F39F31F19494900D388D9 /* Home */,
+				5D9F39F11F19491700D388D9 /* History */,
+				5D9F39F21F19492000D388D9 /* Shop */,
 				9AC132401DA0EDC300A2BD05 /* Settings */,
+				9A06AB111DB09CB5003A5B2E /* Call */,
 				9AC1323F1DA0EDBC00A2BD05 /* Chat */,
 				9AC1323E1DA0EDAC00A2BD05 /* Conversation */,
 				9AC1323D1DA0ED9E00A2BD05 /* Contact */,
@@ -1683,6 +1716,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D9F39EC1F1946A700D388D9 /* HistoryTableViewController.swift in Sources */,
 				B6346B491D9E6C5100CBEAE2 /* EaseLocationViewController.m in Sources */,
 				B6346B3E1D9E6C5100CBEAE2 /* UIViewController+DismissKeyboard.m in Sources */,
 				B6346B3D1D9E6C5100CBEAE2 /* NSString+Valid.m in Sources */,
@@ -1741,6 +1775,7 @@
 				B6346B301D9E6C5100CBEAE2 /* PSTCollectionViewUpdateItem.m in Sources */,
 				B6346B4F1D9E6C5100CBEAE2 /* EMContactDetailedTableViewCell.m in Sources */,
 				B6346B021D9E6C5100CBEAE2 /* MJRefreshAutoNormalFooter.m in Sources */,
+				5D9F39EE1F1946FE00D388D9 /* ShopTableVIewController.swift in Sources */,
 				B6346B191D9E6C5100CBEAE2 /* EMSDWebImageCompat.m in Sources */,
 				B6346B381D9E6C5100CBEAE2 /* EaseConversationModel.m in Sources */,
 				B6346B051D9E6C5100CBEAE2 /* MJRefreshBackNormalFooter.m in Sources */,
@@ -1795,6 +1830,7 @@
 				B6346B2A1D9E6C5100CBEAE2 /* PSTCollectionViewCell.m in Sources */,
 				B6346B4C1D9E6C5100CBEAE2 /* EaseUsersListViewController.m in Sources */,
 				B6346B201D9E6C5100CBEAE2 /* NSData+EMImageContentType.m in Sources */,
+				5D9F39EA1F187B9300D388D9 /* HomeViewController.swift in Sources */,
 				9AC132381DA0DFE500A2BD05 /* SwitchTableViewCell.swift in Sources */,
 				B6346B571D9E6C5100CBEAE2 /* EaseBubbleView+Image.m in Sources */,
 				B6346AF61D9E6C5100CBEAE2 /* wav.mm in Sources */,
