@@ -10,7 +10,7 @@ class MainViewController: UITabBarController {
         let homeViewController: HomeViewController = HomeViewController();
         let homeRootViewController:UINavigationController = UINavigationController(rootViewController: homeViewController)
         //HistoryVC
-        let historyViewController:ConversationsTableViewController = ConversationsTableViewController()
+        let historyViewController:HistoryTableViewController = HistoryTableViewController()
         let historyRootViewController:UINavigationController = UINavigationController(rootViewController: historyViewController)
         //ShopVC
         let shopViewController:ShopTableViewController = ShopTableViewController()
@@ -24,27 +24,18 @@ class MainViewController: UITabBarController {
         let homeTabItem:UITabBarItem = self.tabBar.items![0]
         homeTabItem.title = "Home"
         homeTabItem.image = UIImage(named:  "HomeIcon")
-        //contactsTabItem.selectedImage = UIImage(named:  "contactsTab_selected")
-        //contactsTabItem.imageInsets = UIEdgeInsetsMake(8, 0, -8, 0);
         
         let historyTabItem:UITabBarItem = self.tabBar.items![1]
         historyTabItem.title = "History"
         historyTabItem.image = UIImage(named:  "HistoryIcon")
-        //conversationsTabItem.selectedImage = UIImage(named:  "chatsTab_selected")
-        //conversationsTabItem.imageInsets = UIEdgeInsetsMake(8, 0, -8, 0);
         
-        //Ming: added session tab for past sessions
         let shopTabItem:UITabBarItem = self.tabBar.items![2]
         shopTabItem.title = "Shop"
         shopTabItem.image = UIImage(named: "ShopIcon")
-        //sessionsTabItem.selectedImage = UIImage(named: "sessionsTab_selected")
-        //sessionsTabItem.imageInsets = UIEdgeInsetsMake(8, 0, -8, 0)
 
         let settingsTabItem:UITabBarItem = self.tabBar.items![3]
         settingsTabItem.title = "Settings"
         settingsTabItem.image = UIImage(named:  "SettingsIcon")
-        //settingsTabItem.selectedImage = UIImage(named:  "settingsTab_selected")
-        //settingsTabItem.imageInsets = UIEdgeInsetsMake(8, 0, -8, 0);
 
         UITabBar.appearance().tintColor = UIColor.hiPrimary()
         NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.updateUnreadMessageCount), name: NSNotification.Name(rawValue: "kNotification_unreadMessageCountUpdated"), object: nil)

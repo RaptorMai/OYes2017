@@ -30,17 +30,17 @@ public enum HIRequestType: Int {
 }
 
 @objc
-class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegate, EMContactManagerDelegate, EMGroupManagerDelegate, EMChatroomManagerDelegate, EMCallManagerDelegate {
+class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegate, EMContactManagerDelegate, EMGroupManagerDelegate, EMChatroomManagerDelegate{ //, EMCallManagerDelegate {
 
     static let sharedInstance = HyphenateMessengerHelper()
     
     var callTimer : Timer?
     var mainVC : MainViewController?
-    var conversationVC : ConversationsTableViewController?
+    //var conversationVC : ConversationsTableViewController?
     var contactVC : ContactsTableViewController?
     var chatVC : ChatTableViewController?
-    var callVC: CallViewController?
-    var callSession: EMCallSession?
+    //var callVC: CallViewController?
+    //var callSession: EMCallSession?
     
     deinit {
         EMClient.shared().removeDelegate(self)
@@ -48,7 +48,7 @@ class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegat
         EMClient.shared().contactManager.removeDelegate(self)
         EMClient.shared().roomManager.remove(self)
         EMClient.shared().chatManager.remove(self)
-        EMClient.shared().callManager.remove!(self)
+        //EMClient.shared().callManager.remove!(self)
     }
     
     override init() {
@@ -62,8 +62,8 @@ class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegat
         EMClient.shared().chatManager.add(self)
         EMClient.shared().contactManager.add(self)
         EMClient.shared().roomManager.add(self)
-        EMClient.shared().callManager.add!(self, delegateQueue: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(HyphenateMessengerHelper.makeCall(notification:)), name: NSNotification.Name(rawValue: "callOutWithChatter"), object: nil)
+        //EMClient.shared().callManager.add!(self, delegateQueue: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(HyphenateMessengerHelper.makeCall(notification:)), name: NSNotification.Name(rawValue: "callOutWithChatter"), object: nil)
     }
  
     // MARK: Syncing data
@@ -140,17 +140,17 @@ class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegat
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
-    func hangupCallWithReason(areason: EMCallEndReason) {
-        stopCallTimer()
-        
-        if (callSession != nil) {
-            let _ = EMClient.shared().callManager.endCall!(callSession?.sessionId, reason:areason)
-        }
-        
-        callSession = nil
-        callVC?.close()
-        callVC = nil
-    }
+//    func hangupCallWithReason(areason: EMCallEndReason) {
+//        stopCallTimer()
+//        
+//        if (callSession != nil) {
+//            let _ = EMClient.shared().callManager.endCall!(callSession?.sessionId, reason:areason)
+//        }
+//        
+//        callSession = nil
+//        callVC?.close()
+//        callVC = nil
+//    }
     
     // EMChatManagerDelegate
 
@@ -458,173 +458,173 @@ class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegat
         }
     }
     
-    func callNetworkDidChange(_ aSession: EMCallSession!, status aStatus: EMCallNetworkStatus) {
-        if aSession.sessionId == self.callSession?.sessionId {
-            self.callVC?.setNetwork(aStatus)
-        }
-    }
+//    func callNetworkDidChange(_ aSession: EMCallSession!, status aStatus: EMCallNetworkStatus) {
+//        if aSession.sessionId == self.callSession?.sessionId {
+//            self.callVC?.setNetwork(aStatus)
+//        }
+//    }
 
     // MARK: EMCallManagerDelegate
     
-    func makeCall(notification: Notification) {
-        if let dict: [String: AnyObject] = notification.object as? [String : AnyObject] {
-            if let chatter = dict["chatter"] as? String{
-                if let type = dict["type"]{
-                    makeCallWithUserName(userName:chatter, isVideo: type.boolValue)
-                }
-            }
-        }
-    }
-    
-    func callDidReceive(_ aSession: EMCallSession!) {
-        if callSession != nil && callSession?.status != EMCallSessionStatusDisconnected {
-            EMClient.shared().callManager.endCall!(aSession.sessionId, reason: EMCallEndReasonBusy)
-        }
-        
-        if UIApplication.shared.applicationState != .active {
-            EMClient.shared().callManager.endCall!(aSession.sessionId, reason: EMCallEndReasonFailed)
-        }
-        
-        callSession = aSession
-        
-        if (callSession != nil) {
-            startCallTimer()
-            
-            callVC = CallViewController(session: callSession, isCaller: false, status: NSLocalizedString("call.established", comment: "Call connection established"))
-            callVC?.modalPresentationStyle = .overFullScreen
-            mainVC?.present(callVC!, animated: false, completion: nil)
-        }
-    }
-    
-    func callDidConnect(_ aSession: EMCallSession!) {
-        if aSession.sessionId == callSession?.sessionId {
-            callVC?.statusLabel.text = NSLocalizedString("call.established", comment: "Establish call")
-        }
-        
-        let audioSession: AVAudioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-        } catch {
-            let alert = UIAlertController(title:"Audio Error", message: nil, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
-            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-        }
-        
-        do {
-            try audioSession.setActive(true)
-        } catch {
-            let alert = UIAlertController(title:"Audio Error", message:nil, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
-            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-        }
-    }
+//    func makeCall(notification: Notification) {
+//        if let dict: [String: AnyObject] = notification.object as? [String : AnyObject] {
+//            if let chatter = dict["chatter"] as? String{
+//                if let type = dict["type"]{
+//                    makeCallWithUserName(userName:chatter, isVideo: type.boolValue)
+//                }
+//            }
+//        }
+//    }
+//    
+//    func callDidReceive(_ aSession: EMCallSession!) {
+//        if callSession != nil && callSession?.status != EMCallSessionStatusDisconnected {
+//            EMClient.shared().callManager.endCall!(aSession.sessionId, reason: EMCallEndReasonBusy)
+//        }
+//        
+//        if UIApplication.shared.applicationState != .active {
+//            EMClient.shared().callManager.endCall!(aSession.sessionId, reason: EMCallEndReasonFailed)
+//        }
+//        
+//        callSession = aSession
+//        
+//        if (callSession != nil) {
+//            startCallTimer()
+//            
+//            callVC = CallViewController(session: callSession, isCaller: false, status: NSLocalizedString("call.established", comment: "Call connection established"))
+//            callVC?.modalPresentationStyle = .overFullScreen
+//            mainVC?.present(callVC!, animated: false, completion: nil)
+//        }
+//    }
+//    
+//    func callDidConnect(_ aSession: EMCallSession!) {
+//        if aSession.sessionId == callSession?.sessionId {
+//            callVC?.statusLabel.text = NSLocalizedString("call.established", comment: "Establish call")
+//        }
+//        
+//        let audioSession: AVAudioSession = AVAudioSession.sharedInstance()
+//        do {
+//            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+//        } catch {
+//            let alert = UIAlertController(title:"Audio Error", message: nil, preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
+//            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+//        }
+//        
+//        do {
+//            try audioSession.setActive(true)
+//        } catch {
+//            let alert = UIAlertController(title:"Audio Error", message:nil, preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
+//            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+//        }
+//    }
 
-    func callDidAccept(_ aSession: EMCallSession!) {
-        if UIApplication.shared.applicationState != .active {
-            EMClient.shared().callManager.endCall!(aSession.sessionId, reason: EMCallEndReasonFailed)
-        }
-        
-        if aSession.sessionId == self.callSession?.sessionId {
-            self.stopCallTimer()
-            
-            let connectStr = aSession.connectType == EMCallConnectTypeRelay ? "Relay connection" : "Direct connection"
-            self.callVC?.statusLabel.text = "\(connectStr)"
-            self.callVC?.timeLabel.isHidden = false
-            self.callVC?.startTimer()
-            self.callVC?.showCallInfo()
-            self.callVC?.cancelButton.isHidden = false
-            self.callVC?.rejectButton.isHidden = true
-            self.callVC?.answerButton.isHidden = true
-        }
-    }
+//    func callDidAccept(_ aSession: EMCallSession!) {
+//        if UIApplication.shared.applicationState != .active {
+//            EMClient.shared().callManager.endCall!(aSession.sessionId, reason: EMCallEndReasonFailed)
+//        }
+//        
+//        if aSession.sessionId == self.callSession?.sessionId {
+//            self.stopCallTimer()
+//            
+//            let connectStr = aSession.connectType == EMCallConnectTypeRelay ? "Relay connection" : "Direct connection"
+//            self.callVC?.statusLabel.text = "\(connectStr)"
+//            self.callVC?.timeLabel.isHidden = false
+//            self.callVC?.startTimer()
+//            self.callVC?.showCallInfo()
+//            self.callVC?.cancelButton.isHidden = false
+//            self.callVC?.rejectButton.isHidden = true
+//            self.callVC?.answerButton.isHidden = true
+//        }
+//    }
 
-    func callDidEnd(_ aSession: EMCallSession!, reason aReason: EMCallEndReason, error aError: EMError!) {
-        if aSession.sessionId == self.callSession?.sessionId {
-            self.stopCallTimer()
-            self.callSession = nil
-            self.callVC?.close()
-            self.callVC = nil
-            if aReason != EMCallEndReasonHangup {
-                var reasonStr = ""
-                switch aReason {
-                case EMCallEndReasonNoResponse:
-                    reasonStr = NSLocalizedString("call.noResponse", comment: "NO response")
-                    break
-                    
-                case EMCallEndReasonDecline:
-                    reasonStr = NSLocalizedString("call.rejected", comment: "Reject the call")
-                    break
-                    
-                case EMCallEndReasonBusy:
-                    reasonStr = NSLocalizedString("call.inProgress", comment: "In the call...")
-                    break
-
-                case EMCallEndReasonFailed:
-                    reasonStr = NSLocalizedString("call.connectFailed", comment: "Connect failed")
-                    break
-
-                default:
-                    break
-                }
-                
-                if (aError != nil) {
-                    let alert = UIAlertController(title: NSLocalizedString("Error", comment: "Error"), message: aError.errorDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
-                    UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-                } else {
-                    let alert = UIAlertController(title: nil, message: reasonStr, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
-                    UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-                }
-            }
-        }
-    }
-    
-    func startCallTimer() {
-        self.callTimer = Timer.scheduledTimer(timeInterval: 50, target: self, selector: #selector(HyphenateMessengerHelper.cancelCall), userInfo: nil, repeats: false)
-    }
-    
-    func stopCallTimer() {
-        if (self.callTimer==nil) {
-            return
-        }
-        self.callTimer?.invalidate()
-        self.callTimer = nil
-    }
-
-    func cancelCall() {
-        hangupCallWithReason(areason: EMCallEndReasonNoResponse)
-        
-        let alert = UIAlertController(title: nil, message: NSLocalizedString("call.autoHangup", comment: "No response and Hang up"), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-    }
-    
-    func makeCallWithUserName(userName: String, isVideo: Bool) {
-        if userName.characters.count == 0 {
-            return
-        }
-        
-        let completionBlock = {(session: EMCallSession?, error: EMError?) in
-            
-            if error == nil && session != nil {
-                self.callSession = session
-                self.startCallTimer()
-                self.callVC = CallViewController(session: self.callSession, isCaller: true, status: NSLocalizedString("call.connecting", comment: "Connecting..."))
-                self.mainVC?.present(self.callVC!, animated: false, completion: nil)
-            }
-        }
-        
-        if isVideo {
-            EMClient.shared().callManager.startVideoCall!(userName, completion: { (session, error) in
-                completionBlock(session, error)
-            })
-        } else {
-            EMClient.shared().callManager.startVoiceCall!(userName, completion: { (session, error) in
-                completionBlock(session, error)
-            })
-        }
-    }
+//    func callDidEnd(_ aSession: EMCallSession!, reason aReason: EMCallEndReason, error aError: EMError!) {
+//        if aSession.sessionId == self.callSession?.sessionId {
+//            self.stopCallTimer()
+//            self.callSession = nil
+//            self.callVC?.close()
+//            self.callVC = nil
+//            if aReason != EMCallEndReasonHangup {
+//                var reasonStr = ""
+//                switch aReason {
+//                case EMCallEndReasonNoResponse:
+//                    reasonStr = NSLocalizedString("call.noResponse", comment: "NO response")
+//                    break
+//                    
+//                case EMCallEndReasonDecline:
+//                    reasonStr = NSLocalizedString("call.rejected", comment: "Reject the call")
+//                    break
+//                    
+//                case EMCallEndReasonBusy:
+//                    reasonStr = NSLocalizedString("call.inProgress", comment: "In the call...")
+//                    break
+//
+//                case EMCallEndReasonFailed:
+//                    reasonStr = NSLocalizedString("call.connectFailed", comment: "Connect failed")
+//                    break
+//
+//                default:
+//                    break
+//                }
+//                
+//                if (aError != nil) {
+//                    let alert = UIAlertController(title: NSLocalizedString("Error", comment: "Error"), message: aError.errorDescription, preferredStyle: .alert)
+//                    alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
+//                    UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+//                } else {
+//                    let alert = UIAlertController(title: nil, message: reasonStr, preferredStyle: .alert)
+//                    alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
+//                    UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+//                }
+//            }
+//        }
+//    }
+//    
+//    func startCallTimer() {
+//        self.callTimer = Timer.scheduledTimer(timeInterval: 50, target: self, selector: #selector(HyphenateMessengerHelper.cancelCall), userInfo: nil, repeats: false)
+//    }
+//    
+//    func stopCallTimer() {
+//        if (self.callTimer==nil) {
+//            return
+//        }
+//        self.callTimer?.invalidate()
+//        self.callTimer = nil
+//    }
+//
+//    func cancelCall() {
+//        hangupCallWithReason(areason: EMCallEndReasonNoResponse)
+//        
+//        let alert = UIAlertController(title: nil, message: NSLocalizedString("call.autoHangup", comment: "No response and Hang up"), preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
+//        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+//    }
+//    
+//    func makeCallWithUserName(userName: String, isVideo: Bool) {
+//        if userName.characters.count == 0 {
+//            return
+//        }
+//        
+//        let completionBlock = {(session: EMCallSession?, error: EMError?) in
+//            
+//            if error == nil && session != nil {
+//                self.callSession = session
+//                self.startCallTimer()
+//                self.callVC = CallViewController(session: self.callSession, isCaller: true, status: NSLocalizedString("call.connecting", comment: "Connecting..."))
+//                self.mainVC?.present(self.callVC!, animated: false, completion: nil)
+//            }
+//        }
+//        
+//        if isVideo {
+//            EMClient.shared().callManager.startVideoCall!(userName, completion: { (session, error) in
+//                completionBlock(session, error)
+//            })
+//        } else {
+//            EMClient.shared().callManager.startVoiceCall!(userName, completion: { (session, error) in
+//                completionBlock(session, error)
+//            })
+//        }
+//    }
     
     func logout() {
         

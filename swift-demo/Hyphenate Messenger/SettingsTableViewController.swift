@@ -60,7 +60,7 @@ class SettingsTableViewController: UITableViewController {
 
         case 2:
             let cell: LabelTableViewCell = tableView.dequeueReusableCell(withIdentifier: "labelCell", for: indexPath) as! LabelTableViewCell
-            cell.titleLabel.text = "Hyphenate ID"
+            cell.titleLabel.text = "InstaSolve ID"
             cell.selectionStyle = .none
             if let hyphenateID = EMClient.shared().currentUsername {
                 cell.detailLabel.text = "\(hyphenateID)"
@@ -70,7 +70,7 @@ class SettingsTableViewController: UITableViewController {
         case 3:
             let switchCell: SwitchTableViewCell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as! SwitchTableViewCell
             switchCell.uiswitch.setOn(true, animated: true)
-            switchCell.title.text = "Adaptive Video Bitrate"
+            switchCell.title.text = "Adaptive Video Bit Rate"
             return switchCell
 
         default: break

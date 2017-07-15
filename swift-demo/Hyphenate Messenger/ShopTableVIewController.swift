@@ -1,6 +1,5 @@
 //
 //  ShopTableVIewController.swift
-//  Hyphenate Messenger
 //
 //  Created by Ming Yue on 2017-07-14.
 //  All rights reserved.

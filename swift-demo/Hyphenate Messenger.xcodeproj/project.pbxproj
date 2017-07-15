@@ -14,6 +14,7 @@
 		5D9F39EA1F187B9300D388D9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39E91F187B9300D388D9 /* HomeViewController.swift */; };
 		5D9F39EC1F1946A700D388D9 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39EB1F1946A700D388D9 /* HistoryTableViewController.swift */; };
 		5D9F39EE1F1946FE00D388D9 /* ShopTableVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */; };
+		5DF190FF1F198CA50019E6F0 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF190FE1F198CA50019E6F0 /* SessionTableViewController.swift */; };
 		5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */; };
 		9A06AB141DB09CBC003A5B2E /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB131DB09CBC003A5B2E /* CallViewController.m */; };
 		9A06AB171DB0A49D003A5B2E /* UIColor+Hyphenate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB161DB0A49D003A5B2E /* UIColor+Hyphenate.m */; };
@@ -234,6 +235,7 @@
 		5D9F39E91F187B9300D388D9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5D9F39EB1F1946A700D388D9 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopTableVIewController.swift; sourceTree = "<group>"; };
+		5DF190FE1F198CA50019E6F0 /* SessionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewController.swift; sourceTree = "<group>"; };
 		5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScr.storyboard; sourceTree = "<group>"; };
 		71E15A43B314CB255A946243 /* Pods-Hyphenate Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hyphenate_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -609,6 +611,7 @@
 			isa = PBXGroup;
 			children = (
 				5D9F39EB1F1946A700D388D9 /* HistoryTableViewController.swift */,
+				5DF190FE1F198CA50019E6F0 /* SessionTableViewController.swift */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -1794,6 +1797,7 @@
 				9A3970A71DBF43E200D68937 /* UIImage+animatedGIF.m in Sources */,
 				B6346B5E1D9E6C5100CBEAE2 /* EaseChatToolbarItem.m in Sources */,
 				9A06AB171DB0A49D003A5B2E /* UIColor+Hyphenate.m in Sources */,
+				5DF190FF1F198CA50019E6F0 /* SessionTableViewController.swift in Sources */,
 				B6346B5F1D9E6C5100CBEAE2 /* EaseImageView.m in Sources */,
 				B6346B271D9E6C5100CBEAE2 /* UIView+EMWebCacheOperation.m in Sources */,
 				B6346AF11D9E6C5100CBEAE2 /* EMCDDeviceManager+Microphone.m in Sources */,

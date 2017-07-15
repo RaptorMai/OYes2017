@@ -67,7 +67,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 switch (indexPath as NSIndexPath).row {
                 
                 case 0:
-                    nameCell.title.text = "Hyphenate ID"
+                    nameCell.title.text = "InstaSolve ID"
                     nameCell.userName.text = self.username
                 case 1:
                     nameCell.title.text = "iOS APNS"
