@@ -26,7 +26,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -68,12 +68,6 @@ class SettingsTableViewController: UITableViewController {
                 cell.detailLabel.text = "\(hyphenateID)"
             }
             return cell
-
-        case 3:
-            let switchCell: SwitchTableViewCell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as! SwitchTableViewCell
-            switchCell.uiswitch.setOn(true, animated: true)
-            switchCell.title.text = "Adaptive Video Bit Rate"
-            return switchCell
 
         default: break
             

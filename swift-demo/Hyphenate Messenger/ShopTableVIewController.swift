@@ -25,14 +25,6 @@ class ShopTableViewController: UITableViewController {
     
     let products = ["10 Minutes", "30 Minutes", "60 Minutes", "120 Minutes"]
     let prices = [1000, 3000, 6000, 11900]
-    
-    let productsAndPrices = [
-        "10 Minutes": 1000,
-        "30 Minutes": 3000,
-        "60 Minutes": 6000,
-        "120 Minutes": 11999,
-        ]
-    
     let theme = Theme()
     
     //let settingsVC = SettingsViewController()
@@ -69,7 +61,7 @@ class ShopTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.productsAndPrices.count
+        return self.products.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -88,8 +80,8 @@ class ShopTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let product = Array(self.productsAndPrices.keys)[(indexPath as NSIndexPath).row]
-        let price = self.productsAndPrices[product]!
+        let product = products[indexPath.row]
+        let price = prices[indexPath.row]
         print("You purchased an awesome service worth $\(price/100).00")
         //let checkoutViewController = CheckoutViewController(product: product, price: price, settings: self.settingsVC.settings)
         //self.navigationController?.pushViewController(checkoutViewController, animated: true)
