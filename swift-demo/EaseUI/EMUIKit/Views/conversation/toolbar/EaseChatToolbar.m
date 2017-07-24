@@ -122,34 +122,6 @@
     _previousTextViewContentHeight = [self _getTextViewContentH:_inputTextView];
     [_toolbarView addSubview:_inputTextView];
     
-    //TODO: clean up commented code related to record message
-    //change input type
-//    UIButton *styleChangeButton = [[UIButton alloc] init];
-//    styleChangeButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-//    [styleChangeButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_record"] forState:UIControlStateNormal];
-//    [styleChangeButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_keyboard"] forState:UIControlStateSelected];
-//    [styleChangeButton addTarget:self action:@selector(styleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    EaseChatToolbarItem *styleItem = [[EaseChatToolbarItem alloc] initWithButton:styleChangeButton withView:nil];
-//    [self setInputViewLeftItems:@[styleItem]];
-    
-    //record
-//    self.recordButton = [[UIButton alloc] initWithFrame:self.inputTextView.frame];
-//    self.recordButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
-//    [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-//    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_recordBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-//    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
-//    [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
-//    [self.recordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
-//    self.recordButton.hidden = YES;
-//    [self.recordButton addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDown];
-//    [self.recordButton addTarget:self action:@selector(recordButtonTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
-//    [self.recordButton addTarget:self action:@selector(recordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
-//    [self.recordButton addTarget:self action:@selector(recordDragOutside) forControlEvents:UIControlEventTouchDragExit];
-//    [self.recordButton addTarget:self action:@selector(recordDragInside) forControlEvents:UIControlEventTouchDragEnter];
-//    self.recordButton.hidden = YES;
-//    [self.toolbarView addSubview:self.recordButton];
-//    
     //emoji
     self.faceButton = [[UIButton alloc] init];
     self.faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;

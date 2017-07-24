@@ -690,49 +690,7 @@
     }
 }
 
-/* TODO: clean functions related to ardio message
-- (void)_audioMessageCellSelected:(id<IMessageModel>)model
-{
-    self.scrollToLatestMessage = NO;
-    
-    EMVoiceMessageBody *body = (EMVoiceMessageBody*)model.message.body;
-    EMDownloadStatus downloadStatus = [body downloadStatus];
-    if (downloadStatus == EMDownloadStatusDownloading) {
-        [self showHint:NSEaseLocalizedString(@"message.downloadingAudio", @"downloading voice, click later")];
-        return;
-    }
-    else if (downloadStatus == EMDownloadStatusFailed)
-    {
-        [self showHint:NSEaseLocalizedString(@"message.downloadingAudio", @"downloading voice, click later")];
-        [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:NULL];
-        return;
-    }
-    
-    // play the audio
-    if (model.bodyType == EMMessageBodyTypeVoice) {
-        //send the read acknowledgement
-        [self _sendHasReadResponseForMessages:@[model.message] isRead:YES];
-        __weak EaseMessageViewController *weakSelf = self;
-        BOOL isPrepare = [[EaseMessageReadManager defaultManager] prepareMessageAudioModel:model updateViewCompletion:^(EaseMessageModel *prevAudioModel, EaseMessageModel *currentAudioModel) {
-            if (prevAudioModel || currentAudioModel) {
-                [weakSelf.tableView reloadData];
-            }
-        }];
-        
-        if (isPrepare) {
-            __weak EaseMessageViewController *weakSelf = self;
-            [[EMCDDeviceManager sharedInstance] enableProximitySensor];
-            [[EMCDDeviceManager sharedInstance] asyncPlayingWithPath:model.fileLocalPath completion:^(NSError *error) {
-                [[EaseMessageReadManager defaultManager] stopMessageAudioModel];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.tableView reloadData];
-                    [[EMCDDeviceManager sharedInstance] disableProximitySensor];
-                });
-            }];
-        }
-    }
-}
-*/
+
 #pragma mark - pivate data
 
 - (void)loadMessagesBefore:(NSString*)messageId
@@ -1124,16 +1082,17 @@
     [self.tableView reloadData];
 }
 
-- (void)avatarViewSelcted:(id<IMessageModel>)model
-{
-    if (_delegate && [_delegate respondsToSelector:@selector(messageViewController:didSelectAvatarMessageModel:)]) {
-        [_delegate messageViewController:self didSelectAvatarMessageModel:model];
-        
-        return;
-    }
-    
-    self.scrollToLatestMessage = NO;
-}
+//TODO: add tap avatar function for rating the tutor
+//- (void)avatarViewSelcted:(id<IMessageModel>)model
+//{
+//    if (_delegate && [_delegate respondsToSelector:@selector(messageViewController:didSelectAvatarMessageModel:)]) {
+//        [_delegate messageViewController:self didSelectAvatarMessageModel:model];
+//        
+//        return;
+//    }
+//    
+//    self.scrollToLatestMessage = NO;
+//}
 
 
 #pragma mark - EMChatToolbarDelegate
@@ -1308,31 +1267,6 @@
     [[EaseSDKHelper shareHelper] setIsShowingimagePicker:YES];
 #endif
 }
-
-//TODO: remove functions
-//- (void)moreViewLocationAction:(EaseChatBarMoreView *)moreView
-//{
-//    // Hide the keyboard
-//    [self.chatToolbar endEditing:YES];
-//    
-//    EaseLocationViewController *locationController = [[EaseLocationViewController alloc] init];
-//    locationController.delegate = self;
-//    [self.navigationController pushViewController:locationController animated:YES];
-//}
-//- (void)moreViewAudioCallAction:(EaseChatBarMoreView *)moreView
-//{
-//    // Hide the keyboard
-//    [self.chatToolbar endEditing:YES];
-//    
-//    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:0]}];
-//}
-//- (void)moreViewVideoCallAction:(EaseChatBarMoreView *)moreView
-//{
-//    // Hide the keyboard
-//    [self.chatToolbar endEditing:YES];
-//    
-//    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:1]}];
-//}
 
 #pragma mark - EMLocationViewDelegate
 

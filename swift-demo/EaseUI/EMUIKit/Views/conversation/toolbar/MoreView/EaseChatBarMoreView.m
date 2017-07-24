@@ -293,27 +293,6 @@
     }
 }
 
-//TODO: remove functions
-//- (void)locationAction
-//{
-//    if (_delegate && [_delegate respondsToSelector:@selector(moreViewLocationAction:)]) {
-//        [_delegate moreViewLocationAction:self];
-//    }
-//}
-//- (void)takeAudioCallAction
-//{
-//    if (_delegate && [_delegate respondsToSelector:@selector(moreViewAudioCallAction:)]) {
-//        [_delegate moreViewAudioCallAction:self];
-//    }
-//}
-//- (void)takeVideoCallAction
-//{
-//    if (_delegate && [_delegate respondsToSelector:@selector(moreViewVideoCallAction:)]) {
-//        [_delegate moreViewVideoCallAction:self];
-//    }
-//}
-
-
 - (void)moreAction:(id)sender
 {
     UIButton *button = (UIButton*)sender;

@@ -13,6 +13,8 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
     override open func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tabBarController?.navigationItem.title = "History"
+        
         searchController = UISearchController(searchResultsController:  nil)
         searchController.searchResultsUpdater = self
         searchController.delegate = self
@@ -42,6 +44,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "History"
         self.tabBarController?.tabBar.isHidden = false
         reloadDataSource()
     }

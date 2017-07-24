@@ -11,7 +11,6 @@ class SessionTableViewController: EaseMessageViewController,EaseMessageViewContr
         self.showRefreshHeader = true
         self.delegate = self
         self.dataSource = self
-        navigationController?.view.backgroundColor = UIColor.white
         if dismissable == true {
             let rightButtonItem:UIBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(SessionTableViewController.cancelAction))
             navigationItem.leftBarButtonItem = rightButtonItem
@@ -36,13 +35,13 @@ class SessionTableViewController: EaseMessageViewController,EaseMessageViewContr
     func messageViewController(_ viewController: EaseMessageViewController!, canLongPressRowAt indexPath: IndexPath!) -> Bool {
         return false
     }
-    
-    func messageViewController(_ viewController: EaseMessageViewController!, didSelectAvatarMessageModel messageModel: IMessageModel!) {
-        
-        let profileController = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! ProfileViewController
-        profileController.username = messageModel.message.from
-        self.navigationController!.pushViewController(profileController, animated: true)
-    }
+
+//    func messageViewController(_ viewController: EaseMessageViewController!, didSelectAvatarMessageModel messageModel: IMessageModel!) {
+//        
+//        let profileController = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! ProfileViewController
+//        profileController.username = messageModel.message.from
+//        self.navigationController!.pushViewController(profileController, animated: true)
+//    }
     
     // Mark: EaseMessageViewControllerDataSource
     

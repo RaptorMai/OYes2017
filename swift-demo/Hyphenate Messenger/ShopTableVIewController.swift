@@ -5,256 +5,93 @@
 //  All rights reserved.
 //
 
-import UIKit
-import Hyphenate
 
-class ShopTableViewController:UITableViewController,EMGroupManagerDelegate{
+import UIKit
+
+
+struct Theme {
+    let primaryBackgroundColor = UIColor(red:0.96, green:0.96, blue:0.95, alpha:1.00)
+    let secondaryBackgroundColor = UIColor(red:1.00, green:1.00, blue:1.00, alpha:1.00)
+    let primaryForegroundColor = UIColor(red:0.35, green:0.35, blue:0.35, alpha:1.00)
+    let secondaryForegroundColor = UIColor(red:0.66, green:0.66, blue:0.66, alpha:1.00)
+    let accentColor = UIColor(red:0.09, green:0.81, blue:0.51, alpha:1.00)
+    let errorColor = UIColor(red:0.87, green:0.18, blue:0.20, alpha:1.00)
+    let font = UIFont.systemFont(ofSize: 18)
+    let emphasisFont = UIFont.boldSystemFont(ofSize: 18)
+}
+
+class ShopTableViewController: UITableViewController {
     
-    var dataSource = [AnyObject]()
-    var filteredDataSource = [AnyObject]()
-    var requestSource = [RequestEntity]()
-    //var searchController : UISearchController!
+    
+    let products = ["10 Minutes", "30 Minutes", "60 Minutes", "120 Minutes"]
+    let prices = [1000, 3000, 6000, 11900]
+    
+    let productsAndPrices = [
+        "10 Minutes": 1000,
+        "30 Minutes": 3000,
+        "60 Minutes": 6000,
+        "120 Minutes": 11999,
+        ]
+    
+    let theme = Theme()
+    
+    //let settingsVC = SettingsViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let titleFrame = CGRect(x: 0, y: 0, width: 32, height: 32)
-        let title:UILabel = UILabel(frame: titleFrame)
-        title.text = "Shop"
-        
-        tableView.register(UINib(nibName: "ContactTableViewCell", bundle: nil), forCellReuseIdentifier: ContactTableViewCell.reuseIdentifier())
-        tableView.register(UINib(nibName: "FriendRequestTableViewCell", bundle: nil), forCellReuseIdentifier: FriendRequestTableViewCell.reuseIdentifier())
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        
-        tableView.tableFooterView = UIView()
-        
-        definesPresentationContext = true
-        
-        let image = UIImage(named: "iconAdd")
-        let rightButtonItem:UIBarButtonItem = UIBarButtonItem(image: image, landscapeImagePhone: image, style: UIBarButtonItemStyle.plain, target: self, action: #selector(ContactsTableViewController.addContactAction))
-        navigationItem.rightBarButtonItem = rightButtonItem
-        navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(ContactsTableViewController.reloadDataSource), name: NSNotification.Name(rawValue: "kNotification_requestUpdated"), object: nil)
-        
-        self.reloadDataSource()
+        self.tabBarController?.navigationItem.title = "Store"
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "Store"
     }
     
-    deinit
-    {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    func addContactAction() {
-        let requestController = UIStoryboard(name: "FriendRequest", bundle: nil).instantiateInitialViewController() as! FriendRequestViewController
-        self.navigationController!.pushViewController(requestController, animated: true)
-    }
-    
-//    func updateSearchResults(for searchController: UISearchController) {
-//        
-//    }
-    
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
-        filteredDataSource = dataSource.filter { (username) -> Bool in
-            return username.lowercased.contains(searchText.lowercased())
-        }
+    override func viewDidAppear(_ animated: Bool) {
+//        let theme = Theme()
+        super.viewDidAppear(animated)
+        self.view.backgroundColor = theme.primaryBackgroundColor
+        self.navigationController?.navigationBar.barTintColor = theme.secondaryBackgroundColor
+        self.navigationController?.navigationBar.tintColor = theme.accentColor
+        let titleAttributes = [
+            NSForegroundColorAttributeName: theme.primaryForegroundColor,
+            NSFontAttributeName: theme.font,
+            ] as [String : Any]
+        let buttonAttributes = [
+            NSForegroundColorAttributeName: theme.accentColor,
+            NSFontAttributeName: theme.font,
+            ] as [String : Any]
+        self.navigationController?.navigationBar.titleTextAttributes = titleAttributes
+        self.navigationItem.leftBarButtonItem?.setTitleTextAttributes(buttonAttributes, for: UIControlState())
+        self.navigationItem.backBarButtonItem?.setTitleTextAttributes(buttonAttributes, for: UIControlState())
+        self.tableView.separatorColor = theme.primaryBackgroundColor
         self.tableView.reloadData()
     }
     
-    func reloadDataSource(){
-        self.dataSource.removeAll()
-        self.requestSource.removeAll()
-        if let requestArray =  InvitationManager.sharedInstance.getSavedFriendRequests(EMClient.shared().currentUsername) {
-            requestSource = requestArray
-            if requestArray.count > 0 {
-                DispatchQueue.main.async(execute: {
-                    let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.mainViewController?.tabBar.items?[1].badgeValue = "\(requestArray.count)"
-                })
-            } else {
-                DispatchQueue.main.async(execute: {
-                    let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.mainViewController?.tabBar.items?[1].badgeValue = nil
-                })
-            }
-        }
-        
-        EMClient.shared().contactManager.getContactsFromServer(completion: { (array, error) in
-            if let array = array {
-                self.dataSource = array as [AnyObject]
-                DispatchQueue.main.async(execute: {
-                    self.tableView.reloadData()
-                })
-            } else if let array = EMClient.shared().contactManager.getContacts() {
-                self.dataSource = array as [AnyObject]
-                DispatchQueue.main.async(execute: {
-                    self.tableView.reloadData()
-                })
-            }
-        })
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.productsAndPrices.count
     }
     
-    // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        
-        if requestSource.count > 0 {
-            return 2
-        } else {
-            return 1
-        }
-    }
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if requestSource.count > 0 {
-            switch section {
-            case 0:
-                return 40
-            case 1:
-                return 20
-            default:
-                break
-            }
-        } else {
-            return 0
-        }
-        
-        return 0
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if requestSource.count > 0 && section == 0 {
-            return "Requests"
-        } else {
-            return ""
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if requestSource.count > 0 {
-            switch section {
-            case 0:
-                let viewName = "requestHeaderView"
-                let view: UIView = Bundle.main.loadNibNamed(viewName,
-                                                            owner: self, options: nil)![0] as! UIView
-                let headerView: requestHeaderView = view as! requestHeaderView
-                headerView.requestCount.text = "(\(requestSource.count))"
-                return headerView
-                
-            case 1:
-                let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 20)
-                let headerView:UIView = UIView(frame: frame)
-                headerView.backgroundColor = UIColor(red: 228.0/255, green: 233.0/255, blue: 236.0/255, alpha: 1.0)
-                return headerView
-            default:
-                break
-            }
-        }
-        
-        return UIView()
-        
-    }
-    
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        
-//        if requestSource.count > 0 {
-//            switch section {
-//            case 0:
-//                return requestSource.count
-//            case 1:
-//                return searchController.isActive && searchController.searchBar.text != "" ? filteredDataSource.count : dataSource.count
-//            default:
-//                break
-//            }
-//        }
-//        else {
-//            return searchController.isActive && searchController.searchBar.text != "" ? filteredDataSource.count : dataSource.count
-//        }
-//        return 0
-//    }
-//    
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        
-//        if requestSource.count > 0 {
-//            
-//            switch (indexPath as NSIndexPath).section {
-//            case 0:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "FriendRequestCell", for: indexPath) as! FriendRequestTableViewCell
-//                cell.usernameLabel.text = requestSource[(indexPath as NSIndexPath).row].applicantUsername
-//                cell.request = requestSource[(indexPath as NSIndexPath).row]
-//                return cell
-//                
-//            case 1:
-//                if dataSource.count > 0 {
-//                    let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableViewCell.reuseIdentifier()) as! ContactTableViewCell
-//                    let text = searchController.isActive && searchController.searchBar.text != "" ? filteredDataSource[indexPath.row] : dataSource[indexPath.row]
-//                    cell.displayNameLabel.text = text as? String
-//                    return cell
-//                }
-//                
-//            default:
-//                break
-//            }
-//        } else if dataSource.count > 0 {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableViewCell.reuseIdentifier()) as! ContactTableViewCell
-//            let text = searchController.isActive && searchController.searchBar.text != "" ? filteredDataSource[indexPath.row] : dataSource[indexPath.row]
-//            cell.displayNameLabel.text = text as? String
-//            return cell
-//        }
-//        
-//        return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-//    }
-    
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if requestSource.count > 0 {
-            switch (indexPath as NSIndexPath).section {
-            case 0:
-                return 60
-            case 1:
-                return 50
-            default:
-                break
-            }
-        } else {
-            return 50
-        }
-        return 44
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+        let product = products[indexPath.row]
+        let price = prices[indexPath.row]
+        //let theme = self.settingsVC.settings.theme
+        cell.backgroundColor = theme.secondaryBackgroundColor
+        cell.textLabel?.text = product
+        cell.textLabel?.font = theme.font
+        cell.textLabel?.textColor = theme.primaryForegroundColor
+        cell.detailTextLabel?.text = "$\(price/100).00"
+        cell.accessoryType = .disclosureIndicator
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if requestSource.count == 0 || (indexPath as NSIndexPath).section == 1 {
-            let row = filteredDataSource.count>0 ? filteredDataSource[indexPath.row] : dataSource[indexPath.row]
-            if let contact = row as? String {
-                let profileController = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! ProfileViewController
-                profileController.username = contact
-                self.navigationController!.pushViewController(profileController, animated: true)
-            }
-        }
+        tableView.deselectRow(at: indexPath, animated: true)
+        let product = Array(self.productsAndPrices.keys)[(indexPath as NSIndexPath).row]
+        let price = self.productsAndPrices[product]!
+        print("You purchased an awesome service worth $\(price/100).00")
+        //let checkoutViewController = CheckoutViewController(product: product, price: price, settings: self.settingsVC.settings)
+        //self.navigationController?.pushViewController(checkoutViewController, animated: true)
     }
-    
-    
-    //     MARK: - UISearchBarDelegate
-    
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        filteredDataSource = dataSource.filter { (username) -> Bool in
-//            return username.lowercased.contains(searchText.lowercased())
-//        }
-//        self.tableView.reloadData()
-//    }
-//    
-//    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-//        return true
-//    }
-//    
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        searchBar.text = ""
-//        searchController.searchBar.resignFirstResponder()
-//        self.tableView.reloadData()
-//    }
-//    
 }

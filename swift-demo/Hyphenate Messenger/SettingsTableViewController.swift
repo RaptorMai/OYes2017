@@ -5,16 +5,18 @@ class SettingsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let titleFrame = CGRect(x: 0, y: 0, width: 32, height: 32)
-        let title:UILabel = UILabel(frame: titleFrame)
-        title.text = "Settings"
-        navigationItem.titleView = title
+        self.tabBarController?.navigationItem.title = "Settings"
         self.tableView.backgroundColor = UIColor(red: 228.0/255.0, green: 233.0/255.0, blue: 236.0/255.0, alpha: 1.0)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.register(UINib(nibName: "SwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "switchCell")
         self.tableView.register(UINib(nibName: "LabelTableViewCell", bundle: nil), forCellReuseIdentifier: "labelCell")
 
 
+    }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "Settings"
     }
 
     // MARK: - Table view data source

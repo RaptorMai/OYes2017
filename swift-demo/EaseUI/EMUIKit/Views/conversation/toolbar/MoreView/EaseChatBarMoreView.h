@@ -34,12 +34,6 @@ typedef enum{
 
 - (void)moreViewTakePicAction:(EaseChatBarMoreView *)moreView;
 - (void)moreViewPhotoAction:(EaseChatBarMoreView *)moreView;
-
-//TODO: remove functions
-//- (void)moreViewLocationAction:(EaseChatBarMoreView *)moreView;
-//- (void)moreViewAudioCallAction:(EaseChatBarMoreView *)moreView;
-//- (void)moreViewVideoCallAction:(EaseChatBarMoreView *)moreView;
-
 - (void)moreView:(EaseChatBarMoreView *)moreView didItemInMoreViewAtIndex:(NSInteger)index;
 
 @end

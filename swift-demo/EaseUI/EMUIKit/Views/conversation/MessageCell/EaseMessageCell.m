@@ -198,8 +198,9 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bubbleViewTapAction:)];
     [_bubbleView addGestureRecognizer:tapRecognizer];
     
-    UITapGestureRecognizer *tapRecognizer2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarViewTapAction:)];
-    [_avatarView addGestureRecognizer:tapRecognizer2];
+    //TODO: add tap avatar function for rating the tutor
+//    UITapGestureRecognizer *tapRecognizer2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarViewTapAction:)];
+//    [_avatarView addGestureRecognizer:tapRecognizer2];
 }
 
 #pragma mark - Setup Constraints
@@ -649,12 +650,13 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     }
 }
 
-- (void)avatarViewTapAction:(UITapGestureRecognizer *)tapRecognizer
-{
-    if ([_delegate respondsToSelector:@selector(avatarViewSelcted:)]) {
-        [_delegate avatarViewSelcted:_model];
-    }
-}
+//TODO: add tap avatar function for rating the tutor
+//- (void)avatarViewTapAction:(UITapGestureRecognizer *)tapRecognizer
+//{
+//    if ([_delegate respondsToSelector:@selector(avatarViewSelcted:)]) {
+//        [_delegate avatarViewSelcted:_model];
+//    }
+//}
 
 - (void)statusAction
 {
