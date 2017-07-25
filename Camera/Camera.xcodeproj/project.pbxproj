@@ -7,75 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3021F9D21F228A21009224F9 /* AKImageCropperOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9C21F228A21009224F9 /* AKImageCropperOverlayView.swift */; };
-		3021F9D31F228A21009224F9 /* AKImageCropperOverlayViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9C31F228A21009224F9 /* AKImageCropperOverlayViewConfiguration.swift */; };
-		3021F9D41F228A21009224F9 /* AKImageCropperOverlayViewConfigurationCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9C41F228A21009224F9 /* AKImageCropperOverlayViewConfigurationCorner.swift */; };
-		3021F9D51F228A21009224F9 /* AKImageCropperOverlayViewConfigurationEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9C51F228A21009224F9 /* AKImageCropperOverlayViewConfigurationEdge.swift */; };
-		3021F9D61F228A21009224F9 /* AKImageCropperOverlayViewConfigurationGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9C61F228A21009224F9 /* AKImageCropperOverlayViewConfigurationGrid.swift */; };
-		3021F9D71F228A21009224F9 /* AKImageCropperOverlayViewConfigurationOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9C71F228A21009224F9 /* AKImageCropperOverlayViewConfigurationOverlay.swift */; };
-		3021F9D81F228A21009224F9 /* AKImageCropperOverlayViewTouchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9C81F228A21009224F9 /* AKImageCropperOverlayViewTouchState.swift */; };
-		3021F9D91F228A21009224F9 /* AKImageCropperScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9C91F228A21009224F9 /* AKImageCropperScrollView.swift */; };
-		3021F9DA1F228A21009224F9 /* AKImageCropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9CB1F228A21009224F9 /* AKImageCropperView.swift */; };
-		3021F9DB1F228A21009224F9 /* IC_CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9CC1F228A21009224F9 /* IC_CGFloatExtension.swift */; };
-		3021F9DC1F228A21009224F9 /* IC_CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9CD1F228A21009224F9 /* IC_CGPointExtension.swift */; };
-		3021F9DD1F228A21009224F9 /* IC_CGSizeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9CE1F228A21009224F9 /* IC_CGSizeExtensions.swift */; };
-		3021F9DE1F228A21009224F9 /* IC_UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9CF1F228A21009224F9 /* IC_UIImageExtensions.swift */; };
-		3021F9DF1F228A21009224F9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3021F9D01F228A21009224F9 /* Info.plist */; };
-		3021F9E01F228A21009224F9 /* PrimaryFilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9D11F228A21009224F9 /* PrimaryFilledButton.swift */; };
-		3021F9F11F229C88009224F9 /* CustomImageCropperOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9EC1F229C88009224F9 /* CustomImageCropperOverlayView.swift */; };
-		3021F9F21F229C88009224F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3021F9ED1F229C88009224F9 /* Images.xcassets */; };
-		3021F9F31F229C88009224F9 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9EE1F229C88009224F9 /* ImageViewController.swift */; };
-		3021F9F61F229CE1009224F9 /* Crop.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3021F9F51F229CE1009224F9 /* Crop.storyboard */; };
-		3021F9F71F22AEFF009224F9 /* CropperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021F9EB1F229C88009224F9 /* CropperViewController.swift */; };
 		309DC25E1F1C470B00EA97A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC25D1F1C470B00EA97A7 /* AppDelegate.swift */; };
 		309DC2601F1C470B00EA97A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC25F1F1C470B00EA97A7 /* ViewController.swift */; };
 		309DC2631F1C470B00EA97A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 309DC2611F1C470B00EA97A7 /* Main.storyboard */; };
 		309DC2661F1C470B00EA97A7 /* Camera.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2641F1C470B00EA97A7 /* Camera.xcdatamodeld */; };
 		309DC2681F1C470B00EA97A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 309DC2671F1C470B00EA97A7 /* Assets.xcassets */; };
 		309DC26B1F1C470B00EA97A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 309DC2691F1C470B00EA97A7 /* LaunchScreen.storyboard */; };
-		309DC2A61F1C4A7700EA97A7 /* CameraView.strings in Resources */ = {isa = PBXBuildFile; fileRef = 309DC28E1F1C4A7700EA97A7 /* CameraView.strings */; };
-		309DC2A71F1C4A7700EA97A7 /* CameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 309DC28F1F1C4A7700EA97A7 /* CameraViewAssets.xcassets */; };
-		309DC2A81F1C4A7700EA97A7 /* CameraGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2911F1C4A7700EA97A7 /* CameraGlobals.swift */; };
-		309DC2A91F1C4A7700EA97A7 /* CameraShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2921F1C4A7700EA97A7 /* CameraShot.swift */; };
-		309DC2AA1F1C4A7700EA97A7 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2931F1C4A7700EA97A7 /* ImageFetcher.swift */; };
-		309DC2AB1F1C4A7700EA97A7 /* PhotoLibraryAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2941F1C4A7700EA97A7 /* PhotoLibraryAuthorizer.swift */; };
-		309DC2AC1F1C4A7700EA97A7 /* SingleImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2951F1C4A7700EA97A7 /* SingleImageFetcher.swift */; };
-		309DC2AD1F1C4A7700EA97A7 /* SingleImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2961F1C4A7700EA97A7 /* SingleImageSaver.swift */; };
-		309DC2AE1F1C4A7700EA97A7 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2971F1C4A7700EA97A7 /* UIButtonExtensions.swift */; };
-		309DC2AF1F1C4A7700EA97A7 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2981F1C4A7700EA97A7 /* UIViewExtensions.swift */; };
-		309DC2B01F1C4A7700EA97A7 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2991F1C4A7700EA97A7 /* Utilities.swift */; };
-		309DC2B11F1C4A7700EA97A7 /* VolumeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC29A1F1C4A7700EA97A7 /* VolumeControl.swift */; };
-		309DC2B21F1C4A7700EA97A7 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC29C1F1C4A7700EA97A7 /* CameraViewController.swift */; };
-		309DC2B31F1C4A7700EA97A7 /* CameraViewControllerConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC29D1F1C4A7700EA97A7 /* CameraViewControllerConstraint.swift */; };
-		309DC2B61F1C4A7700EA97A7 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2A01F1C4A7700EA97A7 /* PhotoLibraryViewController.swift */; };
-		309DC2B71F1C4A7700EA97A7 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2A21F1C4A7700EA97A7 /* CameraView.swift */; };
-		309DC2B81F1C4A7700EA97A7 /* CropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2A31F1C4A7700EA97A7 /* CropOverlay.swift */; };
-		309DC2B91F1C4A7700EA97A7 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2A41F1C4A7700EA97A7 /* ImageCell.swift */; };
-		309DC2BA1F1C4A7700EA97A7 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DC2A51F1C4A7700EA97A7 /* PermissionsView.swift */; };
+		5D0AEC2F1F26767600074ED8 /* AKImageCropperView in Resources */ = {isa = PBXBuildFile; fileRef = 5D0AEC2D1F26767600074ED8 /* AKImageCropperView */; };
+		5D0AEC301F26767600074ED8 /* ALCameraViewController in Resources */ = {isa = PBXBuildFile; fileRef = 5D0AEC2E1F26767600074ED8 /* ALCameraViewController */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3021F9C21F228A21009224F9 /* AKImageCropperOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayView.swift; sourceTree = "<group>"; };
-		3021F9C31F228A21009224F9 /* AKImageCropperOverlayViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayViewConfiguration.swift; sourceTree = "<group>"; };
-		3021F9C41F228A21009224F9 /* AKImageCropperOverlayViewConfigurationCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayViewConfigurationCorner.swift; sourceTree = "<group>"; };
-		3021F9C51F228A21009224F9 /* AKImageCropperOverlayViewConfigurationEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayViewConfigurationEdge.swift; sourceTree = "<group>"; };
-		3021F9C61F228A21009224F9 /* AKImageCropperOverlayViewConfigurationGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayViewConfigurationGrid.swift; sourceTree = "<group>"; };
-		3021F9C71F228A21009224F9 /* AKImageCropperOverlayViewConfigurationOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayViewConfigurationOverlay.swift; sourceTree = "<group>"; };
-		3021F9C81F228A21009224F9 /* AKImageCropperOverlayViewTouchState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayViewTouchState.swift; sourceTree = "<group>"; };
-		3021F9C91F228A21009224F9 /* AKImageCropperScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperScrollView.swift; sourceTree = "<group>"; };
-		3021F9CA1F228A21009224F9 /* AKImageCropperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKImageCropperView.h; sourceTree = "<group>"; };
-		3021F9CB1F228A21009224F9 /* AKImageCropperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperView.swift; sourceTree = "<group>"; };
-		3021F9CC1F228A21009224F9 /* IC_CGFloatExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IC_CGFloatExtension.swift; sourceTree = "<group>"; };
-		3021F9CD1F228A21009224F9 /* IC_CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IC_CGPointExtension.swift; sourceTree = "<group>"; };
-		3021F9CE1F228A21009224F9 /* IC_CGSizeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IC_CGSizeExtensions.swift; sourceTree = "<group>"; };
-		3021F9CF1F228A21009224F9 /* IC_UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IC_UIImageExtensions.swift; sourceTree = "<group>"; };
-		3021F9D01F228A21009224F9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3021F9D11F228A21009224F9 /* PrimaryFilledButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryFilledButton.swift; sourceTree = "<group>"; };
-		3021F9EB1F229C88009224F9 /* CropperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropperViewController.swift; sourceTree = "<group>"; };
-		3021F9EC1F229C88009224F9 /* CustomImageCropperOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageCropperOverlayView.swift; sourceTree = "<group>"; };
-		3021F9ED1F229C88009224F9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		3021F9EE1F229C88009224F9 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
-		3021F9F51F229CE1009224F9 /* Crop.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Crop.storyboard; sourceTree = "<group>"; };
 		309DC25A1F1C470B00EA97A7 /* Camera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Camera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		309DC25D1F1C470B00EA97A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		309DC25F1F1C470B00EA97A7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,25 +26,8 @@
 		309DC2671F1C470B00EA97A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		309DC26A1F1C470B00EA97A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		309DC26C1F1C470B00EA97A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		309DC28E1F1C4A7700EA97A7 /* CameraView.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = CameraView.strings; sourceTree = "<group>"; };
-		309DC28F1F1C4A7700EA97A7 /* CameraViewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CameraViewAssets.xcassets; sourceTree = "<group>"; };
-		309DC2911F1C4A7700EA97A7 /* CameraGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraGlobals.swift; sourceTree = "<group>"; };
-		309DC2921F1C4A7700EA97A7 /* CameraShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraShot.swift; sourceTree = "<group>"; };
-		309DC2931F1C4A7700EA97A7 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
-		309DC2941F1C4A7700EA97A7 /* PhotoLibraryAuthorizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryAuthorizer.swift; sourceTree = "<group>"; };
-		309DC2951F1C4A7700EA97A7 /* SingleImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageFetcher.swift; sourceTree = "<group>"; };
-		309DC2961F1C4A7700EA97A7 /* SingleImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageSaver.swift; sourceTree = "<group>"; };
-		309DC2971F1C4A7700EA97A7 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
-		309DC2981F1C4A7700EA97A7 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
-		309DC2991F1C4A7700EA97A7 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		309DC29A1F1C4A7700EA97A7 /* VolumeControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeControl.swift; sourceTree = "<group>"; };
-		309DC29C1F1C4A7700EA97A7 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		309DC29D1F1C4A7700EA97A7 /* CameraViewControllerConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewControllerConstraint.swift; sourceTree = "<group>"; };
-		309DC2A01F1C4A7700EA97A7 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
-		309DC2A21F1C4A7700EA97A7 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
-		309DC2A31F1C4A7700EA97A7 /* CropOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropOverlay.swift; sourceTree = "<group>"; };
-		309DC2A41F1C4A7700EA97A7 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
-		309DC2A51F1C4A7700EA97A7 /* PermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
+		5D0AEC2D1F26767600074ED8 /* AKImageCropperView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AKImageCropperView; sourceTree = "<group>"; };
+		5D0AEC2E1F26767600074ED8 /* ALCameraViewController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ALCameraViewController; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,37 +41,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3021F9C11F228A21009224F9 /* AKImageCropperView */ = {
-			isa = PBXGroup;
-			children = (
-				3021F9C21F228A21009224F9 /* AKImageCropperOverlayView.swift */,
-				3021F9C31F228A21009224F9 /* AKImageCropperOverlayViewConfiguration.swift */,
-				3021F9C41F228A21009224F9 /* AKImageCropperOverlayViewConfigurationCorner.swift */,
-				3021F9C51F228A21009224F9 /* AKImageCropperOverlayViewConfigurationEdge.swift */,
-				3021F9C61F228A21009224F9 /* AKImageCropperOverlayViewConfigurationGrid.swift */,
-				3021F9C71F228A21009224F9 /* AKImageCropperOverlayViewConfigurationOverlay.swift */,
-				3021F9C81F228A21009224F9 /* AKImageCropperOverlayViewTouchState.swift */,
-				3021F9C91F228A21009224F9 /* AKImageCropperScrollView.swift */,
-				3021F9CA1F228A21009224F9 /* AKImageCropperView.h */,
-				3021F9CB1F228A21009224F9 /* AKImageCropperView.swift */,
-				3021F9CC1F228A21009224F9 /* IC_CGFloatExtension.swift */,
-				3021F9CD1F228A21009224F9 /* IC_CGPointExtension.swift */,
-				3021F9CE1F228A21009224F9 /* IC_CGSizeExtensions.swift */,
-				3021F9CF1F228A21009224F9 /* IC_UIImageExtensions.swift */,
-				3021F9D01F228A21009224F9 /* Info.plist */,
-				3021F9D11F228A21009224F9 /* PrimaryFilledButton.swift */,
-			);
-			name = AKImageCropperView;
-			path = ALCameraViewController/AKImageCropperView;
-			sourceTree = "<group>";
-		};
 		309DC2511F1C470B00EA97A7 = {
 			isa = PBXGroup;
 			children = (
 				309DC25C1F1C470B00EA97A7 /* Camera */,
 				309DC25B1F1C470B00EA97A7 /* Products */,
-				3021F9C11F228A21009224F9 /* AKImageCropperView */,
-				309DC28D1F1C4A7700EA97A7 /* ALCameraViewController */,
+				5D0AEC2D1F26767600074ED8 /* AKImageCropperView */,
+				5D0AEC2E1F26767600074ED8 /* ALCameraViewController */,
 			);
 			sourceTree = "<group>";
 		};
@@ -170,61 +71,6 @@
 				309DC2641F1C470B00EA97A7 /* Camera.xcdatamodeld */,
 			);
 			path = Camera;
-			sourceTree = "<group>";
-		};
-		309DC28D1F1C4A7700EA97A7 /* ALCameraViewController */ = {
-			isa = PBXGroup;
-			children = (
-				309DC28E1F1C4A7700EA97A7 /* CameraView.strings */,
-				309DC28F1F1C4A7700EA97A7 /* CameraViewAssets.xcassets */,
-				309DC2901F1C4A7700EA97A7 /* Utilities */,
-				309DC29B1F1C4A7700EA97A7 /* ViewController */,
-				309DC2A11F1C4A7700EA97A7 /* Views */,
-			);
-			path = ALCameraViewController;
-			sourceTree = "<group>";
-		};
-		309DC2901F1C4A7700EA97A7 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				309DC2911F1C4A7700EA97A7 /* CameraGlobals.swift */,
-				309DC2921F1C4A7700EA97A7 /* CameraShot.swift */,
-				309DC2931F1C4A7700EA97A7 /* ImageFetcher.swift */,
-				309DC2941F1C4A7700EA97A7 /* PhotoLibraryAuthorizer.swift */,
-				309DC2951F1C4A7700EA97A7 /* SingleImageFetcher.swift */,
-				309DC2961F1C4A7700EA97A7 /* SingleImageSaver.swift */,
-				309DC2971F1C4A7700EA97A7 /* UIButtonExtensions.swift */,
-				309DC2981F1C4A7700EA97A7 /* UIViewExtensions.swift */,
-				309DC2991F1C4A7700EA97A7 /* Utilities.swift */,
-				309DC29A1F1C4A7700EA97A7 /* VolumeControl.swift */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
-		309DC29B1F1C4A7700EA97A7 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				3021F9EB1F229C88009224F9 /* CropperViewController.swift */,
-				3021F9EC1F229C88009224F9 /* CustomImageCropperOverlayView.swift */,
-				3021F9ED1F229C88009224F9 /* Images.xcassets */,
-				3021F9F51F229CE1009224F9 /* Crop.storyboard */,
-				3021F9EE1F229C88009224F9 /* ImageViewController.swift */,
-				309DC29C1F1C4A7700EA97A7 /* CameraViewController.swift */,
-				309DC29D1F1C4A7700EA97A7 /* CameraViewControllerConstraint.swift */,
-				309DC2A01F1C4A7700EA97A7 /* PhotoLibraryViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		309DC2A11F1C4A7700EA97A7 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				309DC2A21F1C4A7700EA97A7 /* CameraView.swift */,
-				309DC2A31F1C4A7700EA97A7 /* CropOverlay.swift */,
-				309DC2A41F1C4A7700EA97A7 /* ImageCell.swift */,
-				309DC2A51F1C4A7700EA97A7 /* PermissionsView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,14 +133,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				309DC2A71F1C4A7700EA97A7 /* CameraViewAssets.xcassets in Resources */,
-				3021F9F21F229C88009224F9 /* Images.xcassets in Resources */,
 				309DC26B1F1C470B00EA97A7 /* LaunchScreen.storyboard in Resources */,
 				309DC2681F1C470B00EA97A7 /* Assets.xcassets in Resources */,
-				309DC2A61F1C4A7700EA97A7 /* CameraView.strings in Resources */,
 				309DC2631F1C470B00EA97A7 /* Main.storyboard in Resources */,
-				3021F9F61F229CE1009224F9 /* Crop.storyboard in Resources */,
-				3021F9DF1F228A21009224F9 /* Info.plist in Resources */,
+				5D0AEC2F1F26767600074ED8 /* AKImageCropperView in Resources */,
+				5D0AEC301F26767600074ED8 /* ALCameraViewController in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,43 +148,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3021F9D61F228A21009224F9 /* AKImageCropperOverlayViewConfigurationGrid.swift in Sources */,
-				309DC2AF1F1C4A7700EA97A7 /* UIViewExtensions.swift in Sources */,
-				309DC2AB1F1C4A7700EA97A7 /* PhotoLibraryAuthorizer.swift in Sources */,
-				309DC2AC1F1C4A7700EA97A7 /* SingleImageFetcher.swift in Sources */,
-				309DC2B71F1C4A7700EA97A7 /* CameraView.swift in Sources */,
-				309DC2AD1F1C4A7700EA97A7 /* SingleImageSaver.swift in Sources */,
-				3021F9D91F228A21009224F9 /* AKImageCropperScrollView.swift in Sources */,
-				3021F9E01F228A21009224F9 /* PrimaryFilledButton.swift in Sources */,
-				3021F9DC1F228A21009224F9 /* IC_CGPointExtension.swift in Sources */,
-				309DC2B81F1C4A7700EA97A7 /* CropOverlay.swift in Sources */,
-				309DC2A91F1C4A7700EA97A7 /* CameraShot.swift in Sources */,
-				3021F9DD1F228A21009224F9 /* IC_CGSizeExtensions.swift in Sources */,
 				309DC2601F1C470B00EA97A7 /* ViewController.swift in Sources */,
-				3021F9F11F229C88009224F9 /* CustomImageCropperOverlayView.swift in Sources */,
-				309DC2B91F1C4A7700EA97A7 /* ImageCell.swift in Sources */,
-				309DC2B61F1C4A7700EA97A7 /* PhotoLibraryViewController.swift in Sources */,
-				309DC2B11F1C4A7700EA97A7 /* VolumeControl.swift in Sources */,
-				3021F9D51F228A21009224F9 /* AKImageCropperOverlayViewConfigurationEdge.swift in Sources */,
-				3021F9D21F228A21009224F9 /* AKImageCropperOverlayView.swift in Sources */,
-				3021F9F31F229C88009224F9 /* ImageViewController.swift in Sources */,
-				309DC2B01F1C4A7700EA97A7 /* Utilities.swift in Sources */,
-				3021F9D41F228A21009224F9 /* AKImageCropperOverlayViewConfigurationCorner.swift in Sources */,
-				309DC2AE1F1C4A7700EA97A7 /* UIButtonExtensions.swift in Sources */,
 				309DC2661F1C470B00EA97A7 /* Camera.xcdatamodeld in Sources */,
-				309DC2AA1F1C4A7700EA97A7 /* ImageFetcher.swift in Sources */,
-				3021F9DA1F228A21009224F9 /* AKImageCropperView.swift in Sources */,
-				309DC2B21F1C4A7700EA97A7 /* CameraViewController.swift in Sources */,
 				309DC25E1F1C470B00EA97A7 /* AppDelegate.swift in Sources */,
-				309DC2A81F1C4A7700EA97A7 /* CameraGlobals.swift in Sources */,
-				3021F9DE1F228A21009224F9 /* IC_UIImageExtensions.swift in Sources */,
-				309DC2BA1F1C4A7700EA97A7 /* PermissionsView.swift in Sources */,
-				3021F9D31F228A21009224F9 /* AKImageCropperOverlayViewConfiguration.swift in Sources */,
-				3021F9DB1F228A21009224F9 /* IC_CGFloatExtension.swift in Sources */,
-				3021F9D81F228A21009224F9 /* AKImageCropperOverlayViewTouchState.swift in Sources */,
-				309DC2B31F1C4A7700EA97A7 /* CameraViewControllerConstraint.swift in Sources */,
-				3021F9F71F22AEFF009224F9 /* CropperViewController.swift in Sources */,
-				3021F9D71F228A21009224F9 /* AKImageCropperOverlayViewConfigurationOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

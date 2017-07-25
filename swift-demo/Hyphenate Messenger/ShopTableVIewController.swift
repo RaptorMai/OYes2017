@@ -10,7 +10,7 @@ import UIKit
 
 
 struct Theme {
-    let primaryBackgroundColor = UIColor(red:0.96, green:0.96, blue:0.95, alpha:1.00)
+    let primaryBackgroundColor = UIColor(red:1.00, green:1.00, blue:1.00, alpha:1.00)//UIColor(red:0.96, green:0.96, blue:0.95, alpha:1.00)
     let secondaryBackgroundColor = UIColor(red:1.00, green:1.00, blue:1.00, alpha:1.00)
     let primaryForegroundColor = UIColor(red:0.35, green:0.35, blue:0.35, alpha:1.00)
     let secondaryForegroundColor = UIColor(red:0.66, green:0.66, blue:0.66, alpha:1.00)
@@ -32,6 +32,7 @@ class ShopTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.navigationItem.title = "Store"
+        self.tableView.tableFooterView = UIView()
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -56,7 +57,7 @@ class ShopTableViewController: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = titleAttributes
         self.navigationItem.leftBarButtonItem?.setTitleTextAttributes(buttonAttributes, for: UIControlState())
         self.navigationItem.backBarButtonItem?.setTitleTextAttributes(buttonAttributes, for: UIControlState())
-        self.tableView.separatorColor = theme.primaryBackgroundColor
+        //self.tableView.separatorColor = theme.primaryBackgroundColor
         self.tableView.reloadData()
     }
     

@@ -47,6 +47,8 @@
 	<string>Upload Photo With Camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Upload Photo In Camera Roll</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Recording Requires Microphone Access</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

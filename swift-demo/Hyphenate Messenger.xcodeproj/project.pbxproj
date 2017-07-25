@@ -9,6 +9,45 @@
 /* Begin PBXBuildFile section */
 		39062AE81D9F0D4400EE8412 /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39062AE71D9F0D4400EE8412 /* ContactTableViewCell.xib */; };
 		5C226CB1BB2ACE14FE2BC796 /* Pods_Hyphenate_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */; };
+		5D43421C1F266F1700E5CA62 /* AKImageCropperOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341DF1F266F1700E5CA62 /* AKImageCropperOverlayView.swift */; };
+		5D43421D1F266F1700E5CA62 /* AKImageCropperOverlayViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341E01F266F1700E5CA62 /* AKImageCropperOverlayViewConfiguration.swift */; };
+		5D43421E1F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341E11F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationCorner.swift */; };
+		5D43421F1F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341E21F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationEdge.swift */; };
+		5D4342201F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341E31F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationGrid.swift */; };
+		5D4342211F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341E41F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationOverlay.swift */; };
+		5D4342221F266F1700E5CA62 /* AKImageCropperOverlayViewTouchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341E51F266F1700E5CA62 /* AKImageCropperOverlayViewTouchState.swift */; };
+		5D4342231F266F1700E5CA62 /* AKImageCropperScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341E61F266F1700E5CA62 /* AKImageCropperScrollView.swift */; };
+		5D4342241F266F1700E5CA62 /* AKImageCropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341E81F266F1700E5CA62 /* AKImageCropperView.swift */; };
+		5D4342251F266F1700E5CA62 /* IC_CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341E91F266F1700E5CA62 /* IC_CGFloatExtension.swift */; };
+		5D4342261F266F1700E5CA62 /* IC_CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341EA1F266F1700E5CA62 /* IC_CGPointExtension.swift */; };
+		5D4342271F266F1700E5CA62 /* IC_CGSizeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341EB1F266F1700E5CA62 /* IC_CGSizeExtensions.swift */; };
+		5D4342281F266F1700E5CA62 /* IC_UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341EC1F266F1700E5CA62 /* IC_UIImageExtensions.swift */; };
+		5D4342291F266F1700E5CA62 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D4341ED1F266F1700E5CA62 /* Info.plist */; };
+		5D43422A1F266F1700E5CA62 /* PrimaryFilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341EE1F266F1700E5CA62 /* PrimaryFilledButton.swift */; };
+		5D43423A1F266F1700E5CA62 /* CameraView.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5D4342011F266F1700E5CA62 /* CameraView.strings */; };
+		5D43423B1F266F1700E5CA62 /* CameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D4342021F266F1700E5CA62 /* CameraViewAssets.xcassets */; };
+		5D43423C1F266F1700E5CA62 /* CameraGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342041F266F1700E5CA62 /* CameraGlobals.swift */; };
+		5D43423D1F266F1700E5CA62 /* CameraShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342051F266F1700E5CA62 /* CameraShot.swift */; };
+		5D43423E1F266F1700E5CA62 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342061F266F1700E5CA62 /* ImageFetcher.swift */; };
+		5D43423F1F266F1700E5CA62 /* PhotoLibraryAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342071F266F1700E5CA62 /* PhotoLibraryAuthorizer.swift */; };
+		5D4342401F266F1700E5CA62 /* SingleImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342081F266F1700E5CA62 /* SingleImageFetcher.swift */; };
+		5D4342411F266F1700E5CA62 /* SingleImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342091F266F1700E5CA62 /* SingleImageSaver.swift */; };
+		5D4342421F266F1700E5CA62 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D43420A1F266F1700E5CA62 /* UIButtonExtensions.swift */; };
+		5D4342431F266F1700E5CA62 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D43420B1F266F1700E5CA62 /* UIViewExtensions.swift */; };
+		5D4342441F266F1700E5CA62 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D43420C1F266F1700E5CA62 /* Utilities.swift */; };
+		5D4342451F266F1700E5CA62 /* VolumeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D43420D1F266F1700E5CA62 /* VolumeControl.swift */; };
+		5D4342461F266F1700E5CA62 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D43420F1F266F1700E5CA62 /* CameraViewController.swift */; };
+		5D4342471F266F1700E5CA62 /* CameraViewControllerConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342101F266F1700E5CA62 /* CameraViewControllerConstraint.swift */; };
+		5D4342481F266F1700E5CA62 /* Crop.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D4342111F266F1700E5CA62 /* Crop.storyboard */; };
+		5D4342491F266F1700E5CA62 /* CropperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342121F266F1700E5CA62 /* CropperViewController.swift */; };
+		5D43424A1F266F1700E5CA62 /* CustomImageCropperOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342131F266F1700E5CA62 /* CustomImageCropperOverlayView.swift */; };
+		5D43424B1F266F1700E5CA62 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D4342141F266F1700E5CA62 /* Images.xcassets */; };
+		5D43424C1F266F1700E5CA62 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342151F266F1700E5CA62 /* ImageViewController.swift */; };
+		5D43424D1F266F1700E5CA62 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342161F266F1700E5CA62 /* PhotoLibraryViewController.swift */; };
+		5D43424E1F266F1700E5CA62 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342181F266F1700E5CA62 /* CameraView.swift */; };
+		5D43424F1F266F1700E5CA62 /* CropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342191F266F1700E5CA62 /* CropOverlay.swift */; };
+		5D4342501F266F1700E5CA62 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D43421A1F266F1700E5CA62 /* ImageCell.swift */; };
+		5D4342511F266F1700E5CA62 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D43421B1F266F1700E5CA62 /* PermissionsView.swift */; };
 		5D809DAA1F157DE90001BF06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D809DA81F157AC10001BF06 /* Assets.xcassets */; };
 		5D9F39E81F182EA000D388D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D9F39E71F182EA000D388D9 /* GoogleService-Info.plist */; };
 		5D9F39EA1F187B9300D388D9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39E91F187B9300D388D9 /* HomeViewController.swift */; };
@@ -224,6 +263,46 @@
 /* Begin PBXFileReference section */
 		39062AE71D9F0D4400EE8412 /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContactTableViewCell.xib; path = Views/ContactTableViewCell.xib; sourceTree = "<group>"; };
 		46CB1D5CA6E51EFA21BD9A5F /* Pods-Hyphenate Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.release.xcconfig"; sourceTree = "<group>"; };
+		5D4341DF1F266F1700E5CA62 /* AKImageCropperOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayView.swift; sourceTree = "<group>"; };
+		5D4341E01F266F1700E5CA62 /* AKImageCropperOverlayViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayViewConfiguration.swift; sourceTree = "<group>"; };
+		5D4341E11F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayViewConfigurationCorner.swift; sourceTree = "<group>"; };
+		5D4341E21F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayViewConfigurationEdge.swift; sourceTree = "<group>"; };
+		5D4341E31F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayViewConfigurationGrid.swift; sourceTree = "<group>"; };
+		5D4341E41F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayViewConfigurationOverlay.swift; sourceTree = "<group>"; };
+		5D4341E51F266F1700E5CA62 /* AKImageCropperOverlayViewTouchState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayViewTouchState.swift; sourceTree = "<group>"; };
+		5D4341E61F266F1700E5CA62 /* AKImageCropperScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperScrollView.swift; sourceTree = "<group>"; };
+		5D4341E71F266F1700E5CA62 /* AKImageCropperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKImageCropperView.h; sourceTree = "<group>"; };
+		5D4341E81F266F1700E5CA62 /* AKImageCropperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperView.swift; sourceTree = "<group>"; };
+		5D4341E91F266F1700E5CA62 /* IC_CGFloatExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IC_CGFloatExtension.swift; sourceTree = "<group>"; };
+		5D4341EA1F266F1700E5CA62 /* IC_CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IC_CGPointExtension.swift; sourceTree = "<group>"; };
+		5D4341EB1F266F1700E5CA62 /* IC_CGSizeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IC_CGSizeExtensions.swift; sourceTree = "<group>"; };
+		5D4341EC1F266F1700E5CA62 /* IC_UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IC_UIImageExtensions.swift; sourceTree = "<group>"; };
+		5D4341ED1F266F1700E5CA62 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D4341EE1F266F1700E5CA62 /* PrimaryFilledButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryFilledButton.swift; sourceTree = "<group>"; };
+		5D4342011F266F1700E5CA62 /* CameraView.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = CameraView.strings; sourceTree = "<group>"; };
+		5D4342021F266F1700E5CA62 /* CameraViewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CameraViewAssets.xcassets; sourceTree = "<group>"; };
+		5D4342041F266F1700E5CA62 /* CameraGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraGlobals.swift; sourceTree = "<group>"; };
+		5D4342051F266F1700E5CA62 /* CameraShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraShot.swift; sourceTree = "<group>"; };
+		5D4342061F266F1700E5CA62 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
+		5D4342071F266F1700E5CA62 /* PhotoLibraryAuthorizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryAuthorizer.swift; sourceTree = "<group>"; };
+		5D4342081F266F1700E5CA62 /* SingleImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageFetcher.swift; sourceTree = "<group>"; };
+		5D4342091F266F1700E5CA62 /* SingleImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleImageSaver.swift; sourceTree = "<group>"; };
+		5D43420A1F266F1700E5CA62 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
+		5D43420B1F266F1700E5CA62 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		5D43420C1F266F1700E5CA62 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		5D43420D1F266F1700E5CA62 /* VolumeControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeControl.swift; sourceTree = "<group>"; };
+		5D43420F1F266F1700E5CA62 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		5D4342101F266F1700E5CA62 /* CameraViewControllerConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewControllerConstraint.swift; sourceTree = "<group>"; };
+		5D4342111F266F1700E5CA62 /* Crop.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Crop.storyboard; sourceTree = "<group>"; };
+		5D4342121F266F1700E5CA62 /* CropperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropperViewController.swift; sourceTree = "<group>"; };
+		5D4342131F266F1700E5CA62 /* CustomImageCropperOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageCropperOverlayView.swift; sourceTree = "<group>"; };
+		5D4342141F266F1700E5CA62 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		5D4342151F266F1700E5CA62 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		5D4342161F266F1700E5CA62 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
+		5D4342181F266F1700E5CA62 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		5D4342191F266F1700E5CA62 /* CropOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropOverlay.swift; sourceTree = "<group>"; };
+		5D43421A1F266F1700E5CA62 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		5D43421B1F266F1700E5CA62 /* PermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
 		5D809DA81F157AC10001BF06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D9F39E71F182EA000D388D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5D9F39E91F187B9300D388D9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -592,6 +671,84 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D4341DE1F266F1700E5CA62 /* AKImageCropperView */ = {
+			isa = PBXGroup;
+			children = (
+				5D4341DF1F266F1700E5CA62 /* AKImageCropperOverlayView.swift */,
+				5D4341E01F266F1700E5CA62 /* AKImageCropperOverlayViewConfiguration.swift */,
+				5D4341E11F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationCorner.swift */,
+				5D4341E21F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationEdge.swift */,
+				5D4341E31F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationGrid.swift */,
+				5D4341E41F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationOverlay.swift */,
+				5D4341E51F266F1700E5CA62 /* AKImageCropperOverlayViewTouchState.swift */,
+				5D4341E61F266F1700E5CA62 /* AKImageCropperScrollView.swift */,
+				5D4341E71F266F1700E5CA62 /* AKImageCropperView.h */,
+				5D4341E81F266F1700E5CA62 /* AKImageCropperView.swift */,
+				5D4341E91F266F1700E5CA62 /* IC_CGFloatExtension.swift */,
+				5D4341EA1F266F1700E5CA62 /* IC_CGPointExtension.swift */,
+				5D4341EB1F266F1700E5CA62 /* IC_CGSizeExtensions.swift */,
+				5D4341EC1F266F1700E5CA62 /* IC_UIImageExtensions.swift */,
+				5D4341ED1F266F1700E5CA62 /* Info.plist */,
+				5D4341EE1F266F1700E5CA62 /* PrimaryFilledButton.swift */,
+			);
+			path = AKImageCropperView;
+			sourceTree = "<group>";
+		};
+		5D4341EF1F266F1700E5CA62 /* ALCameraViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5D4342011F266F1700E5CA62 /* CameraView.strings */,
+				5D4342021F266F1700E5CA62 /* CameraViewAssets.xcassets */,
+				5D4342031F266F1700E5CA62 /* Utilities */,
+				5D43420E1F266F1700E5CA62 /* ViewController */,
+				5D4342171F266F1700E5CA62 /* Views */,
+			);
+			path = ALCameraViewController;
+			sourceTree = "<group>";
+		};
+		5D4342031F266F1700E5CA62 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5D4342041F266F1700E5CA62 /* CameraGlobals.swift */,
+				5D4342051F266F1700E5CA62 /* CameraShot.swift */,
+				5D4342061F266F1700E5CA62 /* ImageFetcher.swift */,
+				5D4342071F266F1700E5CA62 /* PhotoLibraryAuthorizer.swift */,
+				5D4342081F266F1700E5CA62 /* SingleImageFetcher.swift */,
+				5D4342091F266F1700E5CA62 /* SingleImageSaver.swift */,
+				5D43420A1F266F1700E5CA62 /* UIButtonExtensions.swift */,
+				5D43420B1F266F1700E5CA62 /* UIViewExtensions.swift */,
+				5D43420C1F266F1700E5CA62 /* Utilities.swift */,
+				5D43420D1F266F1700E5CA62 /* VolumeControl.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		5D43420E1F266F1700E5CA62 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5D43420F1F266F1700E5CA62 /* CameraViewController.swift */,
+				5D4342101F266F1700E5CA62 /* CameraViewControllerConstraint.swift */,
+				5D4342111F266F1700E5CA62 /* Crop.storyboard */,
+				5D4342121F266F1700E5CA62 /* CropperViewController.swift */,
+				5D4342131F266F1700E5CA62 /* CustomImageCropperOverlayView.swift */,
+				5D4342141F266F1700E5CA62 /* Images.xcassets */,
+				5D4342151F266F1700E5CA62 /* ImageViewController.swift */,
+				5D4342161F266F1700E5CA62 /* PhotoLibraryViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		5D4342171F266F1700E5CA62 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5D4342181F266F1700E5CA62 /* CameraView.swift */,
+				5D4342191F266F1700E5CA62 /* CropOverlay.swift */,
+				5D43421A1F266F1700E5CA62 /* ImageCell.swift */,
+				5D43421B1F266F1700E5CA62 /* PermissionsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		5D9F39F11F19491700D388D9 /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,6 +811,8 @@
 			isa = PBXGroup;
 			children = (
 				9A37B30B1DCF205A00A781EE /* Hyphenate Messenger.entitlements */,
+				5D4341DE1F266F1700E5CA62 /* AKImageCropperView */,
+				5D4341EF1F266F1700E5CA62 /* ALCameraViewController */,
 				9A3970A41DBF438F00D68937 /* Third Party */,
 				B6346B831DA24F3F00CBEAE2 /* Data Model */,
 				9AC132411DA0EDD800A2BD05 /* Storyboard */,
@@ -1561,7 +1720,9 @@
 				5D809DAA1F157DE90001BF06 /* Assets.xcassets in Resources */,
 				9A3149921DA42B360081DB04 /* FriendRequest.storyboard in Resources */,
 				9AFE4D721D9E2731007862CA /* Main.storyboard in Resources */,
+				5D43424B1F266F1700E5CA62 /* Images.xcassets in Resources */,
 				9A2E70B31DA2250D00D3EE94 /* ProfileSwitchTableViewCell.xib in Resources */,
+				5D43423B1F266F1700E5CA62 /* CameraViewAssets.xcassets in Resources */,
 				9A702BA01DA370FC005ED10C /* requestHeaderView.xib in Resources */,
 				9AC132391DA0DFE500A2BD05 /* SwitchTableViewCell.xib in Resources */,
 				9A702B9E1DA3401F005ED10C /* FriendRequestTableViewCell.xib in Resources */,
@@ -1570,6 +1731,7 @@
 				B6346B671D9E6C5D00CBEAE2 /* EaseUIResource.bundle in Resources */,
 				9A06AB1D1DB58606003A5B2E /* LabelTableViewCell.xib in Resources */,
 				9A545C8A1DA0CB2200DEFBC7 /* ConversationTableViewCell.xib in Resources */,
+				5D4342481F266F1700E5CA62 /* Crop.storyboard in Resources */,
 				B6346B0A1D9E6C5100CBEAE2 /* MJRefresh.bundle in Resources */,
 				9A7FB3801DA1EDA7005CC8C3 /* Profile.storyboard in Resources */,
 				5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */,
@@ -1578,6 +1740,8 @@
 				5D9F39E81F182EA000D388D9 /* GoogleService-Info.plist in Resources */,
 				C469D79E1DD2ADE300CB634F /* GoogleService-Info.plist in Resources */,
 				B6346B351D9E6C5100CBEAE2 /* MWPhotoBrowser.bundle in Resources */,
+				5D43423A1F266F1700E5CA62 /* CameraView.strings in Resources */,
+				5D4342291F266F1700E5CA62 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1669,14 +1833,17 @@
 				B6346B3D1D9E6C5100CBEAE2 /* NSString+Valid.m in Sources */,
 				B6346AF51D9E6C5100CBEAE2 /* amrFileCodec.mm in Sources */,
 				B6346B041D9E6C5100CBEAE2 /* MJRefreshBackGifFooter.m in Sources */,
+				5D43421D1F266F1700E5CA62 /* AKImageCropperOverlayViewConfiguration.swift in Sources */,
 				B6346B3A1D9E6C5100CBEAE2 /* EaseUserModel.m in Sources */,
 				9AE1B05C1DBDCB2F00E9E706 /* M13BadgeView.m in Sources */,
 				9A17BE2C1D9E20190075EF9F /* SignupViewController.swift in Sources */,
+				5D43423D1F266F1700E5CA62 /* CameraShot.swift in Sources */,
 				B6346B561D9E6C5100CBEAE2 /* EaseBubbleView+Gif.m in Sources */,
 				9A17BE2A1D9E20190075EF9F /* LoginViewController.swift in Sources */,
 				B6346B2D1D9E6C5100CBEAE2 /* PSTCollectionViewFlowLayout.m in Sources */,
 				B6346B091D9E6C5100CBEAE2 /* MJRefreshStateHeader.m in Sources */,
 				B6346B601D9E6C5100CBEAE2 /* EaseTextView.m in Sources */,
+				5D4342261F266F1700E5CA62 /* IC_CGPointExtension.swift in Sources */,
 				B6346B421D9E6C5100CBEAE2 /* EaseMessageReadManager.m in Sources */,
 				B6346B281D9E6C5100CBEAE2 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				B6346AF31D9E6C5100CBEAE2 /* EMCDDeviceManager+Remind.m in Sources */,
@@ -1685,19 +1852,23 @@
 				B6346B311D9E6C5100CBEAE2 /* PSTGridLayoutInfo.m in Sources */,
 				B6346B531D9E6C5100CBEAE2 /* EaseMessageCell.m in Sources */,
 				B6346B321D9E6C5100CBEAE2 /* PSTGridLayoutItem.m in Sources */,
+				5D4342511F266F1700E5CA62 /* PermissionsView.swift in Sources */,
 				B6346AF01D9E6C5100CBEAE2 /* EMCDDeviceManager+Media.m in Sources */,
 				9A702BA21DA371E4005ED10C /* requestHeaderView.swift in Sources */,
 				B6346B591D9E6C5100CBEAE2 /* EaseBubbleView+Text.m in Sources */,
 				B6346B2B1D9E6C5100CBEAE2 /* PSTCollectionViewController.m in Sources */,
 				B6346B4D1D9E6C5100CBEAE2 /* EaseViewController.m in Sources */,
+				5D4342251F266F1700E5CA62 /* IC_CGFloatExtension.swift in Sources */,
 				B6346B061D9E6C5100CBEAE2 /* MJRefreshBackStateFooter.m in Sources */,
 				B6346B0C1D9E6C5100CBEAE2 /* UIScrollView+MJExtension.m in Sources */,
 				B6346B641D9E6C5100CBEAE2 /* EaseRecordView.m in Sources */,
+				5D4342421F266F1700E5CA62 /* UIButtonExtensions.swift in Sources */,
 				B6346B4E1D9E6C5100CBEAE2 /* EaseUserCell.m in Sources */,
 				B6346AFD1D9E6C5100CBEAE2 /* MJRefreshBackFooter.m in Sources */,
 				B6346B611D9E6C5100CBEAE2 /* EaseFaceView.m in Sources */,
 				B6346B541D9E6C5100CBEAE2 /* EaseMessageTimeCell.m in Sources */,
 				B6346B391D9E6C5100CBEAE2 /* EaseMessageModel.m in Sources */,
+				5D43421E1F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationCorner.swift in Sources */,
 				B6346AF41D9E6C5100CBEAE2 /* EMCDDeviceManagerBase.m in Sources */,
 				9A06AB191DB584BA003A5B2E /* SettingsAboutTableViewController.swift in Sources */,
 				B6346B371D9E6C5100CBEAE2 /* UIColor+EaseUI.m in Sources */,
@@ -1707,6 +1878,7 @@
 				B6346B461D9E6C5100CBEAE2 /* EaseEmotionManager.m in Sources */,
 				B6346B0E1D9E6C5100CBEAE2 /* UIView+MJExtension.m in Sources */,
 				B6346B291D9E6C5100CBEAE2 /* PSTCollectionView.m in Sources */,
+				5D43423C1F266F1700E5CA62 /* CameraGlobals.swift in Sources */,
 				B6346B221D9E6C5100CBEAE2 /* UIImage+EMGIF.m in Sources */,
 				B6346B651D9E6C5100CBEAE2 /* EaseConversationCell.m in Sources */,
 				B6346B3C1D9E6C5100CBEAE2 /* NSDateFormatter+Category.m in Sources */,
@@ -1716,16 +1888,22 @@
 				9A17BE301D9E20190075EF9F /* HyphenateMessengerHelper.swift in Sources */,
 				B6346B1F1D9E6C5100CBEAE2 /* MKAnnotationView+EMWebCache.m in Sources */,
 				B6346AF21D9E6C5100CBEAE2 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
+				5D4342211F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationOverlay.swift in Sources */,
+				5D43424D1F266F1700E5CA62 /* PhotoLibraryViewController.swift in Sources */,
+				5D4342401F266F1700E5CA62 /* SingleImageFetcher.swift in Sources */,
 				B6346B1E1D9E6C5100CBEAE2 /* EMSDWebImagePrefetcher.m in Sources */,
 				B6346B301D9E6C5100CBEAE2 /* PSTCollectionViewUpdateItem.m in Sources */,
+				5D43422A1F266F1700E5CA62 /* PrimaryFilledButton.swift in Sources */,
 				B6346B4F1D9E6C5100CBEAE2 /* EMContactDetailedTableViewCell.m in Sources */,
 				B6346B021D9E6C5100CBEAE2 /* MJRefreshAutoNormalFooter.m in Sources */,
+				5D4342271F266F1700E5CA62 /* IC_CGSizeExtensions.swift in Sources */,
 				5D9F39EE1F1946FE00D388D9 /* ShopTableVIewController.swift in Sources */,
 				B6346B191D9E6C5100CBEAE2 /* EMSDWebImageCompat.m in Sources */,
 				B6346B381D9E6C5100CBEAE2 /* EaseConversationModel.m in Sources */,
 				B6346B051D9E6C5100CBEAE2 /* MJRefreshBackNormalFooter.m in Sources */,
 				B6346B111D9E6C5100CBEAE2 /* MWGridViewController.m in Sources */,
 				B6346AEF1D9E6C5100CBEAE2 /* EMAudioRecorderUtil.m in Sources */,
+				5D4342201F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationGrid.swift in Sources */,
 				9A3149901DA429E80081DB04 /* FriendRequestViewController.swift in Sources */,
 				B6346B4A1D9E6C5100CBEAE2 /* EaseMessageViewController.m in Sources */,
 				B6346B141D9E6C5100CBEAE2 /* MWTapDetectingImageView.m in Sources */,
@@ -1736,12 +1914,15 @@
 				B6346B171D9E6C5100CBEAE2 /* DACircularProgressView.m in Sources */,
 				B6346B241D9E6C5100CBEAE2 /* UIImage+EMWebP.m in Sources */,
 				B6346B071D9E6C5100CBEAE2 /* MJRefreshGifHeader.m in Sources */,
+				5D4342431F266F1700E5CA62 /* UIViewExtensions.swift in Sources */,
 				9A3970A71DBF43E200D68937 /* UIImage+animatedGIF.m in Sources */,
 				B6346B5E1D9E6C5100CBEAE2 /* EaseChatToolbarItem.m in Sources */,
 				5DF190FF1F198CA50019E6F0 /* SessionTableViewController.swift in Sources */,
+				5D43424E1F266F1700E5CA62 /* CameraView.swift in Sources */,
 				B6346B5F1D9E6C5100CBEAE2 /* EaseImageView.m in Sources */,
 				B6346B271D9E6C5100CBEAE2 /* UIView+EMWebCacheOperation.m in Sources */,
 				B6346AF11D9E6C5100CBEAE2 /* EMCDDeviceManager+Microphone.m in Sources */,
+				5D4342241F266F1700E5CA62 /* AKImageCropperView.swift in Sources */,
 				B6346B441D9E6C5100CBEAE2 /* EaseEmojiEmoticons.m in Sources */,
 				B6346AF71D9E6C5100CBEAE2 /* EMVoiceConverter.mm in Sources */,
 				B6346B341D9E6C5100CBEAE2 /* PSTGridLayoutSection.m in Sources */,
@@ -1753,6 +1934,8 @@
 				B6346AFB1D9E6C5100CBEAE2 /* MBProgressHUD.m in Sources */,
 				B6346B871DA24F8700CBEAE2 /* InvitationManager.swift in Sources */,
 				B6346B361D9E6C5100CBEAE2 /* EaseSDKHelper.m in Sources */,
+				5D4342441F266F1700E5CA62 /* Utilities.swift in Sources */,
+				5D4342281F266F1700E5CA62 /* IC_UIImageExtensions.swift in Sources */,
 				B6346B5C1D9E6C5100CBEAE2 /* EaseBubbleView.m in Sources */,
 				B6346B161D9E6C5100CBEAE2 /* MWZoomingScrollView.m in Sources */,
 				B6346B3B1D9E6C5100CBEAE2 /* NSDate+Category.m in Sources */,
@@ -1760,23 +1943,33 @@
 				B6346B1B1D9E6C5100CBEAE2 /* EMSDWebImageDownloader.m in Sources */,
 				B6346B511D9E6C5100CBEAE2 /* EaseBaseMessageCell.m in Sources */,
 				B6346B3F1D9E6C5100CBEAE2 /* UIViewController+HUD.m in Sources */,
+				5D4342411F266F1700E5CA62 /* SingleImageSaver.swift in Sources */,
 				B6346B431D9E6C5100CBEAE2 /* EaseEmoji.m in Sources */,
 				B6346B581D9E6C5100CBEAE2 /* EaseBubbleView+Location.m in Sources */,
+				5D4342231F266F1700E5CA62 /* AKImageCropperScrollView.swift in Sources */,
+				5D4342501F266F1700E5CA62 /* ImageCell.swift in Sources */,
 				9A06AB1C1DB58606003A5B2E /* LabelTableViewCell.swift in Sources */,
 				B6346B1C1D9E6C5100CBEAE2 /* EMSDWebImageDownloaderOperation.m in Sources */,
 				B6346B411D9E6C5100CBEAE2 /* EaseConvertToCommonEmoticonsHelper.m in Sources */,
+				5D4342491F266F1700E5CA62 /* CropperViewController.swift in Sources */,
 				9A17BDF91D9E1FB70075EF9F /* Hyphenate_Messenger.xcdatamodeld in Sources */,
 				B6346B261D9E6C5100CBEAE2 /* UIImageView+EMWebCache.m in Sources */,
 				5DEF2E0B1F264AAD00A2CB09 /* UIColor+Hyphenate.m in Sources */,
 				B6346B5D1D9E6C5100CBEAE2 /* EaseChatToolbar.m in Sources */,
+				5D43421C1F266F1700E5CA62 /* AKImageCropperOverlayView.swift in Sources */,
 				9A06AB241DB68FB5003A5B2E /* TextfieldTableViewCell.swift in Sources */,
 				B6346B821D9E74CE00CBEAE2 /* ContactTableViewCell.swift in Sources */,
 				B6346B551D9E6C5100CBEAE2 /* EaseBubbleView+File.m in Sources */,
+				5D43423F1F266F1700E5CA62 /* PhotoLibraryAuthorizer.swift in Sources */,
 				B6346B251D9E6C5100CBEAE2 /* UIImageView+EMHighlightedWebCache.m in Sources */,
 				B6346B2A1D9E6C5100CBEAE2 /* PSTCollectionViewCell.m in Sources */,
 				B6346B4C1D9E6C5100CBEAE2 /* EaseUsersListViewController.m in Sources */,
 				B6346B201D9E6C5100CBEAE2 /* NSData+EMImageContentType.m in Sources */,
+				5D43424C1F266F1700E5CA62 /* ImageViewController.swift in Sources */,
+				5D4342451F266F1700E5CA62 /* VolumeControl.swift in Sources */,
+				5D4342471F266F1700E5CA62 /* CameraViewControllerConstraint.swift in Sources */,
 				5D9F39EA1F187B9300D388D9 /* HomeViewController.swift in Sources */,
+				5D43424A1F266F1700E5CA62 /* CustomImageCropperOverlayView.swift in Sources */,
 				9AC132381DA0DFE500A2BD05 /* SwitchTableViewCell.swift in Sources */,
 				B6346B571D9E6C5100CBEAE2 /* EaseBubbleView+Image.m in Sources */,
 				B6346AF61D9E6C5100CBEAE2 /* wav.mm in Sources */,
@@ -1789,22 +1982,27 @@
 				B6346B0D1D9E6C5100CBEAE2 /* UIScrollView+MJRefresh.m in Sources */,
 				9A17BE2B1D9E20190075EF9F /* MainViewController.swift in Sources */,
 				B6346B001D9E6C5100CBEAE2 /* MJRefreshHeader.m in Sources */,
+				5D43421F1F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationEdge.swift in Sources */,
 				B6346B331D9E6C5100CBEAE2 /* PSTGridLayoutRow.m in Sources */,
 				B6346B2E1D9E6C5100CBEAE2 /* PSTCollectionViewItemKey.m in Sources */,
 				B6346B1A1D9E6C5100CBEAE2 /* EMSDWebImageDecoder.m in Sources */,
+				5D43423E1F266F1700E5CA62 /* ImageFetcher.swift in Sources */,
 				B6346AFC1D9E6C5100CBEAE2 /* MJRefreshAutoFooter.m in Sources */,
 				9A17BE2D1D9E20190075EF9F /* ContactsTableViewController.swift in Sources */,
 				B6346B0F1D9E6C5100CBEAE2 /* MWCaptionView.m in Sources */,
 				B6346B631D9E6C5100CBEAE2 /* EaseChatBarMoreView.m in Sources */,
 				B6346B031D9E6C5100CBEAE2 /* MJRefreshAutoStateFooter.m in Sources */,
 				9A17BE381D9E20CB0075EF9F /* HyphenateTextField.swift in Sources */,
+				5D4342221F266F1700E5CA62 /* AKImageCropperOverlayViewTouchState.swift in Sources */,
 				B6346B011D9E6C5100CBEAE2 /* MJRefreshAutoGifFooter.m in Sources */,
+				5D43424F1F266F1700E5CA62 /* CropOverlay.swift in Sources */,
 				B6346B151D9E6C5100CBEAE2 /* MWTapDetectingView.m in Sources */,
 				9A26F41A1DACB8ED003A8EA9 /* ComposeMessageTableViewController.swift in Sources */,
 				B6346B211D9E6C5100CBEAE2 /* UIButton+EMWebCache.m in Sources */,
 				B6346B131D9E6C5100CBEAE2 /* MWPhotoBrowser.m in Sources */,
 				B6346B2C1D9E6C5100CBEAE2 /* PSTCollectionViewData.m in Sources */,
 				9A17BE2F1D9E20190075EF9F /* ConversationsTableViewController.swift in Sources */,
+				5D4342461F266F1700E5CA62 /* CameraViewController.swift in Sources */,
 				B6346B481D9E6C5100CBEAE2 /* EaseConversationListViewController.m in Sources */,
 				B6346B5B1D9E6C5100CBEAE2 /* EaseBubbleView+Voice.m in Sources */,
 				B6346B121D9E6C5100CBEAE2 /* MWPhoto.m in Sources */,
@@ -1959,6 +2157,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Hyphenate Messenger/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1993,6 +2192,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Hyphenate Messenger/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

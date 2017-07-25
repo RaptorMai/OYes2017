@@ -4,26 +4,17 @@
 import UIKit
 import Hyphenate
 
-open class HistoryTableViewController: UITableViewController, EMChatManagerDelegate,ConversationListViewControllerDelegate, ConversationListViewControllerDataSource, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+open class HistoryTableViewController: UITableViewController, EMChatManagerDelegate,ConversationListViewControllerDelegate, ConversationListViewControllerDataSource{
     
     var dataSource = [AnyObject]()
-    var filteredDataSource = [AnyObject]()
-    var searchController : UISearchController!
     
     override open func viewDidLoad() {
         super.viewDidLoad()
         
         self.tabBarController?.navigationItem.title = "History"
-        
-        searchController = UISearchController(searchResultsController:  nil)
-        searchController.searchResultsUpdater = self
-        searchController.delegate = self
-        searchController.searchBar.delegate = self
+
         tableView.tableFooterView = UIView()
-        
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.dimsBackgroundDuringPresentation = false
-        navigationItem.titleView = searchController.searchBar
+
         definesPresentationContext = true
         
         let image = UIImage(named: "iconNewConversation")
@@ -87,14 +78,14 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
     }
     
     override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchController.isActive && searchController.searchBar.text != "" ? filteredDataSource.count : dataSource.count
+        return dataSource.count
     }
     
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell:ConversationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ConversationTableViewCell
         
-        let conversation = (searchController.isActive && searchController.searchBar.text != "" ?filteredDataSource[indexPath.row] : dataSource[indexPath.row]) as! EMConversation
+        let conversation = (dataSource[indexPath.row]) as! EMConversation
         
         if let sender = conversation.latestMessage?.from, let recepient = conversation.latestMessage?.to {
             cell.senderLabel.text = sender != EMClient.shared().currentUsername ? sender : recepient
@@ -108,9 +99,12 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
             let dateString = formatter.string(from: date)
             cell.timeLabel.text = dateString
             
-            //TODO: if last msg is photo app crashes
-            let textMessageBody: EMTextMessageBody = latestMessage.body as! EMTextMessageBody
-            cell.lastMessageLabel.text = textMessageBody.text
+            if let textMessageBody = latestMessage.body as? EMTextMessageBody {
+                cell.lastMessageLabel.text = textMessageBody.text
+            }
+            else{
+                cell.lastMessageLabel.text = "[image]"
+            }
             
             if conversation.unreadMessagesCount > 0 && conversation.unreadMessagesCount < 100 {
                 cell.badgeView.text = "\(conversation.unreadMessagesCount)"
@@ -142,32 +136,8 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
     
     
     //     MARK: - UISearchBarDelegate
-    
-    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredDataSource = dataSource.filter { (conversation) -> Bool in
-            if let conversation = conversation as? EMConversation{
-                if let sender = conversation.latestMessage.from{
-                    return sender.lowercased().contains(searchText.lowercased())
-                }
-            }
-            return false
-        }
-        self.tableView.reloadData()
-    }
-    
-    public func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        return true
-    }
-    
-    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-        searchController.searchBar.resignFirstResponder()
-        self.tableView.reloadData()
-    }
-    
+
     open func conversationListViewController(_ conversationListViewController:ConversationsTableViewController, didSelectConversationModel conversationModel: AnyObject){
-        
-        
     }
     
     open func conversationListViewController(_ conversationListViewController: ConversationsTableViewController, modelForConversation conversation: EMConversation) -> AnyObject

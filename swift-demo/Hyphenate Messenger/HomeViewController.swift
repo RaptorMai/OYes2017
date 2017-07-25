@@ -2,28 +2,76 @@
  HistoryTableViewController.swift
  ****************************/
 import UIKit
-import Hyphenate
+/* uncomment if needed
+ import Hyphenate
+*/
 
-open class HomeViewController: UITableViewController, EMChatManagerDelegate,ConversationListViewControllerDelegate, ConversationListViewControllerDataSource, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+
+
+class HomeViewController: UIViewController{
+    
+    var croppingEnabled: Bool = false
+    var libraryEnabled: Bool = true
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.white
+        self.tabBarController?.navigationItem.title = "InstaSolve"
+        let viewHeight = self.view.bounds.height
+        let viewWidth = self.view.bounds.width
+
+        
+        let snapButton = UIButton(type: .custom)
+        snapButton.frame = CGRect(x: 0, y: 0, width: viewWidth/2, height: viewWidth/2)
+        snapButton.center = CGPoint(x: viewWidth/2, y: viewHeight/2)
+        snapButton.layer.cornerRadius = 0.5 * snapButton.bounds.size.width
+        snapButton.layer.borderWidth = 2
+        snapButton.setImage(UIImage(named:"Snap.png"), for: .normal)
+        //snapButton.setTitle("Snap & Solve!", for: .normal)
+        snapButton.setTitleColor(UIColor.black, for: .normal)
+        snapButton.contentVerticalAlignment = .center
+        snapButton.contentHorizontalAlignment = .center
+        snapButton.addTarget(self, action: #selector(snap), for: .touchUpInside)
+        self.view.addSubview(snapButton)
+    }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "InstaSolve"
+        self.tabBarController?.tabBar.isHidden = false
+        //reloadDataSource()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func snap() {
+        let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled, allowsLibraryAccess: libraryEnabled) { [weak self] image, asset in
+            
+            self?.dismiss(animated: true, completion: nil)
+        }
+        present(cameraViewController, animated: true, completion: nil)
+    }
+    
+}
+
+
+
+
+/* uncomment if needed
+open class HomeViewController: UITableViewController, EMChatManagerDelegate,ConversationListViewControllerDelegate, ConversationListViewControllerDataSource{
     
     var dataSource = [AnyObject]()
-    var filteredDataSource = [AnyObject]()
-    var searchController : UISearchController!
     
     override open func viewDidLoad() {
         super.viewDidLoad()
         
         self.tabBarController?.navigationItem.title = "InstaSolve"
         
-        searchController = UISearchController(searchResultsController:  nil)
-        searchController.searchResultsUpdater = self
-        searchController.delegate = self
-        searchController.searchBar.delegate = self
         tableView.tableFooterView = UIView()
         
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.dimsBackgroundDuringPresentation = false
-        navigationItem.titleView = searchController.searchBar
         definesPresentationContext = true
         
         let image = UIImage(named: "iconNewConversation")
@@ -75,10 +123,7 @@ open class HomeViewController: UITableViewController, EMChatManagerDelegate,Conv
         
         present(navigationController, animated: true, completion: nil)
     }
-    
-    open func updateSearchResults(for searchController: UISearchController) {
-        
-    }
+
     
     // MARK: - Table view data source
     
@@ -87,14 +132,14 @@ open class HomeViewController: UITableViewController, EMChatManagerDelegate,Conv
     }
     
     override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchController.isActive && searchController.searchBar.text != "" ? filteredDataSource.count : dataSource.count
+        return dataSource.count
     }
     
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell:ConversationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ConversationTableViewCell
         
-        let conversation = (searchController.isActive && searchController.searchBar.text != "" ?filteredDataSource[indexPath.row] : dataSource[indexPath.row]) as! EMConversation
+        let conversation = (dataSource[indexPath.row]) as! EMConversation
         
         if let sender = conversation.latestMessage?.from, let recepient = conversation.latestMessage?.to {
             cell.senderLabel.text = sender != EMClient.shared().currentUsername ? sender : recepient
@@ -108,9 +153,12 @@ open class HomeViewController: UITableViewController, EMChatManagerDelegate,Conv
             let dateString = formatter.string(from: date)
             cell.timeLabel.text = dateString
             
-            //TODO: if last msg is photo app crashes
-            let textMessageBody: EMTextMessageBody = latestMessage.body as! EMTextMessageBody
-            cell.lastMessageLabel.text = textMessageBody.text
+            if let textMessageBody = latestMessage.body as? EMTextMessageBody {
+                cell.lastMessageLabel.text = textMessageBody.text
+            }
+            else{
+                cell.lastMessageLabel.text = "[image]"
+            }
             
             if conversation.unreadMessagesCount > 0 && conversation.unreadMessagesCount < 100 {
                 cell.badgeView.text = "\(conversation.unreadMessagesCount)"
@@ -142,30 +190,6 @@ open class HomeViewController: UITableViewController, EMChatManagerDelegate,Conv
     }
     
     
-    //     MARK: - UISearchBarDelegate
-    
-    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredDataSource = dataSource.filter { (conversation) -> Bool in
-            if let conversation = conversation as? EMConversation{
-                if let sender = conversation.latestMessage.from{
-                    return sender.lowercased().contains(searchText.lowercased())
-                }
-            }
-            return false
-        }
-        self.tableView.reloadData()
-    }
-    
-    public func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        return true
-    }
-    
-    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-        searchController.searchBar.resignFirstResponder()
-        self.tableView.reloadData()
-    }
-    
     open func conversationListViewController(_ conversationListViewController:ConversationsTableViewController, didSelectConversationModel conversationModel: AnyObject){
         
         
@@ -195,4 +219,5 @@ open class HomeViewController: UITableViewController, EMChatManagerDelegate,Conv
     }
     
 }
+*/
 
