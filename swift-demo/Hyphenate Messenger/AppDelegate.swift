@@ -6,6 +6,7 @@ import Fabric
 import Crashlytics
 import Hyphenate
 import Firebase
+import Stripe
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        Stripe.setDefaultPublishableKey("pk_test_lTfNGp2OD3CytvWX9XCPA41z")
         FirebaseApp.configure()
  
         //TODO: create our own gif with our logo, need to add our gif to "copy bundle researces" under "build phase"
