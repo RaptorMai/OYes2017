@@ -68,7 +68,12 @@ final class CropperViewController: UIViewController {
         _ = self.dismiss(animated: true, completion: nil)
     }
     
-
+    @IBAction func nextAction(_ sender: UIButton) {
+        let nextController = CategoryViewController()
+        //present(nextController, animated: true, completion: nil)
+        show(nextController, sender: self)
+        
+    }
     
     
     @IBAction func cropImageAction(_ sender: AnyObject) {

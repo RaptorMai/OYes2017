@@ -83,6 +83,7 @@
                                         </state>
                                         <connections>
                                             <action selector="cropImageAction:" destination="Rdn-7Y-KLl" eventType="touchUpInside" id="h04-VG-mda"/>
+                                            <action selector="nextAction:" destination="Rdn-7Y-KLl" eventType="touchUpInside" id="jrO-ZQ-0k3"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLm-vA-Gov">
