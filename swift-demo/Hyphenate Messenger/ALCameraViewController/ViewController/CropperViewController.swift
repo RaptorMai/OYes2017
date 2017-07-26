@@ -69,9 +69,9 @@ final class CropperViewController: UIViewController {
     }
     
     @IBAction func nextAction(_ sender: UIButton) {
-        let nextController = CategoryViewController()
+        //let nextController = CategoryViewController()
         //present(nextController, animated: true, completion: nil)
-        show(nextController, sender: self)
+        //show(nextController, sender: self)
         
     }
     
