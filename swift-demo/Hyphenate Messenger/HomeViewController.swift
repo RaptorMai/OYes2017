@@ -30,10 +30,7 @@ class HomeViewController: UIViewController{
         snapButton.setImage(UIImage(named:"Snap.png"), for: .normal)
         let margin = 0.191 * snapButton.bounds.size.width
         snapButton.contentEdgeInsets = UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
-        //snapButton.setTitle("Snap & Solve!", for: .normal)
-        //snapButton.setTitleColor(UIColor.black, for: .normal)
-        //snapButton.contentVerticalAlignment = .center
-        //snapButton.contentHorizontalAlignment = .center
+
         snapButton.addTarget(self, action: #selector(snap), for: .touchUpInside)
         self.view.addSubview(snapButton)
     }

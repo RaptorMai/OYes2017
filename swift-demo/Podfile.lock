@@ -44,6 +44,7 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - SlimeRefresh (0.0.1)
+  - Stripe (11.1.0)
 
 DEPENDENCIES:
   - Crashlytics
@@ -53,6 +54,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Hyphenate
   - SlimeRefresh
+  - Stripe
 
 SPEC CHECKSUMS:
   Crashlytics: dfbae35ef22ca189240d230ad501feea4ee85d2d
@@ -68,7 +70,8 @@ SPEC CHECKSUMS:
   Hyphenate: b596a794ec253b089a6e5c952d718aeedd85c76c
   nanopb: 22bc080fa3955e2116b6ff3ee6c2cb3c15ab97cb
   SlimeRefresh: c70e370dccfa8d74d4c3ff9702769d2b156a50e6
+  Stripe: 331994704823640a827b8da41255a439d60b61ce
 
-PODFILE CHECKSUM: 0164d2b9353243c0064178171b53f3bc87bcc1ae
+PODFILE CHECKSUM: f01d00fe77e9d8264ba0cf122d79a56f34720899
 
 COCOAPODS: 1.2.1

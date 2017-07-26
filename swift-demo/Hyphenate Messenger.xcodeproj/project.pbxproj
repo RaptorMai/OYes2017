@@ -53,6 +53,8 @@
 		5D9F39EA1F187B9300D388D9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39E91F187B9300D388D9 /* HomeViewController.swift */; };
 		5D9F39EC1F1946A700D388D9 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39EB1F1946A700D388D9 /* HistoryTableViewController.swift */; };
 		5D9F39EE1F1946FE00D388D9 /* ShopTableVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */; };
+		5DB073331F27FDA4005829E9 /* Payment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DB073321F27FDA4005829E9 /* Payment.storyboard */; };
+		5DB073351F27FDF7005829E9 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB073341F27FDF7005829E9 /* PaymentViewController.swift */; };
 		5DEF2E0B1F264AAD00A2CB09 /* UIColor+Hyphenate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEF2E0A1F264AAD00A2CB09 /* UIColor+Hyphenate.m */; };
 		5DF190FF1F198CA50019E6F0 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF190FE1F198CA50019E6F0 /* SessionTableViewController.swift */; };
 		5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */; };
@@ -234,7 +236,6 @@
 		B6346B821D9E74CE00CBEAE2 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6346B811D9E74CE00CBEAE2 /* ContactTableViewCell.swift */; };
 		B6346B851DA24F5C00CBEAE2 /* RequestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6346B841DA24F5C00CBEAE2 /* RequestEntity.swift */; };
 		B6346B871DA24F8700CBEAE2 /* InvitationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6346B861DA24F8700CBEAE2 /* InvitationManager.swift */; };
-		C469D79E1DD2ADE300CB634F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C469D79D1DD2ADE300CB634F /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -315,6 +316,8 @@
 		5D9F39E91F187B9300D388D9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5D9F39EB1F1946A700D388D9 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopTableVIewController.swift; sourceTree = "<group>"; };
+		5DB073321F27FDA4005829E9 /* Payment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Payment.storyboard; sourceTree = "<group>"; };
+		5DB073341F27FDF7005829E9 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		5DEF2E091F264AAD00A2CB09 /* UIColor+Hyphenate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hyphenate.h"; sourceTree = "<group>"; };
 		5DEF2E0A1F264AAD00A2CB09 /* UIColor+Hyphenate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hyphenate.m"; sourceTree = "<group>"; };
 		5DF190FE1F198CA50019E6F0 /* SessionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewController.swift; sourceTree = "<group>"; };
@@ -645,7 +648,6 @@
 		B6346B811D9E74CE00CBEAE2 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactTableViewCell.swift; path = Views/ContactTableViewCell.swift; sourceTree = "<group>"; };
 		B6346B841DA24F5C00CBEAE2 /* RequestEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestEntity.swift; path = "Data Model/RequestEntity.swift"; sourceTree = "<group>"; };
 		B6346B861DA24F8700CBEAE2 /* InvitationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InvitationManager.swift; path = "Data Model/InvitationManager.swift"; sourceTree = "<group>"; };
-		C469D79D1DD2ADE300CB634F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -776,6 +778,7 @@
 			isa = PBXGroup;
 			children = (
 				5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */,
+				5DB073341F27FDF7005829E9 /* PaymentViewController.swift */,
 			);
 			name = Shop;
 			sourceTree = "<group>";
@@ -845,7 +848,6 @@
 				5D809DA81F157AC10001BF06 /* Assets.xcassets */,
 				9A17BDF71D9E1FB70075EF9F /* Hyphenate_Messenger.xcdatamodeld */,
 				B634674A1D9E4AD500CBEAE2 /* Hyphenate-Bridging-Header.h */,
-				C469D79D1DD2ADE300CB634F /* GoogleService-Info.plist */,
 			);
 			path = "Hyphenate Messenger";
 			sourceTree = "<group>";
@@ -978,6 +980,7 @@
 			children = (
 				9AFE4D711D9E2731007862CA /* Main.storyboard */,
 				9A7FB37F1DA1EDA7005CC8C3 /* Profile.storyboard */,
+				5DB073321F27FDA4005829E9 /* Payment.storyboard */,
 				9A3149911DA42B360081DB04 /* FriendRequest.storyboard */,
 				5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */,
 			);
@@ -1755,13 +1758,12 @@
 				9A545C8A1DA0CB2200DEFBC7 /* ConversationTableViewCell.xib in Resources */,
 				5D4342481F266F1700E5CA62 /* Crop.storyboard in Resources */,
 				B6346B0A1D9E6C5100CBEAE2 /* MJRefresh.bundle in Resources */,
-				B06E084E1F27C18B005BF9A9 /* MenuData.json in Resources */,
+				5DB073331F27FDA4005829E9 /* Payment.storyboard in Resources */,
 				9A7FB3801DA1EDA7005CC8C3 /* Profile.storyboard in Resources */,
 				5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */,
 				39062AE81D9F0D4400EE8412 /* ContactTableViewCell.xib in Resources */,
 				B6346B501D9E6C5100CBEAE2 /* EMContactDetailedTableViewCell.xib in Resources */,
 				5D9F39E81F182EA000D388D9 /* GoogleService-Info.plist in Resources */,
-				C469D79E1DD2ADE300CB634F /* GoogleService-Info.plist in Resources */,
 				B6346B351D9E6C5100CBEAE2 /* MWPhotoBrowser.bundle in Resources */,
 				5D43423A1F266F1700E5CA62 /* CameraView.strings in Resources */,
 				5D4342291F266F1700E5CA62 /* Info.plist in Resources */,
@@ -1876,7 +1878,6 @@
 				B6346B531D9E6C5100CBEAE2 /* EaseMessageCell.m in Sources */,
 				B6346B321D9E6C5100CBEAE2 /* PSTGridLayoutItem.m in Sources */,
 				5D4342511F266F1700E5CA62 /* PermissionsView.swift in Sources */,
-				B06E08511F27C18B005BF9A9 /* CategoryViewController.swift in Sources */,
 				B6346AF01D9E6C5100CBEAE2 /* EMCDDeviceManager+Media.m in Sources */,
 				9A702BA21DA371E4005ED10C /* requestHeaderView.swift in Sources */,
 				B6346B591D9E6C5100CBEAE2 /* EaseBubbleView+Text.m in Sources */,
@@ -1953,11 +1954,9 @@
 				B6346AEE1D9E6C5100CBEAE2 /* EMAudioPlayerUtil.m in Sources */,
 				B6346B0B1D9E6C5100CBEAE2 /* MJRefreshConst.m in Sources */,
 				9A17BE2E1D9E20190075EF9F /* SettingsTableViewController.swift in Sources */,
-				B06E08501F27C18B005BF9A9 /* PrdouctMenuTableViewCell.swift in Sources */,
 				B6346B231D9E6C5100CBEAE2 /* UIImage+EMMultiFormat.m in Sources */,
 				9A17BE311D9E20190075EF9F /* ChatTableViewController.swift in Sources */,
 				B6346AFB1D9E6C5100CBEAE2 /* MBProgressHUD.m in Sources */,
-				B06E084F1F27C18B005BF9A9 /* GroupTableView.swift in Sources */,
 				B6346B871DA24F8700CBEAE2 /* InvitationManager.swift in Sources */,
 				B6346B361D9E6C5100CBEAE2 /* EaseSDKHelper.m in Sources */,
 				5D4342441F266F1700E5CA62 /* Utilities.swift in Sources */,
@@ -2012,6 +2011,7 @@
 				B6346B001D9E6C5100CBEAE2 /* MJRefreshHeader.m in Sources */,
 				5D43421F1F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationEdge.swift in Sources */,
 				B6346B331D9E6C5100CBEAE2 /* PSTGridLayoutRow.m in Sources */,
+				5DB073351F27FDF7005829E9 /* PaymentViewController.swift in Sources */,
 				B6346B2E1D9E6C5100CBEAE2 /* PSTCollectionViewItemKey.m in Sources */,
 				B6346B1A1D9E6C5100CBEAE2 /* EMSDWebImageDecoder.m in Sources */,
 				5D43423E1F266F1700E5CA62 /* ImageFetcher.swift in Sources */,
@@ -2185,7 +2185,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Hyphenate Messenger/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2220,7 +2220,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Hyphenate Messenger/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

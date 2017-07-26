@@ -83,8 +83,10 @@ class ShopTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         let product = products[indexPath.row]
         let price = prices[indexPath.row]
-        print("You purchased an awesome service worth $\(price/100).00")
-        //let checkoutViewController = CheckoutViewController(product: product, price: price, settings: self.settingsVC.settings)
-        //self.navigationController?.pushViewController(checkoutViewController, animated: true)
+        
+        let paymentViewController = UIStoryboard(name:"Payment", bundle:nil).instantiateViewController(withIdentifier:"PaymentScr") as! PaymentViewController
+        paymentViewController.price = price
+        paymentViewController.product = product
+        self.tabBarController?.navigationController?.pushViewController(paymentViewController, animated: true)
     }
 }
