@@ -42,6 +42,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
     var isScrollClassiftyTable = false
     var picture:UIImageView!
     var categoryselected = false
+    var navController:UINavigationController? = nil
     
     init(frame:CGRect, MenuTypeArr:[String], proNameArr:[AnyObject]) {
         super.init(frame: frame)
@@ -61,7 +62,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
         self.addSubview(self.classifyTableView)
         
         self.picture = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height*0.25))
-        self.picture.backgroundColor = UIColor.brown
+        self.picture.backgroundColor = UIColor.red
         self.addSubview(self.picture)
         
     }
@@ -214,14 +215,12 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
             self.leftSectionSelected(indexPath, withTableView: tableView,didSelectClassifyTable:true)
         }
         if tableView == self.groupTableView{
-            categoryselected = true
-            let delegate = UIApplication.shared.delegate as! AppDelegate
-            let controller:UINavigationController = delegate.window?.rootViewController as! UINavigationController
             let summaryVC = SummaryVC()
             let section = indexPath[0]
             let category = indexPath[1]
             summaryVC.categorytitle = "\((productNameArr[section][category]) ?? "error" )"
-            controller.pushViewController(summaryVC, animated:true)
+            summaryVC.questionPic = picture
+            navController?.pushViewController(summaryVC, animated: true)
         }
     }
     

@@ -69,10 +69,15 @@ final class CropperViewController: UIViewController {
     }
     
     @IBAction func nextAction(_ sender: UIButton) {
+        guard let image = cropView.croppedImage else {
+            return
+        }
         let nextController = CategoryViewController()
-        //present(nextController, animated: true, completion: nil)
-        show(nextController, sender: self)
-        
+//        let navController = CategoryVCHousing(rootViewController: nextController)
+        nextController.navController = self.navigationController
+        nextController.picture = image
+//        present(nextController, animated: true, completion: nil)
+        navigationController?.pushViewController(nextController, animated: true)
     }
     
     

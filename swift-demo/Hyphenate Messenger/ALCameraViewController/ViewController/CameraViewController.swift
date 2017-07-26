@@ -552,7 +552,7 @@ open class CameraViewController: UIViewController {
         let image = UIImage(named: flashImage(device.flashMode),
                             in: CameraGlobals.shared.bundle,
                             compatibleWith: nil)
-        
+    
         flashButton.setImage(image, for: .normal)
     }
     
@@ -572,7 +572,9 @@ open class CameraViewController: UIViewController {
         
         let cropperViewController = UIStoryboard(name: "Crop", bundle: nil).instantiateViewController(withIdentifier: "cropperViewController") as! CropperViewController
         cropperViewController.asset = asset
-        present(cropperViewController, animated: true, completion: nil)
+        //######################
+//        present(cropperViewController, animated: true, completion: nil)
+        navigationController?.pushViewController(cropperViewController, animated: true)
         
     }
     

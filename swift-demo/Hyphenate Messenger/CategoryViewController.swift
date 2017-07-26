@@ -13,27 +13,40 @@ class CategoryViewController: UIViewController {
     var productTypeArr:[String] = []
     var productNameArr:[AnyObject] = []
     var classifyTable: GroupTableView?
+    var navController: UINavigationController? = nil
+    var picture: UIImage? = nil
+//    let myNav: UINavigationBar = UINavigationBar()
+    
+    let cancel: UIButton = {
+        let button = UIButton(type: .system)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        self.title = "MAGIC"
-//        self.view.backgroundColor = UIColor.white
+        self.title = "MAGIC"
+        self.view.backgroundColor = UIColor.white
         self.initData()
         self.automaticallyAdjustsScrollViewInsets = false
-//        let myNav: UINavigationBar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
-        let myNav: UINavigationBar = UINavigationBar()
-        myNav.barTintColor = UIColor.blue
-        view.addSubview(myNav)
-        
-//        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-        
-        if classifyTable?.categoryselected == true {
-            print("hi")
-        }
+        view.addSubview(cancel)
     }
 
-    
+//    func setupNavBar(){
+//        myNav.translatesAutoresizingMaskIntoConstraints = false
+//        myNav.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        myNav.topAnchor.constraint(equalTo: view.topAnchor, constant: 17).isActive = true
+//        myNav.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+//        myNav.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//
+//        myNav.barTintColor = UIColor.white
+////        let BackButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(GoBack))
+////        myNav.topItem?.backBarButtonItem = BackButton
+//
+//    }
+//    
+//    func GoBack(){
+//        print("hi")
+//    }
     
     func  initData()
     {
@@ -49,16 +62,17 @@ class CategoryViewController: UIViewController {
         }
         
         self.addSubView()
-        
-        
     }
 
     
     func addSubView(){
             ///调用时传入frame和数据源
         classifyTable = GroupTableView(frame: CGRect(x: 0,y: 64,width: screenWidth,height: screenHeight-64), MenuTypeArr: productTypeArr, proNameArr: productNameArr)
+        classifyTable?.navController = self.navController
+        //let pic = UIImage(named: "name.png")
+        classifyTable?.picture.image = picture
         self.view.addSubview(classifyTable!)
     }
-
+    
 }
 
