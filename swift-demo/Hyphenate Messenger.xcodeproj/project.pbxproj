@@ -96,13 +96,12 @@
 		9AC132431DA17B8200A2BD05 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC132421DA17B8200A2BD05 /* ProfileViewController.swift */; };
 		9AE1B05C1DBDCB2F00E9E706 /* M13BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE1B05B1DBDCB2E00E9E706 /* M13BadgeView.m */; };
 		9AFE4D721D9E2731007862CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AFE4D711D9E2731007862CA /* Main.storyboard */; };
-		B053348E1F27F53400345E37 /* CategoryVCHousing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B053348D1F27F53400345E37 /* CategoryVCHousing.swift */; };
-		B06E084E1F27C18B005BF9A9 /* MenuData.json in Resources */ = {isa = PBXBuildFile; fileRef = B06E08491F27C18B005BF9A9 /* MenuData.json */; };
-		B06E084F1F27C18B005BF9A9 /* GroupTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06E084A1F27C18B005BF9A9 /* GroupTableView.swift */; };
-		B06E08501F27C18B005BF9A9 /* PrdouctMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06E084B1F27C18B005BF9A9 /* PrdouctMenuTableViewCell.swift */; };
-		B06E08511F27C18B005BF9A9 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06E084C1F27C18B005BF9A9 /* CategoryViewController.swift */; };
-		B09F68621F2802430089691F /* SummaryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09F68611F2802430089691F /* SummaryVC.swift */; };
 		B09F68661F2809160089691F /* name.png in Resources */ = {isa = PBXBuildFile; fileRef = B09F68651F2809160089691F /* name.png */; };
+		B0E164A21F291A8C008121F1 /* GroupTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A11F291A8C008121F1 /* GroupTableView.swift */; };
+		B0E164A61F291A96008121F1 /* CategoryVCHousing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A31F291A96008121F1 /* CategoryVCHousing.swift */; };
+		B0E164A71F291A96008121F1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A41F291A96008121F1 /* CategoryViewController.swift */; };
+		B0E164A81F291A96008121F1 /* SummaryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A51F291A96008121F1 /* SummaryVC.swift */; };
+		B0E164AA1F291AC1008121F1 /* PrdouctMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A91F291AC1008121F1 /* PrdouctMenuTableViewCell.swift */; };
 		B6346AEE1D9E6C5100CBEAE2 /* EMAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B63469D11D9E6C5100CBEAE2 /* EMAudioPlayerUtil.m */; };
 		B6346AEF1D9E6C5100CBEAE2 /* EMAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B63469D31D9E6C5100CBEAE2 /* EMAudioRecorderUtil.m */; };
 		B6346AF01D9E6C5100CBEAE2 /* EMCDDeviceManager+Media.m in Sources */ = {isa = PBXBuildFile; fileRef = B63469D51D9E6C5100CBEAE2 /* EMCDDeviceManager+Media.m */; };
@@ -369,13 +368,13 @@
 		9AE1B05A1DBDCB2E00E9E706 /* M13BadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13BadgeView.h; sourceTree = "<group>"; };
 		9AE1B05B1DBDCB2E00E9E706 /* M13BadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13BadgeView.m; sourceTree = "<group>"; };
 		9AFE4D711D9E2731007862CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		B053348D1F27F53400345E37 /* CategoryVCHousing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVCHousing.swift; sourceTree = "<group>"; };
 		B06E08491F27C18B005BF9A9 /* MenuData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MenuData.json; sourceTree = "<group>"; };
-		B06E084A1F27C18B005BF9A9 /* GroupTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableView.swift; sourceTree = "<group>"; };
-		B06E084B1F27C18B005BF9A9 /* PrdouctMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrdouctMenuTableViewCell.swift; sourceTree = "<group>"; };
-		B06E084C1F27C18B005BF9A9 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
-		B09F68611F2802430089691F /* SummaryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryVC.swift; sourceTree = "<group>"; };
 		B09F68651F2809160089691F /* name.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = name.png; sourceTree = "<group>"; };
+		B0E164A11F291A8C008121F1 /* GroupTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableView.swift; sourceTree = "<group>"; };
+		B0E164A31F291A96008121F1 /* CategoryVCHousing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVCHousing.swift; sourceTree = "<group>"; };
+		B0E164A41F291A96008121F1 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		B0E164A51F291A96008121F1 /* SummaryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryVC.swift; sourceTree = "<group>"; };
+		B0E164A91F291AC1008121F1 /* PrdouctMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrdouctMenuTableViewCell.swift; sourceTree = "<group>"; };
 		B634674A1D9E4AD500CBEAE2 /* Hyphenate-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hyphenate-Bridging-Header.h"; sourceTree = "<group>"; };
 		B63469C61D9E6C5100CBEAE2 /* EaseUI-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EaseUI-Prefix.pch"; sourceTree = "<group>"; };
 		B63469C71D9E6C5100CBEAE2 /* EaseUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EaseUI.h; sourceTree = "<group>"; };
@@ -787,13 +786,13 @@
 			isa = PBXGroup;
 			children = (
 				5D9F39E91F187B9300D388D9 /* HomeViewController.swift */,
+				B0E164A31F291A96008121F1 /* CategoryVCHousing.swift */,
+				B0E164A41F291A96008121F1 /* CategoryViewController.swift */,
+				B0E164A91F291AC1008121F1 /* PrdouctMenuTableViewCell.swift */,
+				B0E164A51F291A96008121F1 /* SummaryVC.swift */,
+				B0E164A11F291A8C008121F1 /* GroupTableView.swift */,
 				B06E08491F27C18B005BF9A9 /* MenuData.json */,
-				B06E084A1F27C18B005BF9A9 /* GroupTableView.swift */,
 				B09F68651F2809160089691F /* name.png */,
-				B06E084B1F27C18B005BF9A9 /* PrdouctMenuTableViewCell.swift */,
-				B06E084C1F27C18B005BF9A9 /* CategoryViewController.swift */,
-				B053348D1F27F53400345E37 /* CategoryVCHousing.swift */,
-				B09F68611F2802430089691F /* SummaryVC.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1873,6 +1872,7 @@
 				B6346B281D9E6C5100CBEAE2 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				B6346AF31D9E6C5100CBEAE2 /* EMCDDeviceManager+Remind.m in Sources */,
 				B6346B521D9E6C5100CBEAE2 /* EaseCustomMessageCell.m in Sources */,
+				B0E164A61F291A96008121F1 /* CategoryVCHousing.swift in Sources */,
 				B6346AFE1D9E6C5100CBEAE2 /* MJRefreshComponent.m in Sources */,
 				B6346B311D9E6C5100CBEAE2 /* PSTGridLayoutInfo.m in Sources */,
 				B6346B531D9E6C5100CBEAE2 /* EaseMessageCell.m in Sources */,
@@ -1939,6 +1939,7 @@
 				B6346B171D9E6C5100CBEAE2 /* DACircularProgressView.m in Sources */,
 				B6346B241D9E6C5100CBEAE2 /* UIImage+EMWebP.m in Sources */,
 				B6346B071D9E6C5100CBEAE2 /* MJRefreshGifHeader.m in Sources */,
+				B0E164A21F291A8C008121F1 /* GroupTableView.swift in Sources */,
 				5D4342431F266F1700E5CA62 /* UIViewExtensions.swift in Sources */,
 				9A3970A71DBF43E200D68937 /* UIImage+animatedGIF.m in Sources */,
 				B6346B5E1D9E6C5100CBEAE2 /* EaseChatToolbarItem.m in Sources */,
@@ -1965,7 +1966,6 @@
 				B6346B161D9E6C5100CBEAE2 /* MWZoomingScrollView.m in Sources */,
 				B6346B3B1D9E6C5100CBEAE2 /* NSDate+Category.m in Sources */,
 				B6346B851DA24F5C00CBEAE2 /* RequestEntity.swift in Sources */,
-				B053348E1F27F53400345E37 /* CategoryVCHousing.swift in Sources */,
 				B6346B1B1D9E6C5100CBEAE2 /* EMSDWebImageDownloader.m in Sources */,
 				B6346B511D9E6C5100CBEAE2 /* EaseBaseMessageCell.m in Sources */,
 				B6346B3F1D9E6C5100CBEAE2 /* UIViewController+HUD.m in Sources */,
@@ -1982,9 +1982,9 @@
 				B6346B261D9E6C5100CBEAE2 /* UIImageView+EMWebCache.m in Sources */,
 				5DEF2E0B1F264AAD00A2CB09 /* UIColor+Hyphenate.m in Sources */,
 				B6346B5D1D9E6C5100CBEAE2 /* EaseChatToolbar.m in Sources */,
-				B09F68621F2802430089691F /* SummaryVC.swift in Sources */,
 				5D43421C1F266F1700E5CA62 /* AKImageCropperOverlayView.swift in Sources */,
 				9A06AB241DB68FB5003A5B2E /* TextfieldTableViewCell.swift in Sources */,
+				B0E164A81F291A96008121F1 /* SummaryVC.swift in Sources */,
 				B6346B821D9E74CE00CBEAE2 /* ContactTableViewCell.swift in Sources */,
 				B6346B551D9E6C5100CBEAE2 /* EaseBubbleView+File.m in Sources */,
 				5D43423F1F266F1700E5CA62 /* PhotoLibraryAuthorizer.swift in Sources */,
@@ -2036,8 +2036,10 @@
 				B6346B121D9E6C5100CBEAE2 /* MWPhoto.m in Sources */,
 				B6346B1D1D9E6C5100CBEAE2 /* EMSDWebImageManager.m in Sources */,
 				B6346B471D9E6C5100CBEAE2 /* FixFopen.c in Sources */,
+				B0E164A71F291A96008121F1 /* CategoryViewController.swift in Sources */,
 				9A06AB1F1DB67BBC003A5B2E /* SettingsNotificationTableViewController.swift in Sources */,
 				9A2E70AE1DA224FA00D3EE94 /* ProfileNameTableViewCell.swift in Sources */,
+				B0E164AA1F291AC1008121F1 /* PrdouctMenuTableViewCell.swift in Sources */,
 				B6346B401D9E6C5100CBEAE2 /* EaseChineseToPinyin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2185,7 +2187,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Hyphenate Messenger/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2220,7 +2222,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Hyphenate Messenger/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
