@@ -11,6 +11,9 @@ import Photos
 
 final class CropperViewController: UIViewController {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     //  MARK: - Properties
     
     //var image = UIImage(named: "test")
