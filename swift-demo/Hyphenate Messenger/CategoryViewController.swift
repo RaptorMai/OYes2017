@@ -15,12 +15,7 @@ class CategoryViewController: UIViewController {
     var classifyTable: GroupTableView?
     var navController: UINavigationController? = nil
     var picture: UIImage? = nil
-//    let myNav: UINavigationBar = UINavigationBar()
-    
-    let cancel: UIButton = {
-        let button = UIButton(type: .system)
-        return button
-    }()
+    var imageview: UIImageView = UIImageView(frame: CGRect(x: 0, y: 64, width: screenWidth, height: screenHeight*0.23))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,25 +23,25 @@ class CategoryViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
         self.initData()
         self.automaticallyAdjustsScrollViewInsets = false
-        view.addSubview(cancel)
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(DismissMenu))
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        navigationController?.navigationBar.barTintColor = UIColor.black
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        setupimageview()
+
     }
 
-//    func setupNavBar(){
-//        myNav.translatesAutoresizingMaskIntoConstraints = false
-//        myNav.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        myNav.topAnchor.constraint(equalTo: view.topAnchor, constant: 17).isActive = true
-//        myNav.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-//        myNav.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//
-//        myNav.barTintColor = UIColor.white
-////        let BackButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(GoBack))
-////        myNav.topItem?.backBarButtonItem = BackButton
-//
-//    }
-//    
-//    func GoBack(){
-//        print("hi")
-//    }
+    func setupimageview(){
+        imageview.image = picture
+        imageview.backgroundColor = UIColor.blue
+        
+        view.addSubview(imageview)
+    }
+    
+    func DismissMenu(){
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func  initData()
     {
@@ -66,10 +61,9 @@ class CategoryViewController: UIViewController {
 
     
     func addSubView(){
-            ///调用时传入frame和数据源
+//            调用时传入frame和数据源
         classifyTable = GroupTableView(frame: CGRect(x: 0,y: 64,width: screenWidth,height: screenHeight-64), MenuTypeArr: productTypeArr, proNameArr: productNameArr)
         classifyTable?.navController = self.navController
-        //let pic = UIImage(named: "name.png")
         classifyTable?.picture.image = picture
         self.view.addSubview(classifyTable!)
     }

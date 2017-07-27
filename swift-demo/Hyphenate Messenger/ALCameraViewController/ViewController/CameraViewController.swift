@@ -572,9 +572,8 @@ open class CameraViewController: UIViewController {
         
         let cropperViewController = UIStoryboard(name: "Crop", bundle: nil).instantiateViewController(withIdentifier: "cropperViewController") as! CropperViewController
         cropperViewController.asset = asset
-        //######################
-//        present(cropperViewController, animated: true, completion: nil)
-        navigationController?.pushViewController(cropperViewController, animated: true)
+        present(cropperViewController, animated: true, completion: nil)
+//        navigationController?.pushViewController(cropperViewController, animated: true)
         
     }
     

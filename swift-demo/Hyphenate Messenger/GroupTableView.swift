@@ -40,7 +40,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
     var currentExtendSection:Int = 0
     var isScrollSetSelect = false
     var isScrollClassiftyTable = false
-    var picture:UIImageView!
+    var picture:UIImageView = UIImageView(frame: CGRect(x: 0, y: 64, width: screenWidth, height: screenHeight*0.23))
     var categoryselected = false
     var navController:UINavigationController? = nil
     
@@ -51,7 +51,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
         self.groupTableView.delegate = self
         self.groupTableView.dataSource = self
         self.groupTableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        self.groupTableView.backgroundColor = UIColor.brown
+        self.groupTableView.backgroundColor = UIColor.init(hex: "EBF0F1")
         self.groupTableView.tableHeaderView?.backgroundColor = UIColor(red: 230, green: 230, blue: 230, alpha: 1)
         self.addSubview(self.groupTableView)
         
@@ -60,10 +60,6 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
         self.classifyTableView.dataSource = self;
         self.classifyTableView.tableFooterView = UIView()
         self.addSubview(self.classifyTableView)
-        
-        self.picture = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height*0.25))
-        self.picture.backgroundColor = UIColor.red
-        self.addSubview(self.picture)
         
     }
 
@@ -103,7 +99,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
     {
         let classifyCell:UITableViewCell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "classifyCell")
         let extendCell:PrdouctMenuTableViewCell = PrdouctMenuTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "extendCell")
-        extendCell.backgroundColor = UIColor(red: 238, green: 238, blue: 238, alpha: 1);
+        extendCell.backgroundColor = UIColor.init(hex: "F8F8F8");
         if tableView == self.classifyTableView
         {
             classifyCell.textLabel?.text = self.productTypeArr[indexPath.row]
@@ -115,7 +111,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
             {
                 let tempView:UIView = UIView(frame:CGRect(x: 0,y: 0,width: 5,height: 55))
                 tempView.tag = 101
-                tempView.backgroundColor = UIColor.red
+                tempView.backgroundColor = UIColor.init(hex: "FFA200")
                 classifyCell.addSubview(tempView)
             }
             return classifyCell
@@ -237,7 +233,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
             let newCell:UITableViewCell? = tableView.cellForRow(at: indexPath)
             let tempView:UIView = UIView(frame:CGRect(x: 0,y: 0,width: 5,height: 55))
             tempView.tag = 101
-            tempView.backgroundColor = UIColor.red
+            tempView.backgroundColor = UIColor.init(hex: "FFA200")
             newCell?.addSubview(tempView)
             
                 //取消上次选中的分类

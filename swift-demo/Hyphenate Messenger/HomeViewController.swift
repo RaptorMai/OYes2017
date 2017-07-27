@@ -51,10 +51,7 @@ class HomeViewController: UIViewController{
             
             self?.dismiss(animated: true, completion: nil)
         }
-        
-        let categoryNavC = CategoryVCHousing(rootViewController: cameraViewController)
-        categoryNavC.hidesBarsOnTap = true
-        present(categoryNavC, animated: true, completion: nil)
+        present(cameraViewController, animated: true, completion: nil)
     }
     
 }

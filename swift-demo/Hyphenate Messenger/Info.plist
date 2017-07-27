@@ -45,10 +45,10 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Upload Photo With Camera</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Upload Photo In Camera Roll</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Recording Requires Microphone Access</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Upload Photo In Camera Roll</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
@@ -61,6 +61,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

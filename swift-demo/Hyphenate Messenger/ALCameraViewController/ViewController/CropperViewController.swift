@@ -73,11 +73,10 @@ final class CropperViewController: UIViewController {
             return
         }
         let nextController = CategoryViewController()
-//        let navController = CategoryVCHousing(rootViewController: nextController)
-        nextController.navController = self.navigationController
+        let navController = CategoryVCHousing(rootViewController: nextController)
+        nextController.navController = navController
         nextController.picture = image
-//        present(nextController, animated: true, completion: nil)
-        navigationController?.pushViewController(nextController, animated: true)
+        present(navController, animated: true, completion: nil)
     }
     
     
@@ -89,7 +88,7 @@ final class CropperViewController: UIViewController {
          
          let imageViewController = UIStoryboard(name: "Crop", bundle: nil).instantiateViewController(withIdentifier: "ImageViewController") as! ImageViewController
          imageViewController.image = image
-         //navigationController?.pushViewController(imageViewController, animated: true)
+//         navigationController?.pushViewController(imageViewController, animated: true)
     }
     
     @IBAction func showHideOverlayAction(_ sender: AnyObject) {
