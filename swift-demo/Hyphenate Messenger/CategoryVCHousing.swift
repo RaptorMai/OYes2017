@@ -10,20 +10,16 @@ import UIKit
 
 class CategoryVCHousing: UINavigationController {
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-//        let backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
-//        self.navigationItem.leftBarButtonItem = backButton
+        super.viewDidLoad()        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    func goBack(){
-        dismiss(animated: true, completion: nil)
-    }
-
 
 }

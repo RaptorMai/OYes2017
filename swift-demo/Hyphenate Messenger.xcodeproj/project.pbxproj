@@ -96,12 +96,12 @@
 		9AC132431DA17B8200A2BD05 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC132421DA17B8200A2BD05 /* ProfileViewController.swift */; };
 		9AE1B05C1DBDCB2F00E9E706 /* M13BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE1B05B1DBDCB2E00E9E706 /* M13BadgeView.m */; };
 		9AFE4D721D9E2731007862CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AFE4D711D9E2731007862CA /* Main.storyboard */; };
-		B09F68661F2809160089691F /* name.png in Resources */ = {isa = PBXBuildFile; fileRef = B09F68651F2809160089691F /* name.png */; };
 		B0E164A21F291A8C008121F1 /* GroupTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A11F291A8C008121F1 /* GroupTableView.swift */; };
 		B0E164A61F291A96008121F1 /* CategoryVCHousing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A31F291A96008121F1 /* CategoryVCHousing.swift */; };
 		B0E164A71F291A96008121F1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A41F291A96008121F1 /* CategoryViewController.swift */; };
 		B0E164A81F291A96008121F1 /* SummaryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A51F291A96008121F1 /* SummaryVC.swift */; };
 		B0E164AA1F291AC1008121F1 /* PrdouctMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A91F291AC1008121F1 /* PrdouctMenuTableViewCell.swift */; };
+		B0E164AC1F292DE3008121F1 /* MenuData.json in Resources */ = {isa = PBXBuildFile; fileRef = B0E164AB1F292DE3008121F1 /* MenuData.json */; };
 		B6346AEE1D9E6C5100CBEAE2 /* EMAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B63469D11D9E6C5100CBEAE2 /* EMAudioPlayerUtil.m */; };
 		B6346AEF1D9E6C5100CBEAE2 /* EMAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B63469D31D9E6C5100CBEAE2 /* EMAudioRecorderUtil.m */; };
 		B6346AF01D9E6C5100CBEAE2 /* EMCDDeviceManager+Media.m in Sources */ = {isa = PBXBuildFile; fileRef = B63469D51D9E6C5100CBEAE2 /* EMCDDeviceManager+Media.m */; };
@@ -368,13 +368,12 @@
 		9AE1B05A1DBDCB2E00E9E706 /* M13BadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13BadgeView.h; sourceTree = "<group>"; };
 		9AE1B05B1DBDCB2E00E9E706 /* M13BadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13BadgeView.m; sourceTree = "<group>"; };
 		9AFE4D711D9E2731007862CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		B06E08491F27C18B005BF9A9 /* MenuData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MenuData.json; sourceTree = "<group>"; };
-		B09F68651F2809160089691F /* name.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = name.png; sourceTree = "<group>"; };
 		B0E164A11F291A8C008121F1 /* GroupTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableView.swift; sourceTree = "<group>"; };
 		B0E164A31F291A96008121F1 /* CategoryVCHousing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVCHousing.swift; sourceTree = "<group>"; };
 		B0E164A41F291A96008121F1 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		B0E164A51F291A96008121F1 /* SummaryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryVC.swift; sourceTree = "<group>"; };
 		B0E164A91F291AC1008121F1 /* PrdouctMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrdouctMenuTableViewCell.swift; sourceTree = "<group>"; };
+		B0E164AB1F292DE3008121F1 /* MenuData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MenuData.json; sourceTree = "<group>"; };
 		B634674A1D9E4AD500CBEAE2 /* Hyphenate-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hyphenate-Bridging-Header.h"; sourceTree = "<group>"; };
 		B63469C61D9E6C5100CBEAE2 /* EaseUI-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EaseUI-Prefix.pch"; sourceTree = "<group>"; };
 		B63469C71D9E6C5100CBEAE2 /* EaseUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EaseUI.h; sourceTree = "<group>"; };
@@ -785,14 +784,13 @@
 		5D9F39F31F19494900D388D9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				B0E164AB1F292DE3008121F1 /* MenuData.json */,
 				5D9F39E91F187B9300D388D9 /* HomeViewController.swift */,
 				B0E164A31F291A96008121F1 /* CategoryVCHousing.swift */,
 				B0E164A41F291A96008121F1 /* CategoryViewController.swift */,
 				B0E164A91F291AC1008121F1 /* PrdouctMenuTableViewCell.swift */,
 				B0E164A51F291A96008121F1 /* SummaryVC.swift */,
 				B0E164A11F291A8C008121F1 /* GroupTableView.swift */,
-				B06E08491F27C18B005BF9A9 /* MenuData.json */,
-				B09F68651F2809160089691F /* name.png */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1742,7 +1740,6 @@
 			files = (
 				5D809DAA1F157DE90001BF06 /* Assets.xcassets in Resources */,
 				9A3149921DA42B360081DB04 /* FriendRequest.storyboard in Resources */,
-				B09F68661F2809160089691F /* name.png in Resources */,
 				9AFE4D721D9E2731007862CA /* Main.storyboard in Resources */,
 				5D43424B1F266F1700E5CA62 /* Images.xcassets in Resources */,
 				9A2E70B31DA2250D00D3EE94 /* ProfileSwitchTableViewCell.xib in Resources */,
@@ -1757,6 +1754,7 @@
 				9A545C8A1DA0CB2200DEFBC7 /* ConversationTableViewCell.xib in Resources */,
 				5D4342481F266F1700E5CA62 /* Crop.storyboard in Resources */,
 				B6346B0A1D9E6C5100CBEAE2 /* MJRefresh.bundle in Resources */,
+				B0E164AC1F292DE3008121F1 /* MenuData.json in Resources */,
 				5DB073331F27FDA4005829E9 /* Payment.storyboard in Resources */,
 				9A7FB3801DA1EDA7005CC8C3 /* Profile.storyboard in Resources */,
 				5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */,

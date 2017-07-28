@@ -13,10 +13,10 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     
     
     var questionPic: UIImageView = {
-        let frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight-64)
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height*0.25))
-        image.backgroundColor = UIColor.brown
-        
+//        let frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight-64)
+//        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height*0.25))
+        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight*0.23))
+        image.backgroundColor = UIColor.white
         return image
     }()
     
@@ -62,45 +62,25 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         return button
     }()
     
-    //    let categoryButton: UIButton = {
-    //        let button = UIButton(type: .system)
-    //        button.backgroundColor = UIColor.init(hex:"E7E7E7")
-    //        button.setTitle("Category", for: .normal)
-    //        button.translatesAutoresizingMaskIntoConstraints = false
-    //        return button
-    //    }()
-    
-    //    let loginRegisterButton: UIButton = {
-    ////        let button = UIButton(type: .system)
-    //        let button = UIButton(type: .system)
-    //        button.backgroundColor = UIColor.black
-    //        button.setTitle("Register", for: UIControlState())
-    //        button.translatesAutoresizingMaskIntoConstraints = false
-    //        button.setTitleColor(UIColor.white, for: UIControlState())
-    //        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-    //        return button
-    //    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         //        view.backgroundColor = UIColor.init(red: 239, green: 239, blue: 255, alpha: 1)
         view.backgroundColor = UIColor.init(hex: "EFEFF4")
         
+//        navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+//        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navigationController?.navigationBar.tintColor = UIColor.white
+        
         view.addSubview(questionPic)
         setupQuestionPic()
-        
         view.addSubview(categoryLabel)
         setupCategoryLabel()
-        
         view.addSubview(subjectLabel)
         setupSubjectLabel()
-        
         view.addSubview(questionDescription)
         setupQuestionDescription()
-        
         view.addSubview(nextButton)
         setupNextButton()
-        
         hideKeyboardWhenTappedAround()
         
         
@@ -115,7 +95,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         questionPic.heightAnchor.constraint(equalToConstant: screenHeight*0.25).isActive = true
         
         questionPic.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        questionPic.topAnchor.constraint(equalTo: view.topAnchor, constant: 65).isActive = true
+        questionPic.topAnchor.constraint(equalTo: view.topAnchor, constant: 64).isActive = true
     }
     
     func setupCategoryLabel() {
@@ -158,31 +138,6 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         nextButton.topAnchor.constraint(equalTo: questionDescription.bottomAnchor, constant: 10).isActive = true
     }
-    
-    //    func setupLoginRegisterButton() {
-    //        //need x, y, width, height constraints
-    //        loginRegisterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    //        loginRegisterButton.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 12).isActive = true
-    //        loginRegisterButton.widthAnchor.constraint(equalTo: categoryLabel.widthAnchor).isActive = true
-    //        loginRegisterButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    //    }
-    
-    //    let codedLabel:UILabel = UILabel()
-    //    codedLabel.frame = CGRect(x: 100, y: 100, width: 200, height: 200)
-    //    codedLabel.textAlignment = .center
-    //    codedLabel.text = alertText
-    //    codedLabel.numberOfLines=1
-    //    codedLabel.textColor=UIColor.red
-    //    codedLabel.font=UIFont.systemFont(ofSize: 22)
-    //    codedLabel.backgroundColor=UIColor.lightGray
-    //
-    //    self.contentView.addSubview(codedLabel)
-    //    codedLabel.translatesAutoresizingMaskIntoConstraints = false
-    //    codedLabel.heightAnchor.constraint(equalToConstant: 200).isActive = true
-    //    codedLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
-    //    codedLabel.centerXAnchor.constraint(equalTo: codedLabel.superview!.centerXAnchor).isActive = true
-    //    codedLabel.centerYAnchor.constraint(equalTo: codedLabel.superview!.centerYAnchor).isActive = true
-    
     
     // code for placeholder in UItextview
     
