@@ -98,7 +98,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                                 //self.performSegue(withIdentifier: "SignupToHome", sender: Any?.self)
                                 let mainVC = MainViewController()
                                 HyphenateMessengerHelper.sharedInstance.mainVC = mainVC
-                                self.navigationController?.pushViewController(mainVC, animated: true)
+                                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                                appDelegate.proceedLogin()
+                                //self.present(mainVC, animated: true)
+                                //self.navigationController?.pushViewController(mainVC, animated: true)
                             }
                         })
                     }

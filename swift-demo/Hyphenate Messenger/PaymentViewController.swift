@@ -61,7 +61,8 @@ class PaymentViewController: UIViewController, STPPaymentCardTextFieldDelegate {
         // Post data to Firebase
         print("--------------------------writing to database--------------------------")
         ref = Database.database().reference()
-        assert(self.price > 0, "error: invalid price")
+        //assert(self.price > 0, "error: invalid price")
+        //ref?.child("payments").childByAutoId().setValue(["token": "tok_1Ajy6lBaUJioxj23LHiwXSFh","amount": self.price])
         ref?.child("payments").childByAutoId().setValue(["token": token.tokenId,"amount": self.price])
     }
 }

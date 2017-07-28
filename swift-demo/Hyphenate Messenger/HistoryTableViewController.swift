@@ -124,19 +124,19 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
     
     override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let conversation:EMConversation = dataSource[(indexPath as NSIndexPath).row] as? EMConversation {
-            let sessionController = SessionTableViewController(conversationID: conversation.conversationId, conversationType: conversation.type)
+            //let sessionController = SessionTableViewController(conversationID: conversation.conversationId, conversationType: conversation.type)
+            let sessionController = ChatTableViewController(conversationID: conversation.conversationId, conversationType: conversation.type)
             sessionController?.title = conversation.latestMessage.from
             sessionController?.hidesBottomBarWhenPushed = true
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
-            self.navigationController!.pushViewController(sessionController!, animated: true)
+            //self.navigationController!.pushViewController(sessionController!, animated: true)
+            self.present(sessionController!, animated: true)
         }
         NotificationCenter.default.post(name: Notification.Name(rawValue: "setupUnreadMessageCount"), object: nil)
         self.tableView.reloadData()
     }
     
     
-    //     MARK: - UISearchBarDelegate
-
     open func conversationListViewController(_ conversationListViewController:ConversationsTableViewController, didSelectConversationModel conversationModel: AnyObject){
     }
     

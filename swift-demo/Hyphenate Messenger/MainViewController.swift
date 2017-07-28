@@ -5,7 +5,9 @@ class MainViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
+        
         //HomeVC
         let homeViewController: HomeViewController = HomeViewController();
         let homeRootViewController:UINavigationController = UINavigationController(rootViewController: homeViewController)

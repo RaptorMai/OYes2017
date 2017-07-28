@@ -97,7 +97,9 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     func updateTimer() {
         //timerLabel.text = String(time) + " min"
         timerLabel.text = String(Int(ceil(Double(time)/60))) + " min"
-        time += 1
+        time += 1 //+1s
+        //check balance with server every minute
+        
     }
     
     private func removeTimerLable() {

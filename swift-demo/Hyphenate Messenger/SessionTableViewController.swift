@@ -7,7 +7,7 @@ class SessionTableViewController: EaseMessageViewController,EaseMessageViewContr
     var dismissable = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        //chatToolbar = nil
+        chatToolbar = nil
         self.showRefreshHeader = true
         self.delegate = self
         self.dataSource = self
