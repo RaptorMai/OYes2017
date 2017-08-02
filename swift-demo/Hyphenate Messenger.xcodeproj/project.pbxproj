@@ -48,13 +48,16 @@
 		5D43424F1F266F1700E5CA62 /* CropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4342191F266F1700E5CA62 /* CropOverlay.swift */; };
 		5D4342501F266F1700E5CA62 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D43421A1F266F1700E5CA62 /* ImageCell.swift */; };
 		5D4342511F266F1700E5CA62 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D43421B1F266F1700E5CA62 /* PermissionsView.swift */; };
-		5D809DAA1F157DE90001BF06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D809DA81F157AC10001BF06 /* Assets.xcassets */; };
 		5D9F39E81F182EA000D388D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D9F39E71F182EA000D388D9 /* GoogleService-Info.plist */; };
 		5D9F39EA1F187B9300D388D9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39E91F187B9300D388D9 /* HomeViewController.swift */; };
 		5D9F39EC1F1946A700D388D9 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39EB1F1946A700D388D9 /* HistoryTableViewController.swift */; };
 		5D9F39EE1F1946FE00D388D9 /* ShopTableVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */; };
 		5DB073331F27FDA4005829E9 /* Payment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DB073321F27FDA4005829E9 /* Payment.storyboard */; };
 		5DB073351F27FDF7005829E9 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB073341F27FDF7005829E9 /* PaymentViewController.swift */; };
+		5DB951F71F2C1C7700F5C2F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DB951F61F2C1C7700F5C2F7 /* Assets.xcassets */; };
+		5DE85BAF1F2C13BD00200C3E /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE85BAE1F2C13BD00200C3E /* RatingViewController.swift */; };
+		5DE85BB11F2C142F00200C3E /* Rating.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DE85BB01F2C142F00200C3E /* Rating.storyboard */; };
+		5DE85BB31F2C165E00200C3E /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE85BB21F2C165E00200C3E /* FloatRatingView.swift */; };
 		5DEF2E0B1F264AAD00A2CB09 /* UIColor+Hyphenate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEF2E0A1F264AAD00A2CB09 /* UIColor+Hyphenate.m */; };
 		5DF190FF1F198CA50019E6F0 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF190FE1F198CA50019E6F0 /* SessionTableViewController.swift */; };
 		5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */; };
@@ -310,13 +313,16 @@
 		5D4342191F266F1700E5CA62 /* CropOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropOverlay.swift; sourceTree = "<group>"; };
 		5D43421A1F266F1700E5CA62 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		5D43421B1F266F1700E5CA62 /* PermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
-		5D809DA81F157AC10001BF06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D9F39E71F182EA000D388D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5D9F39E91F187B9300D388D9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5D9F39EB1F1946A700D388D9 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopTableVIewController.swift; sourceTree = "<group>"; };
 		5DB073321F27FDA4005829E9 /* Payment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Payment.storyboard; sourceTree = "<group>"; };
 		5DB073341F27FDF7005829E9 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		5DB951F61F2C1C7700F5C2F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Hyphenate Messenger/Assets.xcassets"; sourceTree = "<group>"; };
+		5DE85BAE1F2C13BD00200C3E /* RatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
+		5DE85BB01F2C142F00200C3E /* Rating.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Rating.storyboard; sourceTree = "<group>"; };
+		5DE85BB21F2C165E00200C3E /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		5DEF2E091F264AAD00A2CB09 /* UIColor+Hyphenate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hyphenate.h"; sourceTree = "<group>"; };
 		5DEF2E0A1F264AAD00A2CB09 /* UIColor+Hyphenate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hyphenate.m"; sourceTree = "<group>"; };
 		5DF190FE1F198CA50019E6F0 /* SessionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewController.swift; sourceTree = "<group>"; };
@@ -807,6 +813,7 @@
 		9A17BDE41D9E1FB70075EF9F = {
 			isa = PBXGroup;
 			children = (
+				5DB951F61F2C1C7700F5C2F7 /* Assets.xcassets */,
 				5D9F39E71F182EA000D388D9 /* GoogleService-Info.plist */,
 				B6346B661D9E6C5D00CBEAE2 /* EaseUIResource.bundle */,
 				B63469C51D9E6C5100CBEAE2 /* EaseUI */,
@@ -842,7 +849,6 @@
 				9A17BE211D9E200B0075EF9F /* View Controllers */,
 				9A17BDF01D9E1FB70075EF9F /* AppDelegate.swift */,
 				9A17BDFF1D9E1FB70075EF9F /* Info.plist */,
-				5D809DA81F157AC10001BF06 /* Assets.xcassets */,
 				9A17BDF71D9E1FB70075EF9F /* Hyphenate_Messenger.xcdatamodeld */,
 				B634674A1D9E4AD500CBEAE2 /* Hyphenate-Bridging-Header.h */,
 			);
@@ -956,7 +962,9 @@
 		9AC1323F1DA0EDBC00A2BD05 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				5DE85BB21F2C165E00200C3E /* FloatRatingView.swift */,
 				9A17BE291D9E20190075EF9F /* ChatTableViewController.swift */,
+				5DE85BAE1F2C13BD00200C3E /* RatingViewController.swift */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -975,6 +983,7 @@
 		9AC132411DA0EDD800A2BD05 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				5DE85BB01F2C142F00200C3E /* Rating.storyboard */,
 				9AFE4D711D9E2731007862CA /* Main.storyboard */,
 				9A7FB37F1DA1EDA7005CC8C3 /* Profile.storyboard */,
 				5DB073321F27FDA4005829E9 /* Payment.storyboard */,
@@ -1738,7 +1747,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D809DAA1F157DE90001BF06 /* Assets.xcassets in Resources */,
 				9A3149921DA42B360081DB04 /* FriendRequest.storyboard in Resources */,
 				9AFE4D721D9E2731007862CA /* Main.storyboard in Resources */,
 				5D43424B1F266F1700E5CA62 /* Images.xcassets in Resources */,
@@ -1754,6 +1762,7 @@
 				9A545C8A1DA0CB2200DEFBC7 /* ConversationTableViewCell.xib in Resources */,
 				5D4342481F266F1700E5CA62 /* Crop.storyboard in Resources */,
 				B6346B0A1D9E6C5100CBEAE2 /* MJRefresh.bundle in Resources */,
+				5DE85BB11F2C142F00200C3E /* Rating.storyboard in Resources */,
 				B0E164AC1F292DE3008121F1 /* MenuData.json in Resources */,
 				5DB073331F27FDA4005829E9 /* Payment.storyboard in Resources */,
 				9A7FB3801DA1EDA7005CC8C3 /* Profile.storyboard in Resources */,
@@ -1763,6 +1772,7 @@
 				5D9F39E81F182EA000D388D9 /* GoogleService-Info.plist in Resources */,
 				B6346B351D9E6C5100CBEAE2 /* MWPhotoBrowser.bundle in Resources */,
 				5D43423A1F266F1700E5CA62 /* CameraView.strings in Resources */,
+				5DB951F71F2C1C7700F5C2F7 /* Assets.xcassets in Resources */,
 				5D4342291F266F1700E5CA62 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1951,6 +1961,7 @@
 				B6346AF71D9E6C5100CBEAE2 /* EMVoiceConverter.mm in Sources */,
 				B6346B341D9E6C5100CBEAE2 /* PSTGridLayoutSection.m in Sources */,
 				B6346AEE1D9E6C5100CBEAE2 /* EMAudioPlayerUtil.m in Sources */,
+				5DE85BB31F2C165E00200C3E /* FloatRatingView.swift in Sources */,
 				B6346B0B1D9E6C5100CBEAE2 /* MJRefreshConst.m in Sources */,
 				9A17BE2E1D9E20190075EF9F /* SettingsTableViewController.swift in Sources */,
 				B6346B231D9E6C5100CBEAE2 /* UIImage+EMMultiFormat.m in Sources */,
@@ -1969,6 +1980,7 @@
 				B6346B3F1D9E6C5100CBEAE2 /* UIViewController+HUD.m in Sources */,
 				5D4342411F266F1700E5CA62 /* SingleImageSaver.swift in Sources */,
 				B6346B431D9E6C5100CBEAE2 /* EaseEmoji.m in Sources */,
+				5DE85BAF1F2C13BD00200C3E /* RatingViewController.swift in Sources */,
 				B6346B581D9E6C5100CBEAE2 /* EaseBubbleView+Location.m in Sources */,
 				5D4342231F266F1700E5CA62 /* AKImageCropperScrollView.swift in Sources */,
 				5D4342501F266F1700E5CA62 /* ImageCell.swift in Sources */,

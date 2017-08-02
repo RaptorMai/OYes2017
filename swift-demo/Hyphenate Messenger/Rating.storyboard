@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Rating View Controller-->
+        <scene sceneID="kR5-w4-MDv">
+            <objects>
+                <viewController storyboardIdentifier="rateSession" id="r5M-4g-CNe" customClass="RatingViewController" customModule="Hyphenate_Messenger" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xfi-lZ-ITm"/>
+                        <viewControllerLayoutGuide type="bottom" id="5eD-Gk-Zq6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MEU-H2-sj0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How was the last session?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="0f6-cv-1YP">
+                                <rect key="frame" x="58.5" y="66" width="259" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qsB-H6-yCa" customClass="FloatRatingView" customModule="Hyphenate_Messenger" customModuleProvider="target">
+                                <rect key="frame" x="68" y="154" width="239" height="89"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="StarEmpty"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="StarFull"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4Y-h4-H07">
+                                <rect key="frame" x="68" y="286" width="239" height="47"/>
+                                <color key="backgroundColor" red="0.1803921568627451" green="0.63529411764705879" blue="0.86274509803921573" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="5eD-Gk-Zq6" firstAttribute="top" secondItem="b4Y-h4-H07" secondAttribute="bottom" constant="334" id="5T2-7F-3hC"/>
+                            <constraint firstItem="qsB-H6-yCa" firstAttribute="top" secondItem="0f6-cv-1YP" secondAttribute="bottom" constant="61" id="6qq-fV-Vi7"/>
+                            <constraint firstItem="0f6-cv-1YP" firstAttribute="top" secondItem="xfi-lZ-ITm" secondAttribute="bottom" constant="46" id="7oX-zw-JrD"/>
+                            <constraint firstItem="b4Y-h4-H07" firstAttribute="top" secondItem="qsB-H6-yCa" secondAttribute="bottom" constant="50" id="Jzk-L6-dxf"/>
+                            <constraint firstItem="b4Y-h4-H07" firstAttribute="leading" secondItem="MEU-H2-sj0" secondAttribute="leadingMargin" constant="52" id="det-DK-9Qu"/>
+                            <constraint firstItem="qsB-H6-yCa" firstAttribute="leading" secondItem="MEU-H2-sj0" secondAttribute="leadingMargin" constant="52" id="nGD-Ev-zvg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0f6-cv-1YP" secondAttribute="trailing" constant="41.5" id="rTq-BU-efG"/>
+                            <constraint firstItem="0f6-cv-1YP" firstAttribute="leading" secondItem="MEU-H2-sj0" secondAttribute="leadingMargin" constant="42.5" id="rVJ-et-KDW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qsB-H6-yCa" secondAttribute="trailing" constant="52" id="sQC-Z0-gQ9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="b4Y-h4-H07" secondAttribute="trailing" constant="52" id="tG7-eG-bld"/>
+                            <constraint firstAttribute="width" secondItem="qsB-H6-yCa" secondAttribute="width" id="zLl-0k-wi1"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="zLl-0k-wi1"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="floatRatingView" destination="qsB-H6-yCa" id="Ltj-Oc-VZT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HOi-uL-Pzc" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="91.304347826086968"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="StarEmpty" width="22" height="22"/>
+        <image name="StarFull" width="22" height="22"/>
+    </resources>
+</document>

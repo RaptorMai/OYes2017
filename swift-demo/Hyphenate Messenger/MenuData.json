@@ -4,12 +4,11 @@
                         {
                         "typeName": "Math",
                         "productName": [
-                                        "Integration",
-                                        "Differentiation",
-                                        "a",
-                                        "a",
-                                        "a",
-                                        "a",
+                                        "Basic Calculus",
+                                        "Linear Algebra",
+                                        "Complex Analysis",
+                                        "Real Analysis",
+                                        "Topology",
                                         "a",
                                         "a",
                                         "a",
@@ -42,7 +41,7 @@
                                         ]
                         },
                         {
-                        "typeName": "Physics",
+                        "typeName": "Biology",
                         "productName": [
                                         "a",
                                         "a",
@@ -57,7 +56,7 @@
                                         ]
                         },
                         {
-                        "typeName": "aPhysics",
+                        "typeName": "Computer Science",
                         "productName": [
                                         "a",
                                         "a",
@@ -72,7 +71,7 @@
                                         ]
                         },
                         {
-                        "typeName": "Pbhysics",
+                        "typeName": "Statistics",
                         "productName": [
                                         "a",
                                         "a",
@@ -87,7 +86,7 @@
                                         ]
                         },
                         {
-                        "typeName": "Phcysics",
+                        "typeName": " ",
                         "productName": [
                                         "a",
                                         "a",
@@ -102,7 +101,7 @@
                                         ]
                         },
                         {
-                        "typeName": "Phydsics",
+                        "typeName": " ",
                         "productName": [
                                         "a",
                                         "a",
@@ -117,7 +116,7 @@
                                         ]
                         },
                         {
-                        "typeName": "Physeics",
+                        "typeName": " ",
                         "productName": [
                                         "a",
                                         "a",
@@ -132,7 +131,7 @@
                                         ]
                         },
                         {
-                        "typeName": "Physifcs",
+                        "typeName": " ",
                         "productName": [
                                         "a",
                                         "a",

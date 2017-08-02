@@ -56,7 +56,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     
     let nextButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.orange
+        button.backgroundColor = UIColor.init(hex: "2EA2DC")
         button.setTitle("Request Help!", for: .normal)
         button.setTitleColor( .white , for: .normal)
         return button

@@ -19,7 +19,7 @@ class CategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "MAGIC"
+        self.title = "Category"
         self.view.backgroundColor = UIColor.white
         self.initData()
         self.automaticallyAdjustsScrollViewInsets = false

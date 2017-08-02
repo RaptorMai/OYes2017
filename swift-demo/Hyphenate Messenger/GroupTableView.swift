@@ -111,7 +111,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
             {
                 let tempView:UIView = UIView(frame:CGRect(x: 0,y: 0,width: 5,height: 55))
                 tempView.tag = 101
-                tempView.backgroundColor = UIColor.init(hex: "FFA200")
+                tempView.backgroundColor = UIColor.init(hex: "2EA2DC")
                 classifyCell.addSubview(tempView)
             }
             return classifyCell
@@ -233,7 +233,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
             let newCell:UITableViewCell? = tableView.cellForRow(at: indexPath)
             let tempView:UIView = UIView(frame:CGRect(x: 0,y: 0,width: 5,height: 55))
             tempView.tag = 101
-            tempView.backgroundColor = UIColor.init(hex: "FFA200")
+            tempView.backgroundColor = UIColor.init(hex: "2EA2DC")
             newCell?.addSubview(tempView)
             
                 //取消上次选中的分类

@@ -31,13 +31,13 @@ class ShopTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.navigationItem.title = "Store"
+        self.tabBarController?.navigationItem.title = "Shop"
         self.tableView.tableFooterView = UIView()
     }
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.navigationItem.title = "Store"
+        self.tabBarController?.navigationItem.title = "Shop"
     }
     
     override func viewDidAppear(_ animated: Bool) {

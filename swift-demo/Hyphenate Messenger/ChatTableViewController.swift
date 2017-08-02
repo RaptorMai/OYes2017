@@ -72,16 +72,6 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     func messageViewController(_ viewController: EaseMessageViewController!, canLongPressRowAt indexPath: IndexPath!) -> Bool {
         return false
     }
-    
-    //TODO: add tap avatar function for rating the tutor
-//    func messageViewController(_ viewController: EaseMessageViewController!, didSelectAvatarMessageModel messageModel: IMessageModel!) {
-//        
-//        let profileController = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! ProfileViewController
-//        profileController.username = messageModel.message.from
-//        self.navigationController!.pushViewController(profileController, animated: true)
-//    }
-    
-    // Mark: EaseMessageViewControllerDataSource
 
     func messageViewController(_ viewController: EaseMessageViewController!, modelFor message: EMMessage!) -> IMessageModel! {
        
@@ -114,9 +104,18 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         let title = "Exit Session"
         let message = "Press Exit to end current session."
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Exit", style: UIAlertActionStyle.destructive, handler: {(action) in self.dismiss(animated: true, completion: nil)}))
+        alert.addAction(UIAlertAction(title: "Exit", style: UIAlertActionStyle.destructive, handler: {action in self.endSession()}))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    func endSession(){
+        let ratingViewController = UIStoryboard(name: "Rating", bundle: nil).instantiateViewController(withIdentifier: "rateSession") as! RatingViewController
+        
+        present(ratingViewController, animated:true)
+        
+        //self.dismiss(animated:true, completion: nil)
     }
     
 }

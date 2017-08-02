@@ -26,7 +26,8 @@ class HomeViewController: UIViewController{
         snapButton.frame = CGRect(x: 0, y: 0, width: viewWidth/2, height: viewWidth/2)
         snapButton.center = CGPoint(x: viewWidth/2, y: viewHeight/2)
         snapButton.layer.cornerRadius = 0.5 * snapButton.bounds.size.width
-        snapButton.layer.borderWidth = 2
+        snapButton.layer.borderColor = UIColor(red: 23.0/255.0, green: 81.0/255.0, blue: 110.0/255.0, alpha:1.0).cgColor
+        snapButton.layer.borderWidth = 3
         snapButton.setImage(UIImage(named:"Snap.png"), for: .normal)
         let margin = 0.191 * snapButton.bounds.size.width
         snapButton.contentEdgeInsets = UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
