@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class SummaryVC: UIViewController, UITextViewDelegate{
     var categorytitle: String = ""
@@ -81,10 +82,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         setupQuestionDescription()
         view.addSubview(nextButton)
         setupNextButton()
-        
         hideKeyboardWhenTappedAround()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,6 +90,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     
     func requestHelpPressed(button: UIButton) {
         //write question to firebase
+        
     }
     
     func setupQuestionPic() {
