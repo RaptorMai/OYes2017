@@ -81,12 +81,17 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         setupQuestionDescription()
         view.addSubview(nextButton)
         setupNextButton()
+        
         hideKeyboardWhenTappedAround()
         
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
+    }
+    
+    func requestHelpPressed(button: UIButton) {
+        //write question to firebase
     }
     
     func setupQuestionPic() {
@@ -137,6 +142,8 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         
         nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         nextButton.topAnchor.constraint(equalTo: questionDescription.bottomAnchor, constant: 10).isActive = true
+        
+        nextButton.addTarget(self, action: #selector(requestHelpPressed(button:)), for: .touchUpInside)
     }
     
     // code for placeholder in UItextview
