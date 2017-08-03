@@ -112,8 +112,8 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     
     func endSession(){
         let ratingViewController = UIStoryboard(name: "Rating", bundle: nil).instantiateViewController(withIdentifier: "rateSession") as! RatingViewController
-        
-        present(ratingViewController, animated:true)
+
+        self.present(ratingViewController, animated: true)
         
         //self.dismiss(animated:true, completion: nil)
     }

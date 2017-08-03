@@ -18,6 +18,11 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //view.isOpaque = false
+        //view.backgroundColor = .clear
+        //self.preferredContentSize = CGSize(width: 300, height: 300)
+        
+        
         /** Note: With the exception of contentMode, all of these
             properties can be set directly in Interface builder **/
         
@@ -47,6 +52,10 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func submitRating(_ sender: Any) {
+        self.dismiss(animated:true, completion:nil)
+    }
+    
     @IBAction func ratingTypeChanged(_ sender: UISegmentedControl) {
         self.floatRatingView.halfRatings = sender.selectedSegmentIndex==1
         self.floatRatingView.floatRatings = sender.selectedSegmentIndex==2
