@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/HyphenateMessengerHelper.swift"
-            timestampString = "521497833.605293"
+            timestampString = "523487054.877055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "loadConversationFromDB()"
             landmarkType = "7">
             <Locations>
@@ -145,6 +145,54 @@
             endingLineNumber = "149"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hyphenate Messenger/LoginViewController.swift"
+            timestampString = "523492669.578257"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "loginAction(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Hyphenate_Messenger.LoginViewController.(loginAction (Swift.AnyObject) -&gt; ()).(closure #1)"
+                  moduleName = "Hyphenate Messenger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/geniusming/Dropbox/Career/InstaSolve/swift-demo/Hyphenate%20Messenger/LoginViewController.swift"
+                  timestampString = "523509487.536684"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "3132">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Hyphenate_Messenger.LoginViewController.(loginAction (Swift.AnyObject) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "Hyphenate Messenger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/geniusming/Dropbox/Career/InstaSolve/swift-demo/Hyphenate%20Messenger/LoginViewController.swift"
+                  timestampString = "523509487.540271"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "60">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

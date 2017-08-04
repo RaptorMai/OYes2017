@@ -24,7 +24,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         newConversationButton.addTarget(self, action: #selector(ConversationsTableViewController.composeConversationAction), for: .touchUpInside)
         newConversationButton.showsTouchWhenHighlighted = true
         let rightButtonItem = UIBarButtonItem(customView: newConversationButton)
-        navigationItem.rightBarButtonItem = rightButtonItem
+        self.tabBarController?.navigationItem.rightBarButtonItem = rightButtonItem
         
         self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
@@ -130,7 +130,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
             sessionController?.hidesBottomBarWhenPushed = true
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
             //self.navigationController!.pushViewController(sessionController!, animated: true)
-            self.present(sessionController!, animated: true)
+            self.tabBarController?.navigationController?.pushViewController(sessionController!, animated: true)
         }
         NotificationCenter.default.post(name: Notification.Name(rawValue: "setupUnreadMessageCount"), object: nil)
         self.tableView.reloadData()

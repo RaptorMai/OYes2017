@@ -2,21 +2,32 @@
 import UIKit
 import Hyphenate
 
-class ChatTableViewController: EaseMessageViewController,EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource,EMClientDelegate {
+
+protocol DismissProtocol {
+    func dismissParentVC()
+}
+
+
+class ChatTableViewController: EaseMessageViewController,EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource,EMClientDelegate, DismissProtocol {
     
     var timerLabel = UILabel()
     var endSessionButton = UIButton(type: UIButtonType.custom)
     var navigationBar = UINavigationBar()
-    var time = 1
+    var time: Double = 0
     var timer:Timer?
+    
+    let beginTime = Date()
+    //let calendar = Calendar.current
+
     
     var dismissable = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.navigationController?.setNavigationBarHidden(true, animated: false)
+
         self.showRefreshHeader = true
         self.delegate = self
         self.dataSource = self
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60))
         self.view.addSubview(navBar);
@@ -27,8 +38,14 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
             let rightButtonItem:UIBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ChatTableViewController.cancelAction))
             navigationItem.leftBarButtonItem = rightButtonItem
         }
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "kNotification_unreadMessageCountUpdated"), object: nil)
         
-        /* ming: added timer UILabel ********/
+        /* added timer UILabel ********/
         timerLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
         timerLabel.font = UIFont.systemFont(ofSize: 20)
         timerLabel.adjustsFontSizeToFitWidth = true
@@ -40,7 +57,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         timerLabel.text = String(time) + " min"
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         
-        /* ming: added end session button ***/
+        /* added end session button ***/
         endSessionButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         let backIcon = UIImage(named: "back.png")
         endSessionButton.setImage(backIcon, for: .normal)
@@ -52,14 +69,8 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         /************************************/
     }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "kNotification_unreadMessageCountUpdated"), object: nil)
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
-        removeTimerLable()
+        //removeTimerLable()
         HyphenateMessengerHelper.sharedInstance.chatVC = nil
     }
     
@@ -86,14 +97,14 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     // Ming: functions for timer
     func updateTimer() {
         //timerLabel.text = String(time) + " min"
+        time = Date().timeIntervalSince(beginTime)
         timerLabel.text = String(Int(ceil(Double(time)/60))) + " min"
-        time += 1 //+1s
-        //check balance with server every minute
+
+        //TODO: check balance with server every minute, cut session if fund not enough
         
     }
     
     private func removeTimerLable() {
-        time = 0
         timerLabel.text = ""
         timerLabel.removeFromSuperview()
         timer?.invalidate()
@@ -112,10 +123,20 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     
     func endSession(){
         let ratingViewController = UIStoryboard(name: "Rating", bundle: nil).instantiateViewController(withIdentifier: "rateSession") as! RatingViewController
-
-        self.present(ratingViewController, animated: true)
         
-        //self.dismiss(animated:true, completion: nil)
+        removeTimerLable()
+        time = Date().timeIntervalSince(beginTime)
+        let sessionDuration = Int(ceil(Double(time)/60))
+        
+        //TODO: charge time to balance here
+        print(sessionDuration)
+        
+        ratingViewController.delegate = self
+        self.present(ratingViewController, animated: true)
+    }
+    
+    func dismissParentVC() {
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
