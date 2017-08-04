@@ -39,8 +39,6 @@ class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegat
     //var conversationVC : ConversationsTableViewController?
     var contactVC : ContactsTableViewController?
     var chatVC : ChatTableViewController?
-    //var callVC: CallViewController?
-    //var callSession: EMCallSession?
     
     deinit {
         EMClient.shared().removeDelegate(self)
@@ -48,7 +46,6 @@ class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegat
         EMClient.shared().contactManager.removeDelegate(self)
         EMClient.shared().roomManager.remove(self)
         EMClient.shared().chatManager.remove(self)
-        //EMClient.shared().callManager.remove!(self)
     }
     
     override init() {

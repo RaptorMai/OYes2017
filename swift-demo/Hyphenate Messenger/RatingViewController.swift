@@ -15,13 +15,10 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
     @IBOutlet var liveLabel: UILabel!
     @IBOutlet var updatedLabel: UILabel!
     
+    var delegate : DismissProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //view.isOpaque = false
-        //view.backgroundColor = .clear
-        //self.preferredContentSize = CGSize(width: 300, height: 300)
-        
         
         /** Note: With the exception of contentMode, all of these
             properties can be set directly in Interface builder **/
@@ -39,12 +36,6 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
         self.floatRatingView.halfRatings = true
         self.floatRatingView.floatRatings = false
         
-        // Segmented control init
-        //self.ratingSegmentedControl.selectedSegmentIndex = 1
-        
-        // Labels init
-        //self.liveLabel.text = NSString(format: "%.2f", self.floatRatingView.rating) as String
-       // self.updatedLabel.text = NSString(format: "%.2f", self.floatRatingView.rating) as String
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,21 +44,23 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
     }
 
     @IBAction func submitRating(_ sender: Any) {
+        
+        //TODO: submit rating to DB below
+        print(self.floatRatingView.rating)
+        
         self.dismiss(animated:true, completion:nil)
+        delegate?.dismissParentVC()
     }
     
-    @IBAction func ratingTypeChanged(_ sender: UISegmentedControl) {
-        self.floatRatingView.halfRatings = sender.selectedSegmentIndex==1
-        self.floatRatingView.floatRatings = sender.selectedSegmentIndex==2
-    }
-
     // MARK: FloatRatingViewDelegate
     
     func floatRatingView(_ ratingView: FloatRatingView, isUpdating rating:Float) {
+        //print(self.floatRatingView.rating)
         //self.liveLabel.text = NSString(format: "%.2f", self.floatRatingView.rating) as String
     }
     
     func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Float) {
+        print(self.floatRatingView.rating)
         //.updatedLabel.text = NSString(format: "%.2f", self.floatRatingView.rating) as String
     }
     
