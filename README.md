@@ -8,3 +8,4 @@ Existing bugs:
 2. Search for "TODO:" in the project
 3. Timing method should be more elegant (not locally)
 4. Picture view is so so ugly when displayed in category view controller and request view controller
+5. Payment: remember user card info and update card info
