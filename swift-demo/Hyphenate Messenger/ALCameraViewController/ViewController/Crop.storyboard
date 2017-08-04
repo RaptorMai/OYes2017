@@ -21,8 +21,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NNR-8r-Iig" customClass="AKImageCropperView" customModule="Hyphenate_Messenger" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="549"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNR-8r-Iig" customClass="AKImageCropperView" customModule="Hyphenate_Messenger" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="557"/>
                                 <color key="backgroundColor" white="1" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yeD-f2-GC0">
@@ -50,7 +50,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.10208487510681152" green="0.10208210349082947" blue="0.1020839661359787" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="1uM-rd-DUd"/>
                                     <constraint firstItem="OcE-Cr-oaV" firstAttribute="centerY" secondItem="yeD-f2-GC0" secondAttribute="centerY" id="227-80-ud3"/>
@@ -113,7 +113,7 @@
                             <constraint firstAttribute="trailing" secondItem="wMD-3V-hUT" secondAttribute="trailing" id="5mI-PE-xbj"/>
                             <constraint firstItem="yeD-f2-GC0" firstAttribute="leading" secondItem="yhB-g2-lKN" secondAttribute="leading" id="IqO-nt-y3G"/>
                             <constraint firstItem="wMD-3V-hUT" firstAttribute="leading" secondItem="yhB-g2-lKN" secondAttribute="leading" id="PZz-n2-ppW"/>
-                            <constraint firstItem="wMD-3V-hUT" firstAttribute="top" secondItem="NNR-8r-Iig" secondAttribute="bottom" id="SAb-zF-ExQ"/>
+                            <constraint firstItem="wMD-3V-hUT" firstAttribute="top" secondItem="NNR-8r-Iig" secondAttribute="bottom" constant="50" id="SAb-zF-ExQ"/>
                             <constraint firstItem="NNR-8r-Iig" firstAttribute="top" secondItem="Qt6-f6-NMs" secondAttribute="bottom" id="XIq-wp-GCF"/>
                             <constraint firstAttribute="trailing" secondItem="yeD-f2-GC0" secondAttribute="trailing" id="bQg-Xe-T56"/>
                             <constraint firstItem="aDG-WU-S8J" firstAttribute="top" secondItem="wMD-3V-hUT" secondAttribute="bottom" id="hZW-cD-Y7S"/>

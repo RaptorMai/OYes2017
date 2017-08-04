@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import FirebaseDatabase
+import Firebase
 
 class SummaryVC: UIViewController, UITextViewDelegate{
     var categorytitle: String = ""
     
-    
+    var ref: DatabaseReference?
     var questionPic: UIImageView = {
 //        let frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight-64)
 //        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height*0.25))
@@ -90,8 +90,38 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     
     func requestHelpPressed(button: UIButton) {
         //write question to firebase
+        //let storageRef = Storage.storage().reference()
+        ref = Database.database().reference()
+        let key = ref?.child("request/active").childByAutoId().key
+        var data = Data()
+        data = UIImageJPEGRepresentation(questionPic.image!, 0.8)!
+        let sid = EMClient.shared().currentUsername!
+
+        uploadPicture(key!, data, completion:{ (url) -> Void in
         
+        
+        let addRequest = ["sid": sid, "picURL":url!, "category": self.categorytitle, "description":
+            self.questionDescription.text as String, "status": true] as [String : Any]
+        self.ref?.child("Request/active/\(String(describing: key!))").setValue(addRequest)
+        print(addRequest)
+        
+        })
     }
+    
+    func uploadPicture(_ key: String, _ data: Data, completion:@escaping (_ url: String?) -> ()) {
+        let storageRef = Storage.storage().reference()
+        storageRef.child("image/\(String(describing: key))").putData(data, metadata: nil){(metaData,error) in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(nil)
+                
+            }else{
+                //store downloadURL
+                completion((metaData?.downloadURL()?.absoluteString)!)
+                
+            }
+        }
+        }
     
     func setupQuestionPic() {
         questionPic.translatesAutoresizingMaskIntoConstraints = false
