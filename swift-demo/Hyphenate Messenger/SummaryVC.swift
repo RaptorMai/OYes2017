@@ -96,13 +96,12 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         var data = Data()
         data = UIImageJPEGRepresentation(questionPic.image!, 0.8)!
         let sid = EMClient.shared().currentUsername!
-
         uploadPicture(key!, data, completion:{ (url) -> Void in
         
         
-        let addRequest = ["sid": sid, "picURL":url!, "category": self.categorytitle, "description":
+            let addRequest = ["sid": sid, "picURL":url!, "category": self.categorytitle, "description":
             self.questionDescription.text as String, "status": true] as [String : Any]
-        self.ref?.child("Request/active/\(String(describing: key!))").setValue(addRequest)
+            self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: key!))").setValue(addRequest)
         print(addRequest)
         
         })
@@ -110,7 +109,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     
     func uploadPicture(_ key: String, _ data: Data, completion:@escaping (_ url: String?) -> ()) {
         let storageRef = Storage.storage().reference()
-        storageRef.child("image/\(String(describing: key))").putData(data, metadata: nil){(metaData,error) in
+        storageRef.child("image/\(self.categorytitle)/\(String(describing: key))").putData(data, metadata: nil){(metaData,error) in
             if let error = error {
                 print(error.localizedDescription)
                 completion(nil)
