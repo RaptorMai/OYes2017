@@ -137,6 +137,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     
     func dismissParentVC() {
         self.navigationController?.popViewController(animated: true)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
 }

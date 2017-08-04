@@ -25,6 +25,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         newConversationButton.showsTouchWhenHighlighted = true
         let rightButtonItem = UIBarButtonItem(customView: newConversationButton)
         self.tabBarController?.navigationItem.rightBarButtonItem = rightButtonItem
+
         
         self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
@@ -126,6 +127,9 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         if let conversation:EMConversation = dataSource[(indexPath as NSIndexPath).row] as? EMConversation {
             //let sessionController = SessionTableViewController(conversationID: conversation.conversationId, conversationType: conversation.type)
             let sessionController = ChatTableViewController(conversationID: conversation.conversationId, conversationType: conversation.type)
+            
+            print(conversation.conversationId)
+            
             sessionController?.title = conversation.latestMessage.from
             sessionController?.hidesBottomBarWhenPushed = true
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
