@@ -117,8 +117,13 @@ class LoginVC: UIViewController {
                     print (" error: \(String(describing: error?.localizedDescription))")
                 }
                 else{
-                    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style:.plain, target: nil, action: nil)
-                    self.navigationController?.pushViewController(RegisterVC(), animated: true)
+//                    let homeVC = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "oneandonly")
+                    let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTableViewController")
+                    self.present(homeVC, animated: true, completion: nil)
+                    
+                    
+//                    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style:.plain, target: nil, action: nil)
+//                    self.navigationController?.pushViewController(homeVC, animated: true)
                 }
             }
         }

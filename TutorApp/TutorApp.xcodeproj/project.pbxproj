@@ -15,12 +15,16 @@
 		B0AC49911F3284D3003B938F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AC49901F3284D3003B938F /* ViewController.swift */; };
 		B0AC49941F3284D3003B938F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0AC49921F3284D3003B938F /* Main.storyboard */; };
 		B0AC49971F3284D3003B938F /* TutorApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0AC49951F3284D3003B938F /* TutorApp.xcdatamodeld */; };
-		B0AC49991F3284D3003B938F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0AC49981F3284D3003B938F /* Assets.xcassets */; };
 		B0AC499C1F3284D3003B938F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0AC499A1F3284D3003B938F /* LaunchScreen.storyboard */; };
 		B0AC49A71F3284D3003B938F /* TutorAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AC49A61F3284D3003B938F /* TutorAppTests.swift */; };
 		B0AC49B21F3284D3003B938F /* TutorAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AC49B11F3284D3003B938F /* TutorAppUITests.swift */; };
 		B0AC49C41F32AB70003B938F /* UIColor+HexColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AC49C31F32AB70003B938F /* UIColor+HexColors.swift */; };
 		B0C6D0941F34F3770026CAA3 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C6D0931F34F3770026CAA3 /* Home.storyboard */; };
+		B0C6D0B81F3547800026CAA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0C6D0B71F3547800026CAA3 /* Assets.xcassets */; };
+		B0C6D0BC1F3547970026CAA3 /* DemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6D0BB1F3547970026CAA3 /* DemoCell.swift */; };
+		B0C6D0BE1F35479E0026CAA3 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6D0BD1F35479E0026CAA3 /* MainTableViewController.swift */; };
+		B0C6D0C31F3548260026CAA3 /* CellPrototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C6D0C21F3548260026CAA3 /* CellPrototype.storyboard */; };
+		B0C6D0C91F354AEB0026CAA3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6D0C81F354AEB0026CAA3 /* HomeViewController.swift */; };
 		B0ED8E8F1F33C175000CF70C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED8E8E1F33C175000CF70C /* RegisterVC.swift */; };
 		B0ED8E911F33C183000CF70C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED8E901F33C183000CF70C /* LoginVC.swift */; };
 		C39A685824E339D272F8C4E7 /* Pods_TutorApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F371CA38BC27C03E4A95C48 /* Pods_TutorApp.framework */; };
@@ -57,7 +61,6 @@
 		B0AC49901F3284D3003B938F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B0AC49931F3284D3003B938F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0AC49961F3284D3003B938F /* TutorApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TutorApp.xcdatamodel; sourceTree = "<group>"; };
-		B0AC49981F3284D3003B938F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0AC499B1F3284D3003B938F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B0AC499D1F3284D3003B938F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0AC49A21F3284D3003B938F /* TutorAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TutorAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +71,11 @@
 		B0AC49B31F3284D3003B938F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0AC49C31F32AB70003B938F /* UIColor+HexColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HexColors.swift"; sourceTree = "<group>"; };
 		B0C6D0931F34F3770026CAA3 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		B0C6D0B71F3547800026CAA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B0C6D0BB1F3547970026CAA3 /* DemoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoCell.swift; sourceTree = "<group>"; };
+		B0C6D0BD1F35479E0026CAA3 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		B0C6D0C21F3548260026CAA3 /* CellPrototype.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CellPrototype.storyboard; sourceTree = "<group>"; };
+		B0C6D0C81F354AEB0026CAA3 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B0ED8E8E1F33C175000CF70C /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		B0ED8E901F33C183000CF70C /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		BBAEC2067A432575A11FCE8E /* Pods-TutorApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TutorApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TutorApp/Pods-TutorApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -152,18 +160,22 @@
 			isa = PBXGroup;
 			children = (
 				B0AC498E1F3284D3003B938F /* AppDelegate.swift */,
+				B0C6D0BB1F3547970026CAA3 /* DemoCell.swift */,
+				B0C6D0BD1F35479E0026CAA3 /* MainTableViewController.swift */,
+				B0C6D0C21F3548260026CAA3 /* CellPrototype.storyboard */,
 				B0AC49901F3284D3003B938F /* ViewController.swift */,
 				B0ED8E8E1F33C175000CF70C /* RegisterVC.swift */,
 				B0ED8E901F33C183000CF70C /* LoginVC.swift */,
 				B0AC49921F3284D3003B938F /* Main.storyboard */,
-				B0AC49981F3284D3003B938F /* Assets.xcassets */,
 				B0AC499A1F3284D3003B938F /* LaunchScreen.storyboard */,
+				B0C6D0B71F3547800026CAA3 /* Assets.xcassets */,
 				B06BB3351F34591600716888 /* GoogleService-Info.plist */,
 				B0AC499D1F3284D3003B938F /* Info.plist */,
 				B0AC49951F3284D3003B938F /* TutorApp.xcdatamodeld */,
 				B0AC49C31F32AB70003B938F /* UIColor+HexColors.swift */,
 				B06BB3331F34430900716888 /* UITextField+Underline.swift */,
 				B0C6D0931F34F3770026CAA3 /* Home.storyboard */,
+				B0C6D0C81F354AEB0026CAA3 /* HomeViewController.swift */,
 			);
 			path = TutorApp;
 			sourceTree = "<group>";
@@ -306,10 +318,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B06BB3361F34591600716888 /* GoogleService-Info.plist in Resources */,
+				B0C6D0C31F3548260026CAA3 /* CellPrototype.storyboard in Resources */,
 				B0AC499C1F3284D3003B938F /* LaunchScreen.storyboard in Resources */,
-				B0AC49991F3284D3003B938F /* Assets.xcassets in Resources */,
 				B0AC49941F3284D3003B938F /* Main.storyboard in Resources */,
 				B0C6D0941F34F3770026CAA3 /* Home.storyboard in Resources */,
+				B0C6D0B81F3547800026CAA3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,11 +487,14 @@
 			files = (
 				B0AC49911F3284D3003B938F /* ViewController.swift in Sources */,
 				B0AC49C41F32AB70003B938F /* UIColor+HexColors.swift in Sources */,
+				B0C6D0BC1F3547970026CAA3 /* DemoCell.swift in Sources */,
 				B0ED8E911F33C183000CF70C /* LoginVC.swift in Sources */,
 				B0AC49971F3284D3003B938F /* TutorApp.xcdatamodeld in Sources */,
 				B0AC498F1F3284D3003B938F /* AppDelegate.swift in Sources */,
 				B0ED8E8F1F33C175000CF70C /* RegisterVC.swift in Sources */,
+				B0C6D0C91F354AEB0026CAA3 /* HomeViewController.swift in Sources */,
 				B06BB3341F34430900716888 /* UITextField+Underline.swift in Sources */,
+				B0C6D0BE1F35479E0026CAA3 /* MainTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
