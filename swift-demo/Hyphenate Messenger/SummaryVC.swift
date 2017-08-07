@@ -13,11 +13,13 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     var categorytitle: String = ""
     
     var ref: DatabaseReference?
+    
     var questionPic: UIImageView = {
-//        let frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight-64)
-//        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height*0.25))
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight*0.23))
+        //        let frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight-64)
+        //        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height*0.25))
+        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight*0.37))
         image.backgroundColor = UIColor.white
+        //image.contentMode = .scaleAspectFit
         return image
     }()
     
@@ -68,8 +70,8 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         //        view.backgroundColor = UIColor.init(red: 239, green: 239, blue: 255, alpha: 1)
         view.backgroundColor = UIColor.init(hex: "EFEFF4")
         
-//        navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-//        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        //        navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        //        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.tintColor = UIColor.white
         
         view.addSubview(questionPic)
@@ -97,16 +99,72 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         data = UIImageJPEGRepresentation(questionPic.image!, 0.8)!
         let sid = EMClient.shared().currentUsername!
         uploadPicture(key!, data, completion:{ (url) -> Void in
-        
-        
+            
+            
             let addRequest = ["sid": sid, "picURL":url!, "category": self.categorytitle, "description":
-            self.questionDescription.text as String, "status": true] as [String : Any]
+                self.questionDescription.text as String, "status": true] as [String : Any]
             self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: key!))").setValue(addRequest)
-        print(addRequest)
-        
+            self.getData(completion: { (success) -> Void in
+                
+                if success{
+                    self.getPic(completion: {(success) -> Void in
+                    
+                        if success{print(self.dictArray)}
+                        else{return}
+                    
+                    })
+                }
+                else{return}
+            })
         })
+        
     }
     
+    
+    var specialty = ["Basic Calculus"]
+    var dictArray = [Dictionary<String,Any>]()
+    func getData(completion:@escaping (_ success: Bool) -> ()){
+        
+        for item in specialty{
+            
+            ref?.child("Request/active/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
+                if let snapDict = snapshot.value! as? [String:AnyObject]{
+                    
+                    for each in snapDict{
+                        
+                        self.dictArray.append(each.value as! Dictionary<String,Any>)
+                        completion(true)
+                        
+                        
+                    }
+                }
+                
+            })
+        }
+        
+    }
+    
+    func getPic(completion:@escaping (_ success: Bool) -> ()){
+        
+        for index in 0..<self.dictArray.count{
+            
+            let url = self.dictArray[index]["picURL"]!
+            //print (url)
+            let storageRef = Storage.storage().reference(forURL:url as! String)
+            storageRef.getData(maxSize: 2 * 1024 * 1024) { data, error in
+                if let error = error {
+                    print(error)
+                } else {
+                    
+                    
+                    self.dictArray[index]["picURL"] = data
+                    completion(true)
+                    //print(dic)
+                }
+            }
+        }
+        
+    }
     func uploadPicture(_ key: String, _ data: Data, completion:@escaping (_ url: String?) -> ()) {
         let storageRef = Storage.storage().reference()
         storageRef.child("image/\(self.categorytitle)/\(String(describing: key))").putData(data, metadata: nil){(metaData,error) in
@@ -118,17 +176,20 @@ class SummaryVC: UIViewController, UITextViewDelegate{
                 //store downloadURL
                 completion((metaData?.downloadURL()?.absoluteString)!)
                 
+                
             }
+            
         }
-        }
+    }
     
     func setupQuestionPic() {
         questionPic.translatesAutoresizingMaskIntoConstraints = false
         questionPic.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        questionPic.heightAnchor.constraint(equalToConstant: screenHeight*0.25).isActive = true
+        questionPic.heightAnchor.constraint(equalToConstant: screenHeight*0.37).isActive = true
         
         questionPic.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        questionPic.topAnchor.constraint(equalTo: view.topAnchor, constant: 64).isActive = true
+        questionPic.topAnchor.constraint(equalTo: view.topAnchor, constant: 68).isActive = true
+        questionPic.contentMode = .scaleAspectFit
     }
     
     func setupCategoryLabel() {
@@ -137,7 +198,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         categoryLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         categoryLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        categoryLabel.topAnchor.constraint(equalTo: questionPic.bottomAnchor, constant: 15).isActive = true
+        categoryLabel.topAnchor.constraint(equalTo: questionPic.bottomAnchor, constant: 12).isActive = true
         categoryLabel.text = "    Category:"
     }
     
@@ -155,7 +216,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     func setupQuestionDescription() {
         questionDescription.translatesAutoresizingMaskIntoConstraints = false
         questionDescription.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        questionDescription.heightAnchor.constraint(equalToConstant: screenHeight*0.4).isActive = true
+        questionDescription.heightAnchor.constraint(equalToConstant: screenHeight*0.3).isActive = true
         
         questionDescription.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         questionDescription.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 10).isActive = true
