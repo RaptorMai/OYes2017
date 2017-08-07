@@ -40,7 +40,7 @@ class MainTableViewController: UITableViewController {
     cellHeights = Array(repeating: kCloseCellHeight, count: kRowsCount)
     tableView.estimatedRowHeight = kCloseCellHeight
     tableView.rowHeight = UITableViewAutomaticDimension
-    tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background"))
+    tableView.backgroundColor = UIColor(hex: "F8F8F8")
   }
   
 }

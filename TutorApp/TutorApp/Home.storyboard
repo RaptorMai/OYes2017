@@ -9,32 +9,75 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home View Controller-->
-        <scene sceneID="w7u-nf-tMp">
+        <!--Navigation Controller-->
+        <scene sceneID="1BK-7d-s21">
             <objects>
-                <viewController storyboardIdentifier="oneandonly" id="0Jf-a8-k6h" customClass="HomeViewController" customModule="TutorApp" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="2EQ-Wq-QLj" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Max-qv-qxl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U7G-cI-AdY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1150" y="122"/>
+        </scene>
+        <!--Item 2-->
+        <scene sceneID="HlT-RQ-u2S">
+            <objects>
+                <viewController id="Ki3-pr-88K" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="VDr-Ws-ZZR"/>
-                        <viewControllerLayoutGuide type="bottom" id="zLc-bk-aI5"/>
+                        <viewControllerLayoutGuide type="top" id="z7V-sT-apA"/>
+                        <viewControllerLayoutGuide type="bottom" id="y1y-mO-3ib"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="lV5-cV-CSg">
+                    <view key="view" contentMode="scaleToFill" id="13s-7z-ECk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Tk-3v-dHW">
-                                <rect key="frame" x="166" y="323" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="FEg-hU-Cjl"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OXd-TZ-4tE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b0L-if-Vwv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-468" y="-3"/>
+            <point key="canvasLocation" x="607" y="448"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="WUx-1c-Qeh">
+            <objects>
+                <viewController id="MzK-on-09I" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WMh-xX-u7p"/>
+                        <viewControllerLayoutGuide type="bottom" id="vba-zU-7Pm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZBc-Aa-5el">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="YB3-OV-WHC"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kOS-NO-nCJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="607" y="-206"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="8L0-aA-bEQ">
+            <objects>
+                <tabBarController id="9uj-5l-3or" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Iyo-CJ-bEg"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="fKq-wS-NjM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="MzK-on-09I" kind="relationship" relationship="viewControllers" id="MjT-aF-mYl"/>
+                        <segue destination="Ki3-pr-88K" kind="relationship" relationship="viewControllers" id="aav-px-XK9"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uQX-MJ-TtF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-340" y="123"/>
         </scene>
     </scenes>
 </document>

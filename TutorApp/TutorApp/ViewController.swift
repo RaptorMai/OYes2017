@@ -61,9 +61,9 @@ class ViewController: UIViewController {
     
     func setupRegisterButton(){
         RegisterButton.translatesAutoresizingMaskIntoConstraints = false
-        RegisterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -100).isActive = true
-        RegisterButton.topAnchor.constraint(equalTo: TutorLabel.bottomAnchor, constant:400).isActive = true
-        RegisterButton.widthAnchor.constraint(equalToConstant: 175).isActive = true
+        RegisterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -90).isActive = true
+        RegisterButton.topAnchor.constraint(equalTo: TutorLabel.bottomAnchor, constant:350).isActive = true
+        RegisterButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
         RegisterButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
@@ -85,9 +85,9 @@ class ViewController: UIViewController {
     
     func setupLoginButton(){
         LoginButton.translatesAutoresizingMaskIntoConstraints = false
-        LoginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100).isActive = true
-        LoginButton.topAnchor.constraint(equalTo: TutorLabel.bottomAnchor, constant:400).isActive = true
-        LoginButton.widthAnchor.constraint(equalToConstant: 175).isActive = true
+        LoginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 90).isActive = true
+        LoginButton.topAnchor.constraint(equalTo: TutorLabel.bottomAnchor, constant:350).isActive = true
+        LoginButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
         LoginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     

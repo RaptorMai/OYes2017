@@ -118,7 +118,9 @@ class LoginVC: UIViewController {
                 }
                 else{
 //                    let homeVC = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "oneandonly")
-                    let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTableViewController")
+                    let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
+//                    let homeVC = HomeViewController()
+                    
                     self.present(homeVC, animated: true, completion: nil)
                     
                     

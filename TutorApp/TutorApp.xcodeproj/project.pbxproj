@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		504CDA1F33BA688CD149B190 /* Pods_TutorAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C49DB86A1496DB48C140C88 /* Pods_TutorAppTests.framework */; };
 		A445BFBD858DFADAB940395B /* Pods_TutorAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EF54458A001FD0A66613077 /* Pods_TutorAppUITests.framework */; };
-		B06BB3341F34430900716888 /* UITextField+Underline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06BB3331F34430900716888 /* UITextField+Underline.swift */; };
 		B06BB3361F34591600716888 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B06BB3351F34591600716888 /* GoogleService-Info.plist */; };
 		B0AC498F1F3284D3003B938F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AC498E1F3284D3003B938F /* AppDelegate.swift */; };
 		B0AC49911F3284D3003B938F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AC49901F3284D3003B938F /* ViewController.swift */; };
@@ -19,12 +18,12 @@
 		B0AC49A71F3284D3003B938F /* TutorAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AC49A61F3284D3003B938F /* TutorAppTests.swift */; };
 		B0AC49B21F3284D3003B938F /* TutorAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AC49B11F3284D3003B938F /* TutorAppUITests.swift */; };
 		B0AC49C41F32AB70003B938F /* UIColor+HexColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AC49C31F32AB70003B938F /* UIColor+HexColors.swift */; };
-		B0C6D0941F34F3770026CAA3 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C6D0931F34F3770026CAA3 /* Home.storyboard */; };
 		B0C6D0B81F3547800026CAA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0C6D0B71F3547800026CAA3 /* Assets.xcassets */; };
 		B0C6D0BC1F3547970026CAA3 /* DemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6D0BB1F3547970026CAA3 /* DemoCell.swift */; };
 		B0C6D0BE1F35479E0026CAA3 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6D0BD1F35479E0026CAA3 /* MainTableViewController.swift */; };
 		B0C6D0C31F3548260026CAA3 /* CellPrototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C6D0C21F3548260026CAA3 /* CellPrototype.storyboard */; };
-		B0C6D0C91F354AEB0026CAA3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6D0C81F354AEB0026CAA3 /* HomeViewController.swift */; };
+		B0C6D0D31F381B120026CAA3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6D0D21F381B120026CAA3 /* HomeViewController.swift */; };
+		B0C6D0D51F381B790026CAA3 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C6D0D41F381B790026CAA3 /* Home.storyboard */; };
 		B0ED8E8F1F33C175000CF70C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED8E8E1F33C175000CF70C /* RegisterVC.swift */; };
 		B0ED8E911F33C183000CF70C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED8E901F33C183000CF70C /* LoginVC.swift */; };
 		C39A685824E339D272F8C4E7 /* Pods_TutorApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F371CA38BC27C03E4A95C48 /* Pods_TutorApp.framework */; };
@@ -54,7 +53,6 @@
 		84D0F11AB63E1ED53F4867EF /* Pods-TutorApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TutorApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TutorApp/Pods-TutorApp.release.xcconfig"; sourceTree = "<group>"; };
 		8F371CA38BC27C03E4A95C48 /* Pods_TutorApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TutorApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C49DB86A1496DB48C140C88 /* Pods_TutorAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TutorAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B06BB3331F34430900716888 /* UITextField+Underline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Underline.swift"; sourceTree = "<group>"; };
 		B06BB3351F34591600716888 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B0AC498B1F3284D3003B938F /* TutorApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutorApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0AC498E1F3284D3003B938F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -70,12 +68,12 @@
 		B0AC49B11F3284D3003B938F /* TutorAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorAppUITests.swift; sourceTree = "<group>"; };
 		B0AC49B31F3284D3003B938F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0AC49C31F32AB70003B938F /* UIColor+HexColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HexColors.swift"; sourceTree = "<group>"; };
-		B0C6D0931F34F3770026CAA3 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		B0C6D0B71F3547800026CAA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0C6D0BB1F3547970026CAA3 /* DemoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoCell.swift; sourceTree = "<group>"; };
 		B0C6D0BD1F35479E0026CAA3 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		B0C6D0C21F3548260026CAA3 /* CellPrototype.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CellPrototype.storyboard; sourceTree = "<group>"; };
-		B0C6D0C81F354AEB0026CAA3 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B0C6D0D21F381B120026CAA3 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B0C6D0D41F381B790026CAA3 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		B0ED8E8E1F33C175000CF70C /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		B0ED8E901F33C183000CF70C /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		BBAEC2067A432575A11FCE8E /* Pods-TutorApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TutorApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TutorApp/Pods-TutorApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -160,22 +158,11 @@
 			isa = PBXGroup;
 			children = (
 				B0AC498E1F3284D3003B938F /* AppDelegate.swift */,
-				B0C6D0BB1F3547970026CAA3 /* DemoCell.swift */,
-				B0C6D0BD1F35479E0026CAA3 /* MainTableViewController.swift */,
-				B0C6D0C21F3548260026CAA3 /* CellPrototype.storyboard */,
-				B0AC49901F3284D3003B938F /* ViewController.swift */,
-				B0ED8E8E1F33C175000CF70C /* RegisterVC.swift */,
-				B0ED8E901F33C183000CF70C /* LoginVC.swift */,
-				B0AC49921F3284D3003B938F /* Main.storyboard */,
-				B0AC499A1F3284D3003B938F /* LaunchScreen.storyboard */,
+				B0C6D0D11F381AFE0026CAA3 /* Home */,
+				B0C6D0CE1F357C290026CAA3 /* LoginScreen */,
+				B0C6D0D01F357C770026CAA3 /* SupportingFiles */,
 				B0C6D0B71F3547800026CAA3 /* Assets.xcassets */,
-				B06BB3351F34591600716888 /* GoogleService-Info.plist */,
-				B0AC499D1F3284D3003B938F /* Info.plist */,
-				B0AC49951F3284D3003B938F /* TutorApp.xcdatamodeld */,
-				B0AC49C31F32AB70003B938F /* UIColor+HexColors.swift */,
-				B06BB3331F34430900716888 /* UITextField+Underline.swift */,
-				B0C6D0931F34F3770026CAA3 /* Home.storyboard */,
-				B0C6D0C81F354AEB0026CAA3 /* HomeViewController.swift */,
+				B0C6D0CF1F357C600026CAA3 /* Extensions */,
 			);
 			path = TutorApp;
 			sourceTree = "<group>";
@@ -196,6 +183,56 @@
 				B0AC49B31F3284D3003B938F /* Info.plist */,
 			);
 			path = TutorAppUITests;
+			sourceTree = "<group>";
+		};
+		B0C6D0CD1F357C000026CAA3 /* ProblemListTableView */ = {
+			isa = PBXGroup;
+			children = (
+				B0C6D0BB1F3547970026CAA3 /* DemoCell.swift */,
+				B0C6D0BD1F35479E0026CAA3 /* MainTableViewController.swift */,
+				B0C6D0C21F3548260026CAA3 /* CellPrototype.storyboard */,
+			);
+			name = ProblemListTableView;
+			sourceTree = "<group>";
+		};
+		B0C6D0CE1F357C290026CAA3 /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B0AC49901F3284D3003B938F /* ViewController.swift */,
+				B0ED8E8E1F33C175000CF70C /* RegisterVC.swift */,
+				B0ED8E901F33C183000CF70C /* LoginVC.swift */,
+			);
+			name = LoginScreen;
+			sourceTree = "<group>";
+		};
+		B0C6D0CF1F357C600026CAA3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B0AC49C31F32AB70003B938F /* UIColor+HexColors.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		B0C6D0D01F357C770026CAA3 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				B0AC49921F3284D3003B938F /* Main.storyboard */,
+				B0AC499A1F3284D3003B938F /* LaunchScreen.storyboard */,
+				B0AC49951F3284D3003B938F /* TutorApp.xcdatamodeld */,
+				B06BB3351F34591600716888 /* GoogleService-Info.plist */,
+				B0AC499D1F3284D3003B938F /* Info.plist */,
+			);
+			name = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		B0C6D0D11F381AFE0026CAA3 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B0C6D0CD1F357C000026CAA3 /* ProblemListTableView */,
+				B0C6D0D21F381B120026CAA3 /* HomeViewController.swift */,
+				B0C6D0D41F381B790026CAA3 /* Home.storyboard */,
+			);
+			name = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,8 +357,8 @@
 				B06BB3361F34591600716888 /* GoogleService-Info.plist in Resources */,
 				B0C6D0C31F3548260026CAA3 /* CellPrototype.storyboard in Resources */,
 				B0AC499C1F3284D3003B938F /* LaunchScreen.storyboard in Resources */,
+				B0C6D0D51F381B790026CAA3 /* Home.storyboard in Resources */,
 				B0AC49941F3284D3003B938F /* Main.storyboard in Resources */,
-				B0C6D0941F34F3770026CAA3 /* Home.storyboard in Resources */,
 				B0C6D0B81F3547800026CAA3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -490,10 +527,9 @@
 				B0C6D0BC1F3547970026CAA3 /* DemoCell.swift in Sources */,
 				B0ED8E911F33C183000CF70C /* LoginVC.swift in Sources */,
 				B0AC49971F3284D3003B938F /* TutorApp.xcdatamodeld in Sources */,
+				B0C6D0D31F381B120026CAA3 /* HomeViewController.swift in Sources */,
 				B0AC498F1F3284D3003B938F /* AppDelegate.swift in Sources */,
 				B0ED8E8F1F33C175000CF70C /* RegisterVC.swift in Sources */,
-				B0C6D0C91F354AEB0026CAA3 /* HomeViewController.swift in Sources */,
-				B06BB3341F34430900716888 /* UITextField+Underline.swift in Sources */,
 				B0C6D0BE1F35479E0026CAA3 /* MainTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -651,6 +687,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = LV42MYFKW3;
 				INFOPLIST_FILE = TutorApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Instasolve.TutorApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -665,6 +702,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = LV42MYFKW3;
 				INFOPLIST_FILE = TutorApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Instasolve.TutorApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
