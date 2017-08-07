@@ -43,7 +43,7 @@
         <scene sceneID="iTw-jh-DQY">
             <objects>
                 <navigationController id="Vjv-qz-Xwd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Questions" id="6XH-tg-767"/>
+                    <tabBarItem key="tabBarItem" title="Questions" image="Chat" id="6XH-tg-767"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="K8O-Gr-BWB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -78,25 +78,28 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhS-nU-3BV">
                                 <rect key="frame" x="0.0" y="72" width="375" height="90"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jonesmith" translatesAutoresizingMaskIntoConstraints="NO" id="dSJ-lb-DRW">
-                                        <rect key="frame" x="19" y="11" width="71" height="71"/>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jones Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSe-HP-keZ">
                                         <rect key="frame" x="105" y="35" width="95" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jonesmith" translatesAutoresizingMaskIntoConstraints="NO" id="dSJ-lb-DRW">
+                                        <rect key="frame" x="16" y="10" width="72" height="72"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="72" id="7K5-na-f4j"/>
+                                            <constraint firstAttribute="height" constant="72" id="8hZ-6x-ZOk"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="nSe-HP-keZ" firstAttribute="leading" secondItem="dSJ-lb-DRW" secondAttribute="trailing" constant="15" id="Cot-7K-0Jr"/>
-                                    <constraint firstAttribute="bottom" secondItem="dSJ-lb-DRW" secondAttribute="bottom" constant="8" id="FIN-7P-Ifi"/>
-                                    <constraint firstItem="dSJ-lb-DRW" firstAttribute="leading" secondItem="hhS-nU-3BV" secondAttribute="leading" constant="19" id="Hyk-Gb-fkI"/>
-                                    <constraint firstAttribute="trailing" secondItem="dSJ-lb-DRW" secondAttribute="trailing" constant="285" id="UIc-XQ-hKe"/>
+                                    <constraint firstItem="dSJ-lb-DRW" firstAttribute="top" secondItem="hhS-nU-3BV" secondAttribute="top" constant="10" id="Ndx-4S-nHZ"/>
+                                    <constraint firstItem="dSJ-lb-DRW" firstAttribute="leading" secondItem="hhS-nU-3BV" secondAttribute="leading" constant="16" id="NfR-YZ-oYm"/>
                                     <constraint firstAttribute="bottom" secondItem="nSe-HP-keZ" secondAttribute="bottom" constant="34" id="bUm-XU-VOb"/>
-                                    <constraint firstItem="dSJ-lb-DRW" firstAttribute="top" secondItem="hhS-nU-3BV" secondAttribute="top" constant="11" id="fUC-iR-DUG"/>
+                                    <constraint firstItem="nSe-HP-keZ" firstAttribute="leading" secondItem="dSJ-lb-DRW" secondAttribute="trailing" constant="17" id="k4j-ne-Meh"/>
                                     <constraint firstItem="nSe-HP-keZ" firstAttribute="top" secondItem="hhS-nU-3BV" secondAttribute="top" constant="35" id="mdf-7Q-cEr"/>
+                                    <constraint firstAttribute="bottom" secondItem="dSJ-lb-DRW" secondAttribute="bottom" constant="8" id="qEg-mC-g6B"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -126,8 +129,9 @@
         <scene sceneID="iTg-bC-iIL">
             <objects>
                 <navigationController id="6kE-dZ-Nlj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" id="O9k-t1-SFe"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wkl-Y1-H7L">
+                    <tabBarItem key="tabBarItem" title="Settings" image="SettingsIcon" id="O9k-t1-SFe"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="wkl-Y1-H7L">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -151,12 +155,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="r7A-FX-amg">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="r7A-FX-amg">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="r7A-FX-amg" firstAttribute="top" secondItem="gVh-ZQ-xiM" secondAttribute="bottom" id="Zo1-18-6PE"/>
+                            <constraint firstItem="r7A-FX-amg" firstAttribute="leading" secondItem="s8O-iF-PgT" secondAttribute="leading" id="r0a-bw-9VE"/>
+                            <constraint firstItem="r7A-FX-amg" firstAttribute="bottom" secondItem="pNB-Mi-Bbr" secondAttribute="top" id="rUj-Lt-cjn"/>
+                            <constraint firstAttribute="trailing" secondItem="r7A-FX-amg" secondAttribute="trailing" id="x2u-fc-Ger"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Temporary Image" id="wVq-Vk-xiV"/>
                 </viewController>
@@ -514,6 +523,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Chat" width="30" height="30"/>
+        <image name="SettingsIcon" width="30" height="30"/>
         <image name="arrow" width="16" height="25"/>
         <image name="burger" width="38" height="29"/>
         <image name="image" width="340" height="165"/>

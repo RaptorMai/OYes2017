@@ -176,7 +176,24 @@ class LoginVC: UIViewController {
         view.addSubview(LoginButton)
         setupLoginButton()
         
+        hideKeyboardWhenTappedAround()
+        
 
     }
 
 }
+
+//extension to be able to tap outside of uitextview to dismiss keyboard
+extension LoginVC {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginVC.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+
+
