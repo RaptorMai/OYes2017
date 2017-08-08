@@ -10,3 +10,5 @@ Existing bugs:
 4. Payment: remember user card info and update card info
 5. Press Camera shows a white stripe(白带)
 6. Dismiss library is laggard
+7. In summery page, press category can go back to category page.
+8. Press any image can go back to edit page
