@@ -37,7 +37,7 @@ class PaymentViewController: UIViewController, STPPaymentCardTextFieldDelegate {
     }
     
     func paymentCardTextFieldDidChange(_ textField: STPPaymentCardTextField) {
-        if textField.valid{
+        if textField.isValid{
             payButtonOutlet.isHidden = false
             view.endEditing(true)
         }

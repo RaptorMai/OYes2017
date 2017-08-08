@@ -1268,15 +1268,6 @@
 #endif
 }
 
-#pragma mark - EMLocationViewDelegate
-
--(void)sendLocationLatitude:(double)latitude
-                  longitude:(double)longitude
-                 andAddress:(NSString *)address
-{
-    [self sendLocationMessageLatitude:latitude longitude:longitude andAddress:address];
-}
-
 #pragma mark - EMChatManagerDelegate
 
 - (void)messagesDidReceive:(NSArray *)aMessages
@@ -1613,18 +1604,6 @@
     [self _sendMessage:message];
 }
 
-- (void)sendLocationMessageLatitude:(double)latitude
-                          longitude:(double)longitude
-                         andAddress:(NSString *)address
-{
-    EMMessage *message = [EaseSDKHelper sendLocationMessageWithLatitude:latitude
-                                                              longitude:longitude
-                                                                address:address
-                                                                     to:self.conversation.conversationId
-                                                            messageType:[self _messageTypeFromConversationType]
-                                                             messageExt:nil];
-    [self _sendMessage:message];
-}
 
 - (void)sendImageMessageWithData:(NSData *)imageData
 {
@@ -1657,25 +1636,6 @@
                                                                to:self.conversation.conversationId
                                                       messageType:[self _messageTypeFromConversationType]
                                                        messageExt:nil];
-    [self _sendMessage:message];
-}
-
-- (void)sendVoiceMessageWithLocalPath:(NSString *)localPath
-                             duration:(NSInteger)duration
-{
-    id progress = nil;
-    if (self.dataSource && [self.dataSource respondsToSelector:@selector(messageViewController:progressDelegateForMessageBodyType:)]) {
-        progress = [self.dataSource messageViewController:self progressDelegateForMessageBodyType:EMMessageBodyTypeVoice];
-    }
-    else{
-        progress = self;
-    }
-    
-    EMMessage *message = [EaseSDKHelper sendVoiceMessageWithLocalPath:localPath
-                                                             duration:duration
-                                                                   to:self.conversation.conversationId
-                                                          messageType:[self _messageTypeFromConversationType]
-                                                           messageExt:nil];
     [self _sendMessage:message];
 }
 

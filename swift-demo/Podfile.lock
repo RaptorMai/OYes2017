@@ -44,14 +44,14 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.11)
-  - Hyphenate (3.3.2)
+  - Hyphenate (3.3.3)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - SlimeRefresh (0.0.1)
-  - Stripe (11.1.0)
+  - Stripe (11.2.0)
 
 DEPENDENCIES:
   - Crashlytics
@@ -76,10 +76,10 @@ SPEC CHECKSUMS:
   FirebaseStorage: 8110a1ed2034c8fbfd83890d2acc9cdbbd99afec
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
-  Hyphenate: b596a794ec253b089a6e5c952d718aeedd85c76c
-  nanopb: 22bc080fa3955e2116b6ff3ee6c2cb3c15ab97cb
+  Hyphenate: 3efd1692317d9fd5b65fa5e1ec4c70af3407f794
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   SlimeRefresh: c70e370dccfa8d74d4c3ff9702769d2b156a50e6
-  Stripe: 331994704823640a827b8da41255a439d60b61ce
+  Stripe: 898f83a95d72180c6eb4acd65b2ae6158fc6a8bd
 
 PODFILE CHECKSUM: e2a41f682764fd44dff9f1259e47abd045a6e05f
 

@@ -11,7 +11,7 @@ protocol DismissProtocol {
 class ChatTableViewController: EaseMessageViewController,EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource,EMClientDelegate, DismissProtocol {
     
     var timerLabel = UILabel()
-    var endSessionButton = UIButton(type: UIButtonType.custom)
+    //var endSessionButton = UIButton(type: UIButtonType.custom)
     var navigationBar = UINavigationBar()
     var time: Double = 0
     var timer:Timer?
@@ -27,23 +27,15 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         self.showRefreshHeader = true
         self.delegate = self
         self.dataSource = self
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
         
-        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60))
-        self.view.addSubview(navBar);
-        let navItem = UINavigationItem(title: "");
-        navBar.setItems([navItem], animated: false);
         
-        if dismissable == true {
-            let rightButtonItem:UIBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ChatTableViewController.cancelAction))
-            navigationItem.leftBarButtonItem = rightButtonItem
-        }
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "kNotification_unreadMessageCountUpdated"), object: nil)
+        /* end session button*/
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationItem.title = ""
+        let endSessionButton: UIBarButtonItem = UIBarButtonItem.init(title: "End Session", style: .plain, target: self, action: #selector(self.exitAlert))
+        endSessionButton.tintColor = UIColor.red
+        self.navigationItem.leftBarButtonItem = endSessionButton
         
         /* added timer UILabel ********/
         timerLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
@@ -57,16 +49,18 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         timerLabel.text = String(time) + " min"
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         
-        /* added end session button ***/
-        endSessionButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-        let backIcon = UIImage(named: "back.png")
-        endSessionButton.setImage(backIcon, for: .normal)
-        endSessionButton.contentVerticalAlignment = .fill
-        endSessionButton.contentHorizontalAlignment = .fill
-        endSessionButton.center = CGPoint(x: 30, y: 40)
-        endSessionButton.addTarget(self, action: #selector(exitAlert), for: .touchUpInside)
-        self.view.addSubview(endSessionButton)
-        /************************************/
+        self.navigationItem.titleView = timerLabel
+        
+        if dismissable == true {
+            let rightButtonItem:UIBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ChatTableViewController.cancelAction))
+            navigationItem.leftBarButtonItem = rightButtonItem
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "kNotification_unreadMessageCountUpdated"), object: nil)
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -96,7 +90,6 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     
     // Ming: functions for timer
     func updateTimer() {
-        //timerLabel.text = String(time) + " min"
         time = Date().timeIntervalSince(beginTime)
         timerLabel.text = String(Int(ceil(Double(time)/60))) + " min"
 

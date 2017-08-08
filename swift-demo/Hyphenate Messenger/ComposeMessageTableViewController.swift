@@ -111,7 +111,12 @@ class ComposeMessageTableViewController: UITableViewController,EMGroupManagerDel
         
         let row = filteredDataSource.count>0 ? filteredDataSource[indexPath.row] : dataSource[indexPath.row]
         if let contact = row as? String {
-            let chatController = ChatTableViewController(conversationID: contact, conversationType: EMConversationTypeChat)
+            
+            //add timestamp to conversationID to make new conversation
+            let timeStamp = String(Date().ticks)
+            let convID = contact + timeStamp
+            
+            let chatController = ChatTableViewController(conversationID: convID, conversationType: EMConversationTypeChat)
             chatController?.dismissable = true
             chatController?.title = contact
             chatController?.hidesBottomBarWhenPushed = true

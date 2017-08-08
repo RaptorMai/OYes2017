@@ -60,7 +60,7 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
     }
     
     func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Float) {
-        print(self.floatRatingView.rating)
+        //print(self.floatRatingView.rating)
         //.updatedLabel.text = NSString(format: "%.2f", self.floatRatingView.rating) as String
     }
     
