@@ -1,0 +1,6 @@
+framework module Pods_TutorApp {
+  umbrella header "Pods-TutorApp-umbrella.h"
+
+  export *
+  module * { export * }
+}

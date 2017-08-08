@@ -15,7 +15,7 @@ class CategoryViewController: UIViewController {
     var classifyTable: GroupTableView?
     var navController: UINavigationController? = nil
     var picture: UIImage? = nil
-    var imageview: UIImageView = UIImageView(frame: CGRect(x: 0, y: 64, width: screenWidth, height: screenHeight*0.23))
+    var imageview: UIImageView = UIImageView(frame: CGRect(x: 0, y: 68, width: screenWidth, height: screenHeight*0.37))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +33,9 @@ class CategoryViewController: UIViewController {
     }
 
     func setupimageview(){
+        imageview.contentMode = .scaleAspectFit
         imageview.image = picture
-        imageview.backgroundColor = UIColor.blue
+        imageview.backgroundColor = UIColor.white
         
         view.addSubview(imageview)
     }
@@ -62,7 +63,7 @@ class CategoryViewController: UIViewController {
     
     func addSubView(){
 //            调用时传入frame和数据源
-        classifyTable = GroupTableView(frame: CGRect(x: 0,y: 64,width: screenWidth,height: screenHeight-64), MenuTypeArr: productTypeArr, proNameArr: productNameArr)
+        classifyTable = GroupTableView(frame: CGRect(x: 0,y: 211,width: screenWidth,height: screenHeight-211), MenuTypeArr: productTypeArr, proNameArr: productNameArr)
         classifyTable?.navController = self.navController
         classifyTable?.picture.image = picture
         self.view.addSubview(classifyTable!)
