@@ -23,25 +23,107 @@
 
 import UIKit
 import FoldingCell
+import Firebase
+//import FirebaseDatabase
 
 class MainTableViewController: UITableViewController {
     let testarray: [[String:Any]] = [["sid":"6475290310", "pic": "unknown", "category": "Math", "description": "some random description that is sort of long", "status": true],["sid":"6475291234", "pic": "unkown", "category": "Science", "description": "some random description that is sort of long but actually even longer for testing long strings. some random description that is sort of long but actually even longer for testing long strings.", "status": true] ]
   let kCloseCellHeight: CGFloat = 179
   let kOpenCellHeight: CGFloat = 488
-    let kRowsCount = 2
+    var kRowsCount = 0
   var cellHeights: [CGFloat] = []
-  
+    
   override func viewDidLoad() {
     super.viewDidLoad()
-    setup()
+    self.automaticallyAdjustsScrollViewInsets = false
+    self.getData(completion: { (success) -> Void in
+        
+        if success{
+        self.getPic(completion: {(success) -> Void in
+        
+        if success{
+            
+           // print(self.dictArray)
+            
+
+            self.setup()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            print("done")
+        
+        }
+        else{return}
+        
+        })
+        }
+        else{return}
+        })
+//    self.setup()
+    print("hi")
   }
   
   private func setup() {
+    self.automaticallyAdjustsScrollViewInsets = false
+    kRowsCount = dictArray.count
     cellHeights = Array(repeating: kCloseCellHeight, count: kRowsCount)
     tableView.estimatedRowHeight = kCloseCellHeight
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.backgroundColor = UIColor(hex: "F8F8F8")
   }
+    
+    // code for fetching
+    var specialty = ["Basic Calculus"]
+    var dictArray = [Dictionary<String,Any>]()
+    var ref: DatabaseReference?
+    
+    func getData(completion:@escaping (_ success: Bool) -> ()){
+        ref = Database.database().reference()
+        //let addRequest = ["sid": "hi", "picURL":"hi", "category": "cal", "description":
+         //     "haha", "status": true] as [String : Any]
+        //self.ref?.child("Request/inactive/yup/fuck").setValue(addRequest)
+        for item in specialty{
+            
+            self.ref?.child("Request/active/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
+//                print(snapshot)
+                if let snapDict = snapshot.value! as? [String:AnyObject]{
+                    //print(snapDict)
+                    for each in snapDict{
+//                        print(each)
+                        self.dictArray.append(each.value as! Dictionary<String,Any>)
+                        
+                        
+                    }
+                    completion(true)
+                }
+                
+            })
+        }
+        
+    }
+    
+    func getPic(completion:@escaping (_ success: Bool) -> ()){
+        
+        for index in 0..<self.dictArray.count{
+            
+            let url = self.dictArray[index]["picURL"]!
+            //print (url)
+            let storageRef = Storage.storage().reference(forURL:url as! String)
+            storageRef.getData(maxSize: 2 * 1024 * 1024) { data, error in
+                if let error = error {
+                    print(error)
+                } else {
+                    
+                    
+                    self.dictArray[index]["picURL"] = data
+                    
+                    //print(dic)
+                }
+            }
+        }
+        completion(true)
+        
+    }
   
 }
 
@@ -49,9 +131,11 @@ class MainTableViewController: UITableViewController {
 extension MainTableViewController {
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 2
+    return kRowsCount
   }
   
+    
+    
   override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     guard case let cell as DemoCell = cell else {
       return
@@ -65,11 +149,20 @@ extension MainTableViewController {
       cell.unfold(true, animated: false, completion: nil)
     }
     
-    cell.subject = testarray[indexPath.row]["category"] as! String
-    cell.closeDescription.text = testarray[indexPath.row]["description"] as? String
-    cell.openDescription.text = testarray[indexPath.row]["description"] as? String
+    cell.subject = dictArray[indexPath.row]["category"] as! String
+    cell.closeDescription.text = dictArray[indexPath.row]["description"] as? String
+    cell.openDescription.text = dictArray[indexPath.row]["description"] as? String
+    if let imageData = dictArray[indexPath.row]["picURL"] as? Data {
+        if let image = UIImage(data:imageData) {
+            cell.closeQuestPic.image = image
+            cell.openQuestPic.image = image
+        }
+    }
+//    self.tableView.reloadData()
   }
   
+//    override tableview3set
+    
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "FoldingCell", for: indexPath) as! FoldingCell
     let durations: [TimeInterval] = [0.26, 0.2, 0.2]
@@ -108,5 +201,5 @@ extension MainTableViewController {
     }, completion: nil)
     
   }
-  
+
 }

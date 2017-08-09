@@ -60,7 +60,7 @@
         <!--Question-->
         <scene sceneID="M1g-u4-YXv">
             <objects>
-                <viewController id="XHW-YF-9XR" sceneMemberID="viewController">
+                <viewController id="XHW-YF-9XR" customClass="QuestionsVC" customModule="TutorApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="M0X-3g-3v5"/>
                         <viewControllerLayoutGuide type="bottom" id="tl6-7C-ld8"/>
@@ -72,7 +72,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HzZ-d1-quR">
                                 <rect key="frame" x="0.0" y="170" width="375" height="448"/>
                                 <connections>
-                                    <segue destination="X4p-fN-15h" kind="embed" id="0b2-dq-gB3"/>
+                                    <segue destination="X4p-fN-15h" kind="embed" id="pFy-y6-GdD"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhS-nU-3BV">
@@ -105,21 +105,27 @@
                         </subviews>
                         <color key="backgroundColor" red="0.97636479139328003" green="0.97653168439865112" blue="0.97635418176651001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="HzZ-d1-quR" firstAttribute="top" secondItem="M0X-3g-3v5" secondAttribute="bottom" constant="106" id="0rZ-Mh-Z5s"/>
-                            <constraint firstItem="HzZ-d1-quR" firstAttribute="leading" secondItem="alJ-EN-vTy" secondAttribute="leading" id="8uV-ly-vpl"/>
+                            <constraint firstItem="HzZ-d1-quR" firstAttribute="leading" secondItem="alJ-EN-vTy" secondAttribute="leading" id="4hC-Fn-r3S"/>
+                            <constraint firstItem="tl6-7C-ld8" firstAttribute="top" secondItem="HzZ-d1-quR" secondAttribute="bottom" id="Ckt-sX-acp"/>
                             <constraint firstItem="hhS-nU-3BV" firstAttribute="top" secondItem="M0X-3g-3v5" secondAttribute="bottom" constant="8" id="Vm2-DZ-m9t"/>
                             <constraint firstItem="hhS-nU-3BV" firstAttribute="leading" secondItem="alJ-EN-vTy" secondAttribute="leading" id="dUz-Qi-aDE"/>
-                            <constraint firstItem="tl6-7C-ld8" firstAttribute="top" secondItem="HzZ-d1-quR" secondAttribute="bottom" id="jMh-uA-J2b"/>
-                            <constraint firstAttribute="trailing" secondItem="HzZ-d1-quR" secondAttribute="trailing" id="sYj-kU-PVp"/>
-                            <constraint firstItem="HzZ-d1-quR" firstAttribute="top" secondItem="hhS-nU-3BV" secondAttribute="bottom" constant="8" id="u9S-nO-ORj"/>
+                            <constraint firstAttribute="trailing" secondItem="HzZ-d1-quR" secondAttribute="trailing" id="g6w-y8-gJa"/>
+                            <constraint firstAttribute="trailing" secondItem="HzZ-d1-quR" secondAttribute="trailing" id="hjG-V2-m5N"/>
+                            <constraint firstItem="HzZ-d1-quR" firstAttribute="top" secondItem="hhS-nU-3BV" secondAttribute="bottom" constant="8" id="mFH-2Z-vnf"/>
                             <constraint firstAttribute="trailing" secondItem="hhS-nU-3BV" secondAttribute="trailing" id="xDv-Yx-VMF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Question" id="52B-HG-PRm">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="7eV-Z8-d2H">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="refresh:" destination="XHW-YF-9XR" id="Rcy-d7-DHi"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableofquestions" destination="HzZ-d1-quR" id="6qt-UO-IKi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6dT-lA-NGM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -176,7 +182,7 @@
         <!--Questions-->
         <scene sceneID="8sS-3D-33x">
             <objects>
-                <tableViewController storyboardIdentifier="MainTableViewController" id="X4p-fN-15h" customClass="MainTableViewController" customModule="TutorApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MainTableViewController" automaticallyAdjustsScrollViewInsets="NO" id="X4p-fN-15h" customClass="MainTableViewController" customModule="TutorApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="667" sectionHeaderHeight="28" sectionFooterHeight="28" id="jNX-cW-2Kc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="695"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -196,9 +202,9 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lwi-GG-B3N" userLabel="LeftView">
                                                     <rect key="frame" x="0.0" y="0.0" width="88" height="165"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="w7Z-kW-aqB">
-                                                            <rect key="frame" x="20" y="34" width="41" height="28"/>
-                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="24"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="#25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" translatesAutoresizingMaskIntoConstraints="NO" id="w7Z-kW-aqB">
+                                                            <rect key="frame" x="27.5" y="39" width="25.5" height="17.5"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="0.80086043070000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -224,7 +230,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image" translatesAutoresizingMaskIntoConstraints="NO" id="dfW-t2-PVO">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dfW-t2-PVO">
                                                     <rect key="frame" x="108" y="8" width="432" height="84"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="84" id="tW9-jK-LVQ"/>
@@ -293,7 +299,7 @@
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image" translatesAutoresizingMaskIntoConstraints="NO" id="e4j-ua-10b">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e4j-ua-10b">
                                                             <rect key="frame" x="0.0" y="49" width="560" height="146"/>
                                                         </imageView>
                                                     </subviews>
@@ -494,12 +500,14 @@
                                 <connections>
                                     <outlet property="closeDescription" destination="Un1-ue-C1c" id="0JV-As-yfa"/>
                                     <outlet property="closeNumberLabel" destination="w7Z-kW-aqB" id="pHT-Nn-mlr"/>
+                                    <outlet property="closeQuestPic" destination="dfW-t2-PVO" id="7QL-WD-SW7"/>
                                     <outlet property="containerView" destination="5Gw-K6-VuI" id="vNQ-wV-1ml"/>
                                     <outlet property="containerViewTop" destination="cCm-y1-GUp" id="CA2-op-aQB"/>
                                     <outlet property="foregroundView" destination="apQ-8c-9Em" id="m5s-lJ-e6I"/>
                                     <outlet property="foregroundViewTop" destination="2dH-Mm-ync" id="STL-G2-TZ5"/>
                                     <outlet property="openDescription" destination="AT7-Gd-8He" id="EeA-Ue-4Yy"/>
                                     <outlet property="openNumberLabel" destination="Fo6-0L-Xua" id="das-mf-bGh"/>
+                                    <outlet property="openQuestPic" destination="e4j-ua-10b" id="5Mh-6U-iLP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -516,6 +524,9 @@
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="695"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="5jL-j3-m5z">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="StP-pw-99O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -527,7 +538,6 @@
         <image name="SettingsIcon" width="30" height="30"/>
         <image name="arrow" width="16" height="25"/>
         <image name="burger" width="38" height="29"/>
-        <image name="image" width="340" height="165"/>
         <image name="jonesmith" width="121" height="121"/>
         <image name="photo" width="98" height="98"/>
         <image name="settings" width="168" height="268"/>
