@@ -284,3 +284,9 @@ extension Date {
     }
 }
 
+//extension EMConversation{
+//    override func setConversationId(_ convId: String){
+//        self.conversationId = convId
+//    }
+//}
+

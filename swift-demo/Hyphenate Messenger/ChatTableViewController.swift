@@ -126,6 +126,9 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         
         ratingViewController.delegate = self
         self.present(ratingViewController, animated: true)
+        
+//        let newConvId: String = (self.conversation.conversationId + String(Date().ticks))
+//        self.conversation.conversationId = newConvId
     }
     
     func dismissParentVC() {
