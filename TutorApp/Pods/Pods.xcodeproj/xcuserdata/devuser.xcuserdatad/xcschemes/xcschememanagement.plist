@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>nanopb.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,17 +47,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>098C75C25424621C5E62B0E0251ED04B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>107A9565F9DF88517DFD3E28C05B2B96</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1C14C59D0D2EDAB3BDE40AC33F261014</key>
+		<key>1983785375B0BD54FC7E480244AC4A22</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2E197914DA80B0EF0AAE12B5176BA2FF</key>
+		<key>1C14C59D0D2EDAB3BDE40AC33F261014</key>
 		<dict>
 			<key>primary</key>
 			<true/>

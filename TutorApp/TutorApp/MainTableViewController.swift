@@ -24,6 +24,7 @@
 import UIKit
 import FoldingCell
 import Firebase
+import SDWebImage
 //import FirebaseDatabase
 
 class MainTableViewController: UITableViewController {
@@ -32,6 +33,8 @@ class MainTableViewController: UITableViewController {
   let kOpenCellHeight: CGFloat = 488
     var kRowsCount = 0
   var cellHeights: [CGFloat] = []
+//    var cache:NSCache<AnyObject, AnyObject>!
+
     
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -66,8 +69,8 @@ class MainTableViewController: UITableViewController {
   private func setup() {
     self.automaticallyAdjustsScrollViewInsets = false
     kRowsCount = dictArray.count
-    cellHeights = Array(repeating: kCloseCellHeight, count: kRowsCount)
-    tableView.estimatedRowHeight = kCloseCellHeight
+    cellHeights = Array(repeating: kOpenCellHeight, count: kRowsCount)
+    tableView.estimatedRowHeight = kOpenCellHeight
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.backgroundColor = UIColor(hex: "F8F8F8")
   }
@@ -103,24 +106,24 @@ class MainTableViewController: UITableViewController {
     }
     
     func getPic(completion:@escaping (_ success: Bool) -> ()){
-        
-        for index in 0..<self.dictArray.count{
-            
-            let url = self.dictArray[index]["picURL"]!
-            //print (url)
-            let storageRef = Storage.storage().reference(forURL:url as! String)
-            storageRef.getData(maxSize: 2 * 1024 * 1024) { data, error in
-                if let error = error {
-                    print(error)
-                } else {
-                    
-                    
-                    self.dictArray[index]["picURL"] = data
-                    
-                    //print(dic)
-                }
-            }
-        }
+//        
+//        for index in 0..<self.dictArray.count{
+//            
+//            let url = self.dictArray[index]["picURL"]!
+//            //print (url)
+//            let storageRef = Storage.storage().reference(forURL:url as! String)
+//            storageRef.getData(maxSize: 2 * 1024 * 1024) { data, error in
+//                if let error = error {
+//                    print(error)
+//                } else {
+//                    
+//                    
+//                    self.dictArray[index]["picURL"] = data
+//                    
+//                    //print(dic)
+//                }
+//            }
+//        }
         completion(true)
         
     }
@@ -134,7 +137,6 @@ extension MainTableViewController {
     return kRowsCount
   }
   
-    
     
   override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     guard case let cell as DemoCell = cell else {
@@ -152,16 +154,25 @@ extension MainTableViewController {
     cell.subject = dictArray[indexPath.row]["category"] as! String
     cell.closeDescription.text = dictArray[indexPath.row]["description"] as? String
     cell.openDescription.text = dictArray[indexPath.row]["description"] as? String
-    if let imageData = dictArray[indexPath.row]["picURL"] as? Data {
-        if let image = UIImage(data:imageData) {
-            cell.closeQuestPic.image = image
-            cell.openQuestPic.image = image
-        }
-    }
-//    self.tableView.reloadData()
+//    if let imageData = dictArray[indexPath.row]["picURL"] as? Data {
+//        if let image = UIImage(data:imageData) {
+////            img = UIImage(data:imageData)
+//            cell.closeQuestPic.image = image
+//            cell.openQuestPic.image = image
+////            if let updateCell = tableView.cellForRow(at: indexPath) {
+////                //        let img:UIImage! = UIImage(data: data)
+////                updateCell.imageView?.image = img
+////                self.cache.setObject(img!, forKey: (indexPath as NSIndexPath).row as AnyObject)
+////            }
+//            
+//        }
+//    }
+
+    // Downloads pictures, caches them and alllows for immediate loading of pictures
+    let photoURL = dictArray[indexPath.row]["picURL"]
+    cell.openQuestPic.sd_setImage(with: URL(string: photoURL as! String))
+    
   }
-  
-//    override tableview3set
     
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "FoldingCell", for: indexPath) as! FoldingCell
@@ -183,22 +194,22 @@ extension MainTableViewController {
       return
     }
     
-    var duration = 0.0
+//    var duration = 0.0
     let cellIsCollapsed = cellHeights[indexPath.row] == kCloseCellHeight
     if cellIsCollapsed {
-      cellHeights[indexPath.row] = kOpenCellHeight
-      cell.unfold(true, animated: true, completion: nil)
-      duration = 0.5
+//      cellHeights[indexPath.row] = kOpenCellHeight
+//      cell.unfold(true, animated: true, completion: nil)
+//      duration = 0.5
     } else {
-      cellHeights[indexPath.row] = kCloseCellHeight
-      cell.unfold(false, animated: true, completion: nil)
-      duration = 0.8
+//      cellHeights[indexPath.row] = kCloseCellHeight
+//      cell.unfold(false, animated: true, completion: nil)
+//      duration = 0.8
     }
     
-    UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: { () -> Void in
-      tableView.beginUpdates()
-      tableView.endUpdates()
-    }, completion: nil)
+//    UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: { () -> Void in
+//      tableView.beginUpdates()
+//      tableView.endUpdates()
+//    }, completion: nil)
     
   }
 
