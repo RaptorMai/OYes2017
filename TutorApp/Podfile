@@ -8,6 +8,8 @@ target 'TutorApp' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'FoldingCell'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Database'
 
   # Pods for TutorApp
 

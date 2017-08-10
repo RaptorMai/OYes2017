@@ -18,6 +18,10 @@ class DemoCell: FoldingCell {
     
     @IBOutlet weak var openDescription: UILabel!
     
+    @IBOutlet weak var closeQuestPic: UIImageView!
+    
+    @IBOutlet weak var openQuestPic: UIImageView!
+    
   var subject: String = "n/a" {
     didSet {
       closeNumberLabel.text = subject

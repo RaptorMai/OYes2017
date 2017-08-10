@@ -22,7 +22,7 @@
 		B0C6D0BC1F3547970026CAA3 /* DemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6D0BB1F3547970026CAA3 /* DemoCell.swift */; };
 		B0C6D0BE1F35479E0026CAA3 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6D0BD1F35479E0026CAA3 /* MainTableViewController.swift */; };
 		B0C6D0C31F3548260026CAA3 /* CellPrototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C6D0C21F3548260026CAA3 /* CellPrototype.storyboard */; };
-		B0C6D0D31F381B120026CAA3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6D0D21F381B120026CAA3 /* HomeViewController.swift */; };
+		B0C6D0D31F381B120026CAA3 /* QuestionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6D0D21F381B120026CAA3 /* QuestionsVC.swift */; };
 		B0C6D0D51F381B790026CAA3 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C6D0D41F381B790026CAA3 /* Home.storyboard */; };
 		B0ED8E8F1F33C175000CF70C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED8E8E1F33C175000CF70C /* RegisterVC.swift */; };
 		B0ED8E911F33C183000CF70C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED8E901F33C183000CF70C /* LoginVC.swift */; };
@@ -72,7 +72,7 @@
 		B0C6D0BB1F3547970026CAA3 /* DemoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoCell.swift; sourceTree = "<group>"; };
 		B0C6D0BD1F35479E0026CAA3 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		B0C6D0C21F3548260026CAA3 /* CellPrototype.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CellPrototype.storyboard; sourceTree = "<group>"; };
-		B0C6D0D21F381B120026CAA3 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B0C6D0D21F381B120026CAA3 /* QuestionsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsVC.swift; sourceTree = "<group>"; };
 		B0C6D0D41F381B790026CAA3 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		B0ED8E8E1F33C175000CF70C /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		B0ED8E901F33C183000CF70C /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -229,7 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				B0C6D0CD1F357C000026CAA3 /* ProblemListTableView */,
-				B0C6D0D21F381B120026CAA3 /* HomeViewController.swift */,
+				B0C6D0D21F381B120026CAA3 /* QuestionsVC.swift */,
 				B0C6D0D41F381B790026CAA3 /* Home.storyboard */,
 			);
 			name = Home;
@@ -527,7 +527,7 @@
 				B0C6D0BC1F3547970026CAA3 /* DemoCell.swift in Sources */,
 				B0ED8E911F33C183000CF70C /* LoginVC.swift in Sources */,
 				B0AC49971F3284D3003B938F /* TutorApp.xcdatamodeld in Sources */,
-				B0C6D0D31F381B120026CAA3 /* HomeViewController.swift in Sources */,
+				B0C6D0D31F381B120026CAA3 /* QuestionsVC.swift in Sources */,
 				B0AC498F1F3284D3003B938F /* AppDelegate.swift in Sources */,
 				B0ED8E8F1F33C175000CF70C /* RegisterVC.swift in Sources */,
 				B0C6D0BE1F35479E0026CAA3 /* MainTableViewController.swift in Sources */,
