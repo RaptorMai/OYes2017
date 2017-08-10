@@ -114,7 +114,12 @@
         if (_delegate && [_delegate respondsToSelector:@selector(userListViewController:didSelectUserModel:)]) {
             [_delegate userListViewController:self didSelectUserModel:model];
         } else {
-            EaseMessageViewController *viewController = [[EaseMessageViewController alloc] initWithConversationID:model.username conversationType:EMConversationTypeChat];
+            NSDate *date = [NSDate date];
+            NSDictionary * timeStamp = @{
+                                @"sessionId": date
+                                };
+            
+            EaseMessageViewController *viewController = [[EaseMessageViewController alloc] initWithConversationID:model.username conversationType:EMConversationTypeChat initWithExt:timeStamp];
             viewController.title = model.nickname;
             [self.navigationController pushViewController:viewController animated:YES];
         }

@@ -36,6 +36,7 @@
 
 - (instancetype)initWithConversationID:(NSString *)conversationID
                       conversationType:(EMConversationType)conversationType
+                           initWithExt:(NSDictionary *)extension
 {
     if ([conversationID length] == 0) {
         return nil;
@@ -51,6 +52,7 @@
         self.timeCellHeight = 30;
         self.deleteConversationIfNull = YES;
         self.scrollToLatestMessage = YES;
+        self.extension = extension;
         _messsagesSource = [NSMutableArray array];
         
         [self.conversation markAllMessagesAsRead:nil];
@@ -1120,11 +1122,11 @@
 - (void)didSendText:(NSString *)text
 {
     if (text && text.length > 0) {
-        [self sendTextMessage:text];
+        [self sendTextMessage:text withExt:self.extension];
     }
 }
 
-- (void)didSendText:(NSString *)text withExt:(NSDictionary*)ext
+- (void)didSendText:(NSString *)text withExt:(NSDictionary *)ext
 {
     if ([ext objectForKey:EASEUI_EMOTION_DEFAULT_EXT]) {
         EaseEmotion *emotion = [ext objectForKey:EASEUI_EMOTION_DEFAULT_EXT];
@@ -1287,7 +1289,7 @@
     }
 }
 
-//TODO: add local notification
+//TODO: add local notification: debug this function
 //- (void)messagesDidReceive:(NSArray *)aMessages
 //{
 //    [self setupUnreadMessageCount];
@@ -1592,7 +1594,7 @@
 
 - (void)sendTextMessage:(NSString *)text
 {
-    [self sendTextMessage:text withExt:nil];
+    [self sendTextMessage:text withExt:self.extension];
 }
 
 - (void)sendTextMessage:(NSString *)text withExt:(NSDictionary*)ext

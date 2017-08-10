@@ -126,7 +126,8 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
     override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let conversation:EMConversation = dataSource[(indexPath as NSIndexPath).row] as? EMConversation {
             //let sessionController = SessionTableViewController(conversationID: conversation.conversationId, conversationType: conversation.type)
-            let sessionController = ChatTableViewController(conversationID: conversation.conversationId, conversationType: conversation.type)
+            let timeStamp = ["SessionId":String(Date().ticks)]
+            let sessionController = ChatTableViewController(conversationID: conversation.conversationId, conversationType: conversation.type, initWithExt: timeStamp)
             
             print(conversation.conversationId)
             

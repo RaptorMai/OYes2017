@@ -108,6 +108,8 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 
 @property (nonatomic) BOOL scrollToLatestMessage; //default YES;
 
+@property (nonatomic) NSDictionary *extension;
+
 @property (nonatomic) BOOL isViewDidAppear;
 
 @property (nonatomic) NSInteger messageCountOfPage; //default 50
@@ -131,7 +133,8 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 @property (strong, nonatomic) UIImagePickerController *imagePicker;
 
 - (instancetype) initWithConversationID:(NSString *)conversationID
-                       conversationType:(EMConversationType)conversationType;
+                       conversationType:(EMConversationType)conversationType
+                            initWithExt:(NSDictionary *)extension;
 
 - (void)tableViewDidTriggerHeaderRefresh;
 

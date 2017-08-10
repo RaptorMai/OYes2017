@@ -116,7 +116,9 @@ class ComposeMessageTableViewController: UITableViewController,EMGroupManagerDel
             //let timeStamp = String(Date().ticks)
             let convID = contact // + timeStamp
             
-            let chatController = ChatTableViewController(conversationID: convID, conversationType: EMConversationTypeChat)
+            let timeStamp = ["SessionId":String(Date().ticks)]
+            
+            let chatController = ChatTableViewController(conversationID: convID, conversationType: EMConversationTypeChat, initWithExt: timeStamp)
             //chatController?.dismissable = true
             //chatController?.title = contact
             chatController?.hidesBottomBarWhenPushed = true
