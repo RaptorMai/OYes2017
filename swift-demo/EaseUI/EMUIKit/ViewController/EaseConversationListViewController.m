@@ -101,7 +101,15 @@
         [_delegate conversationListViewController:self didSelectConversationModel:model];
     } else {
         EaseConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];
-        EaseMessageViewController *viewController = [[EaseMessageViewController alloc] initWithConversationID:model.conversation.conversationId conversationType:model.conversation.type];
+        
+        
+        NSDate *date = [NSDate date];
+        NSDictionary * timeStamp = @{
+                                     @"sessionId": date
+                                     };
+        
+        
+        EaseMessageViewController *viewController = [[EaseMessageViewController alloc] initWithConversationID:model.conversation.conversationId conversationType:model.conversation.type initWithExt:timeStamp];
         viewController.title = model.title;
         [self.navigationController pushViewController:viewController animated:YES];
     }

@@ -113,12 +113,14 @@ class ComposeMessageTableViewController: UITableViewController,EMGroupManagerDel
         if let contact = row as? String {
             
             //add timestamp to conversationID to make new conversation
-            let timeStamp = String(Date().ticks)
-            let convID = contact + timeStamp
+            //let timeStamp = String(Date().ticks)
+            let convID = contact // + timeStamp
             
-            let chatController = ChatTableViewController(conversationID: convID, conversationType: EMConversationTypeChat)
-            chatController?.dismissable = true
-            chatController?.title = contact
+            let timeStamp = ["SessionId":String(Date().ticks)]
+            
+            let chatController = ChatTableViewController(conversationID: convID, conversationType: EMConversationTypeChat, initWithExt: timeStamp)
+            //chatController?.dismissable = true
+            //chatController?.title = contact
             chatController?.hidesBottomBarWhenPushed = true
             self.navigationController!.pushViewController(chatController!, animated: true)
         }

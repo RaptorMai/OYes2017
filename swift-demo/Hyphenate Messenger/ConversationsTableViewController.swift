@@ -146,7 +146,8 @@ open class ConversationsTableViewController: UITableViewController, EMChatManage
     
     override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let conversation:EMConversation = dataSource[(indexPath as NSIndexPath).row] as? EMConversation {
-            let chatController = ChatTableViewController(conversationID: conversation.conversationId, conversationType: conversation.type)
+            let timeStamp = ["SessionId":String(Date().ticks)]
+            let chatController = ChatTableViewController(conversationID: conversation.conversationId, conversationType: conversation.type, initWithExt:timeStamp)
             chatController?.title = conversation.latestMessage.from
             chatController?.hidesBottomBarWhenPushed = true
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)

@@ -166,6 +166,9 @@ class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegat
         for(_, value) in aMessages.enumerated() {
             let message : EMMessage = value as! EMMessage
             let needShowNotif = (message.chatType != EMChatTypeChat) ? needShowNotification(message.conversationId) : true
+            
+            print(message.ext)
+            
             if (needShowNotif) {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "didReceiveMessages"), object: message)
             }
