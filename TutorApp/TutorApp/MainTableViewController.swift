@@ -38,6 +38,7 @@ class MainTableViewController: UITableViewController {
     
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.dictArray.removeAll()
     self.automaticallyAdjustsScrollViewInsets = false
     self.getData(completion: { (success) -> Void in
         
@@ -60,11 +61,51 @@ class MainTableViewController: UITableViewController {
         
         })
         }
-        else{return}
+        else{self.setup()}
         })
 //    self.setup()
     print("hi")
+    print(self.dictArray)
   }
+    override func viewWillAppear(_ animated: Bool) {
+    
+            NotificationCenter.default.addObserver(self, selector: #selector(self.refresh),name:NSNotification.Name(rawValue: "refresh"), object: nil)
+    }
+
+    func refresh(){
+        super.viewDidLoad()
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.dictArray.removeAll()
+        self.getData(completion: { (success) -> Void in
+            
+            print(self.dictArray)
+            if success{
+                self.getPic(completion: {(success) -> Void in
+                    
+                    if success{
+                        
+                        print(self.dictArray)
+                        
+                        
+                        self.setup()
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                        print("done")
+                        
+                    }
+                    else{return}
+                    
+                })
+            }
+            else{self.setup()}
+        })
+        //    self.setup()
+        print("hi")
+        print(self.dictArray)
+        
+    
+    }
   
   private func setup() {
     self.automaticallyAdjustsScrollViewInsets = false
@@ -97,6 +138,7 @@ class MainTableViewController: UITableViewController {
                         
                         
                     }
+                    print("yes")
                     completion(true)
                 }
                 

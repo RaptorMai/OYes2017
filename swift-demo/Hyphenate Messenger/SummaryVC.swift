@@ -101,28 +101,27 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         uploadPicture(key!, data, completion:{ (url) -> Void in
             
             
-            //let addRequest = ["sid": sid, "picURL":url!, "category": self.categorytitle, "description":
-              //  self.questionDescription.text as String, "status": true] as [String : Any]
-            //self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: key!))").setValue(addRequest)
-
-        })
-        self.getData(completion: { (success) -> Void in
+            let addRequest = ["sid": sid, "picURL":url!, "category": self.categorytitle, "description":
+                self.questionDescription.text as String, "status": true] as [String : Any]
+            self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: key!))").setValue(addRequest)
+            /*self.getData(completion: { (success) -> Void in
+             
+             if success{
+             self.getPic(completion: {(success) -> Void in
+             
+             if success{
+             //print(self.dictArray)
+             //print("hi")
+             
+             }
+             else{return}
+             
+             })
+             }
+             else{return}
+             })*/
             
-            if success{
-                self.getPic(completion: {(success) -> Void in
-                    
-                    if success{
-                        
-                        
-                        //print(self.dictArray)
-                        print("hi")
-                    
-                    }
-                    else{return}
-                    
-                })
-            }
-            else{return}
+            
         })
         
     }

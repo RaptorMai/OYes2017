@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Foundation
 
 class QuestionsVC: UIViewController {
 
     @IBAction func refresh(_ sender: UIBarButtonItem) {
-        
+         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refresh"), object: nil)
     }
     
     
