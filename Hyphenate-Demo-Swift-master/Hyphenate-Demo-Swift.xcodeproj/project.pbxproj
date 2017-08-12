@@ -392,16 +392,12 @@
 		90FB78971EF7EE9B00B02F60 /* EMConvertToCommonEmoticonsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FB78921EF7EE9B00B02F60 /* EMConvertToCommonEmoticonsHelper.m */; };
 		90FB78981EF7EE9B00B02F60 /* EMEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FB78941EF7EE9B00B02F60 /* EMEmoji.m */; };
 		90FB78991EF7EE9B00B02F60 /* EMEmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FB78961EF7EE9B00B02F60 /* EMEmojiEmoticons.m */; };
-		CD07B4E36328033DC30CC2E3 /* Pods_instaSolve_Tutor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26798584C359294E0956070A /* Pods_instaSolve_Tutor.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		184023CBF2615AE067BB227F /* Pods-instaSolve-Tutor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaSolve-Tutor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-instaSolve-Tutor/Pods-instaSolve-Tutor.debug.xcconfig"; sourceTree = "<group>"; };
-		26798584C359294E0956070A /* Pods_instaSolve_Tutor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_instaSolve_Tutor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		299C482D5D0A4D8D7E358C06 /* Pods-Hyphenate-Demo-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate-Demo-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate-Demo-Swift/Pods-Hyphenate-Demo-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		2C955AB940CDDDC270F02086 /* Pods_Hyphenate_Demo_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hyphenate_Demo_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6DACEF7371BCD858F2FA27FB /* Pods-instaSolve-Tutor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaSolve-Tutor.release.xcconfig"; path = "Pods/Target Support Files/Pods-instaSolve-Tutor/Pods-instaSolve-Tutor.release.xcconfig"; sourceTree = "<group>"; };
-		9011DF411EEEBEA400C43D05 /* instaSolve-Tutor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "instaSolve-Tutor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9011DF411EEEBEA400C43D05 /* Hyphenate-Demo-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hyphenate-Demo-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9011DF441EEEBEA400C43D05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9011DF491EEEBEA400C43D05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9011DF4B1EEEBEA400C43D05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -821,7 +817,6 @@
 				672BE66FDFF04D2E7D8741AD /* Pods_Hyphenate_Demo_Swift.framework in Frameworks */,
 				90749EDD1EF90E5B00D3A065 /* libopencore-amrwb.a in Frameworks */,
 				90749EDC1EF90E5B00D3A065 /* libopencore-amrnb.a in Frameworks */,
-				CD07B4E36328033DC30CC2E3 /* Pods_instaSolve_Tutor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -833,8 +828,6 @@
 			children = (
 				299C482D5D0A4D8D7E358C06 /* Pods-Hyphenate-Demo-Swift.debug.xcconfig */,
 				A5E944F58DE3F0DB392C5330 /* Pods-Hyphenate-Demo-Swift.release.xcconfig */,
-				184023CBF2615AE067BB227F /* Pods-instaSolve-Tutor.debug.xcconfig */,
-				6DACEF7371BCD858F2FA27FB /* Pods-instaSolve-Tutor.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -843,7 +836,6 @@
 			isa = PBXGroup;
 			children = (
 				2C955AB940CDDDC270F02086 /* Pods_Hyphenate_Demo_Swift.framework */,
-				26798584C359294E0956070A /* Pods_instaSolve_Tutor.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -861,7 +853,7 @@
 		9011DF421EEEBEA400C43D05 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9011DF411EEEBEA400C43D05 /* instaSolve-Tutor.app */,
+				9011DF411EEEBEA400C43D05 /* Hyphenate-Demo-Swift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1596,9 +1588,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9011DF401EEEBEA400C43D05 /* instaSolve-Tutor */ = {
+		9011DF401EEEBEA400C43D05 /* Hyphenate-Demo-Swift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9011DF531EEEBEA400C43D05 /* Build configuration list for PBXNativeTarget "instaSolve-Tutor" */;
+			buildConfigurationList = 9011DF531EEEBEA400C43D05 /* Build configuration list for PBXNativeTarget "Hyphenate-Demo-Swift" */;
 			buildPhases = (
 				08028A12AF65E2808A6762EF /* [CP] Check Pods Manifest.lock */,
 				9011DF3D1EEEBEA400C43D05 /* Sources */,
@@ -1611,9 +1603,9 @@
 			);
 			dependencies = (
 			);
-			name = "instaSolve-Tutor";
+			name = "Hyphenate-Demo-Swift";
 			productName = "Hyphenate-Demo-Swift";
-			productReference = 9011DF411EEEBEA400C43D05 /* instaSolve-Tutor.app */;
+			productReference = 9011DF411EEEBEA400C43D05 /* Hyphenate-Demo-Swift.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1624,7 +1616,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = instaSolve;
+				ORGANIZATIONNAME = "杜洁鹏";
 				TargetAttributes = {
 					9011DF401EEEBEA400C43D05 = {
 						CreatedOnToolsVersion = 8.3;
@@ -1638,7 +1630,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9011DF3C1EEEBEA400C43D05 /* Build configuration list for PBXProject "instaSolve-Tutor" */;
+			buildConfigurationList = 9011DF3C1EEEBEA400C43D05 /* Build configuration list for PBXProject "Hyphenate-Demo-Swift" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1651,7 +1643,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9011DF401EEEBEA400C43D05 /* instaSolve-Tutor */,
+				9011DF401EEEBEA400C43D05 /* Hyphenate-Demo-Swift */,
 			);
 		};
 /* End PBXProject section */
@@ -2011,7 +2003,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-instaSolve-Tutor/Pods-instaSolve-Tutor-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hyphenate-Demo-Swift/Pods-Hyphenate-Demo-Swift-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5DC49C31E157DBED55969C35 /* [CP] Embed Pods Frameworks */ = {
@@ -2026,7 +2018,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-instaSolve-Tutor/Pods-instaSolve-Tutor-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hyphenate-Demo-Swift/Pods-Hyphenate-Demo-Swift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2213,7 +2205,7 @@
 		};
 		9011DF541EEEBEA400C43D05 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 184023CBF2615AE067BB227F /* Pods-instaSolve-Tutor.debug.xcconfig */;
+			baseConfigurationReference = 299C482D5D0A4D8D7E358C06 /* Pods-Hyphenate-Demo-Swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Hyphenate-Demo-Swift/Hyphenate-Demo-Swift.entitlements";
@@ -2221,25 +2213,24 @@
 				DEVELOPMENT_TEAM = LV42MYFKW3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Hyphenate-Demo-Swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Hyphenate-Demo-Swift/Code/Utilities/DeviceHelper/VoiceConvert/opencore-amrnb",
 					"$(PROJECT_DIR)/Hyphenate-Demo-Swift/Code/Utilities/DeviceHelper/VoiceConvert/opencore-amrwb",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = instasolve.tutor.hyphenate;
+				PRODUCT_BUNDLE_IDENTIFIER = instaSolve.tutor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Hyphenate-Demo-Swift/Code/Utilities/Hyphenate-Bridge-Header.h";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		9011DF551EEEBEA400C43D05 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6DACEF7371BCD858F2FA27FB /* Pods-instaSolve-Tutor.release.xcconfig */;
+			baseConfigurationReference = A5E944F58DE3F0DB392C5330 /* Pods-Hyphenate-Demo-Swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Hyphenate-Demo-Swift/Hyphenate-Demo-Swift.entitlements";
@@ -2247,26 +2238,25 @@
 				DEVELOPMENT_TEAM = LV42MYFKW3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Hyphenate-Demo-Swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Hyphenate-Demo-Swift/Code/Utilities/DeviceHelper/VoiceConvert/opencore-amrnb",
 					"$(PROJECT_DIR)/Hyphenate-Demo-Swift/Code/Utilities/DeviceHelper/VoiceConvert/opencore-amrwb",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = instasolve.tutor.hyphenate;
+				PRODUCT_BUNDLE_IDENTIFIER = instaSolve.tutor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Hyphenate-Demo-Swift/Code/Utilities/Hyphenate-Bridge-Header.h";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9011DF3C1EEEBEA400C43D05 /* Build configuration list for PBXProject "instaSolve-Tutor" */ = {
+		9011DF3C1EEEBEA400C43D05 /* Build configuration list for PBXProject "Hyphenate-Demo-Swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9011DF511EEEBEA400C43D05 /* Debug */,
@@ -2275,7 +2265,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9011DF531EEEBEA400C43D05 /* Build configuration list for PBXNativeTarget "instaSolve-Tutor" */ = {
+		9011DF531EEEBEA400C43D05 /* Build configuration list for PBXNativeTarget "Hyphenate-Demo-Swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9011DF541EEEBEA400C43D05 /* Debug */,
