@@ -10,6 +10,7 @@
 		504CDA1F33BA688CD149B190 /* Pods_TutorAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C49DB86A1496DB48C140C88 /* Pods_TutorAppTests.framework */; };
 		A445BFBD858DFADAB940395B /* Pods_TutorAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EF54458A001FD0A66613077 /* Pods_TutorAppUITests.framework */; };
 		B06BB3361F34591600716888 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B06BB3351F34591600716888 /* GoogleService-Info.plist */; };
+		B0A993591F40B04000BB0655 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A993581F40B04000BB0655 /* SettingsVC.swift */; };
 		B0AC498F1F3284D3003B938F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AC498E1F3284D3003B938F /* AppDelegate.swift */; };
 		B0AC49911F3284D3003B938F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AC49901F3284D3003B938F /* ViewController.swift */; };
 		B0AC49941F3284D3003B938F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0AC49921F3284D3003B938F /* Main.storyboard */; };
@@ -54,6 +55,7 @@
 		8F371CA38BC27C03E4A95C48 /* Pods_TutorApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TutorApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C49DB86A1496DB48C140C88 /* Pods_TutorAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TutorAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B06BB3351F34591600716888 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B0A993581F40B04000BB0655 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		B0AC498B1F3284D3003B938F /* TutorApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutorApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0AC498E1F3284D3003B938F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0AC49901F3284D3003B938F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			children = (
 				B0C6D0CD1F357C000026CAA3 /* ProblemListTableView */,
 				B0C6D0D21F381B120026CAA3 /* QuestionsVC.swift */,
+				B0A993581F40B04000BB0655 /* SettingsVC.swift */,
 				B0C6D0D41F381B790026CAA3 /* Home.storyboard */,
 			);
 			name = Home;
@@ -531,6 +534,7 @@
 				B0AC498F1F3284D3003B938F /* AppDelegate.swift in Sources */,
 				B0ED8E8F1F33C175000CF70C /* RegisterVC.swift in Sources */,
 				B0C6D0BE1F35479E0026CAA3 /* MainTableViewController.swift in Sources */,
+				B0A993591F40B04000BB0655 /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

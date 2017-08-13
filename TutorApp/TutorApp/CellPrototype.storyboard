@@ -152,7 +152,7 @@
         <!--Temporary Image-->
         <scene sceneID="pUK-KB-P3d">
             <objects>
-                <viewController id="Njq-Sh-aAD" sceneMemberID="viewController">
+                <viewController id="Njq-Sh-aAD" customClass="SettingsVC" customModule="TutorApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gVh-ZQ-xiM"/>
                         <viewControllerLayoutGuide type="bottom" id="pNB-Mi-Bbr"/>
@@ -164,13 +164,35 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="r7A-FX-amg">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="giW-YB-m1Z">
+                                <rect key="frame" x="0.0" y="572" width="375" height="46"/>
+                                <color key="backgroundColor" red="1" green="0.13843276065961141" blue="0.049093177206593563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Button">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Log Out">
+                                            <attributes>
+                                                <font key="NSFont" size="30" name=".SFNSDisplay"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="LogOut:" destination="Njq-Sh-aAD" eventType="touchUpInside" id="6Jo-Oc-vh9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="giW-YB-m1Z" firstAttribute="trailing" secondItem="r7A-FX-amg" secondAttribute="trailing" id="61d-2f-F31"/>
                             <constraint firstItem="r7A-FX-amg" firstAttribute="top" secondItem="gVh-ZQ-xiM" secondAttribute="bottom" id="Zo1-18-6PE"/>
+                            <constraint firstItem="giW-YB-m1Z" firstAttribute="leading" secondItem="r7A-FX-amg" secondAttribute="leading" id="a4J-84-m4C"/>
+                            <constraint firstItem="giW-YB-m1Z" firstAttribute="top" secondItem="gVh-ZQ-xiM" secondAttribute="bottom" constant="508" id="mzy-xr-6lp"/>
                             <constraint firstItem="r7A-FX-amg" firstAttribute="leading" secondItem="s8O-iF-PgT" secondAttribute="leading" id="r0a-bw-9VE"/>
                             <constraint firstItem="r7A-FX-amg" firstAttribute="bottom" secondItem="pNB-Mi-Bbr" secondAttribute="top" id="rUj-Lt-cjn"/>
                             <constraint firstAttribute="trailing" secondItem="r7A-FX-amg" secondAttribute="trailing" id="x2u-fc-Ger"/>
+                            <constraint firstItem="giW-YB-m1Z" firstAttribute="bottom" secondItem="pNB-Mi-Bbr" secondAttribute="top" id="zIy-Ny-9pN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Temporary Image" id="wVq-Vk-xiV"/>
