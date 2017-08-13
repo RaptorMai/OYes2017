@@ -32,7 +32,7 @@ class RegisterVC: UIViewController {
 
     let LabelTwo: UILabel = {
         let label = UILabel()
-        label.text = "We are excited that you can join our InstaSolve family and share knowledge on one of the fastest-growing education platform in Canada"
+        label.text = "We are EXCITED that you can join our InstaSolve family and share knowledge on one of the fastest-growing education platform in Canada"
         label.textColor = UIColor.black
         label.font = UIFont(name: "Helvetica", size: 20)
         label.textAlignment = .center

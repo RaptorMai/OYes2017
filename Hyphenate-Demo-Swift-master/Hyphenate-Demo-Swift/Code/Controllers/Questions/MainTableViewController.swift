@@ -22,12 +22,15 @@
 // THE SOFTWARE.
 
 import UIKit
-import FoldingCell
 import Firebase
 import SDWebImage
 //import FirebaseDatabase
 
-class MainTableViewController: UITableViewController {
+protocol rescueButtonPressedProtocol {
+    func rescueButtonPressed()
+}
+
+class MainTableViewController: UITableViewController, rescueButtonPressedProtocol {
     let testarray: [[String:Any]] = [["sid":"6475290310", "pic": "unknown", "category": "Math", "description": "some random description that is sort of long", "status": true],["sid":"6475291234", "pic": "unkown", "category": "Science", "description": "some random description that is sort of long but actually even longer for testing long strings. some random description that is sort of long but actually even longer for testing long strings.", "status": true] ]
     let kCloseCellHeight: CGFloat = 179
     let kOpenCellHeight: CGFloat = 488
@@ -218,6 +221,7 @@ extension MainTableViewController {
         let durations: [TimeInterval] = [0.26, 0.2, 0.2]
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
+        cell.delegate = self
         return cell
     }
     
@@ -250,6 +254,12 @@ extension MainTableViewController {
         //      tableView.endUpdates()
         //    }, completion: nil)
         
+    }
+    
+    func rescueButtonPressed() {
+        let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
+        let nav = UINavigationController.init(rootViewController: addContactViewController)
+        present(nav, animated: true, completion: nil)
     }
     
 }

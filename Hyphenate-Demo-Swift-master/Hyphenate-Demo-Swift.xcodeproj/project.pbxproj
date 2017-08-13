@@ -17,6 +17,7 @@
 		5DBF1EE01F40C4C600CB2CC8 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1EDD1F40C4C600CB2CC8 /* MainTableViewController.swift */; };
 		5DBF1EE11F40C4C600CB2CC8 /* QuestionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1EDE1F40C4C600CB2CC8 /* QuestionsVC.swift */; };
 		5DBF1EE41F40C4E300CB2CC8 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1EE31F40C4E300CB2CC8 /* SettingsVC.swift */; };
+		5DBF1EF31F40FAF400CB2CC8 /* FoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1EF21F40FAF400CB2CC8 /* FoldingCell.swift */; };
 		672BE66FDFF04D2E7D8741AD /* Pods_Hyphenate_Demo_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C955AB940CDDDC270F02086 /* Pods_Hyphenate_Demo_Swift.framework */; };
 		9011DF451EEEBEA400C43D05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9011DF441EEEBEA400C43D05 /* AppDelegate.swift */; };
 		9011DF4A1EEEBEA400C43D05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9011DF481EEEBEA400C43D05 /* Main.storyboard */; };
@@ -417,6 +418,7 @@
 		5DBF1EDD1F40C4C600CB2CC8 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTableViewController.swift; path = Questions/MainTableViewController.swift; sourceTree = "<group>"; };
 		5DBF1EDE1F40C4C600CB2CC8 /* QuestionsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionsVC.swift; path = Questions/QuestionsVC.swift; sourceTree = "<group>"; };
 		5DBF1EE31F40C4E300CB2CC8 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		5DBF1EF21F40FAF400CB2CC8 /* FoldingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoldingCell.swift; path = Questions/FoldingCell.swift; sourceTree = "<group>"; };
 		9011DF411EEEBEA400C43D05 /* Hyphenate-Demo-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hyphenate-Demo-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9011DF441EEEBEA400C43D05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9011DF491EEEBEA400C43D05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -865,6 +867,7 @@
 		5DBF1EE21F40C4CD00CB2CC8 /* Questions */ = {
 			isa = PBXGroup;
 			children = (
+				5DBF1EF21F40FAF400CB2CC8 /* FoldingCell.swift */,
 				5DBF1EDC1F40C4C600CB2CC8 /* DemoCell.swift */,
 				5DBF1EDD1F40C4C600CB2CC8 /* MainTableViewController.swift */,
 				5DBF1EDE1F40C4C600CB2CC8 /* QuestionsVC.swift */,
@@ -2077,6 +2080,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9080EDE01F03896E00B6C488 /* EMAddContactViewController.swift in Sources */,
+				5DBF1EF31F40FAF400CB2CC8 /* FoldingCell.swift in Sources */,
 				90C00C7C1EEFA95B0049BFAD /* EMLoginViewController.swift in Sources */,
 				9011DF451EEEBEA400C43D05 /* AppDelegate.swift in Sources */,
 				90FB788F1EF7ED4500B02F60 /* EMFacialView.swift in Sources */,
