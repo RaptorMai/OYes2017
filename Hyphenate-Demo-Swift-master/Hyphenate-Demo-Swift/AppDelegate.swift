@@ -26,9 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         var apnsCerName = ""     
         #if DEBUG
-            apnsCerName = "DevelopmentCertificate"     
+            apnsCerName = "InstasolveTutorDevCertificates"
         #else
-            apnsCerName = "ProductionCertificate"     
+            apnsCerName = "InstasolveTutorDevCertificates"
         #endif
         
         options?.apnsCertName = apnsCerName     
