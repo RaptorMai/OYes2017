@@ -14,4 +14,11 @@ target 'Hyphenate-Demo-Swift' do
   # pod 'Fabric'
   # pod 'Crashlytics'
     pod 'Parse'
+
+    pod 'Firebase'
+    pod 'Firebase/Auth'
+    pod 'FoldingCell'
+    pod 'Firebase/Storage'
+    pod 'Firebase/Database'
+  # pod 'SDWebImage', '~> 4.0'
 end

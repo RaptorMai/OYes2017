@@ -9,6 +9,8 @@
 import UIKit
 import Hyphenate
 import UserNotifications
+import Firebase
+import SDWebImage
 
 
 @UIApplicationMain
@@ -18,9 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        UITabBar.appearance().tintColor = KermitGreenTwoColor
-        UINavigationBar.appearance().tintColor = AlmostBlackColor
+//        UITabBar.appearance().tintColor = KermitGreenTwoColor
+//        UINavigationBar.appearance().tintColor = AlmostBlackColor
         
+        FirebaseApp.configure()
         
         let options = EMOptions.init(appkey: "1500170706002947#instasolve")     
         
@@ -41,13 +44,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         NotificationCenter.default.addObserver(self, selector: #selector(loginStateChange(nofi:)), name: NSNotification.Name(rawValue:KNOTIFICATION_LOGINCHANGE), object: nil)     
         
-        let storyboard = UIStoryboard.init(name: "Launch", bundle: nil)     
-        let launchVC = storyboard.instantiateViewController(withIdentifier: "EMLaunchViewController")     
+//        let storyboard = UIStoryboard.init(name: "Launch", bundle: nil)     
+//        let launchVC = storyboard.instantiateViewController(withIdentifier: "EMLaunchViewController")     
         
-        window = UIWindow.init(frame: UIScreen.main.bounds)
-        window?.backgroundColor = UIColor.white
-        window?.rootViewController = launchVC
+//        window = UIWindow.init(frame: UIScreen.main.bounds)
+//        window?.backgroundColor = UIColor.white
+//        window?.rootViewController = launchVC
+//        window?.makeKeyAndVisible()
+        
+    
+        window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
+        let RVController = UINavigationController(rootViewController: LaunchViewController())
+        RVController.navigationBar.barStyle = .blackTranslucent
+        window?.rootViewController = RVController
+        
+        
         
         parseApplication(application, didFinishLaunchingWithOptions: launchOptions)
         _registerAPNS()     
