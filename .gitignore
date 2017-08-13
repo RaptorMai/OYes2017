@@ -4,3 +4,7 @@ swift-demo/Pods
 swift-demo/.DS_Store
 
 TutorApp/.DS_Store
+
+swift-demo/.DS_Store
+
+*.xcuserstate
