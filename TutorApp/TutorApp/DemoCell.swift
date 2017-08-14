@@ -22,6 +22,8 @@ class DemoCell: FoldingCell {
     
     @IBOutlet weak var openQuestPic: UIImageView!
     
+
+    
   var subject: String = "n/a" {
     didSet {
       closeNumberLabel.text = subject

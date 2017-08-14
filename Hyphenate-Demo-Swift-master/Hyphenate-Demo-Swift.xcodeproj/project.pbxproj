@@ -921,10 +921,10 @@
 		9011DF561EEEC00800C43D05 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				9011DF571EEEC00800C43D05 /* Controllers */,
 				9011DF581EEEC00800C43D05 /* Models */,
-				9011DF591EEEC00800C43D05 /* Utilities */,
 				9011DF5A1EEEC00800C43D05 /* Views */,
+				9011DF571EEEC00800C43D05 /* Controllers */,
+				9011DF591EEEC00800C43D05 /* Utilities */,
 			);
 			path = Code;
 			sourceTree = "<group>";
