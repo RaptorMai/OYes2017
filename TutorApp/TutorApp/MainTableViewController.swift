@@ -73,7 +73,7 @@ class MainTableViewController: UITableViewController {
     }
     
     func refresh(){
-        super.viewDidLoad()
+        //super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
         self.dictArray.removeAll()
         self.getData(completion: { (success) -> Void in
