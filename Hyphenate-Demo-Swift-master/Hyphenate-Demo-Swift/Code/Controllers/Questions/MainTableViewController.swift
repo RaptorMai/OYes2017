@@ -27,7 +27,7 @@ import SDWebImage
 //import FirebaseDatabase
 
 protocol rescueButtonPressedProtocol {
-    func rescueButtonPressed()
+    func rescueButtonPressed(requestorSid: NSString)
 }
 
 class MainTableViewController: UITableViewController, rescueButtonPressedProtocol {
@@ -43,6 +43,7 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
         super.viewDidLoad()
         self.dictArray.removeAll()
         self.automaticallyAdjustsScrollViewInsets = false
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refresh),name:NSNotification.Name(rawValue: "refresh"), object: nil)
         self.getData(completion: { (success) -> Void in
             
             if success{
@@ -69,10 +70,12 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
         //    self.setup()
         print("hi")
         
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refresh),name:NSNotification.Name(rawValue: "refresh"), object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.refresh),name:NSNotification.Name(rawValue: "refresh"), object: nil)
+        
     }
     
     func refresh(){
@@ -222,6 +225,7 @@ extension MainTableViewController {
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
         cell.delegate = self
+        cell.requestorSid = dictArray[indexPath.row]["sid"] as! NSString
         return cell
     }
     
@@ -256,9 +260,11 @@ extension MainTableViewController {
         
     }
     
-    func rescueButtonPressed() {
+    func rescueButtonPressed(requestorSid: NSString) {
         let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
         let nav = UINavigationController.init(rootViewController: addContactViewController)
+        addContactViewController.contactToAdd = requestorSid as! String
+        //print(requestorSid)
         present(nav, animated: true, completion: nil)
     }
     

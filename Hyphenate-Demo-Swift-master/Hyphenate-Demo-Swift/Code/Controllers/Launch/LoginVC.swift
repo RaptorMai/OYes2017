@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import Hyphenate
+import MBProgressHUD
 
 
 class LoginVC: UIViewController {
@@ -122,6 +124,44 @@ class LoginVC: UIViewController {
 
                 }
                 else{
+                    
+                    MBProgressHUD.showAdded(to: self.view, animated: true)
+                    weak var weakSelf = self
+                    EMClient.shared().login(withUsername: self.Username.text!, password: self.Password.text!) { (username, error) in
+                        MBProgressHUD.hide(for: weakSelf?.view, animated: true)
+                        
+                        if error == nil {
+                            EMClient.shared().options.isAutoLogin = true
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue:KNOTIFICATION_LOGINCHANGE), object: NSNumber(value: true))
+                        } else {
+                            var alertStr = ""
+                            switch error!.code {
+                            case EMErrorUserNotFound:
+                                alertStr = error!.errorDescription
+                                break
+                            case EMErrorNetworkUnavailable:
+                                alertStr = error!.errorDescription
+                                break
+                            case EMErrorServerNotReachable:
+                                alertStr = error!.errorDescription
+                                break
+                            case EMErrorUserAuthenticationFailed:
+                                alertStr = error!.errorDescription
+                                break
+                            case EMErrorServerTimeout:
+                                alertStr = error!.errorDescription
+                                break
+                            default:
+                                alertStr = error!.errorDescription  
+                                break
+                            }
+                            
+                            let alertView = UIAlertView.init(title: nil, message: alertStr, delegate: nil, cancelButtonTitle: "okay")
+                            alertView.show()  
+                        }
+                    }
+                    
+                    
 //                    let homeVC = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "oneandonly")
                     let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
 //                    let homeVC = HomeViewController()
