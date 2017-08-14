@@ -83,11 +83,6 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
     }
     override func viewWillAppear(_ animated: Bool) {
         
-<<<<<<< HEAD
-=======
-        //NotificationCenter.default.addObserver(self, selector: #selector(self.refresh),name:NSNotification.Name(rawValue: "refresh"), object: nil)
-        
->>>>>>> origin/master
     }
     
     func refresh(){
