@@ -39,6 +39,6 @@ class DemoCell: FoldingCell {
 
 extension DemoCell {
     @IBAction func buttonHandler(_ sender: AnyObject) {
-        super.delegate.rescueButtonPressed()
+        super.delegate.rescueButtonPressed(requestorSid: super.requestorSid)
     }
 }

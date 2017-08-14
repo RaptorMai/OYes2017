@@ -27,7 +27,7 @@ import SDWebImage
 //import FirebaseDatabase
 
 protocol rescueButtonPressedProtocol {
-    func rescueButtonPressed()
+    func rescueButtonPressed(requestorSid: NSString)
 }
 
 class MainTableViewController: UITableViewController, rescueButtonPressedProtocol {
@@ -79,9 +79,15 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
         //    self.setup()
         print("hi")
         
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         
+<<<<<<< HEAD
+=======
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.refresh),name:NSNotification.Name(rawValue: "refresh"), object: nil)
+        
+>>>>>>> origin/master
     }
     
     func refresh(){
@@ -237,6 +243,7 @@ extension MainTableViewController {
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
         cell.delegate = self
+        cell.requestorSid = dictArray[indexPath.row]["sid"] as! NSString
         return cell
     }
     
@@ -271,9 +278,11 @@ extension MainTableViewController {
         
     }
     
-    func rescueButtonPressed() {
+    func rescueButtonPressed(requestorSid: NSString) {
         let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
         let nav = UINavigationController.init(rootViewController: addContactViewController)
+        addContactViewController.contactToAdd = requestorSid as! String
+        //print(requestorSid)
         present(nav, animated: true, completion: nil)
     }
     

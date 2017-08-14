@@ -43,7 +43,7 @@ open class FoldingCell: UITableViewCell {
     
     var animationItemViews: [RotatedView]?
     var delegate: rescueButtonPressedProtocol!
-    
+    var requestorSid: NSString!
     
     /**
      Folding animation types

@@ -14,6 +14,8 @@ class EMAddContactViewController: UIViewController, UITextFieldDelegate {
     
     private var _addViewY: CGFloat = 0
     
+    var contactToAdd: String!
+    
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet var addView: UIView!
@@ -23,6 +25,10 @@ class EMAddContactViewController: UIViewController, UITextFieldDelegate {
         setupTextField()
         setupForDismissKeyboard()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(noti:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        if contactToAdd != nil{
+            sendRequest(contactToAdd)
+        }
 
     }
 
@@ -101,7 +107,7 @@ class EMAddContactViewController: UIViewController, UITextFieldDelegate {
     }
     
     func sendRequest(_ contactName: String) {
-        let requestMessage = EMClient.shared().currentUsername + " add you as a friend"
+        let requestMessage = EMClient.shared().currentUsername + " will be your tutor"
         MBProgressHUD.showAdded(to: navigationController?.view, animated: true)
         weak var weakSelf = self
         EMClient.shared().contactManager.addContact(contactName, message: requestMessage) { (username, error) in
