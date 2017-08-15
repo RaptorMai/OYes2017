@@ -12,3 +12,4 @@ Existing bugs:
 6. Dismiss library is laggard
 7. In summery page, press category can go back to category page.
 8. Press any image can go back to edit page
+9. In tutor app, if user press empty(not loaded yet) image, crush
