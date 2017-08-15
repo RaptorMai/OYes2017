@@ -111,15 +111,22 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         
         
         uploadPicture(key!, data, completion:{ (url) -> Void in
-            
-            
             let addRequest = ["sid": sid, "picURL":url!, "category": self.categorytitle, "description":
                 self.questionDescription.text as String, "status": true] as [String : Any]
             self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: key!))").setValue(addRequest)
-            
-            
-            
         })
+        
+        //let requestDict: [String : AnyObject]
+        NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
+        
+    }
+    
+    
+    func tutorFound(){
+        let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        
         
     }
     
