@@ -110,10 +110,10 @@ class EMAddContactViewController: UIViewController, UITextFieldDelegate {
     
     func sendRequest(_ contactName: String) {
         let requestMessage = EMClient.shared().currentUsername + " will be your tutor"
-        MBProgressHUD.showAdded(to: navigationController?.view, animated: true)
+        //MBProgressHUD.showAdded(to: navigationController?.view, animated: true)
         weak var weakSelf = self
         EMClient.shared().contactManager.addContact(contactName, message: requestMessage) { (username, error) in
-            MBProgressHUD.hideAllHUDs(for: weakSelf?.navigationController?.view, animated: true)
+            //MBProgressHUD.hideAllHUDs(for: weakSelf?.navigationController?.view, animated: true)
             if error == nil {
                 weakSelf?.addButton.isUserInteractionEnabled = false
                 weakSelf?.textField.text = ""
