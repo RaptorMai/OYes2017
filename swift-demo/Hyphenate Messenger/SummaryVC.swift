@@ -112,7 +112,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         
         uploadPicture(key!, data, completion:{ (url) -> Void in
             let addRequest = ["sid": sid, "picURL":url!, "category": self.categorytitle, "description":
-                self.questionDescription.text as String, "status": true] as [String : Any]
+                self.questionDescription.text as String, "status": 0, "qid": key!, "tid":"", "start": "", "end": ""] as [String : Any]
             self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: key!))").setValue(addRequest)
         })
         

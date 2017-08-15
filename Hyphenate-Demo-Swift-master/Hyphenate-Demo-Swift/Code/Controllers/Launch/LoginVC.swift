@@ -134,6 +134,7 @@ class LoginVC: UIViewController {
                             EMClient.shared().options.isAutoLogin = true
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue:KNOTIFICATION_LOGINCHANGE), object: NSNumber(value: true))
                         } else {
+                            
                             var alertStr = ""
                             switch error!.code {
                             case EMErrorUserNotFound:
@@ -162,15 +163,13 @@ class LoginVC: UIViewController {
                     }
                     
                     
-//                    let homeVC = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "oneandonly")
+
                     let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
-//                    let homeVC = HomeViewController()
+
                     
                     self.present(homeVC, animated: true, completion: nil)
                     
-                    
-//                    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style:.plain, target: nil, action: nil)
-//                    self.navigationController?.pushViewController(homeVC, animated: true)
+
                 }
             }
         }

@@ -53,6 +53,6 @@ protocol expandimageProtocol {
 
 extension DemoCell {
     @IBAction func buttonHandler(_ sender: AnyObject) {
-        super.delegate.rescueButtonPressed(requestorSid: super.requestorSid)
+        super.delegate.rescueButtonPressed(requestorSid: super.requestorSid, category: super.category, qid: super.qid)
     }
 }

@@ -109,6 +109,8 @@ class EMAddContactViewController: UIViewController, UITextFieldDelegate {
     }
     
     func sendRequest(_ contactName: String) {
+        print(EMClient.shared().currentUsername)
+        
         let requestMessage = EMClient.shared().currentUsername + " will be your tutor"
         //MBProgressHUD.showAdded(to: navigationController?.view, animated: true)
         weak var weakSelf = self

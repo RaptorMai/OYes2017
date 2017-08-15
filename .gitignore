@@ -4,6 +4,8 @@ swift-demo/Pods
 
 Hyphenate-Demo-Swift-master/Pods
 
+backend/functions/node_modules/*
+
 swift-demo/.DS_Store
 
 TutorApp/.DS_Store

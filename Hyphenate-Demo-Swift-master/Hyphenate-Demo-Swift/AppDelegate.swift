@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         EMClient.shared().initializeSDK(with: options)     
         
-        NotificationCenter.default.addObserver(self, selector: #selector(loginStateChange(nofi:)), name: NSNotification.Name(rawValue:KNOTIFICATION_LOGINCHANGE), object: nil)     
+        //NotificationCenter.default.addObserver(self, selector: #selector(loginStateChange(nofi:)), name: NSNotification.Name(rawValue:KNOTIFICATION_LOGINCHANGE), object: nil)
         
 //        let storyboard = UIStoryboard.init(name: "Launch", bundle: nil)     
 //        let launchVC = storyboard.instantiateViewController(withIdentifier: "EMLaunchViewController")     
@@ -52,7 +52,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        window?.rootViewController = launchVC
 //        window?.makeKeyAndVisible()
         
-    
+        if EMClient.shared().isAutoLogin {
+            proceedLogin()
+        } else {
+            proceedLogout()
+            EMClient.shared().options.isAutoLogin = true
+        }
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         let RVController = UINavigationController(rootViewController: LaunchViewController())
@@ -67,7 +73,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         return true
     }
  
+    func proceedLogin() {
+        
+        let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
+        //                    let homeVC = HomeViewController()
+        
+        window?.rootViewController = homeVC
+        
+    }
     
+    // logout
+    func proceedLogout() {
+        if EMClient.shared().isLoggedIn {
+            EMClient.shared().logout(true)
+        } else {
+            proceedLogin()
+        }
+    }
     func loginStateChange(nofi: NSNotification) {
         if (nofi.object as! NSNumber).boolValue {
             let mainVC = EMMainViewController()     
