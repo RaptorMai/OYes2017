@@ -28,11 +28,14 @@ import SDWebImage
 //import FirebaseDatabase
 
 class MainTableViewController: UITableViewController {
-    let testarray: [[String:Any]] = [["sid":"6475290310", "pic": "unknown", "category": "Math", "description": "some random description that is sort of long", "status": true],["sid":"6475291234", "pic": "unkown", "category": "Science", "description": "some random description that is sort of long but actually even longer for testing long strings. some random description that is sort of long but actually even longer for testing long strings.", "status": true] ]
+
     let kCloseCellHeight: CGFloat = 179
     let kOpenCellHeight: CGFloat = 488
     var kRowsCount = 0
     var cellHeights: [CGFloat] = []
+    var specialty = ["Real Analysis"]
+    var dictArray = [Dictionary<String,Any>]()
+    var ref: DatabaseReference?
     //    var cache:NSCache<AnyObject, AnyObject>!
     
     
@@ -73,7 +76,7 @@ class MainTableViewController: UITableViewController {
     }
     
     func refresh(){
-        super.viewDidLoad()
+        //super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
         self.dictArray.removeAll()
         self.getData(completion: { (success) -> Void in
@@ -116,10 +119,7 @@ class MainTableViewController: UITableViewController {
         tableView.backgroundColor = UIColor(hex: "F8F8F8")
     }
     
-    // code for fetching
-    var specialty = ["Basic Calculus"]
-    var dictArray = [Dictionary<String,Any>]()
-    var ref: DatabaseReference?
+    
     
     func getData(completion:@escaping (_ success: Bool) -> ()){
         ref = Database.database().reference()
