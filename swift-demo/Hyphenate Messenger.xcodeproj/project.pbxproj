@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		301D34EF1F421BAE00C9A395 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301D34EE1F421BAE00C9A395 /* Spinner.swift */; };
 		39062AE81D9F0D4400EE8412 /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39062AE71D9F0D4400EE8412 /* ContactTableViewCell.xib */; };
 		5C226CB1BB2ACE14FE2BC796 /* Pods_Hyphenate_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */; };
 		5D43421C1F266F1700E5CA62 /* AKImageCropperOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341DF1F266F1700E5CA62 /* AKImageCropperOverlayView.swift */; };
@@ -271,6 +272,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		301D34EE1F421BAE00C9A395 /* Spinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		39062AE71D9F0D4400EE8412 /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContactTableViewCell.xib; path = Views/ContactTableViewCell.xib; sourceTree = "<group>"; };
 		46CB1D5CA6E51EFA21BD9A5F /* Pods-Hyphenate Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.release.xcconfig"; sourceTree = "<group>"; };
 		5D4341DF1F266F1700E5CA62 /* AKImageCropperOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayView.swift; sourceTree = "<group>"; };
@@ -797,6 +799,7 @@
 				B0E164A91F291AC1008121F1 /* PrdouctMenuTableViewCell.swift */,
 				B0E164A51F291A96008121F1 /* SummaryVC.swift */,
 				B0E164A11F291A8C008121F1 /* GroupTableView.swift */,
+				301D34EE1F421BAE00C9A395 /* Spinner.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1874,6 +1877,7 @@
 				9A17BE2A1D9E20190075EF9F /* LoginViewController.swift in Sources */,
 				B6346B2D1D9E6C5100CBEAE2 /* PSTCollectionViewFlowLayout.m in Sources */,
 				B6346B091D9E6C5100CBEAE2 /* MJRefreshStateHeader.m in Sources */,
+				301D34EF1F421BAE00C9A395 /* Spinner.swift in Sources */,
 				B6346B601D9E6C5100CBEAE2 /* EaseTextView.m in Sources */,
 				5D4342261F266F1700E5CA62 /* IC_CGPointExtension.swift in Sources */,
 				B6346B421D9E6C5100CBEAE2 /* EaseMessageReadManager.m in Sources */,

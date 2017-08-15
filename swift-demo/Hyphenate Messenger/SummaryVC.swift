@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 
+
 class SummaryVC: UIViewController, UITextViewDelegate{
     var categorytitle: String = ""
     
@@ -98,79 +99,36 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         var data = Data()
         data = UIImageJPEGRepresentation(questionPic.image!, 0.8)!
         let sid = EMClient.shared().currentUsername!
+        
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        _ = MKFullSpinner.show("Your tutor is on the way", view: self.view)
+        let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
+        //button.backgroundColor = .green
+        button.setTitle("Cancel", for: .normal)
+        button.addTarget(self, action: #selector(hideFullSpinner), for: .touchUpInside)
+        self.view.addSubview(button)
+        
+        
         uploadPicture(key!, data, completion:{ (url) -> Void in
             
             
             let addRequest = ["sid": sid, "picURL":url!, "category": self.categorytitle, "description":
                 self.questionDescription.text as String, "status": true] as [String : Any]
             self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: key!))").setValue(addRequest)
-            /*self.getData(completion: { (success) -> Void in
-             
-             if success{
-             self.getPic(completion: {(success) -> Void in
-             
-             if success{
-             //print(self.dictArray)
-             //print("hi")
-             
-             }
-             else{return}
-             
-             })
-             }
-             else{return}
-             })*/
+            
             
             
         })
         
     }
     
-    
-    var specialty = ["Basic Calculus"]
-    var dictArray = [Dictionary<String,Any>]()
-    func getData(completion:@escaping (_ success: Bool) -> ()){
-        
-        for item in specialty{
-            
-            ref?.child("Request/active/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
-                if let snapDict = snapshot.value! as? [String:AnyObject]{
-                    
-                    for each in snapDict{
-                        print(each)
-                        self.dictArray.append(each.value as! Dictionary<String,Any>)
-                        completion(true)
-                        
-                        
-                    }
-                }
-                
-            })
-        }
-        
+    func hideFullSpinner(sender: UIButton!){
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        sender.removeFromSuperview()
+        MKFullSpinner.hide()
     }
     
-    func getPic(completion:@escaping (_ success: Bool) -> ()){
-        
-        for index in 0..<self.dictArray.count{
-            
-            let url = self.dictArray[index]["picURL"]!
-            //print (url)
-            let storageRef = Storage.storage().reference(forURL:url as! String)
-            storageRef.getData(maxSize: 2 * 1024 * 1024) { data, error in
-                if let error = error {
-                    print(error)
-                } else {
-                    
-                    
-                    self.dictArray[index]["picURL"] = data
-                    completion(true)
-                    //print(dic)
-                }
-            }
-        }
-        
-    }
     func uploadPicture(_ key: String, _ data: Data, completion:@escaping (_ url: String?) -> ()) {
         let storageRef = Storage.storage().reference()
         storageRef.child("image/\(self.categorytitle)/\(String(describing: key))").putData(data, metadata: nil){(metaData,error) in

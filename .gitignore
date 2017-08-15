@@ -8,3 +8,5 @@ TutorApp/.DS_Store
 swift-demo/.DS_Store
 
 *.xcuserstate
+
+*.pbxproj
