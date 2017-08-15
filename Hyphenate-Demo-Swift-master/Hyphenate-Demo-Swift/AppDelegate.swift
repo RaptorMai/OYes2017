@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         let options = EMOptions.init(appkey: "1500170706002947#instasolve")     
         
-        var apnsCerName = ""     
+        var apnsCerName = "InstasolveTutorDevCertificates"
         #if DEBUG
             apnsCerName = "InstasolveTutorDevCertificates"
         #else
