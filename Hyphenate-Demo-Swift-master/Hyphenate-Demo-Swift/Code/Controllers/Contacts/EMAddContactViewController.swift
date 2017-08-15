@@ -29,6 +29,8 @@ class EMAddContactViewController: UIViewController, UITextFieldDelegate {
         if contactToAdd != nil{
             sendRequest(contactToAdd)
         }
+        
+        cancelAddContact()
 
     }
 

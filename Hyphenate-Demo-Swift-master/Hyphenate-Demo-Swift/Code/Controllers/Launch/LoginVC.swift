@@ -124,10 +124,10 @@ class LoginVC: UIViewController {
 
                 }
                 else{
-                    
+                    let usernameNoSign = self.Username.text!.replacingOccurrences(of: "@", with: "")
                     MBProgressHUD.showAdded(to: self.view, animated: true)
                     weak var weakSelf = self
-                    EMClient.shared().login(withUsername: self.Username.text!, password: self.Password.text!) { (username, error) in
+                    EMClient.shared().login(withUsername: usernameNoSign, password: self.Password.text!) { (username, error) in
                         MBProgressHUD.hide(for: weakSelf?.view, animated: true)
                         
                         if error == nil {

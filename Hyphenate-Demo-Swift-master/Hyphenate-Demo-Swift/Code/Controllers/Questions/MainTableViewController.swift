@@ -262,10 +262,14 @@ extension MainTableViewController {
     
     func rescueButtonPressed(requestorSid: NSString) {
         let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
-        let nav = UINavigationController.init(rootViewController: addContactViewController)
-        addContactViewController.contactToAdd = requestorSid as! String
-        //print(requestorSid)
-        present(nav, animated: true, completion: nil)
+        addContactViewController.contactToAdd = requestorSid as String
+        print(requestorSid)
+        addContactViewController.sendRequest(addContactViewController.contactToAdd)
+        
+        //TODO: loading image, disable all other functions
+        //TODO: add transaction function to remove node from active question list
+        //TODO: dismiss loading view and present ChatVC when received agree from student: check friendRequestDidApprove function in EMChatDemoHelper
+        
     }
     
 }

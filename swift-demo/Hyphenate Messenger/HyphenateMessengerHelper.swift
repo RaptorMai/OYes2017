@@ -379,6 +379,11 @@ class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegat
         
         var message:String? = aMessage
         
+        let alert = UIAlertController(title: "Tutor Connected", message: aMessage, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Decline", style: UIAlertActionStyle.destructive, handler: nil))
+        alert.addAction(UIAlertAction(title: "Accept", style: UIAlertActionStyle.default, handler: nil))
+        //self.present(alert, animated: true, completion: nil)
+        
         
         if (message == nil) {
             message = "\(NSLocalizedString("friend.somebodyAddWithName", comment: "\(aUsername) added you as a friend"))"

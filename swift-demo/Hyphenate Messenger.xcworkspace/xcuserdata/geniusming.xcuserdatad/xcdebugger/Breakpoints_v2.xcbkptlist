@@ -105,54 +105,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Hyphenate Messenger/LoginViewController.swift"
-            timestampString = "523492669.578257"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "loginAction(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hyphenate_Messenger.LoginViewController.(loginAction (Swift.AnyObject) -&gt; ()).(closure #1)"
-                  moduleName = "Hyphenate Messenger"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/geniusming/Dropbox/Career/InstaSolve/swift-demo/Hyphenate%20Messenger/LoginViewController.swift"
-                  timestampString = "524018662.679076"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "3132">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hyphenate_Messenger.LoginViewController.(loginAction (Swift.AnyObject) -&gt; ()).(closure #1).(closure #1)"
-                  moduleName = "Hyphenate Messenger"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/geniusming/Dropbox/Career/InstaSolve/swift-demo/Hyphenate%20Messenger/LoginViewController.swift"
-                  timestampString = "524018662.683286"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "103"
-                  endingLineNumber = "103"
-                  offsetFromSymbolStart = "60">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/HistoryTableViewController.swift"
             timestampString = "524016261.929797"
             startingColumnNumber = "9223372036854775807"
@@ -224,6 +176,22 @@
             startingLineNumber = "167"
             endingLineNumber = "167"
             landmarkName = "messagesDidReceive(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hyphenate Messenger/HyphenateMessengerHelper.swift"
+            timestampString = "524446039.784854"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
+            landmarkName = "friendRequestDidReceive(fromUser:message:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
