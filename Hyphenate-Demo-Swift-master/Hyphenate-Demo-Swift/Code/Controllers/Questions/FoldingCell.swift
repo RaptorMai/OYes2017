@@ -45,6 +45,8 @@ open class FoldingCell: UITableViewCell {
     var delegate: rescueButtonPressedProtocol!
     var requestorSid: NSString!
     
+    var tableDelegate: expandimageProtocol?
+    
     /**
      Folding animation types
      

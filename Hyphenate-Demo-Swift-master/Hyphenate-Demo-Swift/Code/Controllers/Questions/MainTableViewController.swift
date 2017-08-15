@@ -30,7 +30,7 @@ protocol rescueButtonPressedProtocol {
     func rescueButtonPressed(requestorSid: NSString)
 }
 
-class MainTableViewController: UITableViewController, rescueButtonPressedProtocol {
+class MainTableViewController: UITableViewController, rescueButtonPressedProtocol, expandimageProtocol {
     let kCloseCellHeight: CGFloat = 179
     let kOpenCellHeight: CGFloat = 488
     var kRowsCount = 0
@@ -185,6 +185,14 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
         
     }
     
+    func expandimage(cellimageview: UIImageView){
+        let image = cellimageview.image
+        let agrume = Agrume(image: image!, backgroundColor: .black)
+        agrume.hideStatusBar = true
+        agrume.showFrom(self)
+    }
+    
+    
 }
 
 // MARK: - TableView
@@ -212,20 +220,6 @@ extension MainTableViewController {
             cell.subject = dictArray[indexPath.row]["category"] as! String
             cell.closeDescription.text = dictArray[indexPath.row]["description"] as? String
             cell.openDescription.text = dictArray[indexPath.row]["description"] as? String
-            //    if let imageData = dictArray[indexPath.row]["picURL"] as? Data {
-            //        if let image = UIImage(data:imageData) {
-            ////            img = UIImage(data:imageData)
-            //            cell.closeQuestPic.image = image
-            //            cell.openQuestPic.image = image
-            ////            if let updateCell = tableView.cellForRow(at: indexPath) {
-            ////                //        let img:UIImage! = UIImage(data: data)
-            ////                updateCell.imageView?.image = img
-            ////                self.cache.setObject(img!, forKey: (indexPath as NSIndexPath).row as AnyObject)
-            ////            }
-            //
-            //        }
-            //    }
-            
             // Downloads pictures, caches them and alllows for immediate loading of pictures
             let photoURL = dictArray[indexPath.row]["picURL"]
             cell.openQuestPic.sd_setImage(with: URL(string: photoURL as! String))
@@ -238,6 +232,7 @@ extension MainTableViewController {
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
         cell.delegate = self
+        cell.tableDelegate = self
         cell.requestorSid = dictArray[indexPath.row]["sid"] as! NSString
         return cell
     }
@@ -247,40 +242,20 @@ extension MainTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let cell = tableView.cellForRow(at: indexPath) as! FoldingCell
-        
-        if cell.isAnimating() {
-            return
-        }
-        
-        //    var duration = 0.0
-        let cellIsCollapsed = cellHeights[indexPath.row] == kCloseCellHeight
-        if cellIsCollapsed {
-            //      cellHeights[indexPath.row] = kOpenCellHeight
-            //      cell.unfold(true, animated: true, completion: nil)
-            //      duration = 0.5
-        } else {
-            //      cellHeights[indexPath.row] = kCloseCellHeight
-            //      cell.unfold(false, animated: true, completion: nil)
-            //      duration = 0.8
-        }
-        
-        //    UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: { () -> Void in
-        //      tableView.beginUpdates()
-        //      tableView.endUpdates()
-        //    }, completion: nil)
-        
     }
     
     func rescueButtonPressed(requestorSid: NSString) {
+        
+        //transaction function to remove node from active question list
+        
+        
+        
         let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
         addContactViewController.contactToAdd = requestorSid as String
         print(requestorSid)
         addContactViewController.sendRequest(addContactViewController.contactToAdd)
         
-        //TODO: loading image, disable all other functions
-        //TODO: add transaction function to remove node from active question list
+        
         //TODO: dismiss loading view and present ChatVC when received agree from student: check friendRequestDidApprove function in EMChatDemoHelper
         
     }

@@ -1,6 +1,5 @@
 
 import UIKit
-//import FoldingCell
 
 class DemoCell: FoldingCell {
     
@@ -24,17 +23,32 @@ class DemoCell: FoldingCell {
         }
     }
     
+    
     override func awakeFromNib() {
         foregroundView.layer.cornerRadius = 10
         foregroundView.layer.masksToBounds = true
         super.awakeFromNib()
+        
+        self.isUserInteractionEnabled = true
+        self.openQuestPic.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapEdit(sender:)))
+        self.openQuestPic.addGestureRecognizer(tapGesture)
     }
+    
+    func tapEdit(sender: UITapGestureRecognizer) {
+        tableDelegate?.expandimage(cellimageview: openQuestPic)
+    }
+    
     
     override func animationDuration(_ itemIndex: NSInteger, type: FoldingCell.AnimationType) -> TimeInterval {
         let durations = [0.26, 0.2, 0.2]
         return durations[itemIndex]
     }
     
+}
+
+protocol expandimageProtocol {
+    func expandimage(cellimageview: UIImageView)
 }
 
 extension DemoCell {
