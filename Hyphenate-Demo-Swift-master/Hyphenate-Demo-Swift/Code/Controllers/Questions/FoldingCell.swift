@@ -44,6 +44,8 @@ open class FoldingCell: UITableViewCell {
     var animationItemViews: [RotatedView]?
     var delegate: rescueButtonPressedProtocol!
     var requestorSid: NSString!
+    var category: NSString!
+    var qid: NSString!
     
     var tableDelegate: expandimageProtocol?
     

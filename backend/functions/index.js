@@ -37,13 +37,21 @@ exports.stripeCharge = functions.database
 
 													if (val.source !== null) charge.source = val.source;
 
-													return stripe.charges.create(charge, {idempotency_key});
-												})
+													return stripe.charges.create(charge, {idempotency_key}, function(err, charge){
+														if (err){
+															console.log(err.Type);
 
-												.then(response => {
-													console.log('writing back to db');
-													return event.data.adminRef.set(response);			
-												});
+															return event.data.adminRef.set(error);
+														}
+														return event.data.adminRef.set(charge);
+
+													});
+												})
+												// .then(response => {
+												// 	console.log('writing back to db');
+												// 	if 
+												// 	return event.data.adminRef.set(response);			
+												// });
 								});
 
 
@@ -54,6 +62,8 @@ exports.createStripeUser = functions.auth.user().onCreate(event => {
 	return stripe.customers.create().then(customer => {
 		console.log("creating stripe customer");
 		console.log(customer);
+		// To use when integrated, use phone number as uid
+		// return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
 		return admin.database().ref(`/users/${data.uid}/payments/customerId`).set(customer.id);
 	});
 });
@@ -107,6 +117,7 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 	 	});
 	});
 
+
 exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{pid}').onUpdate(event => {
 	const sid = event.params.sid;
 	const id = event.params.pid;
@@ -130,11 +141,13 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 })
 
 
-exports.inactiveQuestion = functions.database.ref('/requests/active/{questionId}/status').onUpdate(event => {
+exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{questionId}/status').onUpdate(event => {
 	
+	console.log("getin");
 	const questionId = event.params.questionId;
+	const category = event.params.category;
 	console.log(questionId);
-	var ref = admin.database().ref("/requests/active/" + questionId);
+	var ref = admin.database().ref("/Request/active/" + category +"/"+ questionId);
 	console.log("inactiveQuestion triggered");
 	ref.once("value").then(snapshot => {
 		var changedQ = snapshot.val();
@@ -143,12 +156,43 @@ exports.inactiveQuestion = functions.database.ref('/requests/active/{questionId}
 		console.log("removing node");
 		ref.remove().then(function(){
 			console.log("add to inactive");
-	   		admin.database().ref("/requests/inactive/" + questionId).set(changedQ);
+			var ref = admin.database().ref("/Request/inactive/" + category +"/"+ questionId);
+	   		ref.set(changedQ);
+	   		var startTime = new Date()
+	   		ref.child("startTime").set(startTime.getTime());
 		});
 	})
 })
 
 
+exports.consumeBalance = functions.database.ref('/Request/inactive/{questionId}/endTime').onWrite(event => {
+	const qid = event.params.questionId;
+	var endTime = new Date();
+	var ref = admin.database().ref("/Request/inactive/" + qid);
+	const sid = ref.once("value").then(snapshot => {
+		console.log(snapshot.val());
+		const sid = snapshot.sid;
+		const tid = snapshot.tid;
+		const startTime = snapshot.startTime;
+		const sessionTime = Math.ceil((endTime - startTime) / 1000 / 60)
 
+		// TO DO update user/tutor balance
+		// Update student balance
+		admin.database().ref("/users/" + sid + "/balance").once("value").then(snapshot => {
+			admin.ref.database().ref("/users/" + sid + "balance").set(snapshot.val() - sessionTime)
+		})
+
+		// Update tutor balance
+		admin.database().ref("/tutors/" + tid + "/balance").once("value").then(snapshot => {
+			admin.ref.database().ref("/tutors/" + tid + "/balance").set(snapshot.val() + sessionTime)
+		})
+	})
+})
+
+// exports.readdata = functions.database.ref('/test').onWrite(event => {
+// 	admin.database().ref('/test').once("value").then(snapshot => {
+// 		console.log(snapshot.val());
+// 	});
+// })
 
 

@@ -27,7 +27,7 @@ import SDWebImage
 //import FirebaseDatabase
 
 protocol rescueButtonPressedProtocol {
-    func rescueButtonPressed(requestorSid: NSString)
+    func rescueButtonPressed(requestorSid: NSString, category: NSString, qid: NSString)
 }
 
 class MainTableViewController: UITableViewController, rescueButtonPressedProtocol, expandimageProtocol {
@@ -35,7 +35,7 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
     let kOpenCellHeight: CGFloat = 488
     var kRowsCount = 0
     var cellHeights: [CGFloat] = []
-    var specialty = ["Linear Algebra"]
+    var specialty = ["Basic Calculus"]
     var dictArray = [Dictionary<String,Any>]()
     var ref: DatabaseReference?
     
@@ -72,8 +72,8 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
                 
                 
                 print("not")
-
-            
+                
+                
             }
         })
         //    self.setup()
@@ -117,8 +117,8 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-               print("refreshnot")
-
+                print("refreshnot")
+                
             }
         })
         //    self.setup()
@@ -209,14 +209,14 @@ extension MainTableViewController {
         }
         
         
-            cell.backgroundColor = .clear
-            
-            if cellHeights[indexPath.row] == kCloseCellHeight {
-                cell.unfold(false, animated: false, completion:nil)
-            } else {
-                cell.unfold(true, animated: false, completion: nil)
-            }
-         if !dictArray.isEmpty{
+        cell.backgroundColor = .clear
+        
+        if cellHeights[indexPath.row] == kCloseCellHeight {
+            cell.unfold(false, animated: false, completion:nil)
+        } else {
+            cell.unfold(true, animated: false, completion: nil)
+        }
+        if !dictArray.isEmpty{
             cell.subject = dictArray[indexPath.row]["category"] as! String
             cell.closeDescription.text = dictArray[indexPath.row]["description"] as? String
             cell.openDescription.text = dictArray[indexPath.row]["description"] as? String
@@ -234,6 +234,8 @@ extension MainTableViewController {
         cell.delegate = self
         cell.tableDelegate = self
         cell.requestorSid = dictArray[indexPath.row]["sid"] as! NSString
+        cell.category = dictArray[indexPath.row]["category"] as! NSString
+        cell.qid = dictArray[indexPath.row]["qid"] as! NSString
         return cell
     }
     
@@ -244,16 +246,58 @@ extension MainTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
     
-    func rescueButtonPressed(requestorSid: NSString) {
+    func rescueButtonPressed(requestorSid: NSString, category: NSString, qid: NSString) {
         
         //transaction function to remove node from active question list
         
+        //print("accept button is clicked")
+        let ref = Database.database().reference()
+        
+        // TO DO: get current questionId from db
+        let qid: String = (qid as? String)!
+        let category: String = (category as? String)!
+        let refStatus = ref.child("Request/active/" + category + "/" + qid)
+        refStatus.runTransactionBlock { (currentData: MutableData) -> TransactionResult in
+            //print(currentData.value)
+            if var data = currentData.value as? [String: Any] {
+                print("this is data \(data)")
+                var status = data["status"] as? Int
+                
+                if status == 1 {
+                    // TO DO: pop up window saying better luck next time
+                    let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    print("Sorry better luck next time")
+                    return TransactionResult.abort()
+                } else {
+                    status = 1
+                    data["status"] = status
+                    
+                    // TO DO: assign tutorId to accepted question
+                    // TO DO: connect to student to start session -> func startSession(sid)
+                    let alert = UIAlertController(title: "Alert", message: "yeah you got the question", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
+                    addContactViewController.contactToAdd = requestorSid as String
+                    addContactViewController.sendRequest(addContactViewController.contactToAdd)
+                    data["tid"] = "shit"
+                    print("yeah you got the question")
+                }
+                // update status on Firebase db
+                currentData.value = data
+                print("updated data \(data)")
+                return TransactionResult.success(withValue: currentData)
+            }
+            print("querying db")
+            return TransactionResult.success(withValue: currentData)
+        }
+
+        print("value updated and transaction completed")
         
         
-        let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
-        addContactViewController.contactToAdd = requestorSid as String
-        print(requestorSid)
-        addContactViewController.sendRequest(addContactViewController.contactToAdd)
+
         
         
         //TODO: dismiss loading view and present ChatVC when received agree from student: check friendRequestDidApprove function in EMChatDemoHelper
