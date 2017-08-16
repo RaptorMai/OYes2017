@@ -265,6 +265,9 @@ extension MainTableViewController {
                 
                 if status == 1 {
                     // TO DO: pop up window saying better luck next time
+                    let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                     print("Sorry better luck next time")
                     return TransactionResult.abort()
                 } else {
@@ -273,6 +276,12 @@ extension MainTableViewController {
                     
                     // TO DO: assign tutorId to accepted question
                     // TO DO: connect to student to start session -> func startSession(sid)
+                    let alert = UIAlertController(title: "Alert", message: "yeah you got the question", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
+                    addContactViewController.contactToAdd = requestorSid as String
+                    addContactViewController.sendRequest(addContactViewController.contactToAdd)
                     data["tid"] = "shit"
                     print("yeah you got the question")
                 }
@@ -284,26 +293,11 @@ extension MainTableViewController {
             print("querying db")
             return TransactionResult.success(withValue: currentData)
         }
-        //        { (error, committed, snapshot) in
-        //            if let error = error {
-        //                print(error.localizedDescription)
-        //            }
-        //            if committed {
-        //                print("data updated")
-        //            }
-        //            if let snapshot = snapshot {
-        //                print(snapshot)
-        //                }
-        //                print("congratulations")
-        //            }
+
         print("value updated and transaction completed")
         
         
-        let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
-        addContactViewController.contactToAdd = requestorSid as String
-        print(requestorSid)
-        print(addContactViewController.contactToAdd)
-        addContactViewController.sendRequest(addContactViewController.contactToAdd)
+
         
         
         //TODO: dismiss loading view and present ChatVC when received agree from student: check friendRequestDidApprove function in EMChatDemoHelper
