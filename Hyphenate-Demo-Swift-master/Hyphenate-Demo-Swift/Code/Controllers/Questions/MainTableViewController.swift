@@ -266,6 +266,7 @@ extension MainTableViewController {
                 
                 if status == 1 {
                     // TO DO: pop up window saying better luck next time
+
                     return TransactionResult.abort()
                 } else {
                     status = 1
@@ -273,6 +274,7 @@ extension MainTableViewController {
                     data["tid"] = tid
                     // TO DO: assign tutorId to accepted question
                     // TO DO: connect to student to start session -> func startSession(sid)
+            
                     }
                 // update status on Firebase db
                 currentData.value = data
@@ -289,27 +291,41 @@ extension MainTableViewController {
             //under snap variable has the value of the counter after
             //updates are done
             if commited {
-                let alert = UIAlertController(title: "Alert", message: "yeah you got the question", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
-                addContactViewController.contactToAdd = requestorSid as String
-                addContactViewController.sendRequest(addContactViewController.contactToAdd)
-                print(snap)
-                print("yeah you got the question")
+                let checkNill = snap?.value! as? [String:AnyObject]
+                //print(checkNill?[qid])
+                if ((checkNill?[qid]) == nil){
+                    
+                    let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    print("Sorry better luck next time")
+                    //print(snap!)
+
+                }
+                else{
+                
+                    let alert = UIAlertController(title: "Alert", message: "yeah you got the question", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
+                    addContactViewController.contactToAdd = requestorSid as String
+                    addContactViewController.sendRequest(addContactViewController.contactToAdd)
+                    //print(snap!)
+                    print("yeah you got the question")
+                
+                }
 
             }
             else{
-            
+                
                 let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 print("Sorry better luck next time")
-                print(snap)
+                //print(snap)
             
             }
-        }
-        )
+        })
         
         
         
