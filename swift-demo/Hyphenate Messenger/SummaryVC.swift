@@ -116,21 +116,21 @@ class SummaryVC: UIViewController, UITextViewDelegate{
             self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: key!))").setValue(addRequest)
         })
         
-        //let requestDict: [String : AnyObject]
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound(_:)), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
-        tutorFound2()
+//        let requestDict: [String : AnyObject]
+        NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound(_:)), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
+//        tutorFound2()
         
     }
     
-    func tutorFound2(){
-        let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK",
-                                      style: UIAlertActionStyle.default,
-                                      handler: { (alert:UIAlertAction!) in
-                                        self.startChatting(requestDict: ["username" : "sulagshangmail.com"]) }))
-        //sulagshangmail.com/6479795208
-        self.present(alert, animated: true, completion: nil)
-    }
+//    func tutorFound2(){
+//        let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
+//        alert.addAction(UIAlertAction(title: "OK",
+//                                      style: UIAlertActionStyle.default,
+//                                      handler: { (alert:UIAlertAction!) in
+//                                        self.startChatting(requestDict: ["username" : "sulagshangmail.com"]) }))
+//        //sulagshangmail.com/6479795208
+//        self.present(alert, animated: true, completion: nil)
+//    }
     
     func tutorFound(_ notification: NSNotification){
         let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
@@ -146,24 +146,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     func startChatting(requestDict:[String: Any]){
         let timeStamp = ["SessionId":String(Date().ticks)]
         let sessionController = ChatTableViewController(conversationID: requestDict["username"] as! String , conversationType: EMConversationTypeChat, initWithExt: timeStamp)
-//        print("\(requestDict["username"])")
-//        EaseMessageViewController.sendTextMessage(sessionController.con)
-//        sessionController?.sendImageMessage(questionPic.image)
-//        print("\(requestDict["username"])")
 
-
-//        DispatchQueue.global().async{
-//            
-//            DispatchQueue.main.sync {
-//                self.navigationController?.isNavigationBarHidden = false
-//                if let sessContr = sessionController{
-//                    self.navigationController?.pushViewController(sessContr, animated: true)
-//                    
-//                }
-//            }
-//        }
-//        sessionController?.sendTextMessage("testing autotextmessage")
-        
         CATransaction.begin()
         self.navigationController?.isNavigationBarHidden = false
         if let sessContr = sessionController{
