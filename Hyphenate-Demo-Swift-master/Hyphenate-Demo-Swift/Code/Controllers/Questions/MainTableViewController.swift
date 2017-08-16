@@ -24,6 +24,7 @@
 import UIKit
 import Firebase
 import SDWebImage
+import Hyphenate
 //import FirebaseDatabase
 
 protocol rescueButtonPressedProtocol {
@@ -252,12 +253,12 @@ extension MainTableViewController {
         
         //print("accept button is clicked")
         let ref = Database.database().reference()
-        
+        let tid = EMClient.shared().currentUsername!
         // TO DO: get current questionId from db
         let qid: String = (qid as? String)!
         let category: String = (category as? String)!
         let refStatus = ref.child("Request/active/" + category + "/" + qid)
-        refStatus.runTransactionBlock { (currentData: MutableData) -> TransactionResult in
+        refStatus.runTransactionBlock ({ (currentData: MutableData) -> TransactionResult in
             //print(currentData.value)
             if var data = currentData.value as? [String: Any] {
                 print("this is data \(data)")
@@ -265,39 +266,52 @@ extension MainTableViewController {
                 
                 if status == 1 {
                     // TO DO: pop up window saying better luck next time
-                    let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                    print("Sorry better luck next time")
                     return TransactionResult.abort()
                 } else {
                     status = 1
                     data["status"] = status
-                    
+                    data["tid"] = tid
                     // TO DO: assign tutorId to accepted question
                     // TO DO: connect to student to start session -> func startSession(sid)
-                    let alert = UIAlertController(title: "Alert", message: "yeah you got the question", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                    let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
-                    addContactViewController.contactToAdd = requestorSid as String
-                    addContactViewController.sendRequest(addContactViewController.contactToAdd)
-                    data["tid"] = "shit"
-                    print("yeah you got the question")
-                }
+                    }
                 // update status on Firebase db
                 currentData.value = data
                 print("updated data \(data)")
                 return TransactionResult.success(withValue: currentData)
             }
-            print("querying db")
+            
+            print("data is nill")
             return TransactionResult.success(withValue: currentData)
+        },andCompletionBlock: {
+            error, commited, snap in
+            
+            //if the transaction was commited, i.e. the data
+            //under snap variable has the value of the counter after
+            //updates are done
+            if commited {
+                let alert = UIAlertController(title: "Alert", message: "yeah you got the question", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
+                addContactViewController.contactToAdd = requestorSid as String
+                addContactViewController.sendRequest(addContactViewController.contactToAdd)
+                print(snap)
+                print("yeah you got the question")
+
+            }
+            else{
+            
+                let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                print("Sorry better luck next time")
+                print(snap)
+            
+            }
         }
-
-        print("value updated and transaction completed")
+        )
         
         
-
         
         
         //TODO: dismiss loading view and present ChatVC when received agree from student: check friendRequestDidApprove function in EMChatDemoHelper
