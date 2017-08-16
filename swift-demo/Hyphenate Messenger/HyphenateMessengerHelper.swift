@@ -379,11 +379,6 @@ class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegat
         
         var message:String? = aMessage
         
-//        let alert = UIAlertController(title: "Tutor Connected", message: aMessage, preferredStyle: UIAlertControllerStyle.alert)
-//        alert.addAction(UIAlertAction(title: "Decline", style: UIAlertActionStyle.destructive, handler: nil))
-//        alert.addAction(UIAlertAction(title: "Accept", style: UIAlertActionStyle.default, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
-        
         print(aUsername)
         
         
@@ -412,7 +407,7 @@ class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegat
                 }
             #endif
         }
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "kNotification_didReceiveRequest"), object: requestDict)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "kNotification_didReceiveRequest"), object: requestDict, userInfo: requestDict)
     }
     
     
