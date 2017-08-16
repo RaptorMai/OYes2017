@@ -71,9 +71,9 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         //        view.backgroundColor = UIColor.init(red: 239, green: 239, blue: 255, alpha: 1)
         view.backgroundColor = UIColor.init(hex: "EFEFF4")
         
-        //        navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+//        navigationController?.navigationBar.tintColor = UIColor.black
         //        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        navigationController?.navigationBar.tintColor = UIColor.white
+//        navigationController?.navigationBar.tintColor = UIColor.white
         
         view.addSubview(questionPic)
         setupQuestionPic()
@@ -117,17 +117,62 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         })
         
         //let requestDict: [String : AnyObject]
-        NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound(_:)), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
+        tutorFound2()
         
     }
     
-    
-    func tutorFound(){
+    func tutorFound2(){
         let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK",
+                                      style: UIAlertActionStyle.default,
+                                      handler: { (alert:UIAlertAction!) in
+                                        self.startChatting(requestDict: ["username" : "sulagshangmail.com"]) }))
+        //sulagshangmail.com/6479795208
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func tutorFound(_ notification: NSNotification){
+        let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK",
+                                      style: UIAlertActionStyle.default,
+                                      handler: { (alert:UIAlertAction!) in
+                                        self.startChatting(requestDict: notification.userInfo as! [String : Any]) }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+
+    
+    func startChatting(requestDict:[String: Any]){
+        let timeStamp = ["SessionId":String(Date().ticks)]
+        let sessionController = ChatTableViewController(conversationID: requestDict["username"] as! String , conversationType: EMConversationTypeChat, initWithExt: timeStamp)
+//        print("\(requestDict["username"])")
+//        EaseMessageViewController.sendTextMessage(sessionController.con)
+//        sessionController?.sendImageMessage(questionPic.image)
+//        print("\(requestDict["username"])")
+
+
+//        DispatchQueue.global().async{
+//            
+//            DispatchQueue.main.sync {
+//                self.navigationController?.isNavigationBarHidden = false
+//                if let sessContr = sessionController{
+//                    self.navigationController?.pushViewController(sessContr, animated: true)
+//                    
+//                }
+//            }
+//        }
+//        sessionController?.sendTextMessage("testing autotextmessage")
         
-        
+        CATransaction.begin()
+        self.navigationController?.isNavigationBarHidden = false
+        if let sessContr = sessionController{
+            self.navigationController?.pushViewController(sessContr, animated: true)
+        }
+        CATransaction.setCompletionBlock({
+            sessionController?.sendImageMessage(self.questionPic.image)
+        })
+        CATransaction.commit()
     }
     
     func hideFullSpinner(sender: UIButton!){

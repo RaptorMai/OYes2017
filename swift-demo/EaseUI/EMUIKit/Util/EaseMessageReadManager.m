@@ -105,7 +105,9 @@ static EaseMessageReadManager *detailInstance = nil;
 
 #pragma mark - public
 
+
 - (void)showBrowserWithImages:(NSArray *)imageArray
+                       chatVC: (UIViewController *)rootVC
 {
     if (imageArray && [imageArray count] > 0) {
         NSMutableArray *photoArray = [NSMutableArray array];
@@ -133,7 +135,8 @@ static EaseMessageReadManager *detailInstance = nil;
         self.photos = photoArray;
     }
     
-    UIViewController *rootController = [self.keyWindow rootViewController];
+//    UIViewController *rootController = [self.keyWindow rootViewController];
+    UIViewController *rootController = rootVC;
     [rootController presentViewController:self.photoNavigationController animated:YES completion:nil];
 }
 

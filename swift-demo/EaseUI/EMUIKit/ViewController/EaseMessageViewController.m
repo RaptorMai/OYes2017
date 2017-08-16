@@ -647,7 +647,7 @@
                     
                     if (image)
                     {
-                        [[EaseMessageReadManager defaultManager] showBrowserWithImages:@[image]];
+                        [[EaseMessageReadManager defaultManager] showBrowserWithImages:@[image] chatVC:self.navigationController];
                     }
                     else
                     {
@@ -668,7 +668,7 @@
                         //                                weakSelf.isScrollToBottom = NO;
                         if (image)
                         {
-                            [[EaseMessageReadManager defaultManager] showBrowserWithImages:@[image]];
+                            [[EaseMessageReadManager defaultManager] showBrowserWithImages:@[image] chatVC:self.navigationController];
                         }
                         else
                         {
@@ -1519,7 +1519,10 @@
             [weakSelf.tableView reloadData];
             [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         });
+        printf("bonjour1");
     });
+    
+    printf("bonjour");
 }
 
 - (void)tableViewDidTriggerHeaderRefresh

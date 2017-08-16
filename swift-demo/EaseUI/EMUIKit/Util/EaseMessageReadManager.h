@@ -18,7 +18,8 @@ typedef void (^PlayBlock)(BOOL playing, EaseMessageModel *messageModel);
 + (id)defaultManager;
 
 //default
-- (void)showBrowserWithImages:(NSArray *)imageArray;
+- (void)showBrowserWithImages:(NSArray *)imageArray
+                       chatVC:(UIViewController *)rootVC;
 
 - (BOOL)prepareMessageAudioModel:(EaseMessageModel *)messageModel
             updateViewCompletion:(void (^)(EaseMessageModel *prevAudioModel, EaseMessageModel *currentAudioModel))updateCompletion;
