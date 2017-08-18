@@ -15,3 +15,4 @@ Existing bugs:
 9. In tutor app, if user press empty(not loaded yet) image, crush
 10. when two tutor app login with same ID, it crush when pressing rescue (need to check current user for "nil", logout if nil)
 11. when student press home button during a request, need to cancel request (look in AppDelegate.swift)
+12. When student close the app, the pending problem should be removed
