@@ -72,7 +72,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HzZ-d1-quR">
                                 <rect key="frame" x="0.0" y="170" width="375" height="448"/>
                                 <connections>
-                                    <segue destination="zl1-dg-67s" kind="embed" id="5ew-tO-7n1"/>
+                                    <segue destination="zl1-dg-67s" kind="embed" identifier="magic" id="TjJ-xb-rjW"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhS-nU-3BV">
