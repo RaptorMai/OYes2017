@@ -122,15 +122,6 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         
     }
     
-//    func tutorFound2(){
-//        let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
-//        alert.addAction(UIAlertAction(title: "OK",
-//                                      style: UIAlertActionStyle.default,
-//                                      handler: { (alert:UIAlertAction!) in
-//                                        self.startChatting(requestDict: ["username" : "sulagshangmail.com"]) }))
-//        //sulagshangmail.com/6479795208
-//        self.present(alert, animated: true, completion: nil)
-//    }
     
     func tutorFound(_ notification: NSNotification){
         let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)

@@ -25,6 +25,7 @@ import UIKit
 import Firebase
 import SDWebImage
 import Hyphenate
+import MBProgressHUD
 //import FirebaseDatabase
 
 protocol rescueButtonPressedProtocol {
@@ -39,7 +40,7 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
     var specialty = ["Basic Calculus"]
     var dictArray = [Dictionary<String,Any>]()
     var ref: DatabaseReference?
-    
+    var delegate: refreshSpinnerProtocol?
     //    var cache:NSCache<AnyObject, AnyObject>!
     
     
@@ -55,12 +56,13 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
                     
                     if success{
                         
-                        print(self.dictArray)
+                        //print(self.dictArray)
                         
                         
                         self.setup()
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
+                        
                         }
                         print("done")
                         
@@ -98,13 +100,14 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
                     
                     if success{
                         
-                        print(self.dictArray)
+                        //print(self.dictArray)
                         
                         
                         self.setup()
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
                         }
+                        self.delegate?.removeSpinner()
                         print("done")
                         
                     }
@@ -118,13 +121,14 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
+                self.delegate?.removeSpinner()
                 print("refreshnot")
                 
             }
         })
         //    self.setup()
         print("hi")
-        print(self.dictArray)
+        //print(self.dictArray)
         
         
     }
@@ -148,9 +152,11 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
                 if let snapDict = snapshot.value! as? [String:AnyObject]{
                     //print(snapDict)
                     for each in snapDict{
-                        //                        print(each)
-                        self.dictArray.append(each.value as! Dictionary<String,Any>)
-                        
+                        let checkStatus=each.value["status"] as? Int
+                        if ( checkStatus == 0){
+                            print(each.value)
+                            self.dictArray.append(each.value as! Dictionary<String,Any>)
+                        }
                         
                     }
                     print("yes")
@@ -292,11 +298,10 @@ extension MainTableViewController {
             //under snap variable has the value of the counter after
             //updates are done
             if commited {
+                //let checkNill = snap?.value! as? [String:AnyObject]
+                //print(checkNill![qid])
                 let checkNill = snap?.value! as? [String:AnyObject]
-                print(checkNill?[qid])
-                //let checkNillInactive  = refInactive.value
-                //print(checkNillInactive)
-                if ((checkNill?[qid]) == nil){
+                if (checkNill?.isEmpty)!{
                     
                     let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
