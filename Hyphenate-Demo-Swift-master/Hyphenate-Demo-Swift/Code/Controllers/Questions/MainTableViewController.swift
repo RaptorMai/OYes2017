@@ -315,7 +315,7 @@ extension MainTableViewController {
                     alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: {
                         (alert: UIAlertAction!) in
                         //Once user dismisses the alert: create a chat viewcontroller and embed it in a navigation controller. The navigation controller is then presented with a done button.
-                        let sessionController = EMChatViewController.init("6479231847", EMConversationTypeChat)
+                        let sessionController = EMChatViewController.init(requestorSid as String, EMConversationTypeChat)
                         let navC = UINavigationController(rootViewController: sessionController)
                         self.navigationController?.present(navC, animated: true, completion: nil)
 

@@ -24,13 +24,14 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
     private var _dataSource: Array<EMMessageModel>?
     private var _refresh: UIRefreshControl?
     private var _backButton: UIButton?
-    private var _camButton: UIButton?
-    private var _audioButton: UIButton?
+//    removing these functions
+//    private var _camButton: UIButton?
+//    private var _audioButton: UIButton?
     private var _detailButton: UIButton?
     private var _longPressIndexPath: IndexPath?
     
     private var _conversaiton: EMConversation?
-    private var _pervAudioModel: EMMessageModel?
+//    private var _pervAudioModel: EMMessageModel?
     
     public var _conversationId: String?
     
@@ -101,8 +102,8 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
         _refresh = refresh()
         _chatToolBar = chatToolBar()
         _backButton = backButton()
-        _camButton = camButton()
-        _audioButton = audioButton()
+//        _camButton = camButton()
+//        _audioButton = audioButton()
         _detailButton = detailButton()
         _imagePickController = imagePickerController()
     }
@@ -120,7 +121,7 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
     private func _setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: _backButton!)
         if _conversaiton?.type == EMConversationTypeChat {
-            navigationItem.rightBarButtonItems = [UIBarButtonItem.init(customView: _audioButton!), UIBarButtonItem.init(customView: _camButton!)]
+//            navigationItem.rightBarButtonItems = [UIBarButtonItem.init(customView: _audioButton!), UIBarButtonItem.init(customView: _camButton!)]
             title = EMUserProfileManager.sharedInstance.getNickNameWithUsername(username: (_conversaiton?.conversationId!)!)
         } else if _conversaiton?.type == EMConversationTypeGroupChat {
             navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: _detailButton!)
@@ -159,22 +160,22 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
         btn.setImage(UIImage(named:"Icon_Back"), for: UIControlState.normal)
         return btn
     }
-    
-    func audioButton() -> UIButton {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.frame = CGRect(x: 0, y: 0, width: 25, height: 15)
-        btn.setImage(UIImage(named:"iconCall"), for: UIControlState.normal)
-        btn.addTarget(self, action: #selector(makeAudioCall), for: UIControlEvents.touchUpInside)
-        return btn
-    }
-    
-    func camButton() -> UIButton {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.frame = CGRect(x: 0, y: 0, width: 25, height: 15)
-        btn.setImage(UIImage(named:"iconVideo"), for: UIControlState.normal)
-        btn.addTarget(self, action: #selector(makeVideoCall), for: UIControlEvents.touchUpInside)
-        return btn
-    }
+//removing these functions can delete if wanted
+//    func audioButton() -> UIButton {
+//        let btn = UIButton(type: UIButtonType.custom)
+//        btn.frame = CGRect(x: 0, y: 0, width: 25, height: 15)
+//        btn.setImage(UIImage(named:"iconCall"), for: UIControlState.normal)
+//        btn.addTarget(self, action: #selector(makeAudioCall), for: UIControlEvents.touchUpInside)
+//        return btn
+//    }
+//    
+//    func camButton() -> UIButton {
+//        let btn = UIButton(type: UIButtonType.custom)
+//        btn.frame = CGRect(x: 0, y: 0, width: 25, height: 15)
+//        btn.setImage(UIImage(named:"iconVideo"), for: UIControlState.normal)
+//        btn.addTarget(self, action: #selector(makeVideoCall), for: UIControlEvents.touchUpInside)
+//        return btn
+//    }
     
     func detailButton() -> UIButton {
         let btn = UIButton(type: UIButtonType.custom)
@@ -244,10 +245,13 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
         _sendMessage(message: message)
     }
     
-    func didSendAudio(recordPath: String, duration:Int) {
-        let message = EMSDKHelper.createVoiceMessage(recordPath, "audio.amr", duration, to: _conversaiton!.conversationId, _messageType(), nil)
-        _sendMessage(message: message)
+//    deleted functions but adding empty functionc for protocol
+    func didSendAudio(recordPath: String, duration: Int) {
     }
+//    func didSendAudio(recordPath: String, duration:Int) {
+//        let message = EMSDKHelper.createVoiceMessage(recordPath, "audio.amr", duration, to: _conversaiton!.conversationId, _messageType(), nil)
+//        _sendMessage(message: message)
+//    }
     
     func didTakePhotos() {
         _chatToolBar?.endEditing(true)
@@ -262,12 +266,16 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
         present(_imagePickController!, animated: true, completion: nil)
     }
     
+    
+//    deleted functions but adding empty functionc for protocol
     func didSelectLocation() {
-        _chatToolBar?.endEditing(true)
-        let locationViewController = EMLocationViewController.init(nibName: "EMLocationViewController", bundle: nil)
-        locationViewController.delegate = self
-        navigationController?.pushViewController(locationViewController, animated: true)
     }
+//    func didSelectLocation() {
+//        _chatToolBar?.endEditing(true)
+//        let locationViewController = EMLocationViewController.init(nibName: "EMLocationViewController", bundle: nil)
+//        locationViewController.delegate = self
+//        navigationController?.pushViewController(locationViewController, animated: true)
+//    }
     
     // MARK: - UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -331,13 +339,13 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
         }
     }
     
-    func makeVideoCall() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue:KNOTIFICATION_CALL), object: ["chatter":_conversaiton?.conversationId! as Any,"type":NSNumber.init(value: 1)])
-    }
-    
-    func makeAudioCall() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue:KNOTIFICATION_CALL), object: ["chatter":_conversaiton?.conversationId! as Any,"type":NSNumber.init(value: 0)])
-    }
+//    func makeVideoCall() {
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue:KNOTIFICATION_CALL), object: ["chatter":_conversaiton?.conversationId! as Any,"type":NSNumber.init(value: 1)])
+//    }
+//    
+//    func makeAudioCall() {
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue:KNOTIFICATION_CALL), object: ["chatter":_conversaiton?.conversationId! as Any,"type":NSNumber.init(value: 0)])
+//    }
     
     func enterDetailView() {
         // TODO info
@@ -645,69 +653,77 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
         
     }
     
+//    deleted these func but adding empty funcs to support protocol
     func didAudioCellPressed(model: EMMessageModel) {
-        let body = model.message?.body as! EMVoiceMessageBody
-        let downloadStatus = body.downloadStatus
-        if downloadStatus == EMDownloadStatusDownloading { return }
-        else if (downloadStatus == EMDownloadStatusFailed) {
-            EMClient.shared().chatManager .downloadMessageAttachment(model.message, progress: nil, completion: nil)
-            return
-        }
-        
-        if body.type == EMMessageBodyTypeVoice {
-            if _shouldSendHasReadAck(message: model.message!, true) {
-                _sendHasReadResponse(messages: [model.message!], true)
-            }
-            
-            var isPerpare = true
-            if _pervAudioModel == nil {
-                _pervAudioModel = model
-                model.isPlaying = true
-            } else if _pervAudioModel == model {
-                model.isPlaying = false
-                _pervAudioModel = nil
-                isPerpare = false
-            }else {
-                _pervAudioModel?.isPlaying = false
-                model.isPlaying = true
-            }
-            
-            tableView.reloadData()
-            if isPerpare {
-                _pervAudioModel = model
-                weak var weakSelf = self
-                EMCDDeviceManager.sharedInstance().enableProximitySensor()
-                EMCDDeviceManager.sharedInstance().asyncPlaying(withPath: body.localPath, completion: { (error) in
-                    weakSelf?.tableView.reloadData()
-                    EMCDDeviceManager.sharedInstance().disableProximitySensor()
-                    model.isPlaying = false
-                })
-            } else {
-                EMCDDeviceManager.sharedInstance().disableProximitySensor()
-            }
-        }
     }
-    
     func didVideoCellPressed(model: EMMessageModel) {
-        let body = model.message?.body as! EMVideoMessageBody
-        if body.downloadStatus == EMDownloadStatusSuccessed {
-            if _shouldSendHasReadAck(message: model.message!, true) {
-                _sendHasReadResponse(messages: [model.message!], true)
-            }
-            let videoUrl = URL.init(fileURLWithPath: body.localPath)
-            let movePlayController = MPMoviePlayerViewController.init(contentURL: videoUrl)
-            movePlayController?.moviePlayer.movieSourceType = MPMovieSourceType.file
-            present(movePlayController!, animated: true, completion: nil)
-        }else {
-            EMClient.shared().chatManager.downloadMessageAttachment(model.message!, progress: nil, completion: nil)
-        }
+    }
+    func didLocationCellPressed(model: EMMessageModel) {
     }
     
-    func didLocationCellPressed(model: EMMessageModel) {
-        let body = model.message?.body as! EMLocationMessageBody
-        let locationController = EMLocationViewController.init(location: CLLocationCoordinate2DMake(body.latitude, body.longitude))
-        navigationController?.pushViewController(locationController, animated: true)
-    }
+//    func didAudioCellPressed(model: EMMessageModel) {
+//        let body = model.message?.body as! EMVoiceMessageBody
+//        let downloadStatus = body.downloadStatus
+//        if downloadStatus == EMDownloadStatusDownloading { return }
+//        else if (downloadStatus == EMDownloadStatusFailed) {
+//            EMClient.shared().chatManager .downloadMessageAttachment(model.message, progress: nil, completion: nil)
+//            return
+//        }
+//        
+//        if body.type == EMMessageBodyTypeVoice {
+//            if _shouldSendHasReadAck(message: model.message!, true) {
+//                _sendHasReadResponse(messages: [model.message!], true)
+//            }
+//            
+//            var isPerpare = true
+//            if _pervAudioModel == nil {
+//                _pervAudioModel = model
+//                model.isPlaying = true
+//            } else if _pervAudioModel == model {
+//                model.isPlaying = false
+//                _pervAudioModel = nil
+//                isPerpare = false
+//            }else {
+//                _pervAudioModel?.isPlaying = false
+//                model.isPlaying = true
+//            }
+//            
+//            tableView.reloadData()
+//            if isPerpare {
+//                _pervAudioModel = model
+//                weak var weakSelf = self
+//                EMCDDeviceManager.sharedInstance().enableProximitySensor()
+//                EMCDDeviceManager.sharedInstance().asyncPlaying(withPath: body.localPath, completion: { (error) in
+//                    weakSelf?.tableView.reloadData()
+//                    EMCDDeviceManager.sharedInstance().disableProximitySensor()
+//                    model.isPlaying = false
+//                })
+//            } else {
+//                EMCDDeviceManager.sharedInstance().disableProximitySensor()
+//            }
+//        }
+//    }
+    
+//    func didVideoCellPressed(model: EMMessageModel) {
+//        let body = model.message?.body as! EMVideoMessageBody
+//        if body.downloadStatus == EMDownloadStatusSuccessed {
+//            if _shouldSendHasReadAck(message: model.message!, true) {
+//                _sendHasReadResponse(messages: [model.message!], true)
+//            }
+//            let videoUrl = URL.init(fileURLWithPath: body.localPath)
+//            let movePlayController = MPMoviePlayerViewController.init(contentURL: videoUrl)
+//            movePlayController?.moviePlayer.movieSourceType = MPMovieSourceType.file
+//            present(movePlayController!, animated: true, completion: nil)
+//        }else {
+//            EMClient.shared().chatManager.downloadMessageAttachment(model.message!, progress: nil, completion: nil)
+//        }
+//    }
+//    
+//    func didLocationCellPressed(model: EMMessageModel) {
+//        let body = model.message?.body as! EMLocationMessageBody
+//        let locationController = EMLocationViewController.init(location: CLLocationCoordinate2DMake(body.latitude, body.longitude))
+//        navigationController?.pushViewController(locationController, animated: true)
+//    }
     
     func didCellLongPressed(cell: EMChatBaseCell) {
         let index = tableView.indexPath(for: cell)

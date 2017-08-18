@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12106.1" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12074.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -57,66 +57,22 @@
                         <action selector="photoAction:" destination="ZY4-z8-hll" eventType="touchUpInside" id="fR3-z9-TQV"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lnf-AQ-N1q">
-                    <rect key="frame" x="152" y="53" width="26" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <state key="normal" image="icon_emoji_disable.png"/>
-                    <connections>
-                        <action selector="emojiAction:" destination="ZY4-z8-hll" eventType="touchUpInside" id="4DK-Fa-QOV"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2u-gK-FtN">
-                    <rect key="frame" x="206" y="54" width="29" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <state key="normal" image="Icon_Audio_disable.png"/>
-                    <connections>
-                        <action selector="recordAction:" destination="ZY4-z8-hll" eventType="touchUpInside" id="hbB-8A-dcx"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eCo-cS-ok5">
-                    <rect key="frame" x="266" y="53" width="27" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <state key="normal" image="Icon_Location_disable.png"/>
-                    <connections>
-                        <action selector="locationAction:" destination="ZY4-z8-hll" eventType="touchUpInside" id="2qu-IU-vzK"/>
-                    </connections>
-                </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dey-8H-hhM">
-                    <rect key="frame" x="328" y="54" width="27" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <state key="normal" image="Icon_File_disable.png"/>
-                    <connections>
-                        <action selector="fileAction:" destination="ZY4-z8-hll" eventType="touchUpInside" id="qTS-a8-P2r"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="cameraButton" destination="u25-tn-DF8" id="inA-hn-eh5"/>
-                <outlet property="emojiButton" destination="lnf-AQ-N1q" id="mIo-e0-BA4"/>
-                <outlet property="fileButton" destination="Dey-8H-hhM" id="VLn-Oc-qQC"/>
                 <outlet property="inputTextView" destination="2OM-qM-ZSH" id="Ku1-1o-bnx"/>
                 <outlet property="line" destination="Ltl-OB-piR" id="t9o-Ep-dIU"/>
-                <outlet property="locationButton" destination="eCo-cS-ok5" id="cBh-cI-1RF"/>
                 <outlet property="photoButton" destination="uJt-VT-myu" id="8uG-wz-acw"/>
-                <outlet property="recordButton" destination="T2u-gK-FtN" id="1dA-EU-mwb"/>
                 <outlet property="sendButton" destination="Yff-MC-bDw" id="dho-OR-qiQ"/>
             </connections>
             <point key="canvasLocation" x="26.5" y="51.5"/>
         </view>
     </objects>
     <resources>
-        <image name="Icon_Audio_disable.png" width="9" height="18"/>
         <image name="Icon_Camera.png" width="22" height="17"/>
-        <image name="Icon_File_disable.png" width="13" height="15"/>
         <image name="Icon_Image.png" width="18" height="15"/>
-        <image name="Icon_Location_disable.png" width="13" height="16"/>
-        <image name="icon_emoji_disable.png" width="17" height="17"/>
     </resources>
 </document>
