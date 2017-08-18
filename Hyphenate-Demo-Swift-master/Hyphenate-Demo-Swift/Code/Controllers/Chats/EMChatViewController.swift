@@ -646,9 +646,13 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
         let body = model.message!.body as! EMImageMessageBody
         if model.message?.direction == EMMessageDirectionSend && body.localPath != nil {
             let image = UIImage.init(contentsOfFile: body.localPath)
-            readManager.showBrower([image!])
+            if let rvc = self.navigationController{
+                readManager.showBrower([image!], rootVC: rvc)
+            }
         }else {
-            readManager.showBrower([URL(string: body.remotePath)!])
+            if let rvc = self.navigationController{
+                readManager.showBrower([URL(string: body.remotePath)!], rootVC: rvc)
+            }
         }
         
     }

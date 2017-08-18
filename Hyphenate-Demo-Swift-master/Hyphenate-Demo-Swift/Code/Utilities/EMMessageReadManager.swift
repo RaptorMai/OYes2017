@@ -36,7 +36,7 @@ class EMMessageReadManager: NSObject, MWPhotoBrowserDelegate {
     }
     
     // MARK: - Public
-    func showBrower(_ images: Array<Any>) {
+    func showBrower(_ images: Array<Any>, rootVC: UIViewController) {
         if images.count > 0 {
             var arys = Array<MWPhoto>()
             for obj in images {
@@ -53,8 +53,15 @@ class EMMessageReadManager: NSObject, MWPhotoBrowserDelegate {
             photos = arys
         }
         photoBrowser!.reloadData()
-        let rootViewController = UIApplication.shared.keyWindow?.rootViewController
-        rootViewController?.present(photoNavticationController!, animated: true, completion: nil)
+//        editing code to show image ontop of most recent navigation controller
+//        Removed: let rootViewController = UIApplication.shared.keyWindow?.rootViewController
+//        UIViewController *rootController = rootVC;
+//        [rootController presentViewController:self.photoNavigationController animated:YES completion:nil];
+        
+        let rootViewController = rootVC
+        rootViewController.present(photoNavticationController!, animated: true, completion: nil)
+        
+        
     }
     
     // MARK: - MWPhotoBrowserDelegate
