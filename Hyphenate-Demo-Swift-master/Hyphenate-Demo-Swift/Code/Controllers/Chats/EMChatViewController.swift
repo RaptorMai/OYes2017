@@ -359,6 +359,16 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
         }else {
             self.navigationController?.popToViewController(self, animated: true)
             self.navigationController?.popViewController(animated: true)
+            //if chat at top of navigationController then we try dismiss - sulagshan
+            let alert = UIAlertController(title: "Alert", message: "Once you exit you cannot come back. Are you sure the session is complete?", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler:{
+                (alert: UIAlertAction!) in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+
+            
         }
     }
     

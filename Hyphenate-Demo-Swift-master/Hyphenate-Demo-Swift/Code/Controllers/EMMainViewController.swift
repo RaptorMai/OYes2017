@@ -129,7 +129,7 @@ class EMMainViewController: UITabBarController, EMChatManagerDelegate, EMGroupMa
         }
     }
     
-    // MARK: - EMC hatManagerDelegate
+    // MARK: - EMChatManagerDelegate
     func messagesDidReceive(_ aMessages: [Any]!) {
         setupUnreadMessageCount()   
         for msg in aMessages {

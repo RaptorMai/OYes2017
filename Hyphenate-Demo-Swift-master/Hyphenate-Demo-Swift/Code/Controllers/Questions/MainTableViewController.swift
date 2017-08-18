@@ -258,6 +258,7 @@ extension MainTableViewController {
         let qid: String = (qid as? String)!
         let category: String = (category as? String)!
         let refStatus = ref.child("Request/active/" + category + "/" + qid)
+        //let refInactive = ref.child("Request/inactive/" + category + "/" + qid)
         refStatus.runTransactionBlock ({ (currentData: MutableData) -> TransactionResult in
             //print(currentData.value)
             if var data = currentData.value as? [String: Any] {
@@ -292,7 +293,9 @@ extension MainTableViewController {
             //updates are done
             if commited {
                 let checkNill = snap?.value! as? [String:AnyObject]
-                //print(checkNill?[qid])
+                print(checkNill?[qid])
+                //let checkNillInactive  = refInactive.value
+                //print(checkNillInactive)
                 if ((checkNill?[qid]) == nil){
                     
                     let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
@@ -300,19 +303,27 @@ extension MainTableViewController {
                     self.present(alert, animated: true, completion: nil)
                     print("Sorry better luck next time")
                     //print(snap!)
-
                 }
                 else{
                 
                     let alert = UIAlertController(title: "Alert", message: "yeah you got the question", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: {
+                        (alert: UIAlertAction!) in
+                        //Once user dismisses the alert: create a chat viewcontroller and embed it in a navigation controller. The navigation controller is then presented with a done button.
+                        let sessionController = EMChatViewController.init("6479231847", EMConversationTypeChat)
+                        let navC = UINavigationController(rootViewController: sessionController)
+                        self.navigationController?.present(navC, animated: true, completion: nil)
+
+                    }))
                     self.present(alert, animated: true, completion: nil)
                     let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
                     addContactViewController.contactToAdd = requestorSid as String
                     addContactViewController.sendRequest(addContactViewController.contactToAdd)
                     //print(snap!)
                     print("yeah you got the question")
-                
+
+                    
+                    
                 }
 
             }
@@ -321,17 +332,19 @@ extension MainTableViewController {
                 let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
-                print("Sorry better luck next time")
+                print("Sorry better luck next time, not commit")
                 //print(snap)
             
             }
         })
         
-        
-        
-        
         //TODO: dismiss loading view and present ChatVC when received agree from student: check friendRequestDidApprove function in EMChatDemoHelper
         
+    }
+    
+    func dismissChatVC(){
+        print("testing")
+        dismiss(animated: true, completion: {print("testing 2")})
     }
     
 }
