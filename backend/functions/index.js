@@ -141,7 +141,7 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 })
 
 
-exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{questionId}/end').onUpdate(event => {
+exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{questionId}/rate').onUpdate(event => {
 	
 	console.log("getin");
 	const questionId = event.params.questionId;

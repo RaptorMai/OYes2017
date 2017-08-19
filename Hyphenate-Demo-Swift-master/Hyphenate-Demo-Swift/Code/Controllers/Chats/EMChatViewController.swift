@@ -13,6 +13,7 @@ import MobileCoreServices
 import Photos
 import AssetsLibrary
 import MediaPlayer
+import Firebase
 
 class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManagerDelegate, EMChatroomManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, EMLocationViewDelegate, EMChatBaseCellDelegate, UIActionSheetDelegate{
     
@@ -33,6 +34,8 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
     private var _pervAudioModel: EMMessageModel?
     
     public var _conversationId: String?
+    var category: String = ""
+    var key: String = ""
     
     init(_ conversationId: String, _ conversationType: EMConversationType) {
         super.init(nibName: nil, bundle: nil)
@@ -44,6 +47,12 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        ref.removeAllObservers()
+    }
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,8 +81,25 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
         
         _setupNavigationBar()
         _setupViewLayout()
+        ref = Database.database().reference()
+        print(key)
+        print("haha")
+        ref.child("Request/inactive/\(category)/\(key)").observe(DataEventType.value, with: { (snapshot) in
+            let checknill = snapshot.value! as? [String:Any]
+            print(snapshot.value!)
+            //print(checknill?.isEmpty)
+            //print("shit")
+            if(checknill != nil){
+            let alert = UIAlertController(title: "Alert", message: "Your student had left the chat", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler:{
+                (alert: UIAlertAction!) in
+                self.dismiss(animated: true, completion: nil)
+            }))
+                self.present(alert, animated: true, completion: nil)}
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(remoteGroupNotification(noti:)), name: NSNotification.Name(rawValue:KEM_REMOVEGROUP_NOTIFICATION), object: nil) // oc demo in "viewDidAppear"
+        })
+        
+        //        NotificationCenter.default.addObserver(self, selector: #selector(remoteGroupNotification(noti:)), name: NSNotification.Name(rawValue:KEM_REMOVEGROUP_NOTIFICATION), object: nil) // oc demo in "viewDidAppear"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -223,7 +249,7 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
         
         return cell!
     }
- 
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let model = _dataSource![indexPath.row]
         return EMChatBaseCell.height(forMessageModel: model)
@@ -367,7 +393,7 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
             }))
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-
+            
             
         }
     }

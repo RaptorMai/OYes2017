@@ -1,7 +1,7 @@
 
 import UIKit
 import Hyphenate
-
+import Firebase
 
 protocol DismissProtocol {
     func dismissParentVC()
@@ -15,10 +15,13 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     var navigationBar = UINavigationBar()
     var time: Double = 0
     var timer:Timer?
-    
-    let beginTime = Date()
+    var category: String = ""
+    var key: String = ""
+    var beginTime = Date()
     //let calendar = Calendar.current
 
+    var ref: DatabaseReference!
+   
     
     var dismissable = false
     override func viewDidLoad() {
@@ -27,7 +30,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         self.showRefreshHeader = true
         self.delegate = self
         self.dataSource = self
-        
+        self.ref = Database.database().reference()
         
         /* end session button*/
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -90,8 +93,9 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     
     // Ming: functions for timer
     func updateTimer() {
+        //display time with floor
         time = Date().timeIntervalSince(beginTime)
-        timerLabel.text = String(Int(ceil(Double(time)/60))) + " min"
+        timerLabel.text = String(Int(floor(Double(time)/60))) + " min"
 
         //TODO: check balance with server every minute, cut session if fund not enough
         
@@ -115,15 +119,17 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     
     
     func endSession(){
-        let ratingViewController = UIStoryboard(name: "Rating", bundle: nil).instantiateViewController(withIdentifier: "rateSession") as! RatingViewController
         
+        //calculate time with ceil
+        let ratingViewController = UIStoryboard(name: "Rating", bundle: nil).instantiateViewController(withIdentifier: "rateSession") as! RatingViewController
+        ratingViewController.category = self.category
+        ratingViewController.key = self.key
         removeTimerLable()
         time = Date().timeIntervalSince(beginTime)
         let sessionDuration = Int(ceil(Double(time)/60))
-        
         //TODO: charge time to balance here
         print(sessionDuration)
-        
+        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":sessionDuration ])
         ratingViewController.delegate = self
         self.present(ratingViewController, animated: true)
         

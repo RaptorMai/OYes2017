@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class RatingViewController: UIViewController, FloatRatingViewDelegate {
     
@@ -16,6 +17,9 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
     @IBOutlet var updatedLabel: UILabel!
     
     var delegate : DismissProtocol?
+    var category: String = ""
+    var key: String = ""
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +28,7 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
             properties can be set directly in Interface builder **/
         
         // Required float rating view params
+        self.ref = Database.database().reference()
         self.floatRatingView.emptyImage = UIImage(named: "StarEmpty")
         self.floatRatingView.fullImage = UIImage(named: "StarFull")
         // Optional params
@@ -47,7 +52,7 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
         
         //TODO: submit rating to DB below
         print(self.floatRatingView.rating)
-        
+        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["rate": self.floatRatingView.rating])
         self.dismiss(animated:true, completion:nil)
         delegate?.dismissParentVC()
     }

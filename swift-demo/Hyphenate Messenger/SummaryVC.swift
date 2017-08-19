@@ -8,12 +8,15 @@
 
 import UIKit
 import Firebase
-
+import FirebaseDatabase
 
 class SummaryVC: UIViewController, UITextViewDelegate{
     var categorytitle: String = ""
     
-    var ref: DatabaseReference?
+
+    var ref: DatabaseReference!
+    var key: String?
+    
     
     var questionPic: UIImageView = {
         //        let frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight-64)
@@ -23,6 +26,8 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         //image.contentMode = .scaleAspectFit
         return image
     }()
+    
+    
     
     let categoryLabel: UILabel = {
         let label = UILabel()
@@ -70,7 +75,8 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         super.viewDidLoad()
         //        view.backgroundColor = UIColor.init(red: 239, green: 239, blue: 255, alpha: 1)
         view.backgroundColor = UIColor.init(hex: "EFEFF4")
-        
+        ref = Database.database().reference()
+        self.key = self.ref?.child("request/active").childByAutoId().key
 //        navigationController?.navigationBar.tintColor = UIColor.black
         //        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
 //        navigationController?.navigationBar.tintColor = UIColor.white
@@ -91,11 +97,30 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     override func viewWillAppear(_ animated: Bool) {
     }
     
+    func createlabel()->UILabel{
+    
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 81))
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        
+        label.font = UIFont(name: "HelveticaNeue", size: CGFloat(22))
+        label.text = "You can cancel this question in 5 second"
+        
+        return label
+    }
+    
+    func setuplabel(label:UILabel){
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: self.view.topAnchor, constant:100).isActive = true
+        label.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        
+    }
+    
     func requestHelpPressed(button: UIButton) {
         //write question to firebase
-        //let storageRef = Storage.storage().reference()
-        ref = Database.database().reference()
-        let key = ref?.child("request/active").childByAutoId().key
         var data = Data()
         data = UIImageJPEGRepresentation(questionPic.image!, 0.8)!
         let sid = EMClient.shared().currentUsername!
@@ -103,22 +128,25 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         _ = MKFullSpinner.show("Your tutor is on the way", view: self.view)
-        let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
-        //button.backgroundColor = .green
-        button.setTitle("Cancel", for: .normal)
-        button.addTarget(self, action: #selector(hideFullSpinner), for: .touchUpInside)
-        self.view.addSubview(button)
         
+        let label = createlabel()
+        self.view.addSubview(label)
+        setuplabel(label: label)
         
-        uploadPicture(key!, data, completion:{ (url) -> Void in
+        uploadPicture(self.key!, data, completion:{ (url) -> Void in
             let addRequest = ["sid": sid, "picURL":url!, "category": self.categorytitle, "description":
-                self.questionDescription.text as String, "status": 0, "qid": key!, "tid":"", "start": "", "end": ""] as [String : Any]
-            self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: key!))").setValue(addRequest)
+                self.questionDescription.text as String, "status": 0, "qid": self.key!, "tid":"", "duration": "", "rate":""] as [String : Any]
+            self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").setValue(addRequest)
+            let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
+            //button.backgroundColor = .green
+            button.setTitle("Cancel", for: .normal)
+            button.addTarget(self, action: #selector(self.hideFullSpinner), for: .touchUpInside)
+            self.view.addSubview(button)
+            label.removeFromSuperview()
         })
         
 //        let requestDict: [String : AnyObject]
         NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound(_:)), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
-//        tutorFound2()
         
     }
     
@@ -137,7 +165,8 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     func startChatting(requestDict:[String: Any]){
         let timeStamp = ["SessionId":String(Date().ticks)]
         let sessionController = ChatTableViewController(conversationID: requestDict["username"] as! String , conversationType: EMConversationTypeChat, initWithExt: timeStamp)
-
+        sessionController?.key = self.key!
+        sessionController?.category = self.categorytitle
         CATransaction.begin()
         self.navigationController?.isNavigationBarHidden = false
         if let sessContr = sessionController{
@@ -148,10 +177,11 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         })
         CATransaction.commit()
     }
-    
+
     func hideFullSpinner(sender: UIButton!){
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         sender.removeFromSuperview()
+        self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").removeValue()
         MKFullSpinner.hide()
     }
     
