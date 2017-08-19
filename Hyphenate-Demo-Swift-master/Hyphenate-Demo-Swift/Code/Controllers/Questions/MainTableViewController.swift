@@ -318,6 +318,7 @@ extension MainTableViewController {
                         let sessionController = EMChatViewController.init(requestorSid as String, EMConversationTypeChat)
                         sessionController.category = category
                         sessionController.key = qid
+
                         let navC = UINavigationController(rootViewController: sessionController)
                         self.navigationController?.present(navC, animated: true, completion: nil)
 

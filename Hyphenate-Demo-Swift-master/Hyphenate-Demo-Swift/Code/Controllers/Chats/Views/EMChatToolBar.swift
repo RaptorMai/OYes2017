@@ -57,7 +57,8 @@ class EMChatToolBar: UIView , UITextViewDelegate, EMChatRecordViewDelegate, EMFa
     }()
     
     lazy var moreItems: Array<UIButton> = {()-> Array<UIButton> in
-        let ary = [self.cameraButton, self.photoButton, self.emojiButton, self.recordButton, self.locationButton, self.fileButton]
+//        let ary = [self.cameraButton, self.photoButton, self.emojiButton, self.recordButton, self.locationButton, self.fileButton]
+        let ary = [self.cameraButton, self.photoButton]
         return ary as! Array<UIButton>
     }()
     
@@ -91,9 +92,9 @@ class EMChatToolBar: UIView , UITextViewDelegate, EMChatRecordViewDelegate, EMFa
         
         cameraButton.left(left: (kScreenWidth/5 - cameraButton.width()) / 2)
         photoButton.left(left: (kScreenWidth/5 - photoButton.width()) / 2 + kScreenWidth / 5 * 1)
-        emojiButton.left(left: (kScreenWidth/5 - emojiButton.width()) / 2 + kScreenWidth / 5 * 2)
-        recordButton.left(left: (kScreenWidth/5 - recordButton.width()) / 2 + kScreenWidth / 5 * 3)
-        locationButton.left(left: (kScreenWidth/5 - locationButton.width()) / 2 + kScreenWidth / 5 * 4)
+//        emojiButton.left(left: (kScreenWidth/5 - emojiButton.width()) / 2 + kScreenWidth / 5 * 2)
+//        recordButton.left(left: (kScreenWidth/5 - recordButton.width()) / 2 + kScreenWidth / 5 * 3)
+//        locationButton.left(left: (kScreenWidth/5 - locationButton.width()) / 2 + kScreenWidth / 5 * 4)
         
         inputTextView.set(placeHolder: "Send Message")
         inputTextView.set(plcaeHolderTextColor: CoolGrayColor)
