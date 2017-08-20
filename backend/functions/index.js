@@ -141,7 +141,7 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 })
 
 
-exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{questionId}/rate').onUpdate(event => {
+exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{questionId}/rate').onWrite(event => {
 	
 	console.log("getin");
 	const questionId = event.params.questionId;
@@ -158,25 +158,22 @@ exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{q
 			console.log("add to inactive");
 			var reference = admin.database().ref("/Request/inactive/" + category +"/"+ questionId);
 	   		reference.set(changedQ);
-	   		var startTime = new Date()
-	   		reference.child("startTime").set(startTime.getTime());
 		});
 	})
 })
 
 
-exports.consumeBalance = functions.database.ref('/Request/inactive/{questionId}/endTime').onWrite(event => {
+exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{questionId}/duration').onWrite(event => {
 	const qid = event.params.questionId;
-	var endTime = new Date();
-	var ref = admin.database().ref("/Request/inactive/" + qid);
+	const categroy = event.params.category;
+	// var endTime = new Date();
+	var ref = admin.database().ref("/Request/inactive/" + categroy + "/" + qid);
 	const sid = ref.once("value").then(snapshot => {
 		console.log(snapshot.val());
 		const sid = snapshot.sid;
 		const tid = snapshot.tid;
-		const startTime = snapshot.startTime;
-		const sessionTime = Math.ceil((endTime - startTime) / 1000 / 60)
+		const sessionTime = snapshot.duration;
 
-		// TO DO update user/tutor balance
 		// Update student balance
 		admin.database().ref("/users/" + sid + "/balance").once("value").then(snapshot => {
 			admin.ref.database().ref("/users/" + sid + "balance").set(snapshot.val() - sessionTime)
