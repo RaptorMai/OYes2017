@@ -138,20 +138,19 @@ class SummaryVC: UIViewController, UITextViewDelegate{
                 self.questionDescription.text as String, "status": 0, "qid": self.key!, "tid":"", "duration": "", "rate":""] as [String : Any]
             self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").setValue(addRequest)
             let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
-            //button.backgroundColor = .green
             button.setTitle("Cancel", for: .normal)
             button.addTarget(self, action: #selector(self.hideFullSpinner), for: .touchUpInside)
             self.view.addSubview(button)
             label.removeFromSuperview()
         })
         
-//        let requestDict: [String : AnyObject]
         NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound(_:)), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
         
     }
     
     
     func tutorFound(_ notification: NSNotification){
+        MKFullSpinner.hide()
         let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK",
                                       style: UIAlertActionStyle.default,

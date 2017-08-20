@@ -96,7 +96,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         //display time with floor
         time = Date().timeIntervalSince(beginTime)
         timerLabel.text = String(Int(floor(Double(time)/60))) + " min"
-
+        //timerLabel.text = String(Int(floor(Double(time)))) + " min"
         //TODO: check balance with server every minute, cut session if fund not enough
         
     }

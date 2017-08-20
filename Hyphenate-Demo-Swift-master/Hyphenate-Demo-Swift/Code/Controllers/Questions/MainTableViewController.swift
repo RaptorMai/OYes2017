@@ -300,7 +300,9 @@ extension MainTableViewController {
             if commited {
                 //let checkNill = snap?.value! as? [String:AnyObject]
                 //print(checkNill![qid])
+                print(snap?.value)
                 let checkNill = snap?.value! as? [String:AnyObject]
+                print(checkNill)
                 if (checkNill?.isEmpty)!{
                     
                     let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
