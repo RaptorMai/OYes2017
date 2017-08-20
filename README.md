@@ -20,3 +20,6 @@ Existing bugs:
 14. Sometimes a tutor can enter a session while the student does not (i.e. student cancels and tutors sends request at the same time). So we need to add an observer once the tutor is in the chat to see if the student is still there.
 15. When a new question is answered by a tutor the session needs to be clear, that is no old messages are appearing.
 16. Create session based chat history
+17. When the session start, the student will send all the pictures he has asked rather than send the picture he is asking. 
+18. Debug auto login
+
