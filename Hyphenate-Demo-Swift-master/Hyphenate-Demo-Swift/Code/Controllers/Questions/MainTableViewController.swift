@@ -85,7 +85,7 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
         
     }
     override func viewWillAppear(_ animated: Bool) {
-        
+            self.refresh()
     }
     
     func refresh(){

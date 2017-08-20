@@ -156,10 +156,10 @@ exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{q
 		console.log("removing node");
 		ref.remove().then(function(){
 			console.log("add to inactive");
-			var ref = admin.database().ref("/Request/inactive/" + category +"/"+ questionId);
-	   		ref.set(changedQ);
+			var reference = admin.database().ref("/Request/inactive/" + category +"/"+ questionId);
+	   		reference.set(changedQ);
 	   		var startTime = new Date()
-	   		ref.child("startTime").set(startTime.getTime());
+	   		reference.child("startTime").set(startTime.getTime());
 		});
 	})
 })

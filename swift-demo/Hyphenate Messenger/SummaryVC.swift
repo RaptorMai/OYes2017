@@ -105,7 +105,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         label.textColor = UIColor.white
         
         label.font = UIFont(name: "HelveticaNeue", size: CGFloat(22))
-        label.text = "You can cancel this question in 5 second"
+        label.text = "You can cancel this question in few second"
         
         return label
     }
