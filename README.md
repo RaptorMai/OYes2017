@@ -21,3 +21,5 @@ Existing bugs:
 15. When a new question is answered by a tutor the session needs to be clear, that is no old messages are appearing.
 16. Create session based chat history
 17. When the session start, the student will send all the pictures he has asked rather than send the picture he is asking. 
+18. Debug auto login
+
