@@ -64,7 +64,7 @@ exports.createStripeUser = functions.auth.user().onCreate(event => {
 		console.log(customer);
 		// To use when integrated, use phone number as uid
 		// return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
-		return admin.database().ref(`/users/${data.uid}/payments/customerId`).set(customer.id);
+		return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
 	});
 });
 
@@ -84,7 +84,7 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 		   	console.log(snapshot.val());
     return snapshot.val();
 	}).then (customer => {
-		console.log("customer inside addPaymentTOken");
+		console.log("customer inside addPaymentToken");
 		console.log(customer);
 		console.log("please let this be the token");
 		console.log(source);
@@ -141,7 +141,7 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 })
 
 
-exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{questionId}/rate').onWrite(event => {
+exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{questionId}/rate').onUpdate(event => {
 	
 	console.log("getin");
 	const questionId = event.params.questionId;
@@ -163,25 +163,32 @@ exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{q
 })
 
 
-exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{questionId}/duration').onWrite(event => {
+exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{questionId}').onWrite(event => {
 	const qid = event.params.questionId;
-	const categroy = event.params.category;
+	const category = event.params.category;
+	console.log(qid);
+	console.log(category);
 	// var endTime = new Date();
-	var ref = admin.database().ref("/Request/inactive/" + categroy + "/" + qid);
+	var ref = admin.database().ref("/Request/inactive/" + category + "/" + qid);
 	const sid = ref.once("value").then(snapshot => {
 		console.log(snapshot.val());
-		const sid = snapshot.sid;
-		const tid = snapshot.tid;
-		const sessionTime = snapshot.duration;
+		const sid = "+1" + snapshot.val().sid;
+		console.log(sid);
+		const tid = snapshot.val().tid;
+		console.log(tid);
+		const sessionTime = snapshot.val().duration;
 
 		// Update student balance
+		console.log("update student balance");
+		console.log(sid);
 		admin.database().ref("/users/" + sid + "/balance").once("value").then(snapshot => {
-			admin.ref.database().ref("/users/" + sid + "balance").set(snapshot.val() - sessionTime)
+			console.log(snapshot.val());
+			admin.database().ref("/users/" + sid + "/balance").set(snapshot.val() - sessionTime)
 		})
 
 		// Update tutor balance
 		admin.database().ref("/tutors/" + tid + "/balance").once("value").then(snapshot => {
-			admin.ref.database().ref("/tutors/" + tid + "/balance").set(snapshot.val() + sessionTime)
+			admin.database().ref("/tutors/" + tid + "/balance").set(parseInt(snapshot.val()) + parseInt(sessionTime))
 		})
 	})
 })
