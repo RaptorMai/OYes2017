@@ -170,24 +170,6 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
     }
     
     func getPic(completion:@escaping (_ success: Bool) -> ()){
-        //
-        //        for index in 0..<self.dictArray.count{
-        //
-        //            let url = self.dictArray[index]["picURL"]!
-        //            //print (url)
-        //            let storageRef = Storage.storage().reference(forURL:url as! String)
-        //            storageRef.getData(maxSize: 2 * 1024 * 1024) { data, error in
-        //                if let error = error {
-        //                    print(error)
-        //                } else {
-        //
-        //
-        //                    self.dictArray[index]["picURL"] = data
-        //
-        //                    //print(dic)
-        //                }
-        //            }
-        //        }
         completion(true)
         
     }

@@ -78,6 +78,8 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 	console.log("what is event.params.userId");
 	console.log(event.params);
 	console.log(event.params.userId);
+
+	// get customerId
 	return admin.database().ref(`/users/${event.params.userId}/payments/customerId`).once('value')
 		   .then(snapshot => {
 		   	console.log("snapshot in addPaymentToken");
@@ -89,6 +91,7 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 		console.log("please let this be the token");
 		console.log(source);
 
+		// get customer object
 		return stripe.customers.retrieve(customer);// , function(err, customer) {
 			//console.log("GG something went wrong");
 
@@ -104,17 +107,28 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 			else {
 				console.log("updating customer card");
 
-				return stripe.customers.update(customerobj.id, {source});
+				return stripe.customers.update(customerobj.id, {source}, function(err, customer) {
+					if (err) {
+						console.log("err" + err);
+					}
+
+					console.log(customer);
+					console.log("response from addPaymentToken");
+					console.log(customer);
+					return event.data.adminRef.set(customer);
+				});
+
 			}
-	}).then(response => {
-		console.log("response from addPaymentToken");
-		console.log(response);
-		return event.data.adminRef.set(response);
-	// }, error => {
-	// 	return event.data.adminRef.parent.child('error').set(userFacingMessage(error)).then(() => {
-	// 		return reportError(error, {user: event.params.userId});
-	// 		});
-	 	});
+	})
+ //  		.then(response => {
+	// 	console.log("response from addPaymentToken");
+	// 	console.log(response);
+	// 	return event.data.adminRef.set(response);
+	// // }, error => {
+	// // 	return event.data.adminRef.parent.child('error').set(userFacingMessage(error)).then(() => {
+	// // 		return reportError(error, {user: event.params.userId});
+	// // 		});
+	//  	});
 	});
 
 

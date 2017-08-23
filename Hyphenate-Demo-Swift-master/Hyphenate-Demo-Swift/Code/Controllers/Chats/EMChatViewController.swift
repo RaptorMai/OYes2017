@@ -92,7 +92,7 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
             //print("shit")
             if(checknill != nil){
             let alert = UIAlertController(title: "Alert", message: "Your student had left the chat", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler:{
+                alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler:{
                 (alert: UIAlertAction!) in
                 self.dismiss(animated: true, completion: nil)
             }))
