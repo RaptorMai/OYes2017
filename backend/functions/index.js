@@ -108,30 +108,6 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 			else {
 				console.log("updating customer card");
 
-<<<<<<< HEAD
-				return stripe.customers.update(customerobj.id, {source}, function(err, customer) {
-					if (err) {
-						console.log("err" + err);
-					}
-
-					console.log(customer);
-					console.log("response from addPaymentToken");
-					console.log(customer);
-					return event.data.adminRef.set(customer);
-				});
-
-			}
-	})
- //  		.then(response => {
-	// 	console.log("response from addPaymentToken");
-	// 	console.log(response);
-	// 	return event.data.adminRef.set(response);
-	// // }, error => {
-	// // 	return event.data.adminRef.parent.child('error').set(userFacingMessage(error)).then(() => {
-	// // 		return reportError(error, {user: event.params.userId});
-	// // 		});
-	//  	});
-=======
 				return stripe.customers.update(customerobj.id, {source})//, function(err, customer)
 				// {
 				// 	if (err) {
@@ -152,7 +128,6 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 		return event.data.adminRef.parent.child('error').set(userFacingMessage(error));
 
 	 	});
->>>>>>> ea68b96b8829ef338de034b50996d6b3b5b83eb5
 	});
 
 
