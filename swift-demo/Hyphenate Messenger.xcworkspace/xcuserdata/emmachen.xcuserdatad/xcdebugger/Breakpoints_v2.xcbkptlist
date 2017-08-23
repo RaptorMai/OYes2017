@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Hyphenate Messenger/SummaryVC.swift"
-            timestampString = "524946895.253164"
+            filePath = "Hyphenate Messenger/PaymentViewController.swift"
+            timestampString = "525165304.139606"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "requestHelpPressed(button:)"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "chargeUsingCustomerId()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

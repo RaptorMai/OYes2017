@@ -64,7 +64,7 @@ exports.createStripeUser = functions.auth.user().onCreate(event => {
 		console.log(customer);
 		// To use when integrated, use phone number as uid
 		// return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
-		return admin.database().ref(`/users/${data.uid}/payments/customerId`).set(customer.id);
+		return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
 	});
 });
 
@@ -78,17 +78,20 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 	console.log("what is event.params.userId");
 	console.log(event.params);
 	console.log(event.params.userId);
+
+	// get customerId
 	return admin.database().ref(`/users/${event.params.userId}/payments/customerId`).once('value')
 		   .then(snapshot => {
 		   	console.log("snapshot in addPaymentToken");
 		   	console.log(snapshot.val());
     return snapshot.val();
 	}).then (customer => {
-		console.log("customer inside addPaymentTOken");
+		console.log("customer inside addPaymentToken");
 		console.log(customer);
 		console.log("please let this be the token");
 		console.log(source);
 
+		// get customer object
 		return stripe.customers.retrieve(customer);// , function(err, customer) {
 			//console.log("GG something went wrong");
 
@@ -100,20 +103,30 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 				console.log(source);
 
 				return stripe.customers.createSource(customerobj.id, {source});
+
 			}
 			else {
 				console.log("updating customer card");
 
-				return stripe.customers.update(customerobj.id, {source});
+				return stripe.customers.update(customerobj.id, {source})//, function(err, customer)
+				// {
+				// 	if (err) {
+				// 		console.log(err);
+
+				// 	}
+				// 	console.log(customer);
+				// 	return event.data.adminRef.set(customer);
+				// });
 			}
 	}).then(response => {
+
 		console.log("response from addPaymentToken");
 		console.log(response);
 		return event.data.adminRef.set(response);
-	// }, error => {
-	// 	return event.data.adminRef.parent.child('error').set(userFacingMessage(error)).then(() => {
-	// 		return reportError(error, {user: event.params.userId});
-	// 		});
+	}, error => {
+		console.log(error);
+		return event.data.adminRef.parent.child('error').set(userFacingMessage(error));
+
 	 	});
 	});
 
@@ -156,38 +169,46 @@ exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{q
 		console.log("removing node");
 		ref.remove().then(function(){
 			console.log("add to inactive");
-			var ref = admin.database().ref("/Request/inactive/" + category +"/"+ questionId);
-	   		ref.set(changedQ);
-	   		var startTime = new Date()
-	   		ref.child("startTime").set(startTime.getTime());
+			var reference = admin.database().ref("/Request/inactive/" + category +"/"+ questionId);
+	   		reference.set(changedQ);
 		});
 	})
 })
 
 
-exports.consumeBalance = functions.database.ref('/Request/inactive/{questionId}/endTime').onWrite(event => {
+exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{questionId}').onWrite(event => {
 	const qid = event.params.questionId;
-	var endTime = new Date();
-	var ref = admin.database().ref("/Request/inactive/" + qid);
+	const category = event.params.category;
+	console.log(qid);
+	console.log(category);
+	// var endTime = new Date();
+	var ref = admin.database().ref("/Request/inactive/" + category + "/" + qid);
 	const sid = ref.once("value").then(snapshot => {
 		console.log(snapshot.val());
-		const sid = snapshot.sid;
-		const tid = snapshot.tid;
-		const startTime = snapshot.startTime;
-		const sessionTime = Math.ceil((endTime - startTime) / 1000 / 60)
+		const sid = "+1" + snapshot.val().sid;
+		console.log(sid);
+		const tid = snapshot.val().tid;
+		console.log(tid);
+		const sessionTime = snapshot.val().duration;
 
-		// TO DO update user/tutor balance
 		// Update student balance
+		console.log("update student balance");
+		console.log(sid);
 		admin.database().ref("/users/" + sid + "/balance").once("value").then(snapshot => {
-			admin.ref.database().ref("/users/" + sid + "balance").set(snapshot.val() - sessionTime)
+			console.log(snapshot.val());
+			admin.database().ref("/users/" + sid + "/balance").set(snapshot.val() - sessionTime)
 		})
 
 		// Update tutor balance
 		admin.database().ref("/tutors/" + tid + "/balance").once("value").then(snapshot => {
-			admin.ref.database().ref("/tutors/" + tid + "/balance").set(snapshot.val() + sessionTime)
+			admin.database().ref("/tutors/" + tid + "/balance").set(parseInt(snapshot.val()) + parseInt(sessionTime))
 		})
 	})
 })
+
+function userFacingMessage(error) {
+  return error.type ? error.message : 'An error occurred, developers have been alerted';
+}
 
 // exports.readdata = functions.database.ref('/test').onWrite(event => {
 // 	admin.database().ref('/test').once("value").then(snapshot => {

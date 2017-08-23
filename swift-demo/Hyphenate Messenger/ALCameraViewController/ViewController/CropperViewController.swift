@@ -76,7 +76,7 @@ final class CropperViewController: UIViewController {
             return
         }
         let nextController = CategoryViewController()
-        let navController = CategoryVCHousing(rootViewController: nextController)
+        let navController = UINavigationController(rootViewController: nextController)
         nextController.navController = navController
         nextController.picture = image
         present(navController, animated: true, completion: nil)

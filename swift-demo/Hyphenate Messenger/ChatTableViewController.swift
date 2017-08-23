@@ -96,7 +96,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         //display time with floor
         time = Date().timeIntervalSince(beginTime)
         timerLabel.text = String(Int(floor(Double(time)/60))) + " min"
-
+        //timerLabel.text = String(Int(floor(Double(time)))) + " min"
         //TODO: check balance with server every minute, cut session if fund not enough
         
     }
@@ -129,7 +129,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         let sessionDuration = Int(ceil(Double(time)/60))
         //TODO: charge time to balance here
         print(sessionDuration)
-        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":sessionDuration ])
+        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":sessionDuration])
         ratingViewController.delegate = self
         self.present(ratingViewController, animated: true)
         
