@@ -8,7 +8,7 @@ Existing bugs:
 2. Timing method should be more elegant (not locally)
 3. Picture view is so so ugly when displayed in category view controller and request view controller (Fixed !!!!!!!!!!!!!!)
 4. Payment: remember user card info and update card info
-5. Press Camera shows a white stripe(白带)
+5. Press Camera shows a white stripe
 6. Dismiss library is laggard
 7. In summery page, press category can go back to category page.
 8. Press any image can go back to edit page
@@ -22,4 +22,4 @@ Existing bugs:
 16. Create session based chat history
 17. When the session start, the student will send all the pictures he has asked rather than send the picture he is asking. 
 18. Debug auto login
-
+19. Store packages information in database rather than front end
