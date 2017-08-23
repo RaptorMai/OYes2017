@@ -109,7 +109,6 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 				console.log("updating customer card");
 
 <<<<<<< HEAD
-<<<<<<< HEAD
 				return stripe.customers.update(customerobj.id, {source}, function(err, customer) {
 					if (err) {
 						console.log("err" + err);
@@ -133,8 +132,6 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 	// // 		});
 	//  	});
 =======
-=======
->>>>>>> ea68b96b8829ef338de034b50996d6b3b5b83eb5
 				return stripe.customers.update(customerobj.id, {source})//, function(err, customer)
 				// {
 				// 	if (err) {
