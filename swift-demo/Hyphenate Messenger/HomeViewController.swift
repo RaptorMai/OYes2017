@@ -21,7 +21,7 @@ class HomeViewController: UIViewController{
         let viewHeight = self.view.bounds.height
         let viewWidth = self.view.bounds.width
 
-        
+        //configuring snap button properties. When pressed snap() will be called
         let snapButton = UIButton(type: .custom)
         snapButton.frame = CGRect(x: 0, y: 0, width: viewWidth/2, height: viewWidth/2)
         snapButton.center = CGPoint(x: viewWidth/2, y: viewHeight/2)
@@ -31,7 +31,6 @@ class HomeViewController: UIViewController{
         snapButton.setImage(UIImage(named:"Snap.png"), for: .normal)
         let margin = 0.191 * snapButton.bounds.size.width
         snapButton.contentEdgeInsets = UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
-
         snapButton.addTarget(self, action: #selector(snap), for: .touchUpInside)
         self.view.addSubview(snapButton)
     }

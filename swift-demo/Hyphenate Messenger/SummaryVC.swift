@@ -11,24 +11,21 @@ import Firebase
 import FirebaseDatabase
 
 class SummaryVC: UIViewController, UITextViewDelegate{
-    var categorytitle: String = ""
+    //This class is a viewcontroller that gathers and displays the data inputted by the user about their question. This viewcontroler allows the user to double check the data, enter a description of their question, and send the request for help to our platform.
     
-
+    var categorytitle: String = ""
     var ref: DatabaseReference!
     var key: String?
     
-    
+    //questionPic is the UIImageView that holds the question image.
     var questionPic: UIImageView = {
-        //        let frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight-64)
-        //        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height*0.25))
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight*0.37))
         image.backgroundColor = UIColor.white
-        //image.contentMode = .scaleAspectFit
         return image
     }()
     
     
-    
+    //categoryLabel is a UILabel that reads "Category:"
     let categoryLabel: UILabel = {
         let label = UILabel()
         label.frame = CGRect.init(x: 100, y: 100, width: 200, height: 200)
@@ -38,6 +35,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         return label
     }()
     
+    //subjectLabel is a UILabel that displays the question's category. (e.g. basic calculus, trig, etc)
     let subjectLabel: UILabel = {
         let label = UILabel()
         label.frame = CGRect.init(x: 100, y: 100, width: 200, height: 200)
@@ -47,22 +45,19 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         return label
     }()
     
+    //questionDescription is a UITextView that allows the user to input a short description of their question.
     let questionDescription: UITextView = {
         let textview = UITextView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight*0.3))
-        //        textview.placeholder = "Add Description Here..."
         textview.backgroundColor = UIColor.white
         textview.textAlignment = .left
-        
         textview.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-        //        let myUITextView = UITextView.init()
-        //textview.text initialized in setup
         textview.textColor = .lightGray
         textview.font = UIFont.systemFont(ofSize: 16.0)
-        //        textview.font = UIFont(name: "", size: 16)
-        
+        //textview.text initialized in setup
         return textview
     }()
     
+    //nextButton is a UIButton that when presed will send the request of the student and display a waiting screen.
     let nextButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor.init(hex: "2EA2DC")
@@ -81,6 +76,8 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         //        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
 //        navigationController?.navigationBar.tintColor = UIColor.white
         
+        
+        //add the subviews and setup their autolayout constraints
         view.addSubview(questionPic)
         setupQuestionPic()
         view.addSubview(categoryLabel)
@@ -166,6 +163,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         let sessionController = ChatTableViewController(conversationID: requestDict["username"] as! String , conversationType: EMConversationTypeChat, initWithExt: timeStamp)
         sessionController?.key = self.key!
         sessionController?.category = self.categorytitle
+        
         CATransaction.begin()
         self.navigationController?.isNavigationBarHidden = false
         if let sessContr = sessionController{

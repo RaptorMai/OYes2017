@@ -235,7 +235,7 @@
                 [_activity startAnimating];
             }
                 break;
-            case EMMessageStatusSucceed:
+            case EMMessageStatusSuccessed:
             {
                 _statusButton.hidden = YES;
                 [_activity stopAnimating];

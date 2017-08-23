@@ -15,66 +15,15 @@ class PaymentViewController: UIViewController, STPAddCardViewControllerDelegate 
     
     var price = 0
     var product = ""
-    // let paymentTextField = STPPaymentCardTextField()
     var ref: DatabaseReference?
     var uid = "+1" + EMClient.shared().currentUsername!
     
-//    @IBOutlet weak var payButtonOutlet: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        paymentTextField.frame = CGRect(x: 15, y: 0.35 * self.view.frame.height, width: self.view.frame.width - 30, height: 44)
-//        paymentTextField.delegate = self
-//        view.addSubview(paymentTextField)
-//        payButtonOutlet.isHidden = true;
-//        
-//        let paymentInfoLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width - 30, height: 800))
-//        paymentInfoLabel.center = CGPoint(x: self.view.frame.width/2, y: 0.191 * self.view.frame.height)
-//        paymentInfoLabel.text = "Please enter card information to confirm your purchase:\n \"" + product + "\" for $\(self.price/100).00."
-//        paymentInfoLabel.adjustsFontSizeToFitWidth = true
-//        paymentInfoLabel.numberOfLines = 2
-//        //paymentInfoLabel.layer.borderColor = (UIColor.black as! CGColor)
-//        //paymentInfoLabel.layer.borderWidth = 2
-//        view.addSubview(paymentInfoLabel)
     }
     
-//    func paymentCardTextFieldDidChange(_ textField: STPPaymentCardTextField) {
-//        if textField.isValid{
-//            payButtonOutlet.isHidden = false
-//            view.endEditing(true)
-//        }
-//    }
 
-//    @IBAction func payButtonAction(_ sender: Any) {
-//        let card = paymentTextField.cardParams
-//        STPAPIClient.shared().createToken(withCard: card, completion: {(token, error) -> Void in
-//            if let error = error {
-//                print(error)
-//            }
-//            else if let token = token {
-//                print("----------------generating token from stripe------------------")
-//                print(token)
-//                self.chargeUsingToken(token: token)
-//            }
-//        })
-//    }
-    
-//    func chargeUsingToken(token: STPToken){
-//        // Post data to Firebase
-//        print("--------------------------writing to database--------------------------")
-//        ref = Database.database().reference()
-//        //assert(self.price > 0, "error: invalid price")
-//        ref?.child("payments").childByAutoId().setValue(["token": token.tokenId,"amount": self.price])
-//    }
-    
-    // let userID = Auth.auth().currentUser?.uid
-    // let uid = "x7JaMs1gKNYbg1mIxRIqDsDBYp42"
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        // Do any additional setup after loading the view, typically from a nib.
-//    }
-    
     @IBAction func updateCard(_ sender: Any) {
         
         // Here need to delete old card first
@@ -133,8 +82,51 @@ class PaymentViewController: UIViewController, STPAddCardViewControllerDelegate 
         // Post data to Firebase
         print("charge using customerId----------------------")
         // ref = Database.database().reference()
-        ref?.child("users").child(uid).child("payments/charges").childByAutoId().setValue(["amount": price])
+        
+        let paymentId = self.ref?.child("users").child(uid).child("payments/charges").childByAutoId().key
+        
+        print("paymentId\(String(describing: paymentId))")
+        ref?.child("users").child(uid).child("payments/charges").child(paymentId!).setValue(["amount": price])
         print("Done writing to db")
+        
+        // TO DO: add listener
+        // add loading page
+        // display alert
+        _ = MKFullSpinner.show("Processing your payment now", view: self.view)
+        
+        let postRef = ref?.child("users").child(uid).child("payments/charges").child(paymentId!).child("status")
+        
+        _ = postRef?.observe(DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? String
+            // let status = postDict["status"] as? String ?? ""
+            if (postDict != nil){
+                
+                if (postDict == "succeeded"){
+                    // dismiss loading page
+                    
+                    MKFullSpinner.hide()
+                    
+                    // send alert
+                    let title = "Payment Successed"
+                    let message = "You have purchased packages " + String(self.price)
+                    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+                    self.present(alert, animated: true, completion: nil)
+
+                } else {
+                    print("postDict\(String(describing: postDict))")
+                    MKFullSpinner.hide()
+                    let title = "Payment Failed"
+                    let message = "Please try again"
+                    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                }
+            }
+            
+        })
+        
     }
 
 }

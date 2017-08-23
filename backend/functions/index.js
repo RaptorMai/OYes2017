@@ -103,10 +103,12 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 				console.log(source);
 
 				return stripe.customers.createSource(customerobj.id, {source});
+
 			}
 			else {
 				console.log("updating customer card");
 
+<<<<<<< HEAD
 				return stripe.customers.update(customerobj.id, {source}, function(err, customer) {
 					if (err) {
 						console.log("err" + err);
@@ -129,6 +131,28 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 	// // 		return reportError(error, {user: event.params.userId});
 	// // 		});
 	//  	});
+=======
+				return stripe.customers.update(customerobj.id, {source})//, function(err, customer)
+				// {
+				// 	if (err) {
+				// 		console.log(err);
+
+				// 	}
+				// 	console.log(customer);
+				// 	return event.data.adminRef.set(customer);
+				// });
+			}
+	}).then(response => {
+
+		console.log("response from addPaymentToken");
+		console.log(response);
+		return event.data.adminRef.set(response);
+	}, error => {
+		console.log(error);
+		return event.data.adminRef.parent.child('error').set(userFacingMessage(error));
+
+	 	});
+>>>>>>> ea68b96b8829ef338de034b50996d6b3b5b83eb5
 	});
 
 
@@ -206,6 +230,10 @@ exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{q
 		})
 	})
 })
+
+function userFacingMessage(error) {
+  return error.type ? error.message : 'An error occurred, developers have been alerted';
+}
 
 // exports.readdata = functions.database.ref('/test').onWrite(event => {
 // 	admin.database().ref('/test').once("value").then(snapshot => {

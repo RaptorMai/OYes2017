@@ -1,25 +1,25 @@
+////
+////  CategoryVCHousing.swift
+////  Hyphenate Messenger
+////
+////  Created by devuser on 2017-07-25.
+////  Copyright © 2017 Hyphenate Inc. All rights reserved.
+////
 //
-//  CategoryVCHousing.swift
-//  Hyphenate Messenger
+//import UIKit
 //
-//  Created by devuser on 2017-07-25.
-//  Copyright © 2017 Hyphenate Inc. All rights reserved.
+//class CategoryVCHousing: UINavigationController {
 //
-
-import UIKit
-
-class CategoryVCHousing: UINavigationController {
-
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .lightContent
+////    override var preferredStatusBarStyle: UIStatusBarStyle {
+////        return .lightContent
+////    }
+//    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()        
 //    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-}
+//
+//    override func didReceiveMemoryWarning() {
+//        super.didReceiveMemoryWarning()
+//    }
+//
+//}
