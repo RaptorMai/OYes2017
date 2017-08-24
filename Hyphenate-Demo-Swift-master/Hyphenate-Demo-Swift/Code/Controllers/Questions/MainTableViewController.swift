@@ -280,15 +280,14 @@ extension MainTableViewController {
             //under snap variable has the value of the counter after
             //updates are done
             if commited {
-                //let checkNill = snap?.value! as? [String:AnyObject]
-                //print(checkNill![qid])
+
                 print(snap?.value)
                 let checkNill = snap?.value! as? [String:AnyObject]
                 print(checkNill)
-                if (checkNill?.isEmpty)!{
+                if (checkNill == nil){
                     
                     let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {action in self.refresh()}))
                     self.present(alert, animated: true, completion: nil)
                     print("Sorry better luck next time")
                     //print(snap!)
@@ -296,7 +295,7 @@ extension MainTableViewController {
                 else{
                 
                     let alert = UIAlertController(title: "Alert", message: "yeah you got the question", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: {
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {
                         (alert: UIAlertAction!) in
                         //Once user dismisses the alert: create a chat viewcontroller and embed it in a navigation controller. The navigation controller is then presented with a done button.
                         let sessionController = EMChatViewController.init(requestorSid as String, EMConversationTypeChat)
@@ -322,7 +321,7 @@ extension MainTableViewController {
             else{
                 
                 let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {action in self.refresh()}))
                 self.present(alert, animated: true, completion: nil)
                 print("Sorry better luck next time, not commit")
                 //print(snap)
