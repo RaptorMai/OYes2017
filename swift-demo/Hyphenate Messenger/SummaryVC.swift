@@ -130,13 +130,13 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         self.view.addSubview(label)
         setuplabel(label: label)
         
-        uploadPicture(self.key!, data, completion:{ (url) -> Void in
+        uploadPicture(data, completion:{ (url) -> Void in
             let addRequest = ["sid": sid, "picURL":url!, "category": self.categorytitle, "description":
                 self.questionDescription.text as String, "status": 0, "qid": self.key!, "tid":"", "duration": "", "rate":""] as [String : Any]
             self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").setValue(addRequest)
             let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
             button.setTitle("Cancel", for: .normal)
-            button.addTarget(self, action: #selector(self.hideFullSpinner), for: .touchUpInside)
+            button.addTarget(self, action: #selector(self.cancelAction), for: .touchUpInside)
             self.view.addSubview(button)
             label.removeFromSuperview()
         })
@@ -175,16 +175,28 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         CATransaction.commit()
     }
 
-    func hideFullSpinner(sender: UIButton!){
+    func cancelAction(sender: UIButton!){
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        let removeRef = storageRef.child("image/\(self.categorytitle)/\(self.key!))")
+        removeRef.delete { (Error) in
+            if let error = Error {
+                let alert = UIAlertController(title: "Delete error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+                self.present(alert, animated: true, completion: nil)
+
+            } else {
+                self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").removeValue()
+            }
+        }
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         sender.removeFromSuperview()
-        self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").removeValue()
         MKFullSpinner.hide()
     }
     
-    func uploadPicture(_ key: String, _ data: Data, completion:@escaping (_ url: String?) -> ()) {
+    func uploadPicture(_ data: Data, completion:@escaping (_ url: String?) -> ()) {
         let storageRef = Storage.storage().reference()
-        storageRef.child("image/\(self.categorytitle)/\(String(describing: key))").putData(data, metadata: nil){(metaData,error) in
+        storageRef.child("image/\(self.categorytitle)/\(self.key!))").putData(data, metadata: nil){(metaData,error) in
             if let error = error {
                 print(error.localizedDescription)
                 completion(nil)
