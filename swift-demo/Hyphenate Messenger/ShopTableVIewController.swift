@@ -7,6 +7,9 @@
 
 
 import UIKit
+import Stripe
+import FirebaseDatabase
+import Hyphenate
 
 
 struct Theme {
@@ -18,14 +21,20 @@ struct Theme {
     let errorColor = UIColor(red:0.87, green:0.18, blue:0.20, alpha:1.00)
     let font = UIFont.systemFont(ofSize: 18)
     let emphasisFont = UIFont.boldSystemFont(ofSize: 18)
+    let buttonColor = UIColor(red: 45.0/255.0, green: 162.0/255.0, blue: 220.0/255.0, alpha: 1.0)
 }
 
-class ShopTableViewController: UITableViewController {
+class ShopTableViewController: UITableViewController, STPAddCardViewControllerDelegate{
     
     
-    let products = ["10 Minutes", "30 Minutes", "60 Minutes", "120 Minutes"]
+    let products = ["10min package", "30min package", "60min package", "120min package"]
     let prices = [1000, 3000, 6000, 11900]
     let theme = Theme()
+    
+    var ref: DatabaseReference?
+    var uid = "+1" + EMClient.shared().currentUsername!
+    var price = 0
+    var product = ""
     
     //let settingsVC = SettingsViewController()
     
@@ -33,6 +42,7 @@ class ShopTableViewController: UITableViewController {
         super.viewDidLoad()
         self.tabBarController?.navigationItem.title = "Shop"
         self.tableView.tableFooterView = UIView()
+        
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +69,7 @@ class ShopTableViewController: UITableViewController {
         self.navigationItem.backBarButtonItem?.setTitleTextAttributes(buttonAttributes, for: UIControlState())
         //self.tableView.separatorColor = theme.primaryBackgroundColor
         self.tableView.reloadData()
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,19 +85,196 @@ class ShopTableViewController: UITableViewController {
         cell.textLabel?.text = product
         cell.textLabel?.font = theme.font
         cell.textLabel?.textColor = theme.primaryForegroundColor
-        cell.detailTextLabel?.text = "$\(price/100).00"
-        cell.accessoryType = .disclosureIndicator
+        // cell.detailTextLabel?.text = "$\(price/100).00"
+        // cell.accessoryType = .disclosureIndicator
+        cell.accessoryType = UITableViewCellAccessoryType.none
+        
+        // to make it non selectable
+        cell.selectionStyle = UITableViewCellSelectionStyle.none;
+        
+        let priceButton = UIButton(type: .custom)
+        
+        priceButton.backgroundColor = .clear
+        priceButton.layer.cornerRadius = 5
+        priceButton.layer.borderWidth = 1
+        priceButton.layer.borderColor = theme.buttonColor.cgColor
+        // priceButton.backgroundColor = UIColor.blue
+        priceButton.setTitle("$\(price/100)", for: .normal)
+        priceButton.setTitleColor(theme.buttonColor, for:.normal )
+        priceButton.addTarget(self, action: #selector(ShopTableViewController.payAlert(_:)), for: .touchUpInside)
+        priceButton.frame = CGRect(x: 300, y: 7, width: 60, height: 30)
+        priceButton.tag = price
+        cell.addSubview(priceButton)
+        
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let product = products[indexPath.row]
-        let price = prices[indexPath.row]
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let logoutButton = UIButton(type: .custom)
+        logoutButton.backgroundColor = UIColor.blue
+        logoutButton.setTitle("Change Card", for: .normal)
+        logoutButton.backgroundColor = .clear
+        logoutButton.layer.cornerRadius = 5
+        logoutButton.layer.borderWidth = 1
+        logoutButton.layer.borderColor = theme.buttonColor.cgColor
+        logoutButton.setTitleColor(theme.buttonColor, for:.normal )
+        logoutButton.addTarget(self, action: #selector(ShopTableViewController.updateCard), for: .touchUpInside)
+        logoutButton.frame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - 345, width: UIScreen.main.bounds.size.width, height: 45)
         
-        let paymentViewController = UIStoryboard(name:"Payment", bundle:nil).instantiateViewController(withIdentifier:"PaymentScr") as! PaymentViewController
-        paymentViewController.price = price
-        paymentViewController.product = product
-        self.tabBarController?.navigationController?.pushViewController(paymentViewController, animated: true)
+        let footerView = UIView(frame: CGRect(x: 0, y: 300, width: UIScreen.main.bounds.size.width, height: 300))
+        
+        //UIScreen.main.bounds.size.height - 220
+        print("UI main screen height \(UIScreen.main.bounds.size.height)")
+        print("current view height \(view.bounds.size.height)")
+        // footerView.backgroundColor = UIColor.black
+        footerView.addSubview(logoutButton)
+        return footerView
     }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return UIScreen.main.bounds.size.height - 300
+    }
+    
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        product = products[indexPath.row]
+//        price = prices[indexPath.row]
+//        
+//        let title = "Confirm Purchase"
+//        let message = "Proceed to purchase \(product) package for $\(price/100).00)?"
+//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+//        alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: {action in self.payButton()}))
+//        
+//        self.present(alert, animated: true, completion: nil)
+//        
+//    }
+    
+    func payAlert(_ sender: UIButton) {
+        
+        print("which button is pressed \(sender.tag)")
+        
+        let title = "Confirm Purchase"
+        let message = "Proceed to purchase package for \(String(describing: String(sender.currentTitle!)))?"
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+        let amount:Int? = Int(sender.tag)
+        alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: {action in self.payButton(amount!)}))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func updateCard() {
+        
+        self.addCard()
+    }
+    
+    
+    func payButton(_ amount: Int) {
+        print("pay button clicked")
+        print(uid)
+        
+        _ = MKFullSpinner.show("Processing your payment now", view: self.view)
+
+        ref = Database.database().reference()
+        ref?.child("users").child(uid).child("payments").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let val = snapshot.value as? NSDictionary
+            print(val!)
+            if (val!["sources"] != nil){
+                print("Charging Costomer Now")
+                self.chargeUsingCustomerId(amount)
+            }
+            else{
+                print("Please add a card first")
+                self.addCard()
+            }
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    func addCard(){
+        let addCardViewController = STPAddCardViewController()
+        addCardViewController.delegate = self
+        // STPAddCardViewController must be shown inside a UINavigationController.
+        let navigationController = UINavigationController(rootViewController: addCardViewController)
+        self.present(navigationController, animated: true, completion: nil)
+    }
+    
+    // MARK: STPAddCardViewControllerDelegate
+    
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
+        print("generating token-------------")
+        print(token)
+        // Use token for backend process
+        ref?.child("users").child(uid).child("payments/sources/token").setValue(token.tokenId)
+        self.dismiss(animated: true, completion: {
+            completion(nil)
+        })
+    }
+    
+    func chargeUsingCustomerId(_ amount: Int){
+        // Post data to Firebase
+        print("charge using customerId----------------------")
+        // ref = Database.database().reference()
+        
+        let paymentId = self.ref?.child("users").child(uid).child("payments/charges").childByAutoId().key
+        
+        print("paymentId\(String(describing: paymentId))")
+        ref?.child("users").child(uid).child("payments/charges").child(paymentId!).setValue(["amount": amount])
+        print("Done writing to db")
+        
+        // TO DO: add listener
+        // add loading page
+        // display alert
+        
+        let postRef = ref?.child("users").child(uid).child("payments/charges").child(paymentId!).child("status")
+        
+        _ = postRef?.observe(DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? String
+            // let status = postDict["status"] as? String ?? ""
+            if (postDict != nil){
+                
+                if (postDict == "succeeded"){
+                    // dismiss loading page
+                    
+                    MKFullSpinner.hide()
+                    
+                    // send alert
+                    let title = "Payment Successed"
+                    let message = "You have purchased \(self.product) package for $\(amount/100).00"
+                    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                } else {
+                    print("postDict\(String(describing: postDict))")
+                    
+                    MKFullSpinner.hide()
+                    let title = "Payment Failed"
+                    let message = "Please try again"
+                    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                }
+            }
+            
+        })
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // detach all listener for db
+        ref?.removeAllObservers()
+    }
+
 }

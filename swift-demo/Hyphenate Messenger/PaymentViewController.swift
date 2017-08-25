@@ -34,6 +34,7 @@ class PaymentViewController: UIViewController, STPAddCardViewControllerDelegate 
         print("pay button clicked")
         print(uid)
         
+        
         ref = Database.database().reference()
         ref?.child("users").child(uid).child("payments").observeSingleEvent(of: .value, with: { (snapshot) in
             
@@ -93,6 +94,7 @@ class PaymentViewController: UIViewController, STPAddCardViewControllerDelegate 
         // add loading page
         // display alert
         _ = MKFullSpinner.show("Processing your payment now", view: self.view)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         let postRef = ref?.child("users").child(uid).child("payments/charges").child(paymentId!).child("status")
         
@@ -105,6 +107,7 @@ class PaymentViewController: UIViewController, STPAddCardViewControllerDelegate 
                     // dismiss loading page
                     
                     MKFullSpinner.hide()
+                    self.navigationController?.setNavigationBarHidden(false, animated: false)
                     
                     // send alert
                     let title = "Payment Successed"
@@ -128,6 +131,11 @@ class PaymentViewController: UIViewController, STPAddCardViewControllerDelegate 
         })
         
     }
-
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // detach all listener for db
+        ref?.removeAllObservers()
+    }
 }
 

@@ -53,8 +53,6 @@
 		5D9F39EA1F187B9300D388D9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39E91F187B9300D388D9 /* HomeViewController.swift */; };
 		5D9F39EC1F1946A700D388D9 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39EB1F1946A700D388D9 /* HistoryTableViewController.swift */; };
 		5D9F39EE1F1946FE00D388D9 /* ShopTableVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */; };
-		5DB073331F27FDA4005829E9 /* Payment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DB073321F27FDA4005829E9 /* Payment.storyboard */; };
-		5DB073351F27FDF7005829E9 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB073341F27FDF7005829E9 /* PaymentViewController.swift */; };
 		5DB951F71F2C1C7700F5C2F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DB951F61F2C1C7700F5C2F7 /* Assets.xcassets */; };
 		5DE85BAF1F2C13BD00200C3E /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE85BAE1F2C13BD00200C3E /* RatingViewController.swift */; };
 		5DE85BB11F2C142F00200C3E /* Rating.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DE85BB01F2C142F00200C3E /* Rating.storyboard */; };
@@ -319,8 +317,6 @@
 		5D9F39E91F187B9300D388D9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5D9F39EB1F1946A700D388D9 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopTableVIewController.swift; sourceTree = "<group>"; };
-		5DB073321F27FDA4005829E9 /* Payment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Payment.storyboard; sourceTree = "<group>"; };
-		5DB073341F27FDF7005829E9 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		5DB951F61F2C1C7700F5C2F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Hyphenate Messenger/Assets.xcassets"; sourceTree = "<group>"; };
 		5DE85BAE1F2C13BD00200C3E /* RatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
 		5DE85BB01F2C142F00200C3E /* Rating.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Rating.storyboard; sourceTree = "<group>"; };
@@ -784,7 +780,6 @@
 			isa = PBXGroup;
 			children = (
 				5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */,
-				5DB073341F27FDF7005829E9 /* PaymentViewController.swift */,
 			);
 			name = Shop;
 			sourceTree = "<group>";
@@ -989,7 +984,6 @@
 				5DE85BB01F2C142F00200C3E /* Rating.storyboard */,
 				9AFE4D711D9E2731007862CA /* Main.storyboard */,
 				9A7FB37F1DA1EDA7005CC8C3 /* Profile.storyboard */,
-				5DB073321F27FDA4005829E9 /* Payment.storyboard */,
 				9A3149911DA42B360081DB04 /* FriendRequest.storyboard */,
 				5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */,
 			);
@@ -1767,7 +1761,6 @@
 				B6346B0A1D9E6C5100CBEAE2 /* MJRefresh.bundle in Resources */,
 				5DE85BB11F2C142F00200C3E /* Rating.storyboard in Resources */,
 				B0E164AC1F292DE3008121F1 /* MenuData.json in Resources */,
-				5DB073331F27FDA4005829E9 /* Payment.storyboard in Resources */,
 				9A7FB3801DA1EDA7005CC8C3 /* Profile.storyboard in Resources */,
 				5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */,
 				39062AE81D9F0D4400EE8412 /* ContactTableViewCell.xib in Resources */,
@@ -2025,7 +2018,6 @@
 				B6346B001D9E6C5100CBEAE2 /* MJRefreshHeader.m in Sources */,
 				5D43421F1F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationEdge.swift in Sources */,
 				B6346B331D9E6C5100CBEAE2 /* PSTGridLayoutRow.m in Sources */,
-				5DB073351F27FDF7005829E9 /* PaymentViewController.swift in Sources */,
 				B6346B2E1D9E6C5100CBEAE2 /* PSTCollectionViewItemKey.m in Sources */,
 				B6346B1A1D9E6C5100CBEAE2 /* EMSDWebImageDecoder.m in Sources */,
 				5D43423E1F266F1700E5CA62 /* ImageFetcher.swift in Sources */,
