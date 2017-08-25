@@ -44,6 +44,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         /* end session button*/
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         navigationController?.navigationBar.barTintColor = UIColor.white
+        navigationController?.navigationBar.barStyle = .default
         self.navigationItem.title = ""
         let endSessionButton: UIBarButtonItem = UIBarButtonItem.init(title: "End Session", style: .plain, target: self, action: #selector(self.exitAlert))
         endSessionButton.tintColor = UIColor.red
@@ -147,8 +148,11 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     }
     
     func dismissParentVC() {
-        self.navigationController?.popViewController(animated: true)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        //Dismiss Keyboard
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        //Dismiss Chat
+        dismiss(animated: true, completion: nil)
+        
     }
     
 }

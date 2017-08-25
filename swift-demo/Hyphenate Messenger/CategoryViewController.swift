@@ -25,7 +25,11 @@ class CategoryViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(DismissMenu))
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.black
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+//        self.navigationController?.navigationBar.tintColor = UIColor.white
+//        self.navigationBar.barStyle = UIBarStyle.Black
+//        self.navigationBar.tintColor = UIColor.whiteColor()
 //        navigationController?.navigationBar.barTintColor = UIColor.black
 //        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         setupimageview()

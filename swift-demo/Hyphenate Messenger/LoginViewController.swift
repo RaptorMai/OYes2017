@@ -109,8 +109,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         
                         //login finished, create main view controller
                         //self.performSegue(withIdentifier: "LoginToHome", sender: Any?.self)
-                        let mainVC = MainViewController()
-                        HyphenateMessengerHelper.sharedInstance.mainVC = mainVC
+//                        let mainVC = MainViewController()
+//                        HyphenateMessengerHelper.sharedInstance.mainVC = mainVC
                         let appDelegate = UIApplication.shared.delegate as! AppDelegate
                         appDelegate.proceedLogin()
                         //self.present(mainVC, animated: true)

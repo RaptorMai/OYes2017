@@ -68,13 +68,15 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.tintColor = UIColor.white
+
+
         //        view.backgroundColor = UIColor.init(red: 239, green: 239, blue: 255, alpha: 1)
         view.backgroundColor = UIColor.init(hex: "EFEFF4")
         ref = Database.database().reference()
         self.key = self.ref?.child("request/active").childByAutoId().key
 //        navigationController?.navigationBar.tintColor = UIColor.black
         //        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-//        navigationController?.navigationBar.tintColor = UIColor.white
         
         
         //add the subviews and setup their autolayout constraints
@@ -147,11 +149,11 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     
     
     func tutorFound(_ notification: NSNotification){
-        MKFullSpinner.hide()
         let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK",
                                       style: UIAlertActionStyle.default,
                                       handler: { (alert:UIAlertAction!) in
+                                        MKFullSpinner.hide()
                                         self.startChatting(requestDict: notification.userInfo as! [String : Any]) }))
         self.present(alert, animated: true, completion: nil)
     }

@@ -21,6 +21,8 @@ public class PhotoLibraryViewController: UIViewController {
     
     public var onSelectionComplete: PhotoLibraryViewSelectionComplete?
     
+//    var delegate: dismissPhotoLibrary
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
@@ -74,6 +76,7 @@ public class PhotoLibraryViewController: UIViewController {
     
     public func dismissLibrary() {
         onSelectionComplete?(nil)
+        
     }
     
     private func onSuccess(_ photos: PHFetchResult<PHAsset>) {
@@ -122,6 +125,16 @@ extension PhotoLibraryViewController : UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate -
 extension PhotoLibraryViewController : UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        onSelectionComplete?(itemAtIndexPath(indexPath))
+//        onSelectionComplete?(itemAtIndexPath(indexPath))
+        let cropperViewController = UIStoryboard(name: "Crop", bundle: nil).instantiateViewController(withIdentifier: "cropperViewController") as! CropperViewController
+        let asset = itemAtIndexPath(indexPath)
+        cropperViewController.asset = asset
+        navigationController?.isNavigationBarHidden = true
+        navigationController?.pushViewController(cropperViewController, animated: true)
+
     }
+}
+
+protocol dismissPhotoLibrary {
+    func dismissPhotoLibrary()
 }

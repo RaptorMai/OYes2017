@@ -58,8 +58,8 @@ final class CropperViewController: UIViewController {
             
             alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.cancel, handler: { _ in
                 
-                _ = self.dismiss(animated: true, completion: nil)
-                    //self.navigationController?.popViewController(animated: true)
+//                _ = self.dismiss(animated: true, completion: nil)
+                self.navigationController?.popViewController(animated: true)
             }))
             
             alertController.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: nil))
@@ -68,7 +68,8 @@ final class CropperViewController: UIViewController {
             return
         }
         
-        _ = self.dismiss(animated: true, completion: nil)
+//        _ = self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func nextAction(_ sender: UIButton) {
@@ -76,10 +77,12 @@ final class CropperViewController: UIViewController {
             return
         }
         let nextController = CategoryViewController()
-        let navController = UINavigationController(rootViewController: nextController)
-        nextController.navController = navController
+//        let navController = UINavigationController(rootViewController: nextController)
+        nextController.navController = navigationController
         nextController.picture = image
-        present(navController, animated: true, completion: nil)
+//        present(navController, animated: true, completion: nil)
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.pushViewController(nextController, animated: true)
     }
     
     
@@ -141,7 +144,7 @@ final class CropperViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationController?.navigationBar.barTintColor = UIColor.black
         //navigationController?.isNavigationBarHidden = true
 
         // Programmatically initialization

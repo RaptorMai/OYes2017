@@ -51,7 +51,9 @@ class HomeViewController: UIViewController{
             
             self?.dismiss(animated: true, completion: nil)
         }
-        present(cameraViewController, animated: true, completion: nil)
+        let postquestionNavVC = UINavigationController(rootViewController: cameraViewController)
+        postquestionNavVC.isNavigationBarHidden = true
+        present(postquestionNavVC, animated: true, completion: nil)
     }
     
 }

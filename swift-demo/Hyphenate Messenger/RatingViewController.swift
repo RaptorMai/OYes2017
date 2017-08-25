@@ -54,11 +54,7 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
         print(self.floatRatingView.rating)
         self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["rate": self.floatRatingView.rating])
         self.dismiss(animated:true, completion:nil)
-//        delegate?.dismissParentVC()
-        let mainVC = MainViewController()
-        HyphenateMessengerHelper.sharedInstance.mainVC = mainVC
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.proceedLogin()
+        delegate?.dismissParentVC()
     }
     
     // MARK: FloatRatingViewDelegate
