@@ -22,6 +22,15 @@ public protocol ConversationListViewControllerDelegate: class {
     
     @objc optional func conversationListViewController(_ conversationListViewController: ConversationsTableViewController, latestMessageTimeForConversationModel conversationModel: AnyObject) -> String
 }
+/**
+ 
+ Class used to control the history tap
+ Currently the history is based on contactID
+ 
+ Key function is reloadDataSource(). It's used to reload conversation from server
+ Search is disable now and the code is not removed
+ 
+ */
 
 open class ConversationsTableViewController: UITableViewController, EMChatManagerDelegate,ConversationListViewControllerDelegate, ConversationListViewControllerDataSource, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
 

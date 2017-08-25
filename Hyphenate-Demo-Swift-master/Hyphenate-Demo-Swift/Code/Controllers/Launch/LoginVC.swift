@@ -117,10 +117,7 @@ class LoginVC: UIViewController {
             Auth.auth().signIn(withEmail: Username.text!, password: Password.text!) { (user, error) in
                 if error != nil {
                     print (" error: \(String(describing: error?.localizedDescription))")
-                    let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
-                    //                    let homeVC = HomeViewController()
-                    
-                    self.present(homeVC, animated: true, completion: nil)
+
 
                 }
                 else{

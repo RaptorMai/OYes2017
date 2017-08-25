@@ -241,7 +241,8 @@ extension MainTableViewController {
         
         //print("accept button is clicked")
         let ref = Database.database().reference()
-        let tid = EMClient.shared().currentUsername!
+        let tid = EMClient.shared().currentUsername
+        print(tid)
         // TO DO: get current questionId from db
         let qid: String = (qid as String)
         let category: String = (category as String)
@@ -304,16 +305,15 @@ extension MainTableViewController {
 
                         let navC = UINavigationController(rootViewController: sessionController)
                         self.navigationController?.present(navC, animated: true, completion: nil)
-
+                        let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
+                        addContactViewController.contactToAdd = requestorSid as String
+                        addContactViewController.sendRequest(addContactViewController.contactToAdd)
+                        //print(snap!)
+                        print("yeah you got the question")
                     }))
-                    self.present(alert, animated: true, completion: nil)
-                    let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
-                    addContactViewController.contactToAdd = requestorSid as String
-                    addContactViewController.sendRequest(addContactViewController.contactToAdd)
-                    //print(snap!)
-                    print("yeah you got the question")
 
-                    
+
+                    self.present(alert, animated: true, completion: nil)
                     
                 }
 

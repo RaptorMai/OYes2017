@@ -1,8 +1,22 @@
 
 import UIKit
 
+/**
+ 
+ 
+ Class used to control the search contact button
+ The button currently is shown in the histopry tap 
+ but we may remove later
+ 
+ Key function is reloadDataSource()
+ 
+ 
+ */
+
+
 class ComposeMessageTableViewController: UITableViewController,EMGroupManagerDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     
+    //dataSource is used to stored contacts from server
     var dataSource = [AnyObject]()
     var filteredDataSource = [AnyObject]()
     var searchController : UISearchController!
@@ -55,6 +69,7 @@ class ComposeMessageTableViewController: UITableViewController,EMGroupManagerDel
         self.tableView.reloadData()
     }
     
+    //Function used to reload dataSource
     func reloadDataSource(){
         self.dataSource.removeAll()
         

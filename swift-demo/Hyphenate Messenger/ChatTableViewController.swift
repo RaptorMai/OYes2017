@@ -7,6 +7,15 @@ protocol DismissProtocol {
     func dismissParentVC()
 }
 
+/**
+ 
+ Class used to show conversation view
+ 
+ Most features and functionalities are from:
+ EaseMessageViewController,EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource
+ 
+ These are from EaseUI written in Objective C
+ */
 
 class ChatTableViewController: EaseMessageViewController,EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource,EMClientDelegate, DismissProtocol {
     
