@@ -175,10 +175,11 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
     }
     
     func expandimage(cellimageview: UIImageView){
-        let image = cellimageview.image
-        let agrume = Agrume(image: image!, backgroundColor: .black)
-        agrume.hideStatusBar = true
-        agrume.showFrom(self)
+        if let image = cellimageview.image{
+            let agrume = Agrume(image: image, backgroundColor: .black)
+            agrume.hideStatusBar = true
+            agrume.showFrom(self)
+        }
     }
     
     
