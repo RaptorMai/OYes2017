@@ -25,17 +25,10 @@ public extension CameraViewController {
 
         imagePicker.onSelectionComplete = { [weak imagePicker] asset in
             if let asset = asset {
-                
+                // this if statement inside should never be reached
                 let cropperViewController = UIStoryboard(name: "Crop", bundle: nil).instantiateViewController(withIdentifier: "cropperViewController") as! CropperViewController
-                
+                cropperViewController.flag = 1
                 cropperViewController.asset = asset
-                
-//                imagePicker?.present(cropperViewController, animated: true, completion: nil)
-                
-//                navigationController.pushViewController(cropperViewController, animated: true)
-                pushCropperVC(cropperViewController)
-                
-                
 
             } else {
                 completion(nil, nil)
@@ -49,17 +42,6 @@ public extension CameraViewController {
 }
 
 open class CameraViewController: UIViewController {
-    
-    class func pushCropperVC(_ cVC: CropperViewController){
-//        let cropperViewController = UIStoryboard(name: "Crop", bundle: nil).instantiateViewController(withIdentifier: "cropperViewController") as! CropperViewController
-//        
-//        
-//        cropperViewController.asset = asset
-//        
-//        self.navigationController?.pushViewController(cropperViewController, animated: true)
-        print("didgointo pushCropperVC")
-    }
-    
     
     var didUpdateViews = false
     var allowCropping = false
@@ -545,6 +527,7 @@ open class CameraViewController: UIViewController {
         let imagePicker = CameraViewController.imagePickerViewController(croppingEnabled: allowCropping) { [weak self] image, asset in
             defer {
 //                self?.dismiss(animated: true, completion: nil)
+                self?.navigationController?.isNavigationBarHidden = true
                 self?.navigationController?.popViewController(animated: true)
             }
 
@@ -560,7 +543,7 @@ open class CameraViewController: UIViewController {
         CATransaction.begin()
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.barTintColor = UIColor.black
-//        navigationController?.navigationBar.barStyle = UIBarStyle.black
+        navigationController?.navigationBar.barStyle = UIBarStyle.black
         navigationController?.pushViewController(imagePicker, animated: true)
         CATransaction.setCompletionBlock { 
             self.cameraView.stopSession()
@@ -602,6 +585,7 @@ open class CameraViewController: UIViewController {
     func crop(asset: PHAsset){
         
         let cropperViewController = UIStoryboard(name: "Crop", bundle: nil).instantiateViewController(withIdentifier: "cropperViewController") as! CropperViewController
+        cropperViewController.flag = 0
         cropperViewController.asset = asset
 //        present(cropperViewController, animated: true, completion: nil)
         print("didcomebyhere")

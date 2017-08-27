@@ -7,21 +7,24 @@ class MainViewController: UITabBarController {
         super.viewDidLoad()
         
         
-        
         //HomeVC
         let homeViewController: HomeViewController = HomeViewController();
         let homeRootViewController:UINavigationController = UINavigationController(rootViewController: homeViewController)
+        homeRootViewController.title = "Instasolve"
         //HistoryVC
         let historyViewController:HistoryTableViewController = HistoryTableViewController()
         let historyRootViewController:UINavigationController = UINavigationController(rootViewController: historyViewController)
+        historyRootViewController.title = "History"
         //ShopVC
         let shopViewController:ShopTableViewController = ShopTableViewController()
         let shopRootViewController:UINavigationController = UINavigationController(rootViewController: shopViewController)
+        shopRootViewController.title = "Shop"
         //SettingVC
         let settingsViewController:SettingsTableViewController = SettingsTableViewController()
         let settingsRootViewController:UINavigationController = UINavigationController(rootViewController: settingsViewController)
+        settingsRootViewController.title = "Settings"
 
-        self.setViewControllers([homeRootViewController, historyRootViewController, shopRootViewController, settingsRootViewController], animated: true)
+        self.setViewControllers([homeViewController, historyRootViewController, shopRootViewController, settingsRootViewController], animated: true)
         
         let homeTabItem:UITabBarItem = self.tabBar.items![0]
         homeTabItem.title = "Home"

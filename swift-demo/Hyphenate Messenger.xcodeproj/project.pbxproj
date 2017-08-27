@@ -98,6 +98,7 @@
 		9AC132431DA17B8200A2BD05 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC132421DA17B8200A2BD05 /* ProfileViewController.swift */; };
 		9AE1B05C1DBDCB2F00E9E706 /* M13BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE1B05B1DBDCB2E00E9E706 /* M13BadgeView.m */; };
 		9AFE4D721D9E2731007862CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AFE4D711D9E2731007862CA /* Main.storyboard */; };
+		B0303F461F535F330061D7F7 /* TutorConnectedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0303F451F535F330061D7F7 /* TutorConnectedVC.swift */; };
 		B0E164A21F291A8C008121F1 /* GroupTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A11F291A8C008121F1 /* GroupTableView.swift */; };
 		B0E164A61F291A96008121F1 /* CategoryVCHousing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A31F291A96008121F1 /* CategoryVCHousing.swift */; };
 		B0E164A71F291A96008121F1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A41F291A96008121F1 /* CategoryViewController.swift */; };
@@ -372,6 +373,7 @@
 		9AE1B05A1DBDCB2E00E9E706 /* M13BadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13BadgeView.h; sourceTree = "<group>"; };
 		9AE1B05B1DBDCB2E00E9E706 /* M13BadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13BadgeView.m; sourceTree = "<group>"; };
 		9AFE4D711D9E2731007862CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		B0303F451F535F330061D7F7 /* TutorConnectedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorConnectedVC.swift; sourceTree = "<group>"; };
 		B0E164A11F291A8C008121F1 /* GroupTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableView.swift; sourceTree = "<group>"; };
 		B0E164A31F291A96008121F1 /* CategoryVCHousing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVCHousing.swift; sourceTree = "<group>"; };
 		B0E164A41F291A96008121F1 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -793,6 +795,7 @@
 				B0E164A41F291A96008121F1 /* CategoryViewController.swift */,
 				B0E164A91F291AC1008121F1 /* PrdouctMenuTableViewCell.swift */,
 				B0E164A51F291A96008121F1 /* SummaryVC.swift */,
+				B0303F451F535F330061D7F7 /* TutorConnectedVC.swift */,
 				B0E164A11F291A8C008121F1 /* GroupTableView.swift */,
 				301D34EE1F421BAE00C9A395 /* Spinner.swift */,
 			);
@@ -2008,6 +2011,7 @@
 				B6346B571D9E6C5100CBEAE2 /* EaseBubbleView+Image.m in Sources */,
 				B6346AF61D9E6C5100CBEAE2 /* wav.mm in Sources */,
 				B6346B181D9E6C5100CBEAE2 /* EMSDImageCache.m in Sources */,
+				B0303F461F535F330061D7F7 /* TutorConnectedVC.swift in Sources */,
 				B6346B451D9E6C5100CBEAE2 /* EaseEmotionEscape.m in Sources */,
 				9A545C891DA0CB2200DEFBC7 /* ConversationTableViewCell.swift in Sources */,
 				9A702B9D1DA3401F005ED10C /* FriendRequestTableViewCell.swift in Sources */,

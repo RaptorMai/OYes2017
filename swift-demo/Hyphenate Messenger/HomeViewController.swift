@@ -51,8 +51,10 @@ class HomeViewController: UIViewController{
             
             self?.dismiss(animated: true, completion: nil)
         }
+        cameraViewController.view.backgroundColor = UIColor.black
         let postquestionNavVC = UINavigationController(rootViewController: cameraViewController)
         postquestionNavVC.isNavigationBarHidden = true
+        postquestionNavVC.view.backgroundColor = UIColor.black
         present(postquestionNavVC, animated: true, completion: nil)
     }
     

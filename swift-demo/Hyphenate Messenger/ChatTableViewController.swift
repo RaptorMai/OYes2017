@@ -147,6 +147,22 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
 //        self.conversation.conversationId = newConvId
     }
     
+    func endSessionfromAppTermination(){
+        // get time of chat session
+        time = Date().timeIntervalSince(beginTime)
+        let sessionDuration = Int(ceil(Double(time)/60))
+        //TODO: charge time to balance here
+        print(sessionDuration)
+        //store duration
+        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":sessionDuration])
+        
+        // add rating to tutor
+        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["rate": 5.0])
+        //calldismiss to dismiss chatVC
+        dismissParentVC()
+        
+    }
+    
     func dismissParentVC() {
         //Dismiss Keyboard
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)

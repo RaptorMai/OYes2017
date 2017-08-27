@@ -154,6 +154,9 @@ class SummaryVC: UIViewController, UITextViewDelegate{
                                       style: UIAlertActionStyle.default,
                                       handler: { (alert:UIAlertAction!) in
                                         MKFullSpinner.hide()
+//                                        let tcVC = TutorConnectedVC()
+//                                        tcVC.requestdict = notification.userInfo as? [String : Any]
+//                                        navigationController?.pushViewController(tcVC, animated: true)
                                         self.startChatting(requestDict: notification.userInfo as! [String : Any]) }))
         self.present(alert, animated: true, completion: nil)
     }
@@ -194,6 +197,25 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         sender.removeFromSuperview()
         MKFullSpinner.hide()
+    }
+    
+    func cancelFromAppTermination(){
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        let removeRef = storageRef.child("image/\(self.categorytitle)/\(self.key!))")
+        removeRef.delete { (Error) in
+            if let error = Error {
+                let alert = UIAlertController(title: "Delete error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+                self.present(alert, animated: true, completion: nil)
+                
+            } else {
+                self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").removeValue()
+            }
+        }
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        MKFullSpinner.hide()
+
     }
     
     func uploadPicture(_ data: Data, completion:@escaping (_ url: String?) -> ()) {

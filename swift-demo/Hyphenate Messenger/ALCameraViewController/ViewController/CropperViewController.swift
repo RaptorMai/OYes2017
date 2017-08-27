@@ -11,6 +11,9 @@ import Photos
 
 final class CropperViewController: UIViewController {
     
+    //flag keeps track of if cropper view was reached from image picker or camera shot. Flag is set when cropperVC is created in other VC's. States: -1 = not set, 0 = camera shot, 1 = image picker
+    var flag = -1
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -60,6 +63,7 @@ final class CropperViewController: UIViewController {
                 
 //                _ = self.dismiss(animated: true, completion: nil)
                 self.navigationController?.popViewController(animated: true)
+                self.navigationController?.isNavigationBarHidden = false
             }))
             
             alertController.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: nil))
@@ -70,6 +74,17 @@ final class CropperViewController: UIViewController {
         
 //        _ = self.dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
+//        if navigationController?.presentingViewController is CameraViewController {
+//            flag = 0
+//        }
+//        if navigationController?.presentingViewController is PhotoLibraryViewController {
+//            flag = 1
+//        }
+        if flag == 1 {
+            self.navigationController?.isNavigationBarHidden = false
+        } else if flag == 0 {
+            self.navigationController?.isNavigationBarHidden = true
+        }
     }
     
     @IBAction func nextAction(_ sender: UIButton) {

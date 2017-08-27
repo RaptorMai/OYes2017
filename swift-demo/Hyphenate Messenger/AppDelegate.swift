@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let kTrackingPreferenceKey = "allowTracking"
     static let kGaDryRun = false
     static let kGaDispatchPeriod = 30
-
+    
     var window: UIWindow?
     var mainViewController: MainViewController?
 
@@ -98,6 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         EMClient.shared().applicationDidEnterBackground(application)
         //self.saveContext()
+//        print("applicationdidenterbackground")
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -113,7 +114,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
+        
         self.saveContext()
+        //first find the top viewcontroller to know what action to take
+        if var topController = UIApplication.shared.keyWindow?.rootViewController{
+            //use while loop to go down the hierarchy of viewcontrollers to find the present view controller
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+                print("\(type(of: topController))")
+            }
+            
+            //if the current viewcontroller is a UInavigationController then find the ocntroller at the top of the UInavigationController
+            if topController is UINavigationController{
+                let nVC = topController as! UINavigationController
+                if let topViewController = nVC.topViewController {
+                    print("\(type(of: topViewController))")
+                    
+                    /*If the student is in:
+                        - a session we end the session and notify the tutor
+                        - the connecting to tutor screen we retract the question
+                        - the connected with tutor screen we notify the tutor
+                    */
+                    if topViewController is ChatTableViewController{
+                        //Inside this if statement student is in a chat session
+                        let chatVC = topViewController as! ChatTableViewController
+                        chatVC.endSessionfromAppTermination()
+                        print("donedismissing")
+                    } else if topViewController is SummaryVC {
+                        //Inside this if statement student is in connecting with tutor screen
+                        let CurrentsummaryVC = topViewController as! SummaryVC
+                        CurrentsummaryVC.cancelFromAppTermination()
+                        
+                    } else if topViewController is TutorConnectedVC{
+                        //Inside this if statement student is on connected with tutor screen
+                        
+                    }
+                }
+
+            }
+        }
     }
 
     // MARK: - Core Data stack
@@ -234,6 +273,7 @@ extension AppDelegate {
         HyphenateMessengerHelper.sharedInstance.loadPushOptions()
         HyphenateMessengerHelper.sharedInstance.loadGroupFromServer()
         window?.rootViewController = UINavigationController(rootViewController: mainViewController!)
+//        window?.rootViewController = mainViewController
         window?.makeKeyAndVisible()
     }
     

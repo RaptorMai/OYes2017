@@ -128,6 +128,7 @@ extension PhotoLibraryViewController : UICollectionViewDelegateFlowLayout {
 //        onSelectionComplete?(itemAtIndexPath(indexPath))
         let cropperViewController = UIStoryboard(name: "Crop", bundle: nil).instantiateViewController(withIdentifier: "cropperViewController") as! CropperViewController
         let asset = itemAtIndexPath(indexPath)
+        cropperViewController.flag = 1
         cropperViewController.asset = asset
         navigationController?.isNavigationBarHidden = true
         navigationController?.pushViewController(cropperViewController, animated: true)
