@@ -235,7 +235,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     
     func uploadPicture(_ data: Data, completion:@escaping (_ url: String?) -> ()) {
         let storageRef = Storage.storage().reference()
-        storageRef.child("image/\(self.categorytitle)/\(self.key!))").putData(data, metadata: nil){(metaData,error) in
+        storageRef.child("image/\(self.categorytitle)/\(self.key!)").putData(data, metadata: nil){(metaData,error) in
             if let error = error {
                 print(error.localizedDescription)
                 completion(nil)

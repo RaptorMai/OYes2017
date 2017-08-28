@@ -9,6 +9,8 @@ const price = {"1000": 10, "3000": 30, "6000": 60, "11900": 120};
 
 const cors = require('cors')({origin: true});
 
+const gcs = require('@google-cloud/storage')()
+
 exports.stripeCharge = functions.database
 								.ref('/users/{userId}/payments/charges/{id}')
 								.onWrite(event => {
@@ -237,7 +239,11 @@ exports.cancel = functions.https.onRequest((req, res) => {
     var ref = admin.database().ref("/Request/active/" + category +"/"+ qid);
 	ref.on("value", function(snapshot) {
 		if (snapshot.exists()) { 
-
+			let url = snapshot.val().picURL
+			const filePath = 'image/' + category + '/' + qid
+			const bucket = gcs.bucket("instasolve-d8c55.appspot.com")
+			const file = bucket.file(filePath)
+			const pr = file.delete()
 		    ref.remove();
 		    ref.off();
 		  }
