@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import Alamofire
 
 class SummaryVC: UIViewController, UITextViewDelegate{
     //This class is a viewcontroller that gathers and displays the data inputted by the user about their question. This viewcontroler allows the user to double check the data, enter a description of their question, and send the request for help to our platform.
@@ -128,19 +129,19 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         _ = MKFullSpinner.show("Your tutor is on the way", view: self.view)
         
-        let label = createlabel()
-        self.view.addSubview(label)
-        setuplabel(label: label)
+        //let label = createlabel()
+        //self.view.addSubview(label)
+        //setuplabel(label: label)
+        let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
+        button.setTitle("Cancel", for: .normal)
+        button.addTarget(self, action: #selector(self.cancelAction), for: .touchUpInside)
+        self.view.addSubview(button)
         
         uploadPicture(data, completion:{ (url) -> Void in
             let addRequest = ["sid": sid, "picURL":url!, "category": self.categorytitle, "description":
                 self.questionDescription.text as String, "status": 0, "qid": self.key!, "tid":"", "duration": "", "rate":""] as [String : Any]
             self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").setValue(addRequest)
-            let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
-            button.setTitle("Cancel", for: .normal)
-            button.addTarget(self, action: #selector(self.cancelAction), for: .touchUpInside)
-            self.view.addSubview(button)
-            label.removeFromSuperview()
+            //label.removeFromSuperview()
         })
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound(_:)), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
@@ -181,7 +182,21 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     }
 
     func cancelAction(sender: UIButton!){
-        let storage = Storage.storage()
+        let parameters: Parameters = [
+            "category" : self.categorytitle,
+            "qid" : self.key!,
+        ]
+        print(parameters)
+        Alamofire.request("http://us-central1-instasolve-d8c55.cloudfunctions.net/cancel",method:.get, parameters: parameters, encoding: URLEncoding.default)
+            .responseString { response in
+                print(response.result.value!)
+
+        }
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        sender.removeFromSuperview()
+        MKFullSpinner.hide()
+
+       /* let storage = Storage.storage()
         let storageRef = storage.reference()
         let removeRef = storageRef.child("image/\(self.categorytitle)/\(self.key!))")
         removeRef.delete { (Error) in
@@ -196,7 +211,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         }
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         sender.removeFromSuperview()
-        MKFullSpinner.hide()
+        MKFullSpinner.hide()*/
     }
     
     func cancelFromAppTermination(){
