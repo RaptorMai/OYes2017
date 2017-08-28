@@ -16,6 +16,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     var categorytitle: String = ""
     var ref: DatabaseReference!
     var key: String?
+    var keyboardDisplayed = false
     
     //questionPic is the UIImageView that holds the question image.
     var questionPic: UIImageView = {
@@ -91,6 +92,8 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         view.addSubview(nextButton)
         setupNextButton()
         hideKeyboardWhenTappedAround()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,6 +122,14 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     }
     
     func requestHelpPressed(button: UIButton) {
+        //check if keyboard is displayed and if it is then dismiss before continuing
+        if keyboardDisplayed == true {
+            dismissKeyboard()
+        }
+        //Check if description was entered. If a description was not entered modify text uploaded to database.
+        if self.questionDescription.text == "Add Description Here..." {
+            self.questionDescription.text = "No Description Available"
+        }
         //write question to firebase
         var data = Data()
         data = UIImageJPEGRepresentation(questionPic.image!, 0.8)!
@@ -168,6 +179,13 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         let sessionController = ChatTableViewController(conversationID: requestDict["username"] as! String , conversationType: EMConversationTypeChat, initWithExt: timeStamp)
         sessionController?.key = self.key!
         sessionController?.category = self.categorytitle
+        //check if description was entered.
+        var isDescriptionEntered: Bool?
+        if self.questionDescription.text == "Add Description Here..." {
+            isDescriptionEntered = false
+        } else {
+            isDescriptionEntered = true
+        }
         
         CATransaction.begin()
         self.navigationController?.isNavigationBarHidden = false
@@ -176,6 +194,9 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         }
         CATransaction.setCompletionBlock({
             sessionController?.sendImageMessage(self.questionPic.image)
+            if isDescriptionEntered == true {
+                sessionController?.sendTextMessage(self.questionDescription.text)
+            }
         })
         CATransaction.commit()
     }
@@ -333,15 +354,41 @@ extension UIColor {
         )
     }
 }
-//extension to be able to tap outside of uitextview to dismiss keyboard
+//extension to SummaryVC to alow for better keyboard functionality
 extension SummaryVC {
+    //Allows the keyboard to be hidden when tapped outside of keyboard
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SummaryVC.dismissKeyboard))
+        
+        let swipeOutOfKeyboard: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(SummaryVC.dismissKeyboard))
+        swipeOutOfKeyboard.direction = .down
+        
+        questionDescription.addGestureRecognizer(swipeOutOfKeyboard)
         view.addGestureRecognizer(tap)
+        view.addGestureRecognizer(swipeOutOfKeyboard)
     }
     
     func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    //The below two functions allow the view to move up/down when the keyboard is presented/hidden. These functions are called by an observer for when the keyboard is presented/hidden.
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+        keyboardDisplayed = true
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+        keyboardDisplayed = false
     }
 }
 
