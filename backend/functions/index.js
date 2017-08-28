@@ -7,6 +7,8 @@ const stripe = require('stripe')(functions.config().stripe.testkey);
 
 const price = {"1000": 10, "3000": 30, "6000": 60, "11900": 120};
 
+const cors = require('cors')({origin: true});
+
 exports.stripeCharge = functions.database
 								.ref('/users/{userId}/payments/charges/{id}')
 								.onWrite(event => {
@@ -205,6 +207,46 @@ exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{q
 		})
 	})
 })
+
+exports.cancel = functions.https.onRequest((req, res) => {
+
+
+  // [START usingMiddleware]
+  // Enable CORS using the `cors` express middleware.
+  cors(req, res, () => {
+  // [END usingMiddleware]
+    // Reading date format from URL query parameter.
+    // [START readQueryParam]
+    /*
+    let format = req.query.format;
+    // [END readQueryParam]
+    // Reading date format from request body query parameter
+    if (!format) {
+      // [START readBodyParam]
+      format = req.body.format;
+      // [END readBodyParam]
+    }
+    // [START sendResponse]
+    const formattedDate = moment().format(format);
+    console.log('Sending Formatted date:', formattedDate);
+    res.status(200).send(formattedDate);*/
+    // [END sendResponse]
+
+    let qid = req.query.qid;
+    let category = req.query.category;
+    var ref = admin.database().ref("/Request/active/" + category +"/"+ qid);
+	ref.on("value", function(snapshot) {
+		if (snapshot.exists()) { 
+
+		    ref.remove();
+		    ref.off();
+		  }
+	})
+
+    res.status(200).send(req.query.category);
+  });
+});
+
 
 function userFacingMessage(error) {
   return error.type ? error.message : 'An error occurred, developers have been alerted';

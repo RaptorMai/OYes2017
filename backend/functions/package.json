@@ -4,7 +4,8 @@
   "dependencies": {
     "firebase-admin": "~4.2.1",
     "firebase-functions": "^0.5.7",
-    "stripe": "^4.24.0"
+    "stripe": "^4.24.0",
+    "cors": "^2.8.4"
   },
   "private": true
 }
