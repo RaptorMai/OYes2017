@@ -2,78 +2,61 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.navigationItem.title = "Settings"
-        self.tableView.backgroundColor = UIColor.white//(red: 228.0/255.0, green: 233.0/255.0, blue: 236.0/255.0, alpha: 1.0)
+        self.tableView = UITableView(frame: self.tableView.frame, style: .grouped)
+        self.tableView.backgroundColor = UIColor.init(hex: "F0EFF5")
+        self.tableView.separatorInset = .zero
+        self.tableView.layoutMargins = .zero
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.register(UINib(nibName: "SwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "switchCell")
         self.tableView.register(UINib(nibName: "LabelTableViewCell", bundle: nil), forCellReuseIdentifier: "labelCell")
+        
 
-
+        
     }
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Settings"
     }
-
+    
     // MARK: - Table view data source
-
+    
+    let data = [[[#imageLiteral(resourceName: "profile"),"Profile"]], [[#imageLiteral(resourceName: "balance"),"My balance"], [#imageLiteral(resourceName: "-points"),"My points"]], [[#imageLiteral(resourceName: "HelpIcon"),"Help"], [#imageLiteral(resourceName: "Feedback"),"Feedback"], [#imageLiteral(resourceName: "Rate"),"Rate us"], [#imageLiteral(resourceName: "FaceBook"),"Like us on Facebook"]],[["Log out"]]]
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return data.count
     }
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let logoutButton = UIButton(type: .custom)
-        logoutButton.backgroundColor = UIColor.hiPrimaryRed()
-        logoutButton.setTitle("Sign Out", for: .normal)
-        logoutButton.addTarget(self, action: #selector(SettingsTableViewController.logoutAction), for: .touchUpInside)
-        logoutButton.frame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - 265, width: UIScreen.main.bounds.size.width, height: 45)
-        
-        let footerView = UIView(frame: CGRect(x: 0, y: 220, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 220))
-            footerView.addSubview(logoutButton)
-        return footerView
+        return data[section].count
     }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return UIScreen.main.bounds.size.height - 220
-    }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
-        switch (indexPath as NSIndexPath).row {
-        case 0:
+        
+        if indexPath.section != 3{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            cell.textLabel?.text = "About"
+            cell.textLabel?.text = self.data[indexPath.section][indexPath.row][1] as? String
+            cell.imageView?.image = self.data[indexPath.section][indexPath.row][0] as? UIImage
+            
             cell.accessoryType = .disclosureIndicator
-            return cell
-
-        case 1:
+            return cell}
+        else{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            cell.textLabel?.text = "Push Notifications"
-            cell.accessoryType = .disclosureIndicator
+            cell.textLabel?.text = self.data[indexPath.section][indexPath.row][0] as? String
+            cell.textLabel?.textAlignment = .center
             return cell
-
-        case 2:
-            let cell: LabelTableViewCell = tableView.dequeueReusableCell(withIdentifier: "labelCell", for: indexPath) as! LabelTableViewCell
-            cell.titleLabel.text = "InstaSolve ID"
-            cell.selectionStyle = .none
-            if let hyphenateID = EMClient.shared().currentUsername {
-                cell.detailLabel.text = "\(hyphenateID)"
-            }
-            return cell
-
-        default: break
             
         }
-     return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
@@ -97,8 +80,8 @@ class SettingsTableViewController: UITableViewController {
                 UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
             } else {
                 let loginController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginScene")
-                UIApplication.shared.keyWindow?.rootViewController = loginController               
-
+                UIApplication.shared.keyWindow?.rootViewController = loginController
+                
             }
         }
     }

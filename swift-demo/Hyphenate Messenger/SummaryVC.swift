@@ -346,6 +346,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         }
         textView.resignFirstResponder()
     }
+    
 }
 
 //extension to UIColor to allow color definition by hex

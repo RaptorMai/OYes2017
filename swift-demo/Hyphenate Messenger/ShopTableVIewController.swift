@@ -27,8 +27,8 @@ struct Theme {
 class ShopTableViewController: UITableViewController, STPAddCardViewControllerDelegate{
     
     
-    let products = ["10min package", "30min package", "60min package", "120min package"]
-    let prices = [1000, 3000, 6000, 11900]
+    let products = ["10min package", "30min package", "60min package", "120min package", "Unlimite Questions"]
+    let prices = [400, 1100, 2000, 3800, 9900]
     let theme = Theme()
     
     var ref: DatabaseReference?
