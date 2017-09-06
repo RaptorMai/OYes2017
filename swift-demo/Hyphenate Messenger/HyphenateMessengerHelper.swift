@@ -40,6 +40,7 @@ class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegat
     var contactVC : ContactsTableViewController?
     var chatVC : ChatTableViewController?
     
+    
     deinit {
         EMClient.shared().removeDelegate(self)
         EMClient.shared().groupManager.removeDelegate(self)
@@ -407,6 +408,7 @@ class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegat
                 }
             #endif
         }
+        
         NotificationCenter.default.post(name: Notification.Name(rawValue: "kNotification_didReceiveRequest"), object: requestDict, userInfo: requestDict)
     }
     

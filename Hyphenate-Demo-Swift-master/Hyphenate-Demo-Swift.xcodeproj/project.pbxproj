@@ -408,6 +408,8 @@
 		90FB78971EF7EE9B00B02F60 /* EMConvertToCommonEmoticonsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FB78921EF7EE9B00B02F60 /* EMConvertToCommonEmoticonsHelper.m */; };
 		90FB78981EF7EE9B00B02F60 /* EMEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FB78941EF7EE9B00B02F60 /* EMEmoji.m */; };
 		90FB78991EF7EE9B00B02F60 /* EMEmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FB78961EF7EE9B00B02F60 /* EMEmojiEmoticons.m */; };
+		B0303F491F54ED970061D7F7 /* ConnectedWithStudentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0303F471F54ED970061D7F7 /* ConnectedWithStudentVC.swift */; };
+		B0303F4A1F54ED970061D7F7 /* ConnectedWithStudentVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0303F481F54ED970061D7F7 /* ConnectedWithStudentVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -839,6 +841,8 @@
 		90FB78961EF7EE9B00B02F60 /* EMEmojiEmoticons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMEmojiEmoticons.m; sourceTree = "<group>"; };
 		90FB789D1EF7EF4B00B02F60 /* Hyphenate-Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hyphenate-Bridge-Header.h"; sourceTree = "<group>"; };
 		A5E944F58DE3F0DB392C5330 /* Pods-Hyphenate-Demo-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate-Demo-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate-Demo-Swift/Pods-Hyphenate-Demo-Swift.release.xcconfig"; sourceTree = "<group>"; };
+		B0303F471F54ED970061D7F7 /* ConnectedWithStudentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectedWithStudentVC.swift; sourceTree = "<group>"; };
+		B0303F481F54ED970061D7F7 /* ConnectedWithStudentVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectedWithStudentVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -893,6 +897,8 @@
 				5DBF1EF21F40FAF400CB2CC8 /* FoldingCell.swift */,
 				5DBF1EDC1F40C4C600CB2CC8 /* DemoCell.swift */,
 				5DBF1EDD1F40C4C600CB2CC8 /* MainTableViewController.swift */,
+				B0303F471F54ED970061D7F7 /* ConnectedWithStudentVC.swift */,
+				B0303F481F54ED970061D7F7 /* ConnectedWithStudentVC.xib */,
 				5DBF1EDE1F40C4C600CB2CC8 /* QuestionsVC.swift */,
 			);
 			name = Questions;
@@ -1783,6 +1789,7 @@
 				9011E1871EEEC22700C43D05 /* Contacts_active@2x.png in Resources */,
 				9011E1831EEEC22700C43D05 /* Contacts.png in Resources */,
 				90B43DCC1F0120D00084E67F /* EMContactCell.xib in Resources */,
+				B0303F4A1F54ED970061D7F7 /* ConnectedWithStudentVC.xib in Resources */,
 				9011E1851EEEC22700C43D05 /* Contacts@3x.png in Resources */,
 				9011E0EB1EEEC22700C43D05 /* Button_End.png in Resources */,
 				9011E1791EEEC22700C43D05 /* Icon_Search@3x.png in Resources */,
@@ -2140,6 +2147,7 @@
 				908462371EF77A140008E480 /* EMChatToolBar.swift in Sources */,
 				5DBF1EE01F40C4C600CB2CC8 /* MainTableViewController.swift in Sources */,
 				90749ED91EF90E5B00D3A065 /* amrFileCodec.mm in Sources */,
+				B0303F491F54ED970061D7F7 /* ConnectedWithStudentVC.swift in Sources */,
 				90B777CF1EF140E0006D0977 /* EMChatsCell.swift in Sources */,
 				5DBF1EDF1F40C4C600CB2CC8 /* DemoCell.swift in Sources */,
 				5DBF1EE41F40C4E300CB2CC8 /* SettingsVC.swift in Sources */,

@@ -124,7 +124,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("\(type(of: topController))")
             }
             
-            //if the current viewcontroller is a UInavigationController then find the ocntroller at the top of the UInavigationController
+            //if the current viewcontroller is a UInavigationController then find the controller at the top of the UInavigationController
             if topController is UINavigationController{
                 let nVC = topController as! UINavigationController
                 if let topViewController = nVC.topViewController {
@@ -143,11 +143,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     } else if topViewController is SummaryVC {
                         //Inside this if statement student is in connecting with tutor screen
                         let CurrentsummaryVC = topViewController as! SummaryVC
-                        CurrentsummaryVC.cancelFromAppTermination()
-                        
+                        if CurrentsummaryVC.flag == 0{
+                            CurrentsummaryVC.cancelFromAppTermination()
+                        }
                     } else if topViewController is TutorConnectedVC{
                         //Inside this if statement student is on connected with tutor screen
-                        
+                        //TODO: notify tutor student has left
                     }
                 }
 

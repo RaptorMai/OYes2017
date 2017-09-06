@@ -11,7 +11,7 @@ import Firebase
 import FirebaseDatabase
 import Alamofire
 
-class SummaryVC: UIViewController, UITextViewDelegate{
+class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
     //This class is a viewcontroller that gathers and displays the data inputted by the user about their question. This viewcontroler allows the user to double check the data, enter a description of their question, and send the request for help to our platform.
     
     var categorytitle: String = ""
@@ -122,6 +122,9 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         
     }
     
+    //flag variable monitors which screen we are on. States: -1 = not set, 0 = tutor connecting screen, 1 = tutor connected screen
+    var flag = -1
+    
     func requestHelpPressed(button: UIButton) {
         //check if keyboard is displayed and if it is then dismiss before continuing
         if keyboardDisplayed == true {
@@ -139,6 +142,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         _ = MKFullSpinner.show("Your tutor is on the way", view: self.view)
+        self.flag = 0
         
         //let label = createlabel()
         //self.view.addSubview(label)
@@ -159,47 +163,67 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         
     }
     
-    
-    func tutorFound(_ notification: NSNotification){
-        let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK",
-                                      style: UIAlertActionStyle.default,
-                                      handler: { (alert:UIAlertAction!) in
-                                        MKFullSpinner.hide()
-//                                        let tcVC = TutorConnectedVC()
-//                                        tcVC.requestdict = notification.userInfo as? [String : Any]
-//                                        navigationController?.pushViewController(tcVC, animated: true)
-                                        self.startChatting(requestDict: notification.userInfo as! [String : Any]) }))
-        self.present(alert, animated: true, completion: nil)
+    var didStudentClickOkAfterTutorinChat = false
+    func changeDidStudentClickOkAfterTutorinChat(){
+        didStudentClickOkAfterTutorinChat = true
     }
     
+    func tutorFound(_ notification: NSNotification){
+        
+        let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(
+            title: "OK",style: UIAlertActionStyle.default, handler:
+            { (alert:UIAlertAction!) in
+                MKFullSpinner.hide()
+                
+                //tcVC - tutorconnectedVC
+                let tcVC = TutorConnectedVC()
+                tcVC.questionDescription = self.questionDescription.text
+                tcVC.questionImage = self.questionPic.image
+                tcVC.requestdict = notification.userInfo as? [String : Any]
+                tcVC.delegate = self
+                tcVC.didStudentCickOkAfterTutorinChat = self.didStudentClickOkAfterTutorinChat
+                
+                //if student clicks ok before tutor is in chat this variable will remain false. Hence the observer is removed. The observer will then be changed to calltcVC.startChatwithTutor inside the viewdidload of next VC
+                if self.didStudentClickOkAfterTutorinChat == false{
+                    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
+                }
+                self.flag = 1
+                self.navigationController?.pushViewController(tcVC, animated: true)
+        }))
+        
+        //Before the alert is presented we edit the friendrequest observer to call the function didStudentClickOkAfterTutorinChat function to notify the next VC, that the tutor is in chat if the student hasnt clicked ok on the alert before the tutor clicks ready to begin.
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
+        //Add observer to lookout for notification
+        NotificationCenter.default.addObserver(self, selector: #selector(changeDidStudentClickOkAfterTutorinChat), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
+
+        self.present(alert, animated: true, completion: nil)
+//        self.startChatting(requestDict: notification.userInfo as! [String : Any])
+
+    }
 
     
-    func startChatting(requestDict:[String: Any]){
+    func startChatting(requestDict:[String: Any], image: UIImage, description: String){
         let timeStamp = ["SessionId":String(Date().ticks)]
         let sessionController = ChatTableViewController(conversationID: requestDict["username"] as! String , conversationType: EMConversationTypeChat, initWithExt: timeStamp)
         sessionController?.key = self.key!
         sessionController?.category = self.categorytitle
         //check if description was entered.
         var isDescriptionEntered: Bool?
-        if self.questionDescription.text == "Add Description Here..." {
+        if description == "No Description Available" {
             isDescriptionEntered = false
         } else {
             isDescriptionEntered = true
         }
         
-        CATransaction.begin()
         self.navigationController?.isNavigationBarHidden = false
         if let sessContr = sessionController{
+            sessContr.questionimage = image
+            if isDescriptionEntered == true{
+                sessContr.questiondescription = description
+            }
             self.navigationController?.pushViewController(sessContr, animated: true)
         }
-        CATransaction.setCompletionBlock({
-            sessionController?.sendImageMessage(self.questionPic.image)
-            if isDescriptionEntered == true {
-                sessionController?.sendTextMessage(self.questionDescription.text)
-            }
-        })
-        CATransaction.commit()
     }
 
     func cancelAction(sender: UIButton!){
@@ -216,6 +240,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         sender.removeFromSuperview()
         MKFullSpinner.hide()
+        self.flag = -1
 
        /* let storage = Storage.storage()
         let storageRef = storage.reference()
@@ -236,22 +261,19 @@ class SummaryVC: UIViewController, UITextViewDelegate{
     }
     
     func cancelFromAppTermination(){
-        let storage = Storage.storage()
-        let storageRef = storage.reference()
-        let removeRef = storageRef.child("image/\(self.categorytitle)/\(self.key!))")
-        removeRef.delete { (Error) in
-            if let error = Error {
-                let alert = UIAlertController(title: "Delete error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
-                self.present(alert, animated: true, completion: nil)
-                
-            } else {
-                self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").removeValue()
-            }
-        }
+        // This function is called when a cancel order needs to be put through because the app is terminated. It is the same function as cancel action but deleted one line of code "sender.removeFromSuperview()" since there is no sender.
+        let parameters: Parameters = [
+            "category" : self.categorytitle,
+            "qid" : self.key!,
+            ]
+        print(parameters)
+        Alamofire.request("http://us-central1-instasolve-d8c55.cloudfunctions.net/cancel",method:.get, parameters: parameters, encoding: URLEncoding.default)
+//            .responseString { response in
+//                print(response.result.value!)
+//        
+//        }
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        MKFullSpinner.hide()
-
+//        MKFullSpinner.hide()
     }
     
     func uploadPicture(_ data: Data, completion:@escaping (_ url: String?) -> ()) {
@@ -334,7 +356,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
             textView.text = ""
             textView.textColor = .black
         }
-        textView.becomeFirstResponder() //Optional
+//        textView.becomeFirstResponder() //Optional
     }
     
     func textViewDidEndEditing(_ textView: UITextView)
@@ -344,7 +366,7 @@ class SummaryVC: UIViewController, UITextViewDelegate{
             textView.text = placeholdertext
             textView.textColor = .lightGray
         }
-        textView.resignFirstResponder()
+//        textView.resignFirstResponder()
     }
     
 }
@@ -408,3 +430,37 @@ extension SummaryVC {
     }
 }
 
+/*
+ CODE GRAVEYARD
+ 
+ //flag variable monitors which screen we are on. States: -1 = not set, 0 = tutor connecting screen, 1 = tutor connected screen
+ var flag = 0
+ func tutorFound(_ notification: NSNotification){
+ if self.flag == 0 {
+ let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
+ alert.addAction(UIAlertAction(title: "OK",
+ style: UIAlertActionStyle.default,
+ handler: { (alert:UIAlertAction!) in
+ MKFullSpinner.hide()
+ _ = MKFullSpinner.show("Your tutor is working on your problem", view: self.view)
+ self.flag = 1
+ }))
+ self.present(alert, animated: true, completion: nil)
+ }
+ if self.flag == 1 {
+ let alert = UIAlertController(title: "Tutor is Ready", message: "Your tutor is now ready to begin your session.", preferredStyle: UIAlertControllerStyle.alert)
+ alert.addAction(UIAlertAction(title: "OK",
+ style: UIAlertActionStyle.default,
+ handler: { (alert:UIAlertAction!) in
+ MKFullSpinner.hide()
+ self.startChatting(requestDict: notification.userInfo as! [String : Any])
+ self.flag = 0
+ }))
+ self.present(alert, animated: true, completion: nil)
+ }
+ 
+ }
+ 
+ 
+ 
+ */

@@ -29,6 +29,11 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     var beginTime = Date()
     //let calendar = Calendar.current
 
+    //questionimage and question description are automatically sent when the view loads. didFirstMessageSend keeps track of if the first message was sent.
+    var questionimage: UIImage?
+    var questiondescription: String?
+    var didFirstMessageSend = false
+ 
     var ref: DatabaseReference!
    
     
@@ -68,6 +73,15 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
             let rightButtonItem:UIBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ChatTableViewController.cancelAction))
             navigationItem.leftBarButtonItem = rightButtonItem
         }
+        
+        if didFirstMessageSend == false {
+            sendImageMessage(questionimage)
+            if questiondescription != nil{
+                sendTextMessage(questiondescription)
+            }
+            didFirstMessageSend = true
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

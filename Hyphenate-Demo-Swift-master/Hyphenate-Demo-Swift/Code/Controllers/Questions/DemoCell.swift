@@ -53,6 +53,16 @@ protocol expandimageProtocol {
 
 extension DemoCell {
     @IBAction func buttonHandler(_ sender: AnyObject) {
-        super.delegate.rescueButtonPressed(requestorSid: super.requestorSid, category: super.category, qid: super.qid)
+        if openQuestPic.image == nil{
+            print("openQuestPic.image is nil")
+        } else{
+            print("openQuestPic.image is not nil")
+        }
+        if openDescription.text == nil{
+            print("openDescription.text is nil")
+        } else {
+            print("openDescription.text is not nil")
+        }
+        super.delegate.rescueButtonPressed(requestorSid: super.requestorSid, category: super.category, qid: super.qid, image: openQuestPic.image, description: openDescription.text)
     }
 }
