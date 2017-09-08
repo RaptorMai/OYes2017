@@ -588,7 +588,6 @@ open class CameraViewController: UIViewController {
         cropperViewController.flag = 0
         cropperViewController.asset = asset
 //        present(cropperViewController, animated: true, completion: nil)
-        print("didcomebyhere")
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.pushViewController(cropperViewController, animated: true)
         

@@ -8,6 +8,7 @@ import Hyphenate
 import Firebase
 import Stripe
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -64,6 +65,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+
     
     /*
     func showSplashAnimation() {
