@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import Alamofire
+import IHKeyboardAvoiding
 
 class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
     //This class is a viewcontroller that gathers and displays the data inputted by the user about their question. This viewcontroler allows the user to double check the data, enter a description of their question, and send the request for help to our platform.
@@ -73,7 +74,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = UIColor.white
         
-        
+        KeyboardAvoiding.avoidingView = self.view
         //        view.backgroundColor = UIColor.init(red: 239, green: 239, blue: 255, alpha: 1)
         view.backgroundColor = UIColor.init(hex: "EFEFF4")
         ref = Database.database().reference()
@@ -81,8 +82,8 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
         //        navigationController?.navigationBar.tintColor = UIColor.black
         //        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         //add the subviews and setup their autolayout constraints
         view.addSubview(questionPic)
         setupQuestionPic()
@@ -103,8 +104,8 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+      //  NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        //NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     func createlabel()->UILabel{
         
