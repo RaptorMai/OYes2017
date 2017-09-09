@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/SummaryVC.swift"
-            timestampString = "524946895.253164"
+            timestampString = "526620886.00107"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "requestHelpPressed(button:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/SummaryVC.swift"
-            timestampString = "525225659.906039"
+            timestampString = "526620886.00107"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "tutorFound(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/SummaryVC.swift"
-            timestampString = "525574270.1167"
+            timestampString = "526620886.00107"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
             landmarkName = "tutorFound(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,7 +154,7 @@
                   moduleName = "Hyphenate Messenger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhedamai/Desktop/hatchery/OYes2017/swift-demo/Hyphenate%20Messenger/SummaryVC.swift"
-                  timestampString = "526520881.63591"
+                  timestampString = "526617003.919568"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
@@ -169,7 +169,7 @@
                   moduleName = "Hyphenate Messenger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhedamai/Desktop/hatchery/OYes2017/swift-demo/Hyphenate%20Messenger/SummaryVC.swift"
-                  timestampString = "526520881.63813"
+                  timestampString = "526617003.923727"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
@@ -184,7 +184,7 @@
                   moduleName = "Hyphenate Messenger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhedamai/Desktop/hatchery/OYes2017/swift-demo/Hyphenate%20Messenger/SummaryVC.swift"
-                  timestampString = "526520881.640525"
+                  timestampString = "526617003.927976"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
@@ -199,7 +199,7 @@
                   moduleName = "Hyphenate Messenger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhedamai/Desktop/hatchery/OYes2017/swift-demo/Hyphenate%20Messenger/SummaryVC.swift"
-                  timestampString = "526520881.642785"
+                  timestampString = "526617003.931515"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
@@ -212,15 +212,79 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hyphenate Messenger/SummaryVC.swift"
+            timestampString = "526607532.59797"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hyphenate Messenger/SummaryVC.swift"
+            timestampString = "526620886.00107"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "424"
+            endingLineNumber = "424"
+            landmarkName = "keyboardWillShow(notification:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Hyphenate_Messenger.SummaryVC.keyboardWillShow (notification : __ObjC.NSNotification) -&gt; ()"
+                  moduleName = "Hyphenate Messenger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhedamai/Desktop/hatchery/OYes2017/swift-demo/Hyphenate%20Messenger/SummaryVC.swift"
+                  timestampString = "526609333.106016"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "425"
+                  endingLineNumber = "425"
+                  offsetFromSymbolStart = "204">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Hyphenate_Messenger.SummaryVC.keyboardWillShow (notification : __ObjC.NSNotification) -&gt; ()"
+                  moduleName = "Hyphenate Messenger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhedamai/Desktop/hatchery/OYes2017/swift-demo/Hyphenate%20Messenger/SummaryVC.swift"
+                  timestampString = "526609333.109629"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "425"
+                  endingLineNumber = "425"
+                  offsetFromSymbolStart = "848">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/SummaryVC.swift"
-            timestampString = "526518647.577581"
+            timestampString = "526609317.586349"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -232,45 +296,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/SummaryVC.swift"
-            timestampString = "526519447.283435"
+            timestampString = "526609584.897543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415"
-            landmarkName = "keyboardWillShow(notification:)"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hyphenate_Messenger.SummaryVC.keyboardWillShow (notification : __ObjC.NSNotification) -&gt; ()"
-                  moduleName = "Hyphenate Messenger"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhedamai/Desktop/hatchery/OYes2017/swift-demo/Hyphenate%20Messenger/SummaryVC.swift"
-                  timestampString = "526520881.656192"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "415"
-                  endingLineNumber = "415"
-                  offsetFromSymbolStart = "32">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hyphenate_Messenger.SummaryVC.keyboardWillShow (notification : __ObjC.NSNotification) -&gt; ()"
-                  moduleName = "Hyphenate Messenger"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhedamai/Desktop/hatchery/OYes2017/swift-demo/Hyphenate%20Messenger/SummaryVC.swift"
-                  timestampString = "526520881.658574"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "415"
-                  endingLineNumber = "415"
-                  offsetFromSymbolStart = "692">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -279,46 +311,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Hyphenate Messenger/SummaryVC.swift"
-            timestampString = "526519449.096564"
+            filePath = "Hyphenate Messenger/GroupTableView.swift"
+            timestampString = "526609865.331362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "424"
-            endingLineNumber = "424"
-            landmarkName = "keyboardWillHide(notification:)"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
+            landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hyphenate_Messenger.SummaryVC.keyboardWillHide (notification : __ObjC.NSNotification) -&gt; ()"
-                  moduleName = "Hyphenate Messenger"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhedamai/Desktop/hatchery/OYes2017/swift-demo/Hyphenate%20Messenger/SummaryVC.swift"
-                  timestampString = "526520881.663914"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "424"
-                  endingLineNumber = "424"
-                  offsetFromSymbolStart = "32">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hyphenate_Messenger.SummaryVC.keyboardWillHide (notification : __ObjC.NSNotification) -&gt; ()"
-                  moduleName = "Hyphenate Messenger"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhedamai/Desktop/hatchery/OYes2017/swift-demo/Hyphenate%20Messenger/SummaryVC.swift"
-                  timestampString = "526520881.666456"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "424"
-                  endingLineNumber = "424"
-                  offsetFromSymbolStart = "692">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

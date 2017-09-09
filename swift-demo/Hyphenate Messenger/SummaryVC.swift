@@ -18,6 +18,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
     var ref: DatabaseReference!
     var key: String?
     var keyboardDisplayed = false
+    var keyboardheight:CGFloat = 0
     
     //questionPic is the UIImageView that holds the question image.
     var questionPic: UIImageView = {
@@ -71,16 +72,16 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = UIColor.white
-
-
+        
+        
         //        view.backgroundColor = UIColor.init(red: 239, green: 239, blue: 255, alpha: 1)
         view.backgroundColor = UIColor.init(hex: "EFEFF4")
         ref = Database.database().reference()
         self.key = self.ref?.child("request/active").childByAutoId().key
-//        navigationController?.navigationBar.tintColor = UIColor.black
+        //        navigationController?.navigationBar.tintColor = UIColor.black
         //        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         //add the subviews and setup their autolayout constraints
         view.addSubview(questionPic)
@@ -94,14 +95,19 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
         view.addSubview(nextButton)
         setupNextButton()
         hideKeyboardWhenTappedAround()
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
     func createlabel()->UILabel{
-    
+        
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 81))
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -196,12 +202,12 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
         //Add observer to lookout for notification
         NotificationCenter.default.addObserver(self, selector: #selector(changeDidStudentClickOkAfterTutorinChat), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
-
+        
         self.present(alert, animated: true, completion: nil)
-//        self.startChatting(requestDict: notification.userInfo as! [String : Any])
-
+        //        self.startChatting(requestDict: notification.userInfo as! [String : Any])
+        
     }
-
+    
     
     func startChatting(requestDict:[String: Any], image: UIImage, description: String){
         let timeStamp = ["SessionId":String(Date().ticks)]
@@ -225,39 +231,39 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
             self.navigationController?.pushViewController(sessContr, animated: true)
         }
     }
-
+    
     func cancelAction(sender: UIButton!){
         let parameters: Parameters = [
             "category" : self.categorytitle,
             "qid" : self.key!,
-        ]
+            ]
         print(parameters)
         Alamofire.request("http://us-central1-instasolve-d8c55.cloudfunctions.net/cancel",method:.get, parameters: parameters, encoding: URLEncoding.default)
             .responseString { response in
                 print(response.result.value!)
-
+                
         }
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         sender.removeFromSuperview()
         MKFullSpinner.hide()
         self.flag = -1
-
-       /* let storage = Storage.storage()
-        let storageRef = storage.reference()
-        let removeRef = storageRef.child("image/\(self.categorytitle)/\(self.key!))")
-        removeRef.delete { (Error) in
-            if let error = Error {
-                let alert = UIAlertController(title: "Delete error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
-                self.present(alert, animated: true, completion: nil)
-
-            } else {
-                self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").removeValue()
-            }
-        }
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        sender.removeFromSuperview()
-        MKFullSpinner.hide()*/
+        
+        /* let storage = Storage.storage()
+         let storageRef = storage.reference()
+         let removeRef = storageRef.child("image/\(self.categorytitle)/\(self.key!))")
+         removeRef.delete { (Error) in
+         if let error = Error {
+         let alert = UIAlertController(title: "Delete error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+         self.present(alert, animated: true, completion: nil)
+         
+         } else {
+         self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").removeValue()
+         }
+         }
+         self.navigationController?.setNavigationBarHidden(false, animated: false)
+         sender.removeFromSuperview()
+         MKFullSpinner.hide()*/
     }
     
     func cancelFromAppTermination(){
@@ -268,12 +274,12 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
             ]
         print(parameters)
         Alamofire.request("http://us-central1-instasolve-d8c55.cloudfunctions.net/cancel",method:.get, parameters: parameters, encoding: URLEncoding.default)
-//            .responseString { response in
-//                print(response.result.value!)
-//        
-//        }
+        //            .responseString { response in
+        //                print(response.result.value!)
+        //
+        //        }
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-//        MKFullSpinner.hide()
+        //        MKFullSpinner.hide()
     }
     
     func uploadPicture(_ data: Data, completion:@escaping (_ url: String?) -> ()) {
@@ -356,7 +362,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
             textView.text = ""
             textView.textColor = .black
         }
-//        textView.becomeFirstResponder() //Optional
+        //        textView.becomeFirstResponder() //Optional
     }
     
     func textViewDidEndEditing(_ textView: UITextView)
@@ -366,7 +372,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
             textView.text = placeholdertext
             textView.textColor = .lightGray
         }
-//        textView.resignFirstResponder()
+        //        textView.resignFirstResponder()
     }
     
 }
@@ -412,21 +418,41 @@ extension SummaryVC {
     
     //The below two functions allow the view to move up/down when the keyboard is presented/hidden. These functions are called by an observer for when the keyboard is presented/hidden.
     func keyboardWillShow(notification: NSNotification) {
+        print("show")
+        
+        
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize.height
+            print(keyboardSize.height)
+            
+            
+            
+            
+            if keyboardSize.height > self.keyboardheight{
+                self.view.frame.origin.y -= (keyboardSize.height - self.keyboardheight)
+                
+                keyboardheight = keyboardSize.height
             }
+            else{
+            
+            self.view.frame.origin.y -= self.keyboardheight
+            
+            }
+
+         
+            
         }
         keyboardDisplayed = true
+
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0{
-                self.view.frame.origin.y += keyboardSize.height
-            }
-        }
+        print("hide")
+        self.view.frame.origin.y = 0
+        keyboardheight = 0
+
+        
         keyboardDisplayed = false
+        
     }
 }
 
