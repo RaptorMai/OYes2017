@@ -2,6 +2,7 @@
 import UIKit
 import Firebase
 import Hyphenate
+import CoreTelephony
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
@@ -28,6 +29,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
+        
+        // check if carrier service exists, if not, pop alert view
+        _ = carrierServiceExists()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -39,6 +43,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func dismissKeyboard(){
         phoneNumber.resignFirstResponder()
         verificationCode.resignFirstResponder()
+    }
+    
+    
+    /// Determines whether carrier service exist
+    ///
+    /// If service is not existant, present a alert view to warn the user
+    /// - Returns: true when service is available, false otherwise
+    func carrierServiceExists() -> Bool {
+        // verify carrier service is present - for receiving verification code
+        let telephonyInfo = CTTelephonyNetworkInfo()
+        if telephonyInfo.subscriberCellularProvider == nil {
+            // no carrier info, should not continue
+            let alert = UIAlertController(title: "Error", message: "Please make sure the carrier service is available", preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
+        return true
     }
     
     @IBAction func loginRequestCodeAction(_ sender: UIButton) {
@@ -76,9 +99,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func loginAction(_ sender: AnyObject) {
+        // should not advance without carrier network
+        if !carrierServiceExists() {
+            return
+        }
         
         activityIndicator.startAnimating()
-        
+
         let defaults = UserDefaults.standard
         
         /* log in to firebase with phone number  *************/
