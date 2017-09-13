@@ -1,4 +1,4 @@
-
+ 
 import UIKit
 import Hyphenate
 import Firebase
@@ -18,6 +18,8 @@ protocol DismissProtocol {
  */
 
 class ChatTableViewController: EaseMessageViewController,EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource,EMClientDelegate, DismissProtocol {
+    let CONVERSATION_ID_LENGTH: UInt32 = 10
+    let MAX_MESSAGE_LOAD_COUNT: Int32 = 500
     
     var timerLabel = UILabel()
     //var endSessionButton = UIButton(type: UIButtonType.custom)
@@ -143,7 +145,6 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     
     
     func endSession(){
-        
         //calculate time with ceil
         let ratingViewController = UIStoryboard(name: "Rating", bundle: nil).instantiateViewController(withIdentifier: "rateSession") as! RatingViewController
         ratingViewController.category = self.category
@@ -159,6 +160,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         
 //        let newConvId: String = (self.conversation.conversationId + String(Date().ticks))
 //        self.conversation.conversationId = newConvId
+        processSession()
     }
     
     func endSessionfromAppTermination(){
@@ -174,7 +176,6 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["rate": 5.0])
         //calldismiss to dismiss chatVC
         dismissParentVC()
-        
     }
     
     func dismissParentVC() {
@@ -182,7 +183,37 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         //Dismiss Chat
         dismiss(animated: true, completion: nil)
-        
     }
-    
+
+    func processSession() {
+        // after a session ends, get the last session and copies all messages over to a new session
+        let chatManager = EMClient.shared().chatManager
+
+        // create a new conversation
+        let newConversationID = String(Int(arc4random_uniform(CONVERSATION_ID_LENGTH)))
+        let newConversation = chatManager?.getConversation(newConversationID, type: EMConversationTypeChat, createIfNotExist: true)
+
+        // get all messages from current conversation
+        let sessionEndTime = Int64(Date().timeIntervalSince1970) * 1000  // convert to millisecond
+        let sessionStartTime = Int64(beginTime.timeIntervalSince1970) * 1000
+        conversation?.loadMessages(from: sessionStartTime, to: sessionEndTime, count: MAX_MESSAGE_LOAD_COUNT, completion: { (messages, nil) in
+            // copy all messages to new conversation
+            if messages != nil {
+                for case let message as EMMessage in messages! {
+                    let newMessage = EMMessage(conversationID: newConversationID,
+                                               from: message.from,
+                                               to: message.to,
+                                               body: message.body,
+                                               ext: nil)
+                    newMessage?.direction = message.direction
+                    newMessage?.status = message.status
+                    newConversation?.insert(newMessage, error: nil)
+                }
+            }
+            newConversation?.lastReceivedMessage()?.from = newConversationID
+        })
+        
+        // remove the current conversation from database
+        chatManager?.deleteConversation(conversation.conversationId, isDeleteMessages: true, completion: nil)
+    }
 }
