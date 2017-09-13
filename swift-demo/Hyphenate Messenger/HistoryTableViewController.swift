@@ -25,7 +25,6 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         newConversationButton.showsTouchWhenHighlighted = true
         let rightButtonItem = UIBarButtonItem(customView: newConversationButton)
         self.tabBarController?.navigationItem.rightBarButtonItem = rightButtonItem
-
         
         self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
@@ -41,6 +40,10 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         reloadDataSource()
     }
     
+    /// Reload table view data after processing
+    ///
+    /// The function removes sessions that does not have any messages inside,
+    /// from DB. It then updates the table view UI
     func reloadDataSource(){
         self.dataSource.removeAll()
         
@@ -70,6 +73,24 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
     
     open func updateSearchResults(for searchController: UISearchController) {
         
+    }
+    // Mark: - Table view delegate
+    // swipe to delete
+    open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        // get the row's conversation id
+        let conversation = dataSource[indexPath.row] as! EMConversation
+        let conversationID = conversation.conversationId
+        EMClient.shared().chatManager.deleteConversation(conversationID, isDeleteMessages: true, completion: nil)
+        // removing in data source as the data from EMClient is from local cache, the deletion of conversation might not have arrived yet
+        dataSource.remove(at: indexPath.row)
+        // remove the row with animation
+        tableView.beginUpdates()
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        tableView.endUpdates()
+    }
+    // text for swipe to delete
+    open override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Delete session"
     }
     
     // MARK: - Table view data source
