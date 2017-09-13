@@ -176,6 +176,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["rate": 5.0])
         //calldismiss to dismiss chatVC
         dismissParentVC()
+        processSession()
     }
     
     func dismissParentVC() {
@@ -189,8 +190,18 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         // after a session ends, get the last session and copies all messages over to a new session
         let chatManager = EMClient.shared().chatManager
 
-        // create a new conversation
-        let newConversationID = String(Int(arc4random_uniform(CONVERSATION_ID_LENGTH)))
+        // create a new conversation, generate a random numerical id first
+        let letters : NSString = "0123456789"
+        let len = UInt32(letters.length)
+        
+        var newConversationID = ""
+        
+        for _ in 0..<CONVERSATION_ID_LENGTH {
+            let rand = arc4random_uniform(len)
+            var nextChar = letters.character(at: Int(rand))
+            newConversationID += NSString(characters: &nextChar, length: 1) as String
+        }
+
         let newConversation = chatManager?.getConversation(newConversationID, type: EMConversationTypeChat, createIfNotExist: true)
 
         // get all messages from current conversation
