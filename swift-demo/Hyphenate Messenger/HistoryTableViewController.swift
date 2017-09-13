@@ -7,6 +7,7 @@ import Hyphenate
 open class HistoryTableViewController: UITableViewController, EMChatManagerDelegate,ConversationListViewControllerDelegate, ConversationListViewControllerDataSource{
     
     var dataSource = [AnyObject]()
+    var indexPathToDelete: IndexPath? = nil
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -74,23 +75,57 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
     open func updateSearchResults(for searchController: UISearchController) {
         
     }
+    
     // Mark: - Table view delegate
-    // swipe to delete
-    open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        // get the row's conversation id
-        let conversation = dataSource[indexPath.row] as! EMConversation
-        let conversationID = conversation.conversationId
-        EMClient.shared().chatManager.deleteConversation(conversationID, isDeleteMessages: true, completion: nil)
-        // removing in data source as the data from EMClient is from local cache, the deletion of conversation might not have arrived yet
-        dataSource.remove(at: indexPath.row)
-        // remove the row with animation
-        tableView.beginUpdates()
-        tableView.deleteRows(at: [indexPath], with: .automatic)
-        tableView.endUpdates()
+    // swipe to delete/unread
+    open override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.default,
+                                                title: "Delete") { (action, indexPath) in
+            // confirm delete conversation
+            let alert = UIAlertController(title: "Confirm delete conversation",
+                                          message: "Are you sure you want to permanentely delete this conversation?",
+                                          preferredStyle: .actionSheet)
+                                                    
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: self.handleDeleteSession)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            alert.addAction(deleteAction)
+            alert.addAction(cancelAction)
+            self.indexPathToDelete = indexPath
+            DispatchQueue.main.async(execute: {
+                self.present(alert, animated: true, completion: nil)
+            })
+        }
+        
+        let markAction = UITableViewRowAction(style: UITableViewRowActionStyle.normal,
+                                              title: "Mark as unread") { (action, indexPath) in
+                                                let conversation = self.dataSource[indexPath.row] as! EMConversation
+                                                let lastMessage = conversation.lastReceivedMessage()
+                                                lastMessage?.isRead = false
+                                                conversation.updateMessageChange(lastMessage, error: nil)
+                                                DispatchQueue.main.async(execute: {
+                                                    self.tableView.reloadData()
+                                                })
+        }
+        return [deleteAction, markAction]
     }
-    // text for swipe to delete
-    open override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "Delete session"
+    
+    /// Handle deletion of session
+    ///
+    /// This function is called when user confirm row deletion in alert view, it'll remove the conversation from both data source and DB
+    /// - Parameter alertAction: alertAction
+    func handleDeleteSession(alertAction: UIAlertAction!) {
+        if let indexPath = indexPathToDelete {
+            let conversation = self.dataSource[indexPath.row] as! EMConversation
+            let conversationID = conversation.conversationId
+            EMClient.shared().chatManager.deleteConversation(conversationID, isDeleteMessages: true, completion: nil)
+            // removing in data source as the data from EMClient is from local cache, the deletion of conversation might not have arrived yet
+            self.dataSource.remove(at: indexPath.row)
+            // remove the row with animation
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            indexPathToDelete = nil
+        }
     }
     
     // MARK: - Table view data source
