@@ -211,13 +211,37 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
             // copy all messages to new conversation
             if messages != nil {
                 for case let message as EMMessage in messages! {
-                    let newMessage = EMMessage(conversationID: newConversationID,
+                    // model contains all information about a message
+                    let model = EaseMessageModel(message: message)
+                    var newMessage: EMMessage? = nil
+                    
+                    // if dealing with image, require that images are indeed stored in the message
+                    if model?.bodyType == EMMessageBodyTypeImage && model?.image != nil {
+                        let imageData = UIImageJPEGRepresentation((model?.image)!, 1)
+                        let messageBody = EMImageMessageBody(data: imageData, displayName: "Image.png")
+                        messageBody?.thumbnailDownloadStatus = EMDownloadStatusSuccessed  // if not set, the model will try download it
+                        if message.direction == EMMessageDirectionSend {
+                            // the message is going out, then the photo is local, setting the download status to succ
+                            messageBody?.downloadStatus = EMDownloadStatusSuccessed
+                        }
+                        
+                        newMessage = EMMessage(conversationID: newConversationID,
+                                               from: message.from, 
+                                               to: message.to,
+                                               body: messageBody,
+                                               ext: nil)
+                    } else {
+                        // for text messages, just copy the message body, which is text
+                        newMessage = EMMessage(conversationID: newConversationID,
                                                from: message.from,
                                                to: message.to,
                                                body: message.body,
                                                ext: nil)
+                    }
+                    
                     newMessage?.direction = message.direction
                     newMessage?.status = message.status
+                    newMessage?.chatType = EMChatTypeChat
                     newConversation?.insert(newMessage, error: nil)
                 }
             }
