@@ -24,7 +24,7 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
     private var _imagePickController: UIImagePickerController?
     private var _dataSource: Array<EMMessageModel>?
     private var _refresh: UIRefreshControl?
-    private var _backButton: UIButton?
+    private var _backButton: UIBarButtonItem?
 //    removing these functions
 //    private var _camButton: UIButton?
 //    private var _audioButton: UIButton?
@@ -145,7 +145,9 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
     
     // MARK: - Private Layout Views
     private func _setupNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: _backButton!)
+        //navigationItem.leftBarButtonItem = UIBarButtonItem(customView: _backButton!)
+        self.navigationItem.leftBarButtonItem = _backButton
+        self.navigationItem.setHidesBackButton(true, animated:true);
         if _conversaiton?.type == EMConversationTypeChat {
 //            navigationItem.rightBarButtonItems = [UIBarButtonItem.init(customView: _audioButton!), UIBarButtonItem.init(customView: _camButton!)]
             title = EMUserProfileManager.sharedInstance.getNickNameWithUsername(username: (_conversaiton?.conversationId!)!)
@@ -178,13 +180,16 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
         return toolBar
     }
     
-    func backButton() -> UIButton {
+    func backButton() -> UIBarButtonItem {
+        /*
         let btn = UIButton(type: UIButtonType.custom)
         btn.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         btn.imageView?.contentMode = UIViewContentMode.scaleAspectFit
         btn.addTarget(self, action: #selector(backAction), for: UIControlEvents.touchUpInside)
-        btn.setImage(UIImage(named:"Icon_Back"), for: UIControlState.normal)
-        return btn
+        btn.setImage(UIImage(named:"Icon_Back"), for: UIControlState.normal)*/
+        let endSessionButton: UIBarButtonItem = UIBarButtonItem.init(title: "End Session", style: .plain, target: self, action: #selector(self.backAction))
+        endSessionButton.tintColor = UIColor.red
+        return endSessionButton
     }
 //removing these functions can delete if wanted
 //    func audioButton() -> UIButton {
@@ -377,6 +382,14 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
         // TODO info
     }
     
+    func dismissParentVC() {
+        //Dismiss Keyboard
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        //Dismiss Chat
+        dismiss(animated: true, completion: nil)
+        
+    }
+    
     func backAction() {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue:KNOTIFICATION_UPDATEUNREADCOUNT), object: nil);
         if _conversaiton!.type == EMConversationTypeChatRoom {
@@ -387,17 +400,21 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
                 if error != nil {
                     // TODO
                 }
+                /*
                 weakSelf?.navigationController?.popToViewController(weakSelf!, animated: true)
-                weakSelf?.navigationController?.popViewController(animated: true)
+                weakSelf?.navigationController?.popViewController(animated: true)*/
+                self.dismissParentVC()
             })
         }else {
-            self.navigationController?.popToViewController(self, animated: true)
-            self.navigationController?.popViewController(animated: true)
+            
+            /*self.navigationController?.popToViewController(self, animated: true)
+            self.navigationController?.popViewController(animated: true)*/
             //if chat at top of navigationController then we try dismiss - sulagshan
             let alert = UIAlertController(title: "Alert", message: "Once you exit you cannot come back. Are you sure the session is complete?", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler:{
                 (alert: UIAlertAction!) in
-                self.dismiss(animated: true, completion: nil)
+                //self.dismiss(animated: true, completion: nil)
+                self.dismissParentVC()
             }))
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
