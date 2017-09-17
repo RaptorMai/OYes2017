@@ -59,7 +59,18 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         if needRemoveConversations.count > 0 {
             EMClient.shared().chatManager.deleteConversations(needRemoveConversations, isDeleteMessages: true, completion: nil)
         }
-        dataSource =  EMClient.shared().chatManager.getAllConversations() as [AnyObject]
+        dataSource =  EMClient.shared().chatManager.getAllConversations() as! [EMConversation]
+        
+        // order the data source according to the date added
+        dataSource = dataSource.sorted(by: {
+            let conv0 = $0 as! EMConversation
+            let conv1 = $1 as! EMConversation
+            if conv0.latestMessage != nil && conv1.latestMessage != nil {
+                return conv0.latestMessage.timestamp > conv1.latestMessage.timestamp
+            }
+            return false
+        })
+        
         DispatchQueue.main.async(execute: {
             self.tableView.reloadData()
         })
@@ -96,18 +107,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
                 self.present(alert, animated: true, completion: nil)
             })
         }
-        
-        let markAction = UITableViewRowAction(style: UITableViewRowActionStyle.normal,
-                                              title: "Mark as unread") { (action, indexPath) in
-                                                let conversation = self.dataSource[indexPath.row] as! EMConversation
-                                                let lastMessage = conversation.lastReceivedMessage()
-                                                lastMessage?.isRead = false
-                                                conversation.updateMessageChange(lastMessage, error: nil)
-                                                DispatchQueue.main.async(execute: {
-                                                    self.tableView.reloadData()
-                                                })
-        }
-        return [deleteAction, markAction]
+        return [deleteAction]
     }
     
     /// Handle deletion of session
