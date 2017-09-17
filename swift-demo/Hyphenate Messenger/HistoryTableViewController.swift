@@ -149,7 +149,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         }
         
         if let latestMessage: EMMessage = conversation.latestMessage {
-            let timeInterval: Double = Double(latestMessage.timestamp)
+            let timeInterval: Double = Double(latestMessage.timestamp) / 1000
             let date = Date(timeIntervalSince1970:timeInterval)
             let formatter = DateFormatter()
             formatter.timeStyle = .short
