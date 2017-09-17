@@ -176,7 +176,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
     }
     
     override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90.0
+        return 78
     }
     
     override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
