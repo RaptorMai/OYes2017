@@ -35,7 +35,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     var questionimage: UIImage?
     var questiondescription: String?
     var didFirstMessageSend = false
- 
+
     var ref: DatabaseReference!
    
     
@@ -189,7 +189,6 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     func processSession() {
         // after a session ends, get the last session and copies all messages over to a new session
         let chatManager = EMClient.shared().chatManager
-
         // create a new conversation, generate a random numerical id first
         let letters : NSString = "0123456789"
         let len = UInt32(letters.length)
@@ -213,23 +212,39 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
                 for case let message as EMMessage in messages! {
                     // model contains all information about a message
                     let model = EaseMessageModel(message: message)
+                    let body = message.body
                     var newMessage: EMMessage? = nil
                     
                     // if dealing with image, require that images are indeed stored in the message
-                    if model?.bodyType == EMMessageBodyTypeImage && model?.image != nil {
-                        let imageData = UIImageJPEGRepresentation((model?.image)!, 1)
-                        let messageBody = EMImageMessageBody(data: imageData, displayName: "Image.png")
-                        messageBody?.thumbnailDownloadStatus = EMDownloadStatusSuccessed  // if not set, the model will try download it
+                    if model?.bodyType == EMMessageBodyTypeImage {
+                        var imageData: Data? = nil
+                        
+                        // if sending, the model contains the UIImage which is the image itself
                         if message.direction == EMMessageDirectionSend {
-                            // the message is going out, then the photo is local, setting the download status to succ
+                            imageData = UIImageJPEGRepresentation((model?.image)!, 1)
+                            let messageBody = EMImageMessageBody(data: imageData, displayName: "Image.jpg")
+                            messageBody?.thumbnailDownloadStatus = EMDownloadStatusSuccessed
                             messageBody?.downloadStatus = EMDownloadStatusSuccessed
+                            
+                            messageBody?.remotePath = model?.fileURLPath
+                            messageBody?.thumbnailRemotePath = model?.thumbnailFileURLPath
+                            
+                            newMessage = EMMessage(conversationID: newConversationID,
+                                                   from: message.from,
+                                                   to: message.to,
+                                                   body: messageBody,
+                                                   ext: nil)
+                        } else {
+                            // if dealing with incoming message, store the copied message body, which
+                            // contains the image and thumbnail remote address for later download,
+                            // if the image is downloaded, the image is stored locally by SDK
+                            newMessage = EMMessage(conversationID: newConversationID,
+                                                   from: message.from,
+                                                   to: message.to,
+                                                   body: message.body,
+                                                   ext: nil)
                         }
                         
-                        newMessage = EMMessage(conversationID: newConversationID,
-                                               from: message.from, 
-                                               to: message.to,
-                                               body: messageBody,
-                                               ext: nil)
                     } else {
                         // for text messages, just copy the message body, which is text
                         newMessage = EMMessage(conversationID: newConversationID,
@@ -246,9 +261,12 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
                 }
             }
             newConversation?.lastReceivedMessage()?.from = newConversationID
+            // put information inside the last message
+            newConversation?.latestMessage.ext = ["cat": self.category.data(using: .utf8) as Any,
+                                                  "pic": UIImagePNGRepresentation(self.questionimage!) as Any]
         })
         
         // remove the current conversation from database
-        chatManager?.deleteConversation(conversation.conversationId, isDeleteMessages: true, completion: nil)
+        chatManager?.deleteConversation(conversation.conversationId, isDeleteMessages: false, completion: nil)
     }
 }
