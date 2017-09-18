@@ -23,6 +23,8 @@ notes: tid(tutor id), qid(question id), sid(student id)
         balance:
         stars:
         count:
+        email:
+        token:
 
 4. users:
     <sid>:
