@@ -5,7 +5,7 @@ admin.initializeApp(functions.config().firebase);
 
 const stripe = require('stripe')(functions.config().stripe.testkey);
 
-// const price = {"400": 10, "1100": 30, "2000": 60, "3800": 120};
+const price = {"400": 10, "1100": 30, "2000": 60, "3800": 120};
 
 const cors = require('cors')({origin: true});
 
