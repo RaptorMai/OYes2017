@@ -15,6 +15,8 @@ import MBProgressHUD
 class LoginVC: UIViewController {
     let screenHeight = UIScreen.main.bounds.height
     let screenWidth  = UIScreen.main.bounds.width
+    var token: String?
+    var ref: DatabaseReference?
     
     let Instructions: UILabel = {
         let label = UILabel()
@@ -121,7 +123,8 @@ class LoginVC: UIViewController {
 
                 }
                 else{
-                    let usernameNoSign = self.Username.text!.replacingOccurrences(of: "@", with: "")
+                    var usernameNoSign = self.Username.text!.replacingOccurrences(of: "@", with: "")
+                    usernameNoSign = usernameNoSign.replacingOccurrences(of: ".", with: "")
                     MBProgressHUD.showAdded(to: self.view, animated: true)
                     weak var weakSelf = self
                     EMClient.shared().login(withUsername: usernameNoSign, password: self.Password.text!) { (username, error) in
@@ -160,7 +163,18 @@ class LoginVC: UIViewController {
                     }
                     
                     
-
+                    //Save token to firebase
+                    if let tokenNotNil = self.token{
+                        
+                    let addToken = ["token": tokenNotNil] as [String: String?]
+                        self.ref?.child("tutors/\(usernameNoSign)").updateChildValues(addToken)
+                    
+                    
+                    }
+                    
+                    
+                    
+                    
                     let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
 
                     
@@ -203,6 +217,7 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
         self.title = "Login"
         view.backgroundColor = UIColor(hex: "EFEFF4")
+        ref = Database.database().reference()
         
         view.addSubview(Instructions)
         setupInstructions()

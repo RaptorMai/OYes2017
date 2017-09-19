@@ -41,6 +41,7 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
     var dictArray = [Dictionary<String,Any>]()
     var ref: DatabaseReference?
     var delegate: refreshSpinnerProtocol?
+    
     //    var cache:NSCache<AnyObject, AnyObject>!
     
     
@@ -49,6 +50,7 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
         self.dictArray.removeAll()
         self.automaticallyAdjustsScrollViewInsets = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.refresh),name:NSNotification.Name(rawValue: "refresh"), object: nil)
+        UIApplication.shared.applicationIconBadgeNumber = 0
         self.getData(completion: { (success) -> Void in
             
             if success{
