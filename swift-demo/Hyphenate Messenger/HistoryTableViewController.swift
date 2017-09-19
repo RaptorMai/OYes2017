@@ -148,6 +148,15 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
             cell.senderLabel.text = sender != EMClient.shared().currentUsername ? sender : recepient
         }
         
+        // message is defined in chatTableViewController, as [String:Data]. Keys are 'cat' and 'pic'
+        let messageExt = conversation.latestMessage.ext as? [String:Data]
+        if messageExt != nil {
+            let categoryString = String(data: messageExt!["cat"]!, encoding: .utf8)
+            let image = UIImage(data: messageExt!["pic"]!)
+            cell.senderLabel.text = categoryString
+            cell.senderImageView.image = image
+        }
+        
         if let latestMessage: EMMessage = conversation.latestMessage {
             let timeInterval: Double = Double(latestMessage.timestamp) / 1000
             let date = Date(timeIntervalSince1970:timeInterval)
