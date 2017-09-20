@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3051ACBC1F701651006CA756 /* AutoLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051ACBB1F701651006CA756 /* AutoLoginVC.swift */; };
 		5DB6C4C81F439B8F00F0128F /* Agrume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB6C4C31F439B8F00F0128F /* Agrume.swift */; };
 		5DB6C4C91F439B8F00F0128F /* AgrumeServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB6C4C41F439B8F00F0128F /* AgrumeServiceLocator.swift */; };
 		5DB6C4CA1F439B8F00F0128F /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB6C4C51F439B8F00F0128F /* ImageDownloader.swift */; };
@@ -14,7 +15,7 @@
 		5DB6C4CC1F439B8F00F0128F /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB6C4C71F439B8F00F0128F /* UIViewExtensions.swift */; };
 		5DBF1ED21F40AF2C00CB2CC8 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1ECF1F40AF2C00CB2CC8 /* LoginVC.swift */; };
 		5DBF1ED31F40AF2C00CB2CC8 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1ED01F40AF2C00CB2CC8 /* RegisterVC.swift */; };
-		5DBF1ED41F40AF2C00CB2CC8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1ED11F40AF2C00CB2CC8 /* ViewController.swift */; };
+		5DBF1ED41F40AF2C00CB2CC8 /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1ED11F40AF2C00CB2CC8 /* LaunchVC.swift */; };
 		5DBF1ED71F40B72600CB2CC8 /* UIColor+HexColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1ED61F40B72600CB2CC8 /* UIColor+HexColors.swift */; };
 		5DBF1ED91F40B94E00CB2CC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DBF1ED81F40B94E00CB2CC8 /* GoogleService-Info.plist */; };
 		5DBF1EDB1F40BDF500CB2CC8 /* CellPrototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DBF1EDA1F40BDF500CB2CC8 /* CellPrototype.storyboard */; };
@@ -415,6 +416,7 @@
 /* Begin PBXFileReference section */
 		299C482D5D0A4D8D7E358C06 /* Pods-Hyphenate-Demo-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate-Demo-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate-Demo-Swift/Pods-Hyphenate-Demo-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		2C955AB940CDDDC270F02086 /* Pods_Hyphenate_Demo_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hyphenate_Demo_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3051ACBB1F701651006CA756 /* AutoLoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AutoLoginVC.swift; path = Launch/AutoLoginVC.swift; sourceTree = "<group>"; };
 		5DB6C4C31F439B8F00F0128F /* Agrume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agrume.swift; sourceTree = "<group>"; };
 		5DB6C4C41F439B8F00F0128F /* AgrumeServiceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgrumeServiceLocator.swift; sourceTree = "<group>"; };
 		5DB6C4C51F439B8F00F0128F /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
@@ -422,7 +424,7 @@
 		5DB6C4C71F439B8F00F0128F /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		5DBF1ECF1F40AF2C00CB2CC8 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = Launch/LoginVC.swift; sourceTree = "<group>"; };
 		5DBF1ED01F40AF2C00CB2CC8 /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterVC.swift; path = Launch/RegisterVC.swift; sourceTree = "<group>"; };
-		5DBF1ED11F40AF2C00CB2CC8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = Launch/ViewController.swift; sourceTree = "<group>"; };
+		5DBF1ED11F40AF2C00CB2CC8 /* LaunchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LaunchVC.swift; path = Launch/LaunchVC.swift; sourceTree = "<group>"; };
 		5DBF1ED61F40B72600CB2CC8 /* UIColor+HexColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HexColors.swift"; sourceTree = "<group>"; };
 		5DBF1ED81F40B94E00CB2CC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5DBF1EDA1F40BDF500CB2CC8 /* CellPrototype.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CellPrototype.storyboard; sourceTree = "<group>"; };
@@ -884,8 +886,9 @@
 			isa = PBXGroup;
 			children = (
 				5DBF1ECF1F40AF2C00CB2CC8 /* LoginVC.swift */,
+				3051ACBB1F701651006CA756 /* AutoLoginVC.swift */,
 				5DBF1ED01F40AF2C00CB2CC8 /* RegisterVC.swift */,
-				5DBF1ED11F40AF2C00CB2CC8 /* ViewController.swift */,
+				5DBF1ED11F40AF2C00CB2CC8 /* LaunchVC.swift */,
 			);
 			name = Launch;
 			sourceTree = "<group>";
@@ -1701,6 +1704,9 @@
 						DevelopmentTeam = LV42MYFKW3;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -2138,8 +2144,9 @@
 				906AD6491EFBC74A004CCCAE /* EMSDKHelper.swift in Sources */,
 				90B43DC31F00C9C90084E67F /* EMChatLocationBubbleView.swift in Sources */,
 				5DB6C4CB1F439B8F00F0128F /* AgrumeCell.swift in Sources */,
-				5DBF1ED41F40AF2C00CB2CC8 /* ViewController.swift in Sources */,
+				5DBF1ED41F40AF2C00CB2CC8 /* LaunchVC.swift in Sources */,
 				90FB78971EF7EE9B00B02F60 /* EMConvertToCommonEmoticonsHelper.m in Sources */,
+				3051ACBC1F701651006CA756 /* AutoLoginVC.swift in Sources */,
 				90169F641EF2A30A00B9ADC6 /* AppDelegate+Parse.swift in Sources */,
 				90BF54A31EF3878B00BEED2F /* EMRealtimeSearchUtil.swift in Sources */,
 				5DB6C4CC1F439B8F00F0128F /* UIViewExtensions.swift in Sources */,
