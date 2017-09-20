@@ -167,13 +167,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }*/
 
     // Firebase notification received
-    //@available(iOS 10.0, *)
-    /*func userNotificationCenter(_ center: UNUserNotificationCenter,  willPresent notification: UNNotification, withCompletionHandler   completionHandler: @escaping (_ options:   UNNotificationPresentationOptions) -> Void) {
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter,  willPresent notification: UNNotification, withCompletionHandler   completionHandler: @escaping (_ options:   UNNotificationPresentationOptions) -> Void) {
         
         // custom code to handle push while app is in the foreground
         print("Handle push from foreground\(notification.request.content.userInfo)")
         
-        let dict = notification.request.content.userInfo["aps"] as! NSDictionary
+        /*let dict = notification.request.content.userInfo["aps"] as! NSDictionary
         let d : [String : Any] = dict["alert"] as! [String : Any]
         let body : String = d["body"] as! String
         let title : String = d["title"] as! String
@@ -185,9 +185,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //let activeViewCont = navigationController.visibleViewController
         
         activeController.present(alert, animated: true, completion: nil)
-        //self.window?.rootViewController?.present(alert, animated: false, completion: nil)
+        //self.window?.rootViewController?.present(alert, animated: false, completion: nil)*/
 
-    }*/
+    }
     
     //@available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
