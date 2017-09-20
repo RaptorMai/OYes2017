@@ -35,6 +35,10 @@
 	<string>Hyphenate need your Microphone</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Hyphenate need your Photo</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
