@@ -253,6 +253,47 @@ exports.cancel = functions.https.onRequest((req, res) => {
   });
 });
 
+exports.sendTutorNotification = functions.database.ref('/Request/active/{category}/{qid}').onCreate(event => {
+
+	const category = event.params.category;
+	return loadUsers(category).then(notification => {
+		const payload = {
+		  notification: {
+		    title: `New ${category} question posted`,
+		    body: `Please help my ${category} question`,
+		    sound: 'default',
+		    badge: '1'
+		  }
+		};
+		console.log("back" + notification)
+        return admin.messaging().sendToDevice(notification, payload);
+    });
+})
+
+function loadUsers(category) {
+	let tutorRef = admin.database().ref('/tutors');
+	var notification = [];
+	console.log(category);
+    let defer = new Promise((resolve, reject) => {
+        tutorRef.orderByChild("category/" + category).equalTo(true).on("value", function(snapshot)  {
+            snapshot.forEach(function(data) {
+                
+                let token = data.val().token;
+                console.log(token);
+                if (token) {
+                    notification.push(token);
+              
+                }
+                
+            });
+            console.log("before" + notification)
+            resolve(notification);
+        }, (err) => {
+            reject(err);
+        });
+    });
+    return defer;
+}
 
 function userFacingMessage(error) {
   return error.type ? error.message : 'An error occurred, developers have been alerted';

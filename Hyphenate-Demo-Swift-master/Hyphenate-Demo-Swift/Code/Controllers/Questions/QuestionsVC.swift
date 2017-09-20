@@ -18,6 +18,7 @@ protocol refreshSpinnerProtocol {
 
 class QuestionsVC: UIViewController, refreshSpinnerProtocol{
     
+    
     @IBAction func refresh(_ sender: UIBarButtonItem) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refresh"), object: nil)
         MBProgressHUD.showAdded(to: tableofquestions, animated: true)
