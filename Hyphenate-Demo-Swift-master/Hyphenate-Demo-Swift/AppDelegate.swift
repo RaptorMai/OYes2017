@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         parseApplication(application, didFinishLaunchingWithOptions: launchOptions)
-        _registerAPNS()
+        //_registerAPNS()
         
 
         
@@ -161,10 +161,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationWillEnterForeground(_ application: UIApplication) {
         EMClient.shared().applicationWillEnterForeground(application)     
     }
- 
+ /*
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         EMClient.shared().registerForRemoteNotifications(withDeviceToken: deviceToken, completion: nil)
-    }
+    }*/
 
     // Firebase notification received
     @available(iOS 10.0, *)
@@ -173,28 +173,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // custom code to handle push while app is in the foreground
         print("Handle push from foreground\(notification.request.content.userInfo)")
         
-        let dict = notification.request.content.userInfo["aps"] as! NSDictionary
+        /*let dict = notification.request.content.userInfo["aps"] as! NSDictionary
         let d : [String : Any] = dict["alert"] as! [String : Any]
         let body : String = d["body"] as! String
         let title : String = d["title"] as! String
         print("Title:\(title) + body:\(body)")
-        self.showAlertAppDelegate(title: title,message:body,buttonTitle:"ok",window:self.window!)
+        let alert = UIAlertController(title: title, message: body, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil))
+        let activeController = self.window?.rootViewController as! AutoLoginVC
         
+        //let activeViewCont = navigationController.visibleViewController
+        
+        activeController.present(alert, animated: true, completion: nil)
+        //self.window?.rootViewController?.present(alert, animated: false, completion: nil)*/
+
     }
     
-    @available(iOS 10.0, *)
+    //@available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         // if you set a member variable in didReceiveRemoteNotification, you  will know if this is from closed or background
         print("Handle push from background or closed\(response.notification.request.content.userInfo)")
     }
     
-    func showAlertAppDelegate(title: String,message : String,buttonTitle: String,window: UIWindow){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: buttonTitle, style: UIAlertActionStyle.default, handler: nil))
-        window.rootViewController?.present(alert, animated: false, completion: nil)
-    }
 
-    fileprivate func _registerAPNS() {
+
+   /* fileprivate func _registerAPNS() {
         let application = UIApplication.shared     
         application.applicationIconBadgeNumber = 0     
         
@@ -212,6 +215,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let settings = UIUserNotificationSettings.init(types: [.badge, .sound, .alert], categories: nil)     
             application .registerUserNotificationSettings(settings)     
         }
-    }
+    }*/
 }
+
 
