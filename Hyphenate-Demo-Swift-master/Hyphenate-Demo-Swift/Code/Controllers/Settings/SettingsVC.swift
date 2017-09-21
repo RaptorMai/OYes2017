@@ -72,15 +72,22 @@ class SettingsVC: UITableViewController {
     
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0:
-            //let proVC = SettingsAboutTableViewController()
-            //navigationController?.pushViewController(settingsAboutVC, animated: true)
-            logoutAction()
-            
-        case 1:
-            //let settingsNotificationVC = SettingsNotificationTableViewController()
-            //navigationController?.pushViewController(settingsNotificationVC, animated: true)
+        
+        switch indexPath.section {
+        //case 0: profile
+        //case 1: bank account and cash out
+        case 2:
+            switch indexPath.row{
+            case 0:
+                openWebsite()
+                tableView.deselectRow(at: indexPath, animated: true)
+            case 1:
+                let settingFeedbackVC = SendFeedbackController()
+                navigationController?.pushViewController(settingFeedbackVC, animated: false)
+                tableView.deselectRow(at: indexPath, animated: true)
+            default:break
+            }
+        case 3:
             logoutAction()
         default:break
             
@@ -118,5 +125,11 @@ class SettingsVC: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    func openWebsite() {
+        let url = "https://www.instasolve.ca/"
+        UIApplication.shared.openURL(NSURL(string:url)! as URL)
+    }
 
 }
