@@ -51,6 +51,7 @@ class SettingsTableViewController: UITableViewController {
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = self.data[indexPath.section][indexPath.row][0] as? String
             cell.textLabel?.textAlignment = .center
+            
             return cell
             
         }
@@ -59,23 +60,41 @@ class SettingsTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
+        switch indexPath.section{
+        // section 0
         case 0:
-            let settingsAboutVC = SettingsAboutTableViewController()
-            navigationController?.pushViewController(settingsAboutVC, animated: true)
-            
+            break //TODO
+        // section 1
         case 1:
-            let settingsNotificationVC = SettingsNotificationTableViewController()
-            navigationController?.pushViewController(settingsNotificationVC, animated: true)
+            break //TODO
+        // section 2
         case 2:
-            let sendFeedbackVC = SendFeedbackController()
-            navigationController?.pushViewController(sendFeedbackVC, animated: false)
+            switch indexPath.row{
+            // Help
+            case 0:
+                let openMainPageVc = OpenUrlViewController()
+                openMainPageVc.url = "https://www.instasolve.ca/"
+                navigationController?.pushViewController(openMainPageVc, animated: true)
+            // Feedback
+            case 1:
+                let sendFeedbackVC = SendFeedbackController()
+                navigationController?.pushViewController(sendFeedbackVC, animated: false)
+            // Rate us
+            case 2:
+                break
+            // Like us on Facebook
+            case 3:
+                openFacebookPage()
+                tableView.deselectRow(at: indexPath, animated: true)
+            default:break
+            }
+        // section 3
         case 3:
-            openFacebookPage()
+            logoutAction()
         default:break
-            
         }
     }
+    
     
     func logoutAction() {
         EMClient.shared().logout(false) { (error) in
@@ -96,5 +115,8 @@ class SettingsTableViewController: UITableViewController {
         let page = "https://www.facebook.com/InstaSolve/"
         UIApplication.shared.openURL(NSURL(string: page)! as URL)
     }
-    
 }
+    
+
+    
+

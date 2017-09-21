@@ -61,6 +61,7 @@
 		5DF190FF1F198CA50019E6F0 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF190FE1F198CA50019E6F0 /* SessionTableViewController.swift */; };
 		5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */; };
 		830C2B111F720EC100E0AAE2 /* SettingsFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C2B101F720EC100E0AAE2 /* SettingsFeedbackController.swift */; };
+		83AD01741F7357560089B72D /* OpenUrlController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AD01731F7357560089B72D /* OpenUrlController.swift */; };
 		9A06AB191DB584BA003A5B2E /* SettingsAboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB181DB584BA003A5B2E /* SettingsAboutTableViewController.swift */; };
 		9A06AB1C1DB58606003A5B2E /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB1A1DB58606003A5B2E /* LabelTableViewCell.swift */; };
 		9A06AB1D1DB58606003A5B2E /* LabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A06AB1B1DB58606003A5B2E /* LabelTableViewCell.xib */; };
@@ -328,6 +329,7 @@
 		5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScr.storyboard; sourceTree = "<group>"; };
 		71E15A43B314CB255A946243 /* Pods-Hyphenate Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		830C2B101F720EC100E0AAE2 /* SettingsFeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsFeedbackController.swift; sourceTree = "<group>"; };
+		83AD01731F7357560089B72D /* OpenUrlController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenUrlController.swift; sourceTree = "<group>"; };
 		8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hyphenate_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A06AB181DB584BA003A5B2E /* SettingsAboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAboutTableViewController.swift; sourceTree = "<group>"; };
 		9A06AB1A1DB58606003A5B2E /* LabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTableViewCell.swift; sourceTree = "<group>"; };
@@ -977,6 +979,7 @@
 				9A06AB1E1DB67BBC003A5B2E /* SettingsNotificationTableViewController.swift */,
 				9A06AB201DB68E9B003A5B2E /* DisplayNameTableViewController.swift */,
 				830C2B101F720EC100E0AAE2 /* SettingsFeedbackController.swift */,
+				83AD01731F7357560089B72D /* OpenUrlController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1939,6 +1942,7 @@
 				B6346B2F1D9E6C5100CBEAE2 /* PSTCollectionViewLayout.m in Sources */,
 				9A17BDF11D9E1FB70075EF9F /* AppDelegate.swift in Sources */,
 				9A17BE301D9E20190075EF9F /* HyphenateMessengerHelper.swift in Sources */,
+				83AD01741F7357560089B72D /* OpenUrlController.swift in Sources */,
 				B6346B1F1D9E6C5100CBEAE2 /* MKAnnotationView+EMWebCache.m in Sources */,
 				B6346AF21D9E6C5100CBEAE2 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
 				5D4342211F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationOverlay.swift in Sources */,

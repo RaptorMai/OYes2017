@@ -14,7 +14,6 @@ class SendFeedbackController: UIViewController, MFMailComposeViewControllerDeleg
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if !MFMailComposeViewController.canSendMail(){
             print("Mail services are not available")
             self.showSendMailErrorAlert()
@@ -59,6 +58,7 @@ class SendFeedbackController: UIViewController, MFMailComposeViewControllerDeleg
         default:
             break
         }
+        // Dismiss mail view controller and back to setting page
         controller.dismiss(animated: true, completion: nil)
         let settingVC = SettingsTableViewController()
         navigationController?.pushViewController(settingVC, animated: false)
