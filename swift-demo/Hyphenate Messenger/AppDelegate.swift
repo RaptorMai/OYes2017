@@ -298,7 +298,7 @@ extension AppDelegate {
         self.mainViewController = nil;
         
         HyphenateMessengerHelper.sharedInstance.mainVC = nil
-        let loginController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginScene")
+        let loginController = UIStoryboard(name: "Authentication", bundle: nil).instantiateViewController(withIdentifier: "AuthVC")
         window?.rootViewController = loginController
     }
     
