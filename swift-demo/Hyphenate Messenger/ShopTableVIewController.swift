@@ -26,12 +26,15 @@ struct Theme {
 
 class ShopTableViewController: UITableViewController, STPAddCardViewControllerDelegate{
     
+    var ref: DatabaseReference? = Database.database().reference()
     
-    let products = ["10min package", "30min package", "60min package", "120min package", "Unlimite Questions"]
-    let prices = [400, 1100, 2000, 3800, 9900]
+    // let products = ["10min package", "30min package", "60min package", "120min package", "Unlimite Questions"]
+    // let prices = [400, 1100, 2000, 3800, 9900]
+    
+    var products = [String]()
+    var prices = [Int]()
     let theme = Theme()
     
-    var ref: DatabaseReference?
     var uid = "+1" + EMClient.shared().currentUsername!
     var price = 0
     var product = ""
@@ -43,15 +46,41 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         self.tabBarController?.navigationItem.title = "Shop"
         self.tableView.tableFooterView = UIView()
         
+        // Grab price - amount mapping from db
+        ref?.child("price").observeSingleEvent(of: .value, with: { (snapshot) in
+
+            let mapping = snapshot.value as? NSDictionary
+ 
+            // Get prices array from all keys of mapping dictionary
+            for p in (mapping?.allKeys)!{
+                self.prices.append(Int("\(p)")!)
+            }
+            
+            self.prices = self.prices.sorted()
+ 
+            // Get products array by indexing mapping dictionary with items in prices
+            for i in self.prices{
+                let temp = "\(i)"
+                self.products.append("\((mapping?[temp])!) mins package")
+            }
+
+            // TO DO: add hub close
+            
+        }) { (error) in
+            print(error.localizedDescription)
+            // TO DO: add hub close + alert
+        }
+        
     }
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Shop"
+        // TO DO: add hud loading
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        let theme = Theme()
+        // let theme = Theme()
         super.viewDidAppear(animated)
         self.view.backgroundColor = theme.primaryBackgroundColor
         self.navigationController?.navigationBar.barTintColor = theme.secondaryBackgroundColor
@@ -69,7 +98,6 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         self.navigationItem.backBarButtonItem?.setTitleTextAttributes(buttonAttributes, for: UIControlState())
         //self.tableView.separatorColor = theme.primaryBackgroundColor
         self.tableView.reloadData()
-        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
