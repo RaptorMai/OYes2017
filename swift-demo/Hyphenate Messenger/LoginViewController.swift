@@ -1,160 +1,53 @@
-
 import UIKit
-import Firebase
-import Hyphenate
-import CoreTelephony
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
-
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var phoneNumber: HyphenateTextField!
-    @IBOutlet weak var verificationCode: HyphenateTextField!
+class LoginViewController: UIViewController {
+    
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var loginButtonBottomConstraint: NSLayoutConstraint!
-    var kbHeight: CGFloat!
-    var animated = false
+    @IBOutlet weak var signupButton: UIButton!
+    @IBOutlet weak var logoImagView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        activityIndicator.hidesWhenStopped = true
         
-        let loginButton:UIButton = UIButton(type: .custom)
-            loginButton.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 50)
-            loginButton.backgroundColor = UIColor.hiPrimary()
-            loginButton.setTitle("Log In", for: .normal)
-       
-        loginButton.addTarget(self, action: #selector(LoginViewController.loginAction(_:)), for: .touchUpInside)
-        phoneNumber.inputAccessoryView = loginButton
-        verificationCode.inputAccessoryView = loginButton
-        
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
-        view.addGestureRecognizer(gestureRecognizer)
-        
-        // check if carrier service exists, if not, pop alert view
-        _ = carrierServiceExists()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    func dismissKeyboard(){
-        phoneNumber.resignFirstResponder()
-        verificationCode.resignFirstResponder()
-    }
-    
-    
-    /// Determines whether carrier service exist
-    ///
-    /// If service is not existant, present a alert view to warn the user
-    /// - Returns: true when service is available, false otherwise
-    func carrierServiceExists() -> Bool {
-        // verify carrier service is present - for receiving verification code
-        let telephonyInfo = CTTelephonyNetworkInfo()
-        if telephonyInfo.subscriberCellularProvider == nil {
-            // no carrier info, should not continue
-            let alert = UIAlertController(title: "Error", message: "Please make sure the carrier service is available", preferredStyle: .alert)
-            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-            alert.addAction(okay)
-            self.present(alert, animated: true, completion: nil)
-            return false
-        }
-        return true
-    }
-    
-    @IBAction func loginRequestCodeAction(_ sender: UIButton) {
-        //check for valid number in PhoneNum
-        let PhoneNumValid = true
-        
-        //TODO: check if user is in firebase, don't allow login if not in firebase
-//        let database = Database.database().reference()
-//        database.child("Users").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-//            print(snapshot)
-//            if snapshot.hasChild("+1\(self.phoneNumber.text!)")
-//            {
-//                print("User not in system")
-//                PhoneNumValid = false
-//            }
-//        }
-//        )
-        if PhoneNumValid {
-            let alert = UIAlertController(title: "Phone number", message: "Is this your phone number? \n \(phoneNumber.text!)", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Yes", style: .default) { (UIAlertAction) in
-                PhoneAuthProvider.provider().verifyPhoneNumber("+1\(self.phoneNumber.text!)") { (verificationID, error) in
-                    if error != nil {
-                        print (" error: \(String(describing: error?.localizedDescription))")
-                    } else {
-                        let defaults = UserDefaults.standard
-                        defaults.set(verificationID, forKey: "authVID")
-                    }
-                }
-            }
-            let cancel = UIAlertAction(title: "No", style: .cancel, handler: nil)
-            alert.addAction(action)
-            alert.addAction(cancel)
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    @IBAction func loginAction(_ sender: AnyObject) {
-        // should not advance without carrier network
-        if !carrierServiceExists() {
-            return
-        }
-        
-        activityIndicator.startAnimating()
+        loginButton.layer.cornerRadius = 5.0
+        loginButton.alpha = 0
+        loginButton.center.y += 15
+        signupButton.layer.cornerRadius = 5.0
+        signupButton.alpha = 0
+        signupButton.center.y += 15
 
-        let defaults = UserDefaults.standard
         
-        /* log in to firebase with phone number  *************/
-        let credential: PhoneAuthCredential = PhoneAuthProvider.provider().credential(withVerificationID: defaults.string(forKey: "authVID")!, verificationCode: self.verificationCode.text!)
-        Auth.auth().signIn(with: credential) { (user, error) in
-            self.activityIndicator.stopAnimating()
-            if error != nil {
-                print("error: \(String(describing: error?.localizedDescription))")
-                //Popup error indicating an error occured
-                let alert = UIAlertController(title: "Error", message: "An error has occured", preferredStyle: .alert)
-                let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-                alert.addAction(okay)
-                self.present(alert, animated: true, completion: nil)
-            } else{
-                print("Phone number: \(String(describing: user?.phoneNumber))")
-                let userInfo = user?.providerData[0]
-                print("Provider ID: \(String(describing: userInfo?.providerID))")
-        /******************************************************/
-                /* login to firebase succeeded, can login to hyphenate  *********/
-                EMClient.shared().login(withUsername: self.phoneNumber.text, password: self.phoneNumber.text) { (userName : String?, error : EMError?) in
-
-                    if ((error) != nil) {
-                        let alert = UIAlertController(title:"Login Failure", message: error?.errorDescription, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
-                        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-                    } else if EMClient.shared().isLoggedIn {
-                        EMClient.shared().options.isAutoLogin = true
-                        
-                        //login finished, create main view controller
-                        //self.performSegue(withIdentifier: "LoginToHome", sender: Any?.self)
-//                        let mainVC = MainViewController()
-//                        HyphenateMessengerHelper.sharedInstance.mainVC = mainVC
-                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                        appDelegate.proceedLogin()
-                        //self.present(mainVC, animated: true)
-                        //self.navigationController?.pushViewController(mainVC, animated: true)
-                    }
-                }
-            }
-        }
+        // setting color of back arrow in navigation bar
+        navigationController?.navigationBar.tintColor = UIColor(red: 45.0/255.0, green: 162.0/255.0, blue: 220.0/255.0, alpha: 1.0)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == phoneNumber {
-            phoneNumber.resignFirstResponder()
-            verificationCode.becomeFirstResponder()
-        } else {
-            loginAction(self)
-        }
-        return true
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseInOut], animations: {
+            self.logoImagView.center.y -= UIScreen.main.bounds.size.height * 0.08
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.2, delay: 0.5, options: [.curveEaseInOut], animations: {
+            self.loginButton.alpha = 1
+            self.loginButton.center.y -= 15
+            self.signupButton.alpha = 1
+            self.signupButton.center.y -= 15
+        }, completion: nil)
+    }
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let loginPhoneVC = segue.destination as! LoginPhoneNumberViewController
+        loginPhoneVC.mode = segue.identifier!
+        navigationController?.navigationBar.isHidden = false
     }
 }
+
