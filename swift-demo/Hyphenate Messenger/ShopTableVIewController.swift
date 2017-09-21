@@ -30,6 +30,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     
     // let products = ["10min package", "30min package", "60min package", "120min package", "Unlimite Questions"]
     // let prices = [400, 1100, 2000, 3800, 9900]
+    
     var products = [String]()
     var prices = [Int]()
     let theme = Theme()
@@ -49,13 +50,15 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         ref?.child("price").observeSingleEvent(of: .value, with: { (snapshot) in
 
             let mapping = snapshot.value as? NSDictionary
-            
+ 
+            // Get prices array from all keys of mapping dictionary
             for p in (mapping?.allKeys)!{
                 self.prices.append(Int("\(p)")!)
             }
             
             self.prices = self.prices.sorted()
-            
+ 
+            // Get products array by indexing mapping dictionary with items in prices
             for i in self.prices{
                 let temp = "\(i)"
                 self.products.append("\((mapping?[temp])!) mins package")
