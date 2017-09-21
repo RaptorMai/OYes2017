@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     var window: UIWindow?
     //var ref: DatabaseReference!
+    
+    
     func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(fcmToken)")
         //Messaging.messaging().subscribe(toTopic: "topic/newQuestion")
@@ -71,6 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
+        //Register notification
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self
@@ -91,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         let token = Messaging.messaging().fcmToken
 
-
+        //add to token so that it will be saved into database in future VC
         if EMClient.shared().isAutoLogin {
             proceedLogin(token)
         } else {
@@ -113,7 +116,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         return true
     }
- 
+    
+    //add new VC called AutoLoginVC
     func proceedLogin(_ token: String?) {
         
         let autoLogin = AutoLoginVC()
