@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import Parse
 
+
 extension AppDelegate {
     func parseApplication(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?){
         Parse.enableLocalDatastore()

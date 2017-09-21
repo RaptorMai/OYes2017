@@ -18,6 +18,7 @@ protocol refreshSpinnerProtocol {
 
 class QuestionsVC: UIViewController, refreshSpinnerProtocol{
     
+
     // MARK: - Pull to Refresh ======================
 
     // properties:
@@ -28,9 +29,7 @@ class QuestionsVC: UIViewController, refreshSpinnerProtocol{
         MBProgressHUD.showAdded(to: tableofquestions, animated: true)
     }
     
-    
-    // ===========================
-    
+
     @IBAction func refresh(_ sender: UIBarButtonItem) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refresh"), object: nil)
         MBProgressHUD.showAdded(to: tableofquestions, animated: true)

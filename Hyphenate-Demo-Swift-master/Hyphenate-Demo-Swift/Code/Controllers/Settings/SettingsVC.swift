@@ -70,21 +70,23 @@ class SettingsVC: UITableViewController {
         
     }
     
-/*
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            let proVC = SettingsAboutTableViewController()
-            navigationController?.pushViewController(settingsAboutVC, animated: true)
+            //let proVC = SettingsAboutTableViewController()
+            //navigationController?.pushViewController(settingsAboutVC, animated: true)
+            logoutAction()
             
         case 1:
-            let settingsNotificationVC = SettingsNotificationTableViewController()
-            navigationController?.pushViewController(settingsNotificationVC, animated: true)
+            //let settingsNotificationVC = SettingsNotificationTableViewController()
+            //navigationController?.pushViewController(settingsNotificationVC, animated: true)
+            logoutAction()
         default:break
             
         }
     }
-*/
+
     func logoutAction() {
         
         try! Auth.auth().signOut()

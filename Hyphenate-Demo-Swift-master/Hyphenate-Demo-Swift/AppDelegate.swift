@@ -11,20 +11,35 @@ import Hyphenate
 import UserNotifications
 import Firebase
 import SDWebImage
+import FirebaseInstanceID
+import FirebaseMessaging
+import FirebaseDatabase
+
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, EMClientDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, EMClientDelegate, MessagingDelegate {
+    /// This method will be called whenever FCM receives a new, default FCM token for your
+    /// Firebase project's Sender ID.
+    /// You can send this token to your application server to send notifications to this device.
+
 
     var window: UIWindow?
-
+    //var ref: DatabaseReference!
+    func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
+        print("Firebase registration token: \(fcmToken)")
+        //Messaging.messaging().subscribe(toTopic: "topic/newQuestion")
+    }
+    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+        print("Received data message: \(remoteMessage.appData)")
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
 //        UITabBar.appearance().tintColor = KermitGreenTwoColor
 //        UINavigationBar.appearance().tintColor = AlmostBlackColor
         
-        FirebaseApp.configure()
-        
+        //ref = Database.database().reference()
         let options = EMOptions.init(appkey: "1500170706002947#instasolve")     
         
         var apnsCerName = "InstasolveTutorDevCertificates"
@@ -52,42 +67,80 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        window?.rootViewController = launchVC
 //        window?.makeKeyAndVisible()
         
-        if EMClient.shared().isAutoLogin {
-            proceedLogin()
-        } else {
-            proceedLogout()
-            EMClient.shared().options.isAutoLogin = true
-        }
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let RVController = UINavigationController(rootViewController: LaunchViewController())
-        RVController.navigationBar.barStyle = .blackTranslucent
-        window?.rootViewController = RVController
         
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+            // For iOS 10 data message (sent via FCM
+            Messaging.messaging().delegate = self
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
         
+        application.registerForRemoteNotifications()
+        FirebaseApp.configure()
+        
+        let token = Messaging.messaging().fcmToken
+
+
+        if EMClient.shared().isAutoLogin {
+            proceedLogin(token)
+        } else {
+            proceedLogout(token)
+            //EMClient.shared().options.isAutoLogin = true
+        }
         
         parseApplication(application, didFinishLaunchingWithOptions: launchOptions)
-        _registerAPNS()     
+        _registerAPNS()
+        
+
+        
+        //let addToken = ["notificationTokens": token] as [String: String?]
+        //self.ref?.child("tutors//").setValue(addToken)
+       // let uid = EMClient.shared().currentUsername!
+        //print("UID: \(uid)")
+        //print("FCM token: \(token ?? "")")
+
         
         return true
     }
  
-    func proceedLogin() {
+    func proceedLogin(_ token: String?) {
         
-        let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
-        //                    let homeVC = HomeViewController()
+        let autoLogin = AutoLoginVC()
+        autoLogin.token = token
+        window?.rootViewController = autoLogin
         
-        window?.rootViewController = homeVC
         
     }
     
+    
+    // The callback to handle data message received via FCM for devices running iOS 10 or above.
+    func application(received remoteMessage: MessagingRemoteMessage) {
+        print(remoteMessage.appData)
+    }
+    
+    
     // logout
-    func proceedLogout() {
-        if EMClient.shared().isLoggedIn {
+    func proceedLogout(_ token: String?) {
+        if !EMClient.shared().isLoggedIn {
             EMClient.shared().logout(true)
+            let launchVC =  LaunchViewController()
+            launchVC.token = token
+            let RVController = UINavigationController(rootViewController:launchVC)
+            RVController.navigationBar.barStyle = .blackTranslucent
+            window?.rootViewController = RVController
         } else {
-            proceedLogin()
+            proceedLogin(token)
         }
     }
     func loginStateChange(nofi: NSNotification) {
@@ -112,7 +165,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         EMClient.shared().registerForRemoteNotifications(withDeviceToken: deviceToken, completion: nil)
     }
+
+    // Firebase notification received
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter,  willPresent notification: UNNotification, withCompletionHandler   completionHandler: @escaping (_ options:   UNNotificationPresentationOptions) -> Void) {
+        
+        // custom code to handle push while app is in the foreground
+        print("Handle push from foreground\(notification.request.content.userInfo)")
+        
+        let dict = notification.request.content.userInfo["aps"] as! NSDictionary
+        let d : [String : Any] = dict["alert"] as! [String : Any]
+        let body : String = d["body"] as! String
+        let title : String = d["title"] as! String
+        print("Title:\(title) + body:\(body)")
+        self.showAlertAppDelegate(title: title,message:body,buttonTitle:"ok",window:self.window!)
+        
+    }
     
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        // if you set a member variable in didReceiveRemoteNotification, you  will know if this is from closed or background
+        print("Handle push from background or closed\(response.notification.request.content.userInfo)")
+    }
+    
+    func showAlertAppDelegate(title: String,message : String,buttonTitle: String,window: UIWindow){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: buttonTitle, style: UIAlertActionStyle.default, handler: nil))
+        window.rootViewController?.present(alert, animated: false, completion: nil)
+    }
+
     fileprivate func _registerAPNS() {
         let application = UIApplication.shared     
         application.applicationIconBadgeNumber = 0     
