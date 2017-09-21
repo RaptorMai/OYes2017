@@ -67,6 +67,11 @@ class SettingsTableViewController: UITableViewController {
         case 1:
             let settingsNotificationVC = SettingsNotificationTableViewController()
             navigationController?.pushViewController(settingsNotificationVC, animated: true)
+        case 2:
+            let sendFeedbackVC = SendFeedbackController()
+            navigationController?.pushViewController(sendFeedbackVC, animated: false)
+        case 3:
+            openFacebookPage()
         default:break
             
         }
@@ -85,4 +90,11 @@ class SettingsTableViewController: UITableViewController {
             }
         }
     }
+    
+    // MARK: - Functions
+    func openFacebookPage() {
+        let page = "https://www.facebook.com/InstaSolve/"
+        UIApplication.shared.openURL(NSURL(string: page)! as URL)
+    }
+    
 }
