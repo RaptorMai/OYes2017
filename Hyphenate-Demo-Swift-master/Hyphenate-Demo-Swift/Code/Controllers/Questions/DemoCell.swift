@@ -53,6 +53,8 @@ protocol expandimageProtocol {
 
 extension DemoCell {
     @IBAction func buttonHandler(_ sender: AnyObject) {
+        var disableMyButton = sender as? UIButton
+        disableMyButton?.isEnabled = false
         if openQuestPic.image == nil{
             print("openQuestPic.image is nil")
         } else{

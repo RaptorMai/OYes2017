@@ -14,14 +14,17 @@ class MainViewController: UITabBarController {
         //HistoryVC
         let historyViewController:HistoryTableViewController = HistoryTableViewController()
         let historyRootViewController:UINavigationController = UINavigationController(rootViewController: historyViewController)
+        historyRootViewController.navigationBar.isTranslucent = false
         historyRootViewController.title = "History"
         //ShopVC
         let shopViewController:ShopTableViewController = ShopTableViewController()
         let shopRootViewController:UINavigationController = UINavigationController(rootViewController: shopViewController)
+        shopRootViewController.navigationBar.isTranslucent = false
         shopRootViewController.title = "Shop"
         //SettingVC
         let settingsViewController:SettingsTableViewController = SettingsTableViewController()
         let settingsRootViewController:UINavigationController = UINavigationController(rootViewController: settingsViewController)
+        settingsRootViewController.navigationBar.isTranslucent = false
         settingsRootViewController.title = "Settings"
 
         self.setViewControllers([homeViewController, historyRootViewController, shopRootViewController, settingsRootViewController], animated: true)

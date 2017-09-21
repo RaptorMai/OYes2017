@@ -9,10 +9,13 @@
 import UIKit
 import Firebase
 
+//Name change for this VC
 class LaunchViewController: UIViewController {
 
     let screenHeight = UIScreen.main.bounds.height
     let screenWidth  = UIScreen.main.bounds.width
+    var token: String?
+
     
     let MainLabel: UILabel = {
         let label = UILabel()
@@ -81,7 +84,9 @@ class LaunchViewController: UIViewController {
     
     func Login(){
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style:.plain, target: nil, action: nil)
-        navigationController?.pushViewController(LoginVC(), animated: true)
+        let loginVC = LoginVC()
+        loginVC.token = self.token
+        navigationController?.pushViewController(loginVC, animated: true)
     }
     
     func setupLoginButton(){
@@ -94,7 +99,7 @@ class LaunchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = UIColor.init(hex: "2F2F2F")
         view.addSubview(MainLabel)
         setupMainLabel()
@@ -109,11 +114,12 @@ class LaunchViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        /*
         if Auth.auth().currentUser != nil {
             let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
             self.present(homeVC, animated: true, completion: nil)
             
-        }
+        }*/
     }
 
 
