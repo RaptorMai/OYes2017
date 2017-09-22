@@ -1,0 +1,37 @@
+For the database, we have 4 schemas: Request, price, tutors and users
+notes: tid(tutor id), qid(question id), sid(student id)
+1. Request:
+    active:
+        <category | {Basic Calculus, ...}>
+            <qid>
+                category:
+                description:
+                duration:
+                picURL:
+                qid:
+                rate:
+                sid:
+                status:
+                tid:
+    inactive:
+        same as active, because questions are simply added to here from active
+
+2. price: 
+    <price amount (times 100 for stripe)>:<minutes>
+3. tutors:
+    <tid>
+        balance:
+        stars:
+        count:
+        email:
+        token:
+        category:
+
+4. users:
+    <sid>:
+        balance:
+        payments:
+            customerId:
+            sources:
+                error:
+                token:

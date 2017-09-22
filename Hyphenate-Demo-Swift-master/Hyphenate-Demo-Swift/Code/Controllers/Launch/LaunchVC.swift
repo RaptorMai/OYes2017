@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 
+//Name change for this VC
 class LaunchViewController: UIViewController {
 
     let screenHeight = UIScreen.main.bounds.height

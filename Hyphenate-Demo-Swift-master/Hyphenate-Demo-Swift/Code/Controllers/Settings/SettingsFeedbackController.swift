@@ -12,29 +12,35 @@ import UIKit
 
 class SendFeedbackController: UIViewController, MFMailComposeViewControllerDelegate{
     // MARK: - View Did Load
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if !MFMailComposeViewController.canSendMail(){
-            print("Mail services are not available")
-            self.showSendMailErrorAlert()
-            return
-        } else {
-            sendFeedback()
-        }
-    }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        if !MFMailComposeViewController.canSendMail(){
+//            print("Mail services are not available")
+//            self.showSendMailErrorAlert()
+//            return
+//        } else {
+//            sendFeedback()
+//        }
+//    }
     
     
     // MARK - Functions
     
     // send Feedback
     func sendFeedback(){
-        let composeVC = MFMailComposeViewController()
-        composeVC.mailComposeDelegate = self
-        // Configure the fields of the interface
-        composeVC.setToRecipients(["instasolve1@gmail.com"])
-        composeVC.setSubject("Feedback - InstaSolve")
-        composeVC.setMessageBody("Please leave us your precious feedback!", isHTML: false)
-        self.present(composeVC, animated: true, completion:nil)
+//        let composeVC = MFMailComposeViewController()
+//        composeVC.mailComposeDelegate = self
+//        // Configure the fields of the interface
+//        composeVC.setToRecipients(["instasolve1@gmail.com"])
+//        composeVC.setSubject("Feedback - InstaSolve")
+//        composeVC.setMessageBody("Please leave us your precious feedback!", isHTML: false)
+//        self.present(composeVC, animated: true, completion:nil)
+        let mailComposeViewController = configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail() {
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            self.showSendMailErrorAlert()
+        }
     }
     
     // error handler
@@ -42,6 +48,17 @@ class SendFeedbackController: UIViewController, MFMailComposeViewControllerDeleg
         let sendMailErrorAlert = UIAlertController(title: "Mail cannot be sent", message: "Mailbox is not setup properly", preferredStyle: .alert )
         sendMailErrorAlert.addAction(UIAlertAction(title: "Yes", style: .default) {_ in})
         self.present(sendMailErrorAlert, animated: true)
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        mailComposerVC.setToRecipients(["someone@somewhere.com"])
+        mailComposerVC.setSubject("Sending you an in-app e-mail...")
+        mailComposerVC.setMessageBody("Sending e-mail in-app is not so bad!", isHTML: false)
+        
+        return mailComposerVC
     }
     
     // dimiss controller
@@ -58,9 +75,9 @@ class SendFeedbackController: UIViewController, MFMailComposeViewControllerDeleg
         default:
             break
         }
+        let parentVC = self.presentingViewController
+        parentVC?.dismiss(animated: true, completion: nil)
         // Dismiss mail view controller and back to setting page
-        controller.dismiss(animated: true, completion: nil)
-        let settingVC = SettingsVC()
-        navigationController?.pushViewController(settingVC, animated: false)
+        controller.dismiss(animated:true, completion: nil)
     }
 }

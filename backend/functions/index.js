@@ -5,7 +5,7 @@ admin.initializeApp(functions.config().firebase);
 
 const stripe = require('stripe')(functions.config().stripe.testkey);
 
-const price = {"1000": 10, "3000": 30, "6000": 60, "11900": 120};
+const price = {"400": 10, "1100": 30, "2000": 60, "3800": 120};
 
 const cors = require('cors')({origin: true});
 
@@ -149,12 +149,18 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 		var currentBalance = snapshot.val();
 		// console.log(price);
 		let amountString = amount.toString();
-		let increment = price[amountString];
-		currentBalance += increment;
-		console.log(currentBalance);
-		ref.set(currentBalance);
-	})
+		console.log(amountString);
 
+		let mins = admin.database().ref("/price/" + amountString);
+		mins.once("value").then(snapshot => {
+			console.log("what is the increment");
+			var increment = snapshot.val();
+			console.log(increment);
+			currentBalance += increment;
+			console.log(currentBalance);
+			ref.set(currentBalance);
+		})
+	})
 })
 
 

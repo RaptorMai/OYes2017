@@ -79,11 +79,15 @@ class SettingsVC: UITableViewController {
         case 2:
             switch indexPath.row{
             case 0:
-                openWebsite()
-                tableView.deselectRow(at: indexPath, animated: true)
+                let openWebPageVC = OpenUrlViewController()
+                openWebPageVC.url = "https://www.instasolve.ca/"
+                navigationController?.pushViewController(openWebPageVC, animated: true)
             case 1:
                 let settingFeedbackVC = SendFeedbackController()
-                navigationController?.pushViewController(settingFeedbackVC, animated: false)
+                settingFeedbackVC.sendFeedback()
+                //navigationController?.popViewController(animated: true)
+                //navigationController?.pushViewController(settingFeedbackVC, animated: true)
+                self.present(settingFeedbackVC, animated: true, completion: nil)
                 tableView.deselectRow(at: indexPath, animated: true)
             default:break
             }
@@ -127,9 +131,12 @@ class SettingsVC: UITableViewController {
     */
     
     
-    func openWebsite() {
-        let url = "https://www.instasolve.ca/"
-        UIApplication.shared.openURL(NSURL(string:url)! as URL)
-    }
+//    func openWebsite() {
+//        let myWebView: UIWebView
+//        let url = "https://www.instasolve.ca/"
+//        //let myWebView = UIWebView()
+//        //UIApplication.shared.open(NSURL(string:url)! as URL, options: [:])
+//        my WebView.loadRequest(URLRequest(url: URL(string: url)! as URL))
+//    }
 
 }
