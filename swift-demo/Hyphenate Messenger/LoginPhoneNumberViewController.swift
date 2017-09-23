@@ -25,10 +25,10 @@ class LoginPhoneNumberViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         // setting values here because the verification VC might pop, and view did load will not be called
         super.viewWillAppear(animated)
-        let titleString = (mode == "login") ? "Login" : "Sign up"
+        let titleString = (mode == "Login") ? "Login" : "Sign up"
         title = titleString
         
-        let bannerTitle = (mode == "login") ? "Please log in with phone number" : "Please sign up with phone number"
+        let bannerTitle = (mode == "Login") ? "Please log in with phone number" : "Please sign up with phone number"
         bannerLabel.text = bannerTitle
         
         navigationController?.navigationBar.isHidden = false

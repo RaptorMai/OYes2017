@@ -148,7 +148,7 @@ class LoginVerificationViewController: UIViewController {
                 if error!.code == EMErrorUserNotFound {
                     alert.addAction(UIAlertAction(title: "Request code for sign up", style: .default, handler: { (action) in
                         requestCode(forNumber: String(self.phoneNumber))
-                        self.mode = "signup"
+                        self.mode = "Signup"
                     }))
                     alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
                         self.navigationController?.popToRootViewController(animated: true)

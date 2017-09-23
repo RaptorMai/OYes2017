@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -15,7 +16,7 @@
         <!--InstaSolve-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LoginViewController" customModule="TestView" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LoginViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -31,7 +32,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="gy2-F5-eLI" kind="show" identifier="login" id="iNM-rA-ul9"/>
+                                            <segue destination="gy2-F5-eLI" kind="show" identifier="Login" id="iNM-rA-ul9"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAq-PV-8O0">
@@ -42,7 +43,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="gy2-F5-eLI" kind="show" identifier="signup" id="xff-r9-j2F"/>
+                                            <segue destination="gy2-F5-eLI" kind="show" identifier="Signup" id="xff-r9-j2F"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -82,7 +83,7 @@
         <!--Login-->
         <scene sceneID="ZVS-7b-x7g">
             <objects>
-                <viewController id="gy2-F5-eLI" customClass="LoginPhoneNumberViewController" customModule="TestView" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gy2-F5-eLI" customClass="LoginPhoneNumberViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QTZ-Mr-MuZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -174,7 +175,7 @@
         <!--Login Verification View Controller-->
         <scene sceneID="oRE-Vk-Uc4">
             <objects>
-                <viewController restorationIdentifier="LoginVerificationViewController" storyboardIdentifier="LoginVerificationViewController" id="uNZ-kB-Uph" customClass="LoginVerificationViewController" customModule="TestView" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="LoginVerificationViewController" storyboardIdentifier="LoginVerificationViewController" id="uNZ-kB-Uph" customClass="LoginVerificationViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7ec-ZQ-waD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
