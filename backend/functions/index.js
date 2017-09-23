@@ -5,7 +5,7 @@ admin.initializeApp(functions.config().firebase);
 
 const stripe = require('stripe')(functions.config().stripe.testkey);
 
-const price = {"400": 10, "1100": 30, "2000": 60, "3800": 120};
+// const price = {"400": 10, "1100": 30, "2000": 60, "3800": 120};
 
 const cors = require('cors')({origin: true});
 
@@ -139,10 +139,13 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 	const sid = event.params.sid;
 	const id = event.params.pid;
 	const amount = event.data.current.child('amount').val();
+	const date = event.data.current.child('created').val();
 	console.log("what is amount");
 	console.log(event.data.current.child('amount').val());
 
+	var addBalanceHistory = admin.database().ref("/users/" + sid + "/balanceHistory");
 	var ref = admin.database().ref("/users/" + sid + "/balance");
+
 	ref.once("value").then(snapshot => {
 		console.log("what is snapshot in balance");
 		console.log(snapshot.val());
@@ -159,8 +162,16 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 			currentBalance += increment;
 			console.log(currentBalance);
 			ref.set(currentBalance);
+			return increment;
+		}).then(timePurchased => {
+				addBalanceHistory.push({
+							price: amount,
+							time: timePurchased,
+							date: date
+							});
 		})
 	})
+
 })
 
 
