@@ -59,8 +59,20 @@ class SendFeedbackController: UIViewController, MFMailComposeViewControllerDeleg
             break
         }
         // Dismiss mail view controller and back to setting page
-        controller.dismiss(animated: true, completion: nil)
-        let settingVC = SettingsTableViewController()
-        navigationController?.pushViewController(settingVC, animated: false)
+
+        
+        
+        
+        let parentVC = self.presentingViewController
+        parentVC?.dismiss(animated:true, completion: nil)
+        
+        //self.dismiss(animated: true, completion: nil)
+        //controller.present(settingVC!, animated: true, completion: nil)
+//
+        
+        //navigationController?.present(settingVC, animated: true, completion: nil)
+//        print("hello")
+        //self.dismiss(animated: true, completion: nil)
     }
+
 }

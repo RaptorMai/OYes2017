@@ -1,6 +1,7 @@
 
 import UIKit
 
+
 class SettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
@@ -63,7 +64,14 @@ class SettingsTableViewController: UITableViewController {
         switch indexPath.section{
         // section 0
         case 0:
-            break //TODO
+            if indexPath.row == 0{
+//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//                let controller = storyboard.instantiateViewController(withIdentifier: "MyProfileViewControllerTableViewController")
+//                self.present(controller, animated: true, completion: nil)
+                let profilePageVc = MyProfileViewControllerTableViewController()
+                self.navigationController?.pushViewController(profilePageVc, animated: true)
+                
+            }
         // section 1
         case 1:
             break //TODO
@@ -74,11 +82,14 @@ class SettingsTableViewController: UITableViewController {
             case 0:
                 let openMainPageVc = OpenUrlViewController()
                 openMainPageVc.url = "https://www.instasolve.ca/"
-                navigationController?.pushViewController(openMainPageVc, animated: true)
+                self.navigationController?.pushViewController(openMainPageVc, animated: true)
             // Feedback
             case 1:
+            
                 let sendFeedbackVC = SendFeedbackController()
-                navigationController?.pushViewController(sendFeedbackVC, animated: false)
+                //navigationController?.pushViewController(sendFeedbackVC, animated: false)
+                self.present(sendFeedbackVC, animated: true, completion: nil)
+                //self.present(sendFeedbackVC, animated: true, completion: nil)
             // Rate us
             case 2:
                 break
@@ -90,7 +101,8 @@ class SettingsTableViewController: UITableViewController {
             }
         // section 3
         case 3:
-            logoutAction()
+            tableView.deselectRow(at: indexPath, animated: true)
+            createAlert()
         default:break
         }
     }
@@ -115,6 +127,26 @@ class SettingsTableViewController: UITableViewController {
         let page = "https://www.facebook.com/InstaSolve/"
         UIApplication.shared.openURL(NSURL(string: page)! as URL)
     }
+    
+    func presentSettingPage(){
+        let settingVC = SettingsTableViewController()
+        self.present(settingVC, animated: true, completion: nil)
+    }
+    
+    func createAlert (){
+        let alert = UIAlertController(title: "Log Out InstaSolve?", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title:"Yes", style: UIAlertActionStyle.default, handler:{(action:UIAlertAction) in self.logoutAction()}))
+        
+        alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertActionStyle.default, handler:nil))
+        
+        self.present(alert, animated: true, completion: nil)
+
+        
+        
+    }
+    
+    
 }
     
 
