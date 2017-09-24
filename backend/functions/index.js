@@ -166,7 +166,7 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 		}).then(timePurchased => {
 				addBalanceHistory.push({
 							price: amount,
-							time: timePurchased,
+							timePurchased: timePurchased,
 							date: date
 							});
 		})
@@ -198,11 +198,12 @@ exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{q
 
 
 exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{questionId}').onWrite(event => {
+
 	const qid = event.params.questionId;
 	const category = event.params.category;
 	console.log(qid);
 	console.log(category);
-	// var endTime = new Date();
+
 	var ref = admin.database().ref("/Request/inactive/" + category + "/" + qid);
 	const sid = ref.once("value").then(snapshot => {
 		console.log(snapshot.val());
@@ -220,10 +221,24 @@ exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{q
 			admin.database().ref("/users/" + sid + "/balance").set(snapshot.val() - sessionTime)
 		})
 
+		var today = new Date().getTime();
+
+		var addBalanceHistory = admin.database().ref("/users/" + sid + "/balanceHistory");
+		addBalanceHistory.push({
+								sessionTime: sessionTime,
+								date: today
+							});
+
 		// Update tutor balance
 		admin.database().ref("/tutors/" + tid + "/balance").once("value").then(snapshot => {
 			admin.database().ref("/tutors/" + tid + "/balance").set(parseInt(snapshot.val()) + parseInt(sessionTime))
 		})
+
+		var tutorBalanceHistory = admin.database().ref("/tutors/" + tid + "/balanceHistory");
+		tutorBalanceHistory.push({
+								sessionTime: sessionTime,
+								date: today
+							});
 	})
 })
 
