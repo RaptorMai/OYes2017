@@ -13,6 +13,8 @@ class SettingsTableViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.register(UINib(nibName: "SwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "switchCell")
         self.tableView.register(UINib(nibName: "LabelTableViewCell", bundle: nil), forCellReuseIdentifier: "labelCell")
+        self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "conversationCell")
+       
         
 
         
@@ -36,11 +38,26 @@ class SettingsTableViewController: UITableViewController {
         return data[section].count
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        if indexPath.section == 0 {
+            return 100
+        } else {
+            return UITableViewAutomaticDimension
+        }
+    }
     
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.section != 3{
+        if indexPath.section == 0 {
+            let cell:ConversationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath) as! ConversationTableViewCell
+            cell.senderLabel.text = "Marco"
+            cell.badgeView.isHidden = true
+            cell.timeLabel.isHidden = true
+            cell.lastMessageLabel.isHidden = true
+            return cell
+        }
+        else if indexPath.section < 3 {
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = self.data[indexPath.section][indexPath.row][1] as? String
             cell.imageView?.image = self.data[indexPath.section][indexPath.row][0] as? UIImage
@@ -61,10 +78,13 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
+            let myProfileVC = MyProfileViewControllerTableViewController()
+                navigationController?.pushViewController(myProfileVC, animated: true)
+        case 1:
             let settingsAboutVC = SettingsAboutTableViewController()
             navigationController?.pushViewController(settingsAboutVC, animated: true)
             
-        case 1:
+        case 2:
             let settingsNotificationVC = SettingsNotificationTableViewController()
             navigationController?.pushViewController(settingsNotificationVC, animated: true)
         default:break
