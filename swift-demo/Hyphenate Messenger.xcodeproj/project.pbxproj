@@ -60,6 +60,17 @@
 		5DEF2E0B1F264AAD00A2CB09 /* UIColor+Hyphenate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEF2E0A1F264AAD00A2CB09 /* UIColor+Hyphenate.m */; };
 		5DF190FF1F198CA50019E6F0 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF190FE1F198CA50019E6F0 /* SessionTableViewController.swift */; };
 		5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */; };
+		7613B5941F784C9F006EA78C /* GradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B5901F784C9E006EA78C /* GradeViewController.swift */; };
+		7613B5951F784C9F006EA78C /* MyProfileViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B5911F784C9E006EA78C /* MyProfileViewControllerTableViewController.swift */; };
+		7613B5961F784C9F006EA78C /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B5921F784C9E006EA78C /* EmailViewController.swift */; };
+		7613B5971F784C9F006EA78C /* NameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B5931F784C9E006EA78C /* NameViewController.swift */; };
+		7613B59F1F784CD2006EA78C /* gradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B5981F784CD0006EA78C /* gradeTableViewCell.swift */; };
+		7613B5A01F784CD2006EA78C /* emailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B5991F784CD0006EA78C /* emailTableViewCell.swift */; };
+		7613B5A11F784CD2006EA78C /* nameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B59A1F784CD1006EA78C /* nameTableViewCell.swift */; };
+		7613B5A21F784CD2006EA78C /* profileHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B59B1F784CD1006EA78C /* profileHeaderTableViewCell.swift */; };
+		7613B5A31F784CD2006EA78C /* informationHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B59C1F784CD1006EA78C /* informationHeaderTableViewCell.swift */; };
+		7613B5A41F784CD2006EA78C /* profilePictureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B59D1F784CD1006EA78C /* profilePictureTableViewCell.swift */; };
+		7613B5A51F784CD2006EA78C /* moreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B59E1F784CD2006EA78C /* moreTableViewCell.swift */; };
 		9A06AB191DB584BA003A5B2E /* SettingsAboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB181DB584BA003A5B2E /* SettingsAboutTableViewController.swift */; };
 		9A06AB1C1DB58606003A5B2E /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB1A1DB58606003A5B2E /* LabelTableViewCell.swift */; };
 		9A06AB1D1DB58606003A5B2E /* LabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A06AB1B1DB58606003A5B2E /* LabelTableViewCell.xib */; };
@@ -326,6 +337,18 @@
 		5DF190FE1F198CA50019E6F0 /* SessionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewController.swift; sourceTree = "<group>"; };
 		5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScr.storyboard; sourceTree = "<group>"; };
 		71E15A43B314CB255A946243 /* Pods-Hyphenate Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.debug.xcconfig"; sourceTree = "<group>"; };
+		7613B5901F784C9E006EA78C /* GradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GradeViewController.swift; path = ProfileSetting/GradeViewController.swift; sourceTree = "<group>"; };
+		7613B5911F784C9E006EA78C /* MyProfileViewControllerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyProfileViewControllerTableViewController.swift; path = ProfileSetting/MyProfileViewControllerTableViewController.swift; sourceTree = "<group>"; };
+		7613B5921F784C9E006EA78C /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmailViewController.swift; path = ProfileSetting/EmailViewController.swift; sourceTree = "<group>"; };
+		7613B5931F784C9E006EA78C /* NameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NameViewController.swift; path = ProfileSetting/NameViewController.swift; sourceTree = "<group>"; };
+		7613B5981F784CD0006EA78C /* gradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = gradeTableViewCell.swift; path = ProfileSetting/gradeTableViewCell.swift; sourceTree = "<group>"; };
+		7613B5991F784CD0006EA78C /* emailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = emailTableViewCell.swift; path = ProfileSetting/emailTableViewCell.swift; sourceTree = "<group>"; };
+		7613B59A1F784CD1006EA78C /* nameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = nameTableViewCell.swift; path = ProfileSetting/nameTableViewCell.swift; sourceTree = "<group>"; };
+		7613B59B1F784CD1006EA78C /* profileHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = profileHeaderTableViewCell.swift; path = ProfileSetting/profileHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		7613B59C1F784CD1006EA78C /* informationHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = informationHeaderTableViewCell.swift; path = ProfileSetting/informationHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		7613B59D1F784CD1006EA78C /* profilePictureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = profilePictureTableViewCell.swift; path = ProfileSetting/profilePictureTableViewCell.swift; sourceTree = "<group>"; };
+		7613B59E1F784CD2006EA78C /* moreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = moreTableViewCell.swift; path = ProfileSetting/moreTableViewCell.swift; sourceTree = "<group>"; };
+		7613B5A71F784CEA006EA78C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ProfileSetting/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hyphenate_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A06AB181DB584BA003A5B2E /* SettingsAboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAboutTableViewController.swift; sourceTree = "<group>"; };
 		9A06AB1A1DB58606003A5B2E /* LabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTableViewCell.swift; sourceTree = "<group>"; };
@@ -846,6 +869,7 @@
 				9A17BE361D9E20C50075EF9F /* View */,
 				9A17BE211D9E200B0075EF9F /* View Controllers */,
 				9A17BDF01D9E1FB70075EF9F /* AppDelegate.swift */,
+				7613B5A61F784CEA006EA78C /* Main.storyboard */,
 				9A17BDFF1D9E1FB70075EF9F /* Info.plist */,
 				9A17BDF71D9E1FB70075EF9F /* Hyphenate_Messenger.xcdatamodeld */,
 				B634674A1D9E4AD500CBEAE2 /* Hyphenate-Bridging-Header.h */,
@@ -899,6 +923,13 @@
 		9AC1323A1DA0EC7C00A2BD05 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				7613B5991F784CD0006EA78C /* emailTableViewCell.swift */,
+				7613B5981F784CD0006EA78C /* gradeTableViewCell.swift */,
+				7613B59C1F784CD1006EA78C /* informationHeaderTableViewCell.swift */,
+				7613B59E1F784CD2006EA78C /* moreTableViewCell.swift */,
+				7613B59A1F784CD1006EA78C /* nameTableViewCell.swift */,
+				7613B59B1F784CD1006EA78C /* profileHeaderTableViewCell.swift */,
+				7613B59D1F784CD1006EA78C /* profilePictureTableViewCell.swift */,
 				39062AE71D9F0D4400EE8412 /* ContactTableViewCell.xib */,
 				B6346B811D9E74CE00CBEAE2 /* ContactTableViewCell.swift */,
 				9A545C871DA0CB2200DEFBC7 /* ConversationTableViewCell.swift */,
@@ -970,6 +1001,10 @@
 		9AC132401DA0EDC300A2BD05 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				7613B5921F784C9E006EA78C /* EmailViewController.swift */,
+				7613B5901F784C9E006EA78C /* GradeViewController.swift */,
+				7613B5911F784C9E006EA78C /* MyProfileViewControllerTableViewController.swift */,
+				7613B5931F784C9E006EA78C /* NameViewController.swift */,
 				9A17BE261D9E20190075EF9F /* SettingsTableViewController.swift */,
 				9A06AB181DB584BA003A5B2E /* SettingsAboutTableViewController.swift */,
 				9A06AB1E1DB67BBC003A5B2E /* SettingsNotificationTableViewController.swift */,
@@ -1877,6 +1912,7 @@
 			files = (
 				5D9F39EC1F1946A700D388D9 /* HistoryTableViewController.swift in Sources */,
 				B6346B491D9E6C5100CBEAE2 /* EaseLocationViewController.m in Sources */,
+				7613B5951F784C9F006EA78C /* MyProfileViewControllerTableViewController.swift in Sources */,
 				B6346B3E1D9E6C5100CBEAE2 /* UIViewController+DismissKeyboard.m in Sources */,
 				B6346B3D1D9E6C5100CBEAE2 /* NSString+Valid.m in Sources */,
 				B6346AF51D9E6C5100CBEAE2 /* amrFileCodec.mm in Sources */,
@@ -1886,6 +1922,7 @@
 				9AE1B05C1DBDCB2F00E9E706 /* M13BadgeView.m in Sources */,
 				9A17BE2C1D9E20190075EF9F /* SignupViewController.swift in Sources */,
 				5D43423D1F266F1700E5CA62 /* CameraShot.swift in Sources */,
+				7613B5A41F784CD2006EA78C /* profilePictureTableViewCell.swift in Sources */,
 				B6346B561D9E6C5100CBEAE2 /* EaseBubbleView+Gif.m in Sources */,
 				9A17BE2A1D9E20190075EF9F /* LoginViewController.swift in Sources */,
 				B6346B2D1D9E6C5100CBEAE2 /* PSTCollectionViewFlowLayout.m in Sources */,
@@ -1893,6 +1930,7 @@
 				301D34EF1F421BAE00C9A395 /* Spinner.swift in Sources */,
 				B6346B601D9E6C5100CBEAE2 /* EaseTextView.m in Sources */,
 				5D4342261F266F1700E5CA62 /* IC_CGPointExtension.swift in Sources */,
+				7613B5961F784C9F006EA78C /* EmailViewController.swift in Sources */,
 				B6346B421D9E6C5100CBEAE2 /* EaseMessageReadManager.m in Sources */,
 				B6346B281D9E6C5100CBEAE2 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				B6346AF31D9E6C5100CBEAE2 /* EMCDDeviceManager+Remind.m in Sources */,
@@ -1926,8 +1964,10 @@
 				B6346B5A1D9E6C5100CBEAE2 /* EaseBubbleView+Video.m in Sources */,
 				B6346B461D9E6C5100CBEAE2 /* EaseEmotionManager.m in Sources */,
 				B6346B0E1D9E6C5100CBEAE2 /* UIView+MJExtension.m in Sources */,
+				7613B59F1F784CD2006EA78C /* gradeTableViewCell.swift in Sources */,
 				B6346B291D9E6C5100CBEAE2 /* PSTCollectionView.m in Sources */,
 				5D43423C1F266F1700E5CA62 /* CameraGlobals.swift in Sources */,
+				7613B5A21F784CD2006EA78C /* profileHeaderTableViewCell.swift in Sources */,
 				B6346B221D9E6C5100CBEAE2 /* UIImage+EMGIF.m in Sources */,
 				B6346B651D9E6C5100CBEAE2 /* EaseConversationCell.m in Sources */,
 				B6346B3C1D9E6C5100CBEAE2 /* NSDateFormatter+Category.m in Sources */,
@@ -1939,6 +1979,7 @@
 				B6346AF21D9E6C5100CBEAE2 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
 				5D4342211F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationOverlay.swift in Sources */,
 				5D43424D1F266F1700E5CA62 /* PhotoLibraryViewController.swift in Sources */,
+				7613B5A31F784CD2006EA78C /* informationHeaderTableViewCell.swift in Sources */,
 				5D4342401F266F1700E5CA62 /* SingleImageFetcher.swift in Sources */,
 				B6346B1E1D9E6C5100CBEAE2 /* EMSDWebImagePrefetcher.m in Sources */,
 				B6346B301D9E6C5100CBEAE2 /* PSTCollectionViewUpdateItem.m in Sources */,
@@ -1976,6 +2017,7 @@
 				B6346B441D9E6C5100CBEAE2 /* EaseEmojiEmoticons.m in Sources */,
 				B6346AF71D9E6C5100CBEAE2 /* EMVoiceConverter.mm in Sources */,
 				B6346B341D9E6C5100CBEAE2 /* PSTGridLayoutSection.m in Sources */,
+				7613B5A01F784CD2006EA78C /* emailTableViewCell.swift in Sources */,
 				B6346AEE1D9E6C5100CBEAE2 /* EMAudioPlayerUtil.m in Sources */,
 				5DE85BB31F2C165E00200C3E /* FloatRatingView.swift in Sources */,
 				B6346B0B1D9E6C5100CBEAE2 /* MJRefreshConst.m in Sources */,
@@ -1987,6 +2029,7 @@
 				B6346B361D9E6C5100CBEAE2 /* EaseSDKHelper.m in Sources */,
 				5D4342441F266F1700E5CA62 /* Utilities.swift in Sources */,
 				5D4342281F266F1700E5CA62 /* IC_UIImageExtensions.swift in Sources */,
+				7613B5A51F784CD2006EA78C /* moreTableViewCell.swift in Sources */,
 				B6346B5C1D9E6C5100CBEAE2 /* EaseBubbleView.m in Sources */,
 				B6346B161D9E6C5100CBEAE2 /* MWZoomingScrollView.m in Sources */,
 				B6346B3B1D9E6C5100CBEAE2 /* NSDate+Category.m in Sources */,
@@ -2028,6 +2071,7 @@
 				B6346AF61D9E6C5100CBEAE2 /* wav.mm in Sources */,
 				B6346B181D9E6C5100CBEAE2 /* EMSDImageCache.m in Sources */,
 				B0303F461F535F330061D7F7 /* TutorConnectedVC.swift in Sources */,
+				7613B5941F784C9F006EA78C /* GradeViewController.swift in Sources */,
 				B6346B451D9E6C5100CBEAE2 /* EaseEmotionEscape.m in Sources */,
 				9A545C891DA0CB2200DEFBC7 /* ConversationTableViewCell.swift in Sources */,
 				9A702B9D1DA3401F005ED10C /* FriendRequestTableViewCell.swift in Sources */,
@@ -2035,6 +2079,8 @@
 				B6346AFF1D9E6C5100CBEAE2 /* MJRefreshFooter.m in Sources */,
 				B6346B0D1D9E6C5100CBEAE2 /* UIScrollView+MJRefresh.m in Sources */,
 				9A17BE2B1D9E20190075EF9F /* MainViewController.swift in Sources */,
+				7613B5A11F784CD2006EA78C /* nameTableViewCell.swift in Sources */,
+				7613B5971F784C9F006EA78C /* NameViewController.swift in Sources */,
 				B6346B001D9E6C5100CBEAE2 /* MJRefreshHeader.m in Sources */,
 				5D43421F1F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationEdge.swift in Sources */,
 				B6346B331D9E6C5100CBEAE2 /* PSTGridLayoutRow.m in Sources */,
@@ -2098,6 +2144,17 @@
 			targetProxy = 9A17BE101D9E1FB70075EF9F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7613B5A61F784CEA006EA78C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7613B5A71F784CEA006EA78C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		9A17BE161D9E1FB70075EF9F /* Debug */ = {
