@@ -9,7 +9,7 @@ class LoginVerificationViewController: UIViewController {
     @IBOutlet weak var resendButton: UIButton!
     @IBOutlet weak var timerLabel: UILabel!
     
-    var mode: String = "Login"
+    var mode: LoginViewControllerMode = .login
     
     var phoneNumber: Int = 6478611125
     
@@ -126,8 +126,8 @@ class LoginVerificationViewController: UIViewController {
                     // cellphone login successful
                     let userInfo = user?.providerData[0]
                     
-                    // log into hyphenate
-                    if self.mode == "Login" {
+                    // log into hyphenate, if mode is signup, perform signup flow
+                    if self.mode == .login {
                         self.hyphenateLogin()
                     } else {
                         self.hyphenateSignup()
@@ -146,9 +146,8 @@ class LoginVerificationViewController: UIViewController {
                 let alert = UIAlertController(title:"Login failure", message: error?.errorDescription, preferredStyle: .alert)
                 
                 if error!.code == EMErrorUserNotFound {
-                    alert.addAction(UIAlertAction(title: "Request code for sign up", style: .default, handler: { (action) in
-                        requestCode(forNumber: String(self.phoneNumber))
-                        self.mode = "Signup"
+                    alert.addAction(UIAlertAction(title: "Sign up and login", style: .default, handler: { (action) in
+                        self.hyphenateSignup()
                     }))
                     alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
                         self.navigationController?.popToRootViewController(animated: true)
@@ -175,9 +174,8 @@ class LoginVerificationViewController: UIViewController {
                 let alert = UIAlertController(title:"Registration Failure", message: error?.errorDescription, preferredStyle: .alert)
                 if error!.code == EMErrorUserAlreadyExist {
                     // user exists
-                    alert.addAction(UIAlertAction(title: "Request code for login", style: .default, handler: { (action) in
-                        requestCode(forNumber: String(self.phoneNumber))
-                        self.mode = "Login"
+                    alert.addAction(UIAlertAction(title: "Log in with \(self.phoneNumber)", style: .default, handler: { (action) in
+                        self.hyphenateLogin()
                     }))
                     alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
                         self.navigationController?.popToRootViewController(animated: true)

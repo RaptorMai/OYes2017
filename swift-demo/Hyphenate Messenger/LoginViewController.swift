@@ -73,7 +73,7 @@ class LoginViewController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let loginPhoneVC = segue.destination as! LoginPhoneNumberViewController
-        loginPhoneVC.mode = segue.identifier!
+        loginPhoneVC.mode = (segue.identifier! == "Login") ? .login : .signup
         navigationController?.navigationBar.isHidden = false
     }
     
