@@ -260,10 +260,20 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
                     newConversation?.insert(newMessage, error: nil)
                 }
             }
-            newConversation?.lastReceivedMessage()?.from = newConversationID
-            // put information inside the last message
-            newConversation?.latestMessage.ext = ["cat": self.category.data(using: .utf8) as Any,
-                                                  "pic": UIImagePNGRepresentation(self.questionimage!) as Any]
+            
+            // new message for ext
+            let newMessage = EMMessage(conversationID: newConversationID,
+                                       from: newConversationID,
+                                       to: "Me",
+                                       body: nil,
+                                       ext: ["cat": self.category,
+                                             "pic": UIImagePNGRepresentation(self.questionimage!)?.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)])
+            newConversation?.insert(newMessage, error: nil)
+            
+//            newConversation?.lastReceivedMessage()?.from = newConversationID
+//            // put information inside the last message
+//            newConversation?.latestMessage.ext = ["cat": self.category.data(using: .utf8) as Any,
+//                                                  "pic": UIImagePNGRepresentation(self.questionimage!) as Any]
         })
         
         // remove the current conversation from database

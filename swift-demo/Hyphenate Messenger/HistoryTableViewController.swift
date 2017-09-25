@@ -149,10 +149,11 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         }
         
         // message is defined in chatTableViewController, as [String:Data]. Keys are 'cat' and 'pic'
-        let messageExt = conversation.latestMessage.ext as? [String:Data]
+        let messageExt = conversation.latestMessage.ext as? [String:String]
         if messageExt != nil {
-            let categoryString = String(data: messageExt!["cat"]!, encoding: .utf8)
-            let image = UIImage(data: messageExt!["pic"]!)
+            let categoryString = messageExt!["cat"]!
+            let imageData: Data = Data(base64Encoded:messageExt!["pic"]!, options:.ignoreUnknownCharacters)!
+            let image = UIImage(data: imageData)
             cell.senderLabel.text = categoryString
             cell.senderImageView.image = image
         }
