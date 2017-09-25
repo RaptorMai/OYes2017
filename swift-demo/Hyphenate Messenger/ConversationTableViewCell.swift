@@ -13,7 +13,7 @@ class ConversationTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        senderImageView.layer.cornerRadius = 25.0
+        senderImageView.layer.cornerRadius = 5
         senderImageView.clipsToBounds = true
     }
 
