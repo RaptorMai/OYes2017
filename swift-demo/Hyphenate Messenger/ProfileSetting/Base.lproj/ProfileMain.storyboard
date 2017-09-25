@@ -14,13 +14,13 @@
         <!--My Profile-->
         <scene sceneID="kA5-zK-sTQ">
             <objects>
-                <tableViewController id="mWg-dV-OOi" customClass="MyProfileViewControllerTableViewController" customModule="ProfileSetting" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="myProfileVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mWg-dV-OOi" customClass="MyProfileViewControllerTableViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="40" sectionHeaderHeight="1" sectionFooterHeight="1" id="5jG-if-Spk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="profileHeaderCell" id="E2y-XA-GMD" customClass="profileHeaderTableViewCell" customModule="ProfileSetting" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="profileHeaderCell" id="E2y-XA-GMD" customClass="profileHeaderTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E2y-XA-GMD" id="ECe-oV-3BX">
@@ -45,7 +45,7 @@
                                     <outlet property="headerLabel" destination="QJq-ZV-OQo" id="mEp-ze-h03"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="profilePictureCell" rowHeight="70" id="pNF-wY-rfk" customClass="profilePictureTableViewCell" customModule="ProfileSetting" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="profilePictureCell" rowHeight="70" id="pNF-wY-rfk" customClass="profilePictureTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="95.5" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pNF-wY-rfk" id="HbX-Yq-Nwr">
@@ -92,7 +92,7 @@
                                     <outlet property="profilePhotoLabel" destination="lVN-Sc-IcT" id="JI2-5H-lRJ"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nameCell" id="9An-8f-HU0" customClass="nameTableViewCell" customModule="ProfileSetting" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nameCell" id="9An-8f-HU0" customClass="nameTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="165.5" width="375" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9An-8f-HU0" id="pBS-Pk-EAA">
@@ -138,7 +138,7 @@
                                     <segue destination="i1v-uf-rCS" kind="show" id="QU1-Tu-pcw"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="informationHeaderCell" id="64l-lr-Et7" customClass="informationHeaderTableViewCell" customModule="ProfileSetting" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="informationHeaderCell" id="64l-lr-Et7" customClass="informationHeaderTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="205.5" width="375" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="64l-lr-Et7" id="iws-n9-5xI">
@@ -163,7 +163,7 @@
                                     <outlet property="informationHeaderLabel" destination="k9W-I9-olv" id="T1x-Uh-YZA"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="gradeCell" id="POB-iD-ssX" customClass="gradeTableViewCell" customModule="ProfileSetting" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="gradeCell" id="POB-iD-ssX" customClass="gradeTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="245.5" width="375" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="POB-iD-ssX" id="XjY-Pi-Mt1">
@@ -209,7 +209,7 @@
                                     <segue destination="yUO-Mk-2ZK" kind="show" id="OQK-cn-EWW"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="emailCell" id="l8F-hi-XkE" customClass="emailTableViewCell" customModule="ProfileSetting" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="emailCell" id="l8F-hi-XkE" customClass="emailTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="285.5" width="375" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l8F-hi-XkE" id="l5C-rZ-570">
@@ -255,7 +255,7 @@
                                     <segue destination="jEI-1n-Kcd" kind="show" id="lU6-6G-YvD"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="moreCell" id="9xt-4C-z98" customClass="moreTableViewCell" customModule="ProfileSetting" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="moreCell" id="9xt-4C-z98" customClass="moreTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="325.5" width="375" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9xt-4C-z98" id="LkL-u3-4QV">
@@ -309,7 +309,7 @@
         <!--Grade-->
         <scene sceneID="lul-Bk-soh">
             <objects>
-                <viewController id="yUO-Mk-2ZK" customClass="GradeViewController" customModule="ProfileSetting" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="yUO-Mk-2ZK" customClass="GradeViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ziB-aP-dbR"/>
                         <viewControllerLayoutGuide type="bottom" id="Vk1-6g-dEn"/>
@@ -328,7 +328,7 @@
         <!--Name-->
         <scene sceneID="Bfo-RI-hbZ">
             <objects>
-                <viewController id="i1v-uf-rCS" customClass="NameViewController" customModule="ProfileSetting" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="i1v-uf-rCS" customClass="NameViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Hol-ZZ-Wke"/>
                         <viewControllerLayoutGuide type="bottom" id="eKu-5l-78g"/>
@@ -395,7 +395,7 @@
         <!--Email-->
         <scene sceneID="AQ9-Yw-aBe">
             <objects>
-                <viewController id="jEI-1n-Kcd" customClass="EmailViewController" customModule="ProfileSetting" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jEI-1n-Kcd" customClass="EmailViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sPD-9C-8Ar"/>
                         <viewControllerLayoutGuide type="bottom" id="Bh9-FC-TDy"/>
@@ -414,7 +414,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Bsk-1U-7WF">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tun-kk-LtI" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navigationVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tun-kk-LtI" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QDp-28-5qY">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

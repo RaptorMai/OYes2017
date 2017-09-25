@@ -50,10 +50,12 @@ class SettingsTableViewController: UITableViewController {
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
+            // My Profile TODO: don't use conversation table view cell, better make a new one
             let cell:ConversationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath) as! ConversationTableViewCell
-            cell.senderLabel.text = "Marco"
+            cell.senderLabel.text = "Jerry"
             cell.badgeView.isHidden = true
             cell.timeLabel.isHidden = true
+            cell.senderImageView.image = UIImage(named: "jerryProfile")
             cell.lastMessageLabel.isHidden = true
             return cell
         }
@@ -78,8 +80,11 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            let myProfileVC = MyProfileViewControllerTableViewController()
-                navigationController?.pushViewController(myProfileVC, animated: true)
+            // My Profile
+            let StoryBoard = UIStoryboard(name:"ProfileMain",bundle:nil)
+            let myProfileVC = StoryBoard.instantiateViewController(withIdentifier: "myProfileVC") 
+
+            navigationController?.pushViewController(myProfileVC, animated: true)
         case 1:
             let settingsAboutVC = SettingsAboutTableViewController()
             navigationController?.pushViewController(settingsAboutVC, animated: true)

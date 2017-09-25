@@ -14,11 +14,6 @@ class MyProfileViewControllerTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(UINib(nibName: "profilePictureTableViewCell", bundle: nil), forCellReuseIdentifier: "profilePictureCell")
-        self.tableView.register(UINib(nibName: "nameTableViewCell", bundle: nil), forCellReuseIdentifier: "nameCell")
-        self.tableView.register(UINib(nibName: "gradeTableViewCell", bundle: nil), forCellReuseIdentifier: "gradeCell")
-        self.tableView.register(UINib(nibName: "emailTableViewCell", bundle: nil), forCellReuseIdentifier: "emailCell")
-        self.tableView.register(UINib(nibName: "moreTableViewCell", bundle: nil), forCellReuseIdentifier: "moreCell")
     }
 
     // MARK: - Table view data source

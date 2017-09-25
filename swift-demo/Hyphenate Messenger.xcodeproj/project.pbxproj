@@ -69,8 +69,9 @@
 		7613B5A11F784CD2006EA78C /* nameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B59A1F784CD1006EA78C /* nameTableViewCell.swift */; };
 		7613B5A21F784CD2006EA78C /* profileHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B59B1F784CD1006EA78C /* profileHeaderTableViewCell.swift */; };
 		7613B5A31F784CD2006EA78C /* informationHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B59C1F784CD1006EA78C /* informationHeaderTableViewCell.swift */; };
-		7613B5A41F784CD2006EA78C /* profilePictureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B59D1F784CD1006EA78C /* profilePictureTableViewCell.swift */; };
 		7613B5A51F784CD2006EA78C /* moreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B59E1F784CD2006EA78C /* moreTableViewCell.swift */; };
+		7613B5A81F784F90006EA78C /* profilePictureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7613B59D1F784CD1006EA78C /* profilePictureTableViewCell.swift */; };
+		7613B5AE1F7894DA006EA78C /* ProfileMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7613B5AC1F7894DA006EA78C /* ProfileMain.storyboard */; };
 		9A06AB191DB584BA003A5B2E /* SettingsAboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB181DB584BA003A5B2E /* SettingsAboutTableViewController.swift */; };
 		9A06AB1C1DB58606003A5B2E /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB1A1DB58606003A5B2E /* LabelTableViewCell.swift */; };
 		9A06AB1D1DB58606003A5B2E /* LabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A06AB1B1DB58606003A5B2E /* LabelTableViewCell.xib */; };
@@ -348,7 +349,7 @@
 		7613B59C1F784CD1006EA78C /* informationHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = informationHeaderTableViewCell.swift; path = ProfileSetting/informationHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		7613B59D1F784CD1006EA78C /* profilePictureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = profilePictureTableViewCell.swift; path = ProfileSetting/profilePictureTableViewCell.swift; sourceTree = "<group>"; };
 		7613B59E1F784CD2006EA78C /* moreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = moreTableViewCell.swift; path = ProfileSetting/moreTableViewCell.swift; sourceTree = "<group>"; };
-		7613B5A71F784CEA006EA78C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ProfileSetting/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7613B5AD1F7894DA006EA78C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ProfileSetting/Base.lproj/ProfileMain.storyboard; sourceTree = "<group>"; };
 		8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hyphenate_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A06AB181DB584BA003A5B2E /* SettingsAboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAboutTableViewController.swift; sourceTree = "<group>"; };
 		9A06AB1A1DB58606003A5B2E /* LabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTableViewCell.swift; sourceTree = "<group>"; };
@@ -859,6 +860,7 @@
 		9A17BDEF1D9E1FB70075EF9F /* Hyphenate Messenger */ = {
 			isa = PBXGroup;
 			children = (
+				7613B5AC1F7894DA006EA78C /* ProfileMain.storyboard */,
 				9A37B30B1DCF205A00A781EE /* Hyphenate Messenger.entitlements */,
 				5D4341DE1F266F1700E5CA62 /* AKImageCropperView */,
 				5D4341EF1F266F1700E5CA62 /* ALCameraViewController */,
@@ -869,7 +871,6 @@
 				9A17BE361D9E20C50075EF9F /* View */,
 				9A17BE211D9E200B0075EF9F /* View Controllers */,
 				9A17BDF01D9E1FB70075EF9F /* AppDelegate.swift */,
-				7613B5A61F784CEA006EA78C /* Main.storyboard */,
 				9A17BDFF1D9E1FB70075EF9F /* Info.plist */,
 				9A17BDF71D9E1FB70075EF9F /* Hyphenate_Messenger.xcdatamodeld */,
 				B634674A1D9E4AD500CBEAE2 /* Hyphenate-Bridging-Header.h */,
@@ -1785,6 +1786,7 @@
 				9A2E70B31DA2250D00D3EE94 /* ProfileSwitchTableViewCell.xib in Resources */,
 				5D43423B1F266F1700E5CA62 /* CameraViewAssets.xcassets in Resources */,
 				9A702BA01DA370FC005ED10C /* requestHeaderView.xib in Resources */,
+				7613B5AE1F7894DA006EA78C /* ProfileMain.storyboard in Resources */,
 				9AC132391DA0DFE500A2BD05 /* SwitchTableViewCell.xib in Resources */,
 				9A702B9E1DA3401F005ED10C /* FriendRequestTableViewCell.xib in Resources */,
 				9A2E70AF1DA224FA00D3EE94 /* ProfileNameTableViewCell.xib in Resources */,
@@ -1922,7 +1924,6 @@
 				9AE1B05C1DBDCB2F00E9E706 /* M13BadgeView.m in Sources */,
 				9A17BE2C1D9E20190075EF9F /* SignupViewController.swift in Sources */,
 				5D43423D1F266F1700E5CA62 /* CameraShot.swift in Sources */,
-				7613B5A41F784CD2006EA78C /* profilePictureTableViewCell.swift in Sources */,
 				B6346B561D9E6C5100CBEAE2 /* EaseBubbleView+Gif.m in Sources */,
 				9A17BE2A1D9E20190075EF9F /* LoginViewController.swift in Sources */,
 				B6346B2D1D9E6C5100CBEAE2 /* PSTCollectionViewFlowLayout.m in Sources */,
@@ -1976,6 +1977,7 @@
 				9A17BDF11D9E1FB70075EF9F /* AppDelegate.swift in Sources */,
 				9A17BE301D9E20190075EF9F /* HyphenateMessengerHelper.swift in Sources */,
 				B6346B1F1D9E6C5100CBEAE2 /* MKAnnotationView+EMWebCache.m in Sources */,
+				7613B5A81F784F90006EA78C /* profilePictureTableViewCell.swift in Sources */,
 				B6346AF21D9E6C5100CBEAE2 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
 				5D4342211F266F1700E5CA62 /* AKImageCropperOverlayViewConfigurationOverlay.swift in Sources */,
 				5D43424D1F266F1700E5CA62 /* PhotoLibraryViewController.swift in Sources */,
@@ -2146,12 +2148,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		7613B5A61F784CEA006EA78C /* Main.storyboard */ = {
+		7613B5AC1F7894DA006EA78C /* ProfileMain.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7613B5A71F784CEA006EA78C /* Base */,
+				7613B5AD1F7894DA006EA78C /* Base */,
 			);
-			name = Main.storyboard;
+			name = ProfileMain.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
