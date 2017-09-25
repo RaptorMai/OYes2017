@@ -2,6 +2,11 @@ import Foundation
 import Firebase
 import Hyphenate
 
+enum LoginViewControllerMode {
+    case login
+    case signup
+}
+
 // MARK: - Verification code request
 func requestCode(forNumber num: String) {
     // checking phone number directly is fine: this function should never be called before verifying phone number

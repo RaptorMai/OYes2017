@@ -8,6 +8,11 @@ import Hyphenate
 import Firebase
 import Stripe
 
+struct Platform {
+    static var isSimulator: Bool {
+        return TARGET_OS_SIMULATOR != 0
+    }
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

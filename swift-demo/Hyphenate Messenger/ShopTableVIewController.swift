@@ -170,13 +170,13 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             cell.backgroundColor = theme.secondaryBackgroundColor
             cell.textLabel?.text = product
             cell.textLabel?.font = theme.font
-            cell.textLabel?.textColor = theme.primaryForegroundColor
+            cell.textLabel?.textColor = UIColor.black
             // cell.detailTextLabel?.text = "$\(price/100).00"
             // cell.accessoryType = .disclosureIndicator
-            cell.accessoryType = UITableViewCellAccessoryType.none
+            cell.accessoryType = .none
             
             // to make it non selectable
-            cell.selectionStyle = UITableViewCellSelectionStyle.none;
+            cell.selectionStyle = .none;
             
             let priceButton = UIButton(type: .custom)
             
@@ -188,7 +188,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             priceButton.setTitle("$\(price/100)", for: .normal)
             priceButton.setTitleColor(theme.buttonColor, for:.normal )
             priceButton.addTarget(self, action: #selector(ShopTableViewController.payAlert(_:)), for: .touchUpInside)
-            priceButton.frame = CGRect(x: 300, y: 7, width: 60, height: 30)
+            priceButton.frame = CGRect(x: UIScreen.main.bounds.size.width * 0.81, y: 7, width: 60, height: 30)
             priceButton.tag = price
             cell.addSubview(priceButton)
             
@@ -273,14 +273,12 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         //Add image to mutable string
         completeText.append(attachmentString)
         //Add your text to mutable string
-        let  textAfterIcon = NSMutableAttributedString(string: "Balance : " + "\(self.balance)")
+        let  textAfterIcon = NSMutableAttributedString(string: "Balance: \(self.balance) minutes")
         completeText.append(textAfterIcon)
         label.textAlignment = .center;
         label.attributedText = completeText;
-        label.frame = CGRect(x:0, y: 0, width: UIScreen.main.bounds.size.width/2, height: UIScreen.main.bounds.size.height * 0.10*0.5)
+        label.frame = CGRect(x:0, y: 0, width: UIScreen.main.bounds.size.width*0.8, height: UIScreen.main.bounds.size.height * 0.10*0.5)
         label.center = view.center
-        label.center.x = view.center.x
-        label.center.y = view.center.y
         //label.backgroundColor = UIColor.white
         
         view.addSubview(label)
@@ -296,7 +294,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         print("which button is pressed \(sender.tag)")
         
         let title = "Confirm Purchase"
-        let message = "Proceed to purchase package for \(String(describing: String(sender.currentTitle!)))?"
+        let message = "Proceed to purchase package for \(sender.currentTitle!)?"
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
         let amount:Int? = Int(sender.tag)
