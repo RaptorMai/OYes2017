@@ -78,7 +78,7 @@ class LoginViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        return carrierServiceExists()
+        return Platform.isSimulator || carrierServiceExists()
     }
 }
 

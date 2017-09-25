@@ -111,6 +111,12 @@ class LoginVerificationViewController: UIViewController {
     /// The verification key should have been saved by helper reqeustCode(forNumber:), and stored in userDefaults under "authVID". It then uess firebase API to authenticate. After authentication, it calls hyphenate API to login/register user depending on the operation mode (self.mode) of this VC
     @IBAction func verifyCode(sender: UIButton) {
         view.endEditing(true)
+        // simulator support, just login
+        if Platform.isSimulator {
+            hyphenateLogin()
+            return
+        }
+        
         // show hud
         showHud(in: view, hint: "Verifying")
         // key is stored while requesting for the verification code
