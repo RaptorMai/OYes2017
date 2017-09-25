@@ -84,7 +84,6 @@ class SettingsVC: UITableViewController {
                 navigationController?.pushViewController(openWebPageVC, animated: true)
             case 1:
                 let settingFeedbackVC = SendFeedbackController()
-                settingFeedbackVC.sendFeedback()
                 //navigationController?.popViewController(animated: true)
                 //navigationController?.pushViewController(settingFeedbackVC, animated: true)
                 self.present(settingFeedbackVC, animated: true, completion: nil)
@@ -92,7 +91,15 @@ class SettingsVC: UITableViewController {
             default:break
             }
         case 3:
-            logoutAction()
+            //An alert window will appear if the user click the log out button.
+            let alertController = UIAlertController(title: "Logout", message: "Are you sure you want to log out?", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Logout", style: .default) { (action) in self.logoutAction()}
+            alertController.addAction(okAction)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+            alertController.addAction(cancelAction)
+            tabBarController!.present(alertController, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
+            
         default:break
             
         }
@@ -130,13 +137,6 @@ class SettingsVC: UITableViewController {
     }
     */
     
-    
-//    func openWebsite() {
-//        let myWebView: UIWebView
-//        let url = "https://www.instasolve.ca/"
-//        //let myWebView = UIWebView()
-//        //UIApplication.shared.open(NSURL(string:url)! as URL, options: [:])
-//        my WebView.loadRequest(URLRequest(url: URL(string: url)! as URL))
-//    }
+
 
 }

@@ -24,6 +24,7 @@ class LoginVC: UIViewController {
         label.textColor = UIColor.black
         label.font = UIFont(name: "Helvetica", size: 25)
         label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -120,6 +121,11 @@ class LoginVC: UIViewController {
                 if error != nil {
                     print (" error: \(String(describing: error?.localizedDescription))")
 
+                    //An alert window will appear if the account infomation is invalid.
+                    let alertAccountController = UIAlertController(title: "Login", message: "Password is incorrect or the account does not exist.", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default) { (action) in }
+                    alertAccountController.addAction(okAction)
+                    self.present(alertAccountController, animated: true)
 
                 }
                 else{

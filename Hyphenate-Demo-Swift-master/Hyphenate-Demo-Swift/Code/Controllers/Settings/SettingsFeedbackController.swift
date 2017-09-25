@@ -12,35 +12,31 @@ import UIKit
 
 class SendFeedbackController: UIViewController, MFMailComposeViewControllerDelegate{
     // MARK: - View Did Load
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        if !MFMailComposeViewController.canSendMail(){
-//            print("Mail services are not available")
-//            self.showSendMailErrorAlert()
-//            return
-//        } else {
-//            sendFeedback()
-//        }
-//    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if !MFMailComposeViewController.canSendMail(){
+            print("Mail services are not available")
+            self.showSendMailErrorAlert()
+            return
+        } else {
+            sendFeedback()
+            
+        }
+    }
     
     
     // MARK - Functions
     
     // send Feedback
     func sendFeedback(){
-//        let composeVC = MFMailComposeViewController()
-//        composeVC.mailComposeDelegate = self
-//        // Configure the fields of the interface
-//        composeVC.setToRecipients(["instasolve1@gmail.com"])
-//        composeVC.setSubject("Feedback - InstaSolve")
-//        composeVC.setMessageBody("Please leave us your precious feedback!", isHTML: false)
-//        self.present(composeVC, animated: true, completion:nil)
-        let mailComposeViewController = configuredMailComposeViewController()
-        if MFMailComposeViewController.canSendMail() {
-            self.present(mailComposeViewController, animated: true, completion: nil)
-        } else {
-            self.showSendMailErrorAlert()
-        }
+        let composeVC = MFMailComposeViewController()
+        composeVC.mailComposeDelegate = self
+        // Configure the fields of the interface
+        composeVC.setToRecipients(["instasolve1@gmail.com"])
+        composeVC.setSubject("Feedback - InstaSolve")
+        composeVC.setMessageBody("Please leave us your precious feedback!", isHTML: false)
+        self.present(composeVC, animated: true, completion:nil)
+
     }
     
     // error handler
@@ -63,6 +59,9 @@ class SendFeedbackController: UIViewController, MFMailComposeViewControllerDeleg
     
     // dimiss controller
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        //Dismiss the black view controller.
+        self.presentingViewController?.dismiss(animated: false, completion: nil)
+        
         switch result {
         case MFMailComposeResult.cancelled:
             print("Mail cancelled")
@@ -75,8 +74,6 @@ class SendFeedbackController: UIViewController, MFMailComposeViewControllerDeleg
         default:
             break
         }
-        let parentVC = self.presentingViewController
-        parentVC?.dismiss(animated: true, completion: nil)
         // Dismiss mail view controller and back to setting page
         controller.dismiss(animated:true, completion: nil)
     }
