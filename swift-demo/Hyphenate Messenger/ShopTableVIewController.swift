@@ -34,6 +34,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     var products = [String]()
     var prices = [Int]()
     let theme = Theme()
+    let balanceLabel = UILabel()
     
     var uid = "+1" + EMClient.shared().currentUsername!
     var price = 0
@@ -150,6 +151,15 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         self.navigationItem.backBarButtonItem?.setTitleTextAttributes(buttonAttributes, for: UIControlState())
         //self.tableView.separatorColor = theme.primaryBackgroundColor
         self.tableView.reloadData()
+        
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Show the navigation bar on other view controllers
+        self.hideHud()
+        products.removeAll()
+        prices.removeAll()
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -260,7 +270,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         view.translatesAutoresizingMaskIntoConstraints = false
         //view.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor).isActive = true
         view.backgroundColor = theme.buttonColor
-        let label = UILabel()
+        
         let imageAttachment =  NSTextAttachment()
         imageAttachment.image = UIImage(named:"Balance2")
         //Set bound to reposition
@@ -274,14 +284,17 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         completeText.append(attachmentString)
         //Add your text to mutable string
         let  textAfterIcon = NSMutableAttributedString(string: "Balance: \(self.balance) minutes")
+        let range = ("Balance: \(self.balance) minutes" as NSString).range(of: "Balance: \(self.balance) minutes"
+        )
+        textAfterIcon.addAttribute(NSForegroundColorAttributeName, value: UIColor.white , range: range)
         completeText.append(textAfterIcon)
-        label.textAlignment = .center;
-        label.attributedText = completeText;
-        label.frame = CGRect(x:0, y: 0, width: UIScreen.main.bounds.size.width*0.8, height: UIScreen.main.bounds.size.height * 0.10*0.5)
-        label.center = view.center
+        balanceLabel.textAlignment = .center;
+        balanceLabel.attributedText = completeText;
+        balanceLabel.frame = CGRect(x:0, y: 0, width: UIScreen.main.bounds.size.width*0.8, height: UIScreen.main.bounds.size.height * 0.10*0.5)
+        balanceLabel.center = view.center
         //label.backgroundColor = UIColor.white
         
-        view.addSubview(label)
+        view.addSubview(balanceLabel)
         return view
     }
     
@@ -313,8 +326,8 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         print("pay button clicked")
         print(uid)
         
-        _ = MKFullSpinner.show("Processing your payment now", view: self.view)
-        
+        //_ = MKFullSpinner.show("Processing your payment now", view: self.view)
+        showHud(in: view, hint: "Purchasing")
         ref = Database.database().reference()
         ref?.child("users").child(uid).child("payments").observeSingleEvent(of: .value, with: { (snapshot) in
             
@@ -384,19 +397,29 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                 if (postDict == "succeeded"){
                     // dismiss loading page
                     
-                    MKFullSpinner.hide()
-                    
+                    //MKFullSpinner.hide()
+                    self.hideHud()
+                    self.ref?.child("users/\(self.uid)/balance").observe(DataEventType.value, with: { (snapshot) in
+                        self.balance = (snapshot.value as? Int)!
+                        self.tableView.reloadSections(IndexSet(0..<1), with: .automatic)
+                    }){ (error) in
+                        //print(error.localizedDescription)
+                        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                        let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                        alert.addAction(okay)
+                        self.present(alert, animated: true, completion: nil)
+                    }
                     // send alert
                     let title = "Payment Successed"
                     let message = "You have purchased \(self.product) package for $\(amount/100).00"
                     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
                     self.present(alert, animated: true, completion: nil)
-                    
                 } else {
                     print("postDict\(String(describing: postDict))")
                     
-                    MKFullSpinner.hide()
+                    //MKFullSpinner.hide()
+                    self.hideHud()
                     let title = "Payment Failed"
                     let message = "Please try again"
                     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
