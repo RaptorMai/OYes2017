@@ -24,6 +24,7 @@ class SendFeedbackController: UIViewController, MFMailComposeViewControllerDeleg
     }
     
     
+    
     // MARK - Functions
     
     // send Feedback
@@ -60,19 +61,9 @@ class SendFeedbackController: UIViewController, MFMailComposeViewControllerDeleg
         }
         // Dismiss mail view controller and back to setting page
 
-        
-        
-        
         let parentVC = self.presentingViewController
         parentVC?.dismiss(animated:true, completion: nil)
         
-        //self.dismiss(animated: true, completion: nil)
-        //controller.present(settingVC!, animated: true, completion: nil)
-//
-        
-        //navigationController?.present(settingVC, animated: true, completion: nil)
-//        print("hello")
-        //self.dismiss(animated: true, completion: nil)
     }
 
 }

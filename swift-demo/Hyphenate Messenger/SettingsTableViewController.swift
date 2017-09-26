@@ -1,8 +1,10 @@
 
 import UIKit
+import MessageUI
+import Foundation
 
 
-class SettingsTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController, MFMailComposeViewControllerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,13 +17,18 @@ class SettingsTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "SwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "switchCell")
         self.tableView.register(UINib(nibName: "LabelTableViewCell", bundle: nil), forCellReuseIdentifier: "labelCell")
         
-
-        
+        self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "conversationCell")
     }
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Settings"
+        self.tabBarController?.tabBar.isHidden = false
+        
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     
     // MARK: - Table view data source
@@ -42,12 +49,25 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section != 3{
-            let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            cell.textLabel?.text = self.data[indexPath.section][indexPath.row][1] as? String
-            cell.imageView?.image = self.data[indexPath.section][indexPath.row][0] as? UIImage
-            
-            cell.accessoryType = .disclosureIndicator
-            return cell}
+            if indexPath.section == 0 {
+                // My Profile TODO: don't use conversation table view cell, better make a new one
+                let cell:ConversationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath) as! ConversationTableViewCell
+                cell.senderLabel.text = "Jerry"
+                cell.badgeView.isHidden = true
+                cell.timeLabel.isHidden = true
+                cell.senderImageView.image = UIImage(named: "jerryProfile")
+                cell.senderImageView.contentMode = .scaleAspectFill
+                cell.lastMessageLabel.isHidden = true
+                return cell
+            } else{
+                let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+                cell.textLabel?.text = self.data[indexPath.section][indexPath.row][1] as? String
+                cell.imageView?.image = self.data[indexPath.section][indexPath.row][0] as? UIImage
+                
+                cell.accessoryType = .disclosureIndicator
+                return cell
+            }
+        }
         else{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = self.data[indexPath.section][indexPath.row][0] as? String
@@ -65,11 +85,10 @@ class SettingsTableViewController: UITableViewController {
         // section 0
         case 0:
             if indexPath.row == 0{
-//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                let controller = storyboard.instantiateViewController(withIdentifier: "MyProfileViewControllerTableViewController")
-//                self.present(controller, animated: true, completion: nil)
-                let profilePageVc = MyProfileViewControllerTableViewController()
-                self.navigationController?.pushViewController(profilePageVc, animated: true)
+                let StoryBoard = UIStoryboard(name:"ProfileMain",bundle:nil)
+                let myProfileVC = StoryBoard.instantiateViewController(withIdentifier: "myProfileVC")
+                tabBarController?.navigationController?.pushViewController(myProfileVC, animated: true)
+                //self.navigationController?.pushViewController(myProfileVC, animated: true)
                 
             }
         // section 1
@@ -82,14 +101,19 @@ class SettingsTableViewController: UITableViewController {
             case 0:
                 let openMainPageVc = OpenUrlViewController()
                 openMainPageVc.url = "https://www.instasolve.ca/"
-                self.navigationController?.pushViewController(openMainPageVc, animated: true)
+                tabBarController?.navigationController?.pushViewController(openMainPageVc, animated: true)
+                self.tabBarController?.tabBar.isHidden = true
+                
+                
             // Feedback
             case 1:
-            
-                let sendFeedbackVC = SendFeedbackController()
-                //navigationController?.pushViewController(sendFeedbackVC, animated: false)
-                self.present(sendFeedbackVC, animated: true, completion: nil)
-                //self.present(sendFeedbackVC, animated: true, completion: nil)
+                if !MFMailComposeViewController.canSendMail(){
+                    print("Mail services are not available")
+                    self.showSendMailErrorAlert()
+                    return
+                } else {
+                    sendFeedback()
+                }
             // Rate us
             case 2:
                 break
@@ -105,6 +129,14 @@ class SettingsTableViewController: UITableViewController {
             createAlert()
         default:break
         }
+    }
+    
+    // change Height of Profile Picture Cell
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath.section == 0 && indexPath.row == 0){
+            return 80
+        }
+        return 40
     }
     
     
@@ -135,16 +167,48 @@ class SettingsTableViewController: UITableViewController {
     
     func createAlert (){
         let alert = UIAlertController(title: "Log Out InstaSolve?", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addAction(UIAlertAction(title:"Yes", style: UIAlertActionStyle.default, handler:{(action:UIAlertAction) in self.logoutAction()}))
-        
+        alert.addAction(UIAlertAction(title:"Log Out", style: UIAlertActionStyle.default, handler:{(action:UIAlertAction) in self.logoutAction()}))
         alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertActionStyle.default, handler:nil))
-        
         self.present(alert, animated: true, completion: nil)
-
-        
-        
     }
+    
+    // MARK: - Send FeedBack Module
+    // send Feedback
+    func sendFeedback(){
+        let composeVC = MFMailComposeViewController()
+        composeVC.mailComposeDelegate = self
+        // Configure the fields of the interface
+        composeVC.setToRecipients(["instasolve1@gmail.com"])
+        composeVC.setSubject("Feedback - InstaSolve")
+        composeVC.setMessageBody("Please leave us your precious feedback!", isHTML: false)
+        self.present(composeVC, animated: true, completion:nil)
+    }
+    
+    // error handler
+    func showSendMailErrorAlert(){
+        let sendMailErrorAlert = UIAlertController(title: "Mail cannot be sent", message: "Mailbox is not setup properly", preferredStyle: .alert )
+        sendMailErrorAlert.addAction(UIAlertAction(title: "Yes", style: .default) {_ in})
+        self.present(sendMailErrorAlert, animated: true)
+    }
+    
+    // dimiss controller
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result {
+        case MFMailComposeResult.cancelled:
+            print("Mail cancelled")
+        case MFMailComposeResult.saved:
+            print("Mail saved")
+        case MFMailComposeResult.sent:
+            print("Mail sent")
+        case MFMailComposeResult.failed:
+            print("Mail sent failure")
+        default:
+            break
+        }
+        // Dismiss mail view controller and back to setting page
+        self.dismiss(animated:true, completion: nil)
+    }
+
     
     
 }

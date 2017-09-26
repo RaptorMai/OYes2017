@@ -14,7 +14,7 @@
         <!--My Profile-->
         <scene sceneID="kA5-zK-sTQ">
             <objects>
-                <tableViewController id="mWg-dV-OOi" customClass="MyProfileViewControllerTableViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="myProfileVC" storyboardIdentifier="myProfileVC" id="mWg-dV-OOi" customClass="MyProfileViewControllerTableViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="40" sectionHeaderHeight="1" sectionFooterHeight="1" id="5jG-if-Spk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -90,6 +90,7 @@
                                 <connections>
                                     <outlet property="profileImageView" destination="NYa-Nb-SGB" id="afF-aU-x0h"/>
                                     <outlet property="profilePhotoLabel" destination="lVN-Sc-IcT" id="JI2-5H-lRJ"/>
+                                    <segue destination="ecy-QU-M6Y" kind="show" id="YQh-BZ-zVt"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nameCell" id="9An-8f-HU0" customClass="nameTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
@@ -135,7 +136,6 @@
                                 <connections>
                                     <outlet property="nameCellLabel" destination="wk0-Yf-Z5s" id="Gly-ie-y65"/>
                                     <outlet property="userNameLabel" destination="VkC-bc-lGR" id="x2q-eA-ODl"/>
-                                    <segue destination="i1v-uf-rCS" kind="show" id="QU1-Tu-pcw"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="informationHeaderCell" id="64l-lr-Et7" customClass="informationHeaderTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
@@ -206,7 +206,6 @@
                                 <connections>
                                     <outlet property="gradeCellLabel" destination="cMV-0F-HrN" id="Q4P-9B-QYA"/>
                                     <outlet property="userGraderLabel" destination="0hp-kZ-beO" id="S7R-yK-p7i"/>
-                                    <segue destination="yUO-Mk-2ZK" kind="show" id="OQK-cn-EWW"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="emailCell" id="l8F-hi-XkE" customClass="emailTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
@@ -252,7 +251,6 @@
                                 <connections>
                                     <outlet property="emailCellLabel" destination="F1Z-p4-NUf" id="Zp5-O7-SB8"/>
                                     <outlet property="userEmailLabel" destination="uM7-Xa-nXq" id="PC9-B3-Low"/>
-                                    <segue destination="jEI-1n-Kcd" kind="show" id="lU6-6G-YvD"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="moreCell" id="9xt-4C-z98" customClass="moreTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
@@ -291,7 +289,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="moreCellLabel" destination="Xgf-q9-zI8" id="YNX-sG-VZJ"/>
-                                    <segue destination="wAe-hx-fmw" kind="show" id="iP6-c8-RFW"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -336,32 +333,56 @@
                     <view key="view" contentMode="scaleToFill" id="AJY-1q-r0k">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" text="JerryGor" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Bv7-2e-dJ4">
-                                <rect key="frame" x="16" y="74" width="343" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="pHs-7e-Vj4"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Bv7-2e-dJ4" firstAttribute="top" secondItem="Hol-ZZ-Wke" secondAttribute="bottom" constant="10" id="dWg-0s-y70"/>
-                            <constraint firstItem="Bv7-2e-dJ4" firstAttribute="leading" secondItem="AJY-1q-r0k" secondAttribute="leadingMargin" id="iwU-Io-mep"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Bv7-2e-dJ4" secondAttribute="trailing" id="mYd-9D-MsF"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Name" id="87w-fm-QZi"/>
-                    <connections>
-                        <outlet property="nameChangTextView" destination="Bv7-2e-dJ4" id="NRq-Im-ffD"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewY-gz-fgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1790" y="45"/>
+        </scene>
+        <!--Photo-->
+        <scene sceneID="VAl-LF-bax">
+            <objects>
+                <viewController id="ecy-QU-M6Y" customClass="ProfileSettingViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="O2m-pp-OFl"/>
+                        <viewControllerLayoutGuide type="bottom" id="lsP-LC-noA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Wl2-qf-PGP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jerryProfile" translatesAutoresizingMaskIntoConstraints="NO" id="jKh-rW-qfs">
+                                <rect key="frame" x="50" y="164" width="275" height="275"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="jKh-rW-qfs" secondAttribute="height" multiplier="1:1" id="4Ed-ZG-rWI"/>
+                                    <constraint firstAttribute="width" secondItem="jKh-rW-qfs" secondAttribute="height" multiplier="1:1" id="w9b-Il-7tH"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jKh-rW-qfs" firstAttribute="top" secondItem="O2m-pp-OFl" secondAttribute="bottom" constant="100" id="0Fs-5a-9l5"/>
+                            <constraint firstAttribute="trailing" secondItem="jKh-rW-qfs" secondAttribute="trailing" constant="50" id="AfL-gG-BMs"/>
+                            <constraint firstItem="jKh-rW-qfs" firstAttribute="leading" secondItem="Wl2-qf-PGP" secondAttribute="leading" constant="50" id="ec4-Ki-V29"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Photo" id="tRa-Z2-yFd">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="camera" id="lSf-g1-RO4">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="tapCameraButton:" destination="ecy-QU-M6Y" id="vTe-kd-dFx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="jKh-rW-qfs" id="bZP-wt-TOY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="80d-dm-ACy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="975" y="-618"/>
         </scene>
         <!--More Settings-->
         <scene sceneID="lFD-3m-0OC">
@@ -432,5 +453,6 @@
     </scenes>
     <resources>
         <image name="icon right" width="7" height="10"/>
+        <image name="jerryProfile" width="1824" height="2736"/>
     </resources>
 </document>

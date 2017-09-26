@@ -8,11 +8,20 @@
 
 import UIKit
 import WebKit
+
 class OpenUrlViewController: UIViewController, WKUIDelegate {
     
     var url : String?
     
     var webView: WKWebView!
+    
+    // MARK: - Navigation Bar and Tab Bar
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "Help"
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.tabBarController?.tabBar.isHidden = true
+    }
     
     override func loadView() {
         let webConfiguration = WKWebViewConfiguration()
@@ -25,6 +34,7 @@ class OpenUrlViewController: UIViewController, WKUIDelegate {
         
         let myURL = URL(string: url!)
         let myRequest = URLRequest(url: myURL!)
+    
         webView.load(myRequest)
     }}
 

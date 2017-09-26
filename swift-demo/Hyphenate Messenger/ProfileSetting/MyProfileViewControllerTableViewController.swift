@@ -13,9 +13,22 @@ class MyProfileViewControllerTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    // MARK: - Table navigation bar
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //self.tabBarController?.navigationItem.title = "My Profile"
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+        
+    }
+    
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+    }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
