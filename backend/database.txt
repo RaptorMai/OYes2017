@@ -29,6 +29,8 @@ notes: tid(tutor id), qid(question id), sid(student id)
 
 4. users:
     <sid>:
+        username:
+        grade:
         profilepicURL:
         balance:
         payments:
