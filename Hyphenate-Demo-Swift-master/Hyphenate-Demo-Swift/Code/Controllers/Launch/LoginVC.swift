@@ -33,12 +33,12 @@ class LoginVC: UIViewController {
         Instructions.topAnchor.constraint(equalTo: view.topAnchor, constant:125).isActive = true
         Instructions.widthAnchor.constraint(equalToConstant: screenWidth*0.8).isActive = true
     }
-
+    
     let Username: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Email Address"
         return tf
-
+        
     }()
     
     func setupUsername(){
@@ -119,8 +119,8 @@ class LoginVC: UIViewController {
             Auth.auth().signIn(withEmail: Username.text!, password: Password.text!) { (user, error) in
                 if error != nil {
                     print (" error: \(String(describing: error?.localizedDescription))")
-
-
+                    
+                    
                 }
                 else{
                     var usernameNoSign = self.Username.text!.replacingOccurrences(of: "@", with: "")
@@ -133,6 +133,13 @@ class LoginVC: UIViewController {
                         if error == nil {
                             EMClient.shared().options.isAutoLogin = true
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue:KNOTIFICATION_LOGINCHANGE), object: NSNumber(value: true))
+                            //Save token to firebase
+                            if let tokenNotNil = self.token{
+                                let addToken = ["token": tokenNotNil] as [String: String?]
+                                self.ref?.child("tutors/\(usernameNoSign)").updateChildValues(addToken)
+                            }
+                            let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
+                            self.present(homeVC, animated: true, completion: nil)
                         } else {
                             
                             var alertStr = ""
@@ -161,26 +168,6 @@ class LoginVC: UIViewController {
                             alertView.show()  
                         }
                     }
-                    
-                    
-                    //Save token to firebase
-                    if let tokenNotNil = self.token{
-                        
-                    let addToken = ["token": tokenNotNil] as [String: String?]
-                        self.ref?.child("tutors/\(usernameNoSign)").updateChildValues(addToken)
-                    
-                    
-                    }
-                    
-                    
-                    
-                    
-                    let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
-
-                    
-                    self.present(homeVC, animated: true, completion: nil)
-                    
-
                 }
             }
         }
@@ -234,9 +221,9 @@ class LoginVC: UIViewController {
         
         hideKeyboardWhenTappedAround()
         
-
+        
     }
-
+    
 }
 
 //extension to be able to tap outside of uitextview to dismiss keyboard

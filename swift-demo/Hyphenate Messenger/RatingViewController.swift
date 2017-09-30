@@ -20,6 +20,8 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
     var category: String = ""
     var key: String = ""
     var ref: DatabaseReference!
+    @IBOutlet weak var submit: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +42,7 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
         self.floatRatingView.editable = true
         self.floatRatingView.halfRatings = true
         self.floatRatingView.floatRatings = false
-        
+        submit.layer.cornerRadius = 8
     }
 
     override func didReceiveMemoryWarning() {

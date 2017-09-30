@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -46,7 +46,7 @@
                     <tabBarItem key="tabBarItem" title="Questions" image="Chat" id="6XH-tg-767"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="K8O-Gr-BWB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -138,7 +138,7 @@
                     <tabBarItem key="tabBarItem" title="Settings" image="SettingsIcon" id="O9k-t1-SFe"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="wkl-Y1-H7L">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -275,7 +275,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JcJ-bR-FOp">
-                                                            <rect key="frame" x="0.0" y="43" width="560" height="224"/>
+                                                            <rect key="frame" x="0.0" y="43" width="560" height="218"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="560" id="PBt-r9-ydf"/>
                                                             </constraints>
@@ -286,7 +286,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="8fo-jn-WOp" secondAttribute="trailing" id="2SP-YC-sNb"/>
                                                         <constraint firstAttribute="height" constant="267" id="Kkd-bo-dZC"/>
-                                                        <constraint firstAttribute="bottom" secondItem="JcJ-bR-FOp" secondAttribute="bottom" id="Opm-NL-8zp"/>
+                                                        <constraint firstAttribute="bottom" secondItem="JcJ-bR-FOp" secondAttribute="bottom" constant="6" id="Opm-NL-8zp"/>
                                                         <constraint firstItem="JcJ-bR-FOp" firstAttribute="centerX" secondItem="8fo-jn-WOp" secondAttribute="centerX" id="WG1-Ea-jF5"/>
                                                         <constraint firstItem="8fo-jn-WOp" firstAttribute="leading" secondItem="2Oi-Aw-rFy" secondAttribute="leading" id="Wwt-RC-0tF"/>
                                                         <constraint firstItem="JcJ-bR-FOp" firstAttribute="top" secondItem="8fo-jn-WOp" secondAttribute="bottom" constant="-6" id="x5q-xP-3Z7"/>
@@ -594,13 +594,13 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KyI-aL-nYd">
-                            <rect key="frame" x="23" y="16" width="515" height="61"/>
+                            <rect key="frame" x="23" y="8" width="515" height="77"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iek-b1-H87">
-                            <rect key="frame" x="23" y="8" width="103.5" height="12"/>
+                            <rect key="frame" x="23" y="0.0" width="103.5" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="eyJ-dd-1r4"/>
                             </constraints>
@@ -629,7 +629,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f1g-3w-GS4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="0wY-2r-CEG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

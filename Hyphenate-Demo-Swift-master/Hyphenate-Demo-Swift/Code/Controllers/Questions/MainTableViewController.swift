@@ -51,39 +51,6 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
         self.automaticallyAdjustsScrollViewInsets = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.refresh),name:NSNotification.Name(rawValue: "refresh"), object: nil)
         UIApplication.shared.applicationIconBadgeNumber = 0
-        self.getData(completion: { (success) -> Void in
-            
-            if success{
-                self.getPic(completion: {(success) -> Void in
-                    
-                    if success{
-                        
-                        //print(self.dictArray)
-                        
-                        
-                        self.setup()
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        
-                        }
-                        print("done")
-                        
-                    }
-                    else{return}
-                    
-                })
-            }
-            else{
-                
-                
-                print("not")
-                
-                
-            }
-        })
-        //    self.setup()
-        print("hi")
-        
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -91,7 +58,7 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
     }
     
     func refresh(){
-        super.viewDidLoad()
+
         self.dictArray.removeAll()
         self.automaticallyAdjustsScrollViewInsets = false
         self.getData(completion: { (success) -> Void in
