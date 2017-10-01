@@ -206,6 +206,7 @@
                                 <connections>
                                     <outlet property="gradeCellLabel" destination="cMV-0F-HrN" id="Q4P-9B-QYA"/>
                                     <outlet property="userGraderLabel" destination="0hp-kZ-beO" id="S7R-yK-p7i"/>
+                                    <segue destination="yUO-Mk-2ZK" kind="show" id="KdB-4Z-Lnv"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="emailCell" id="l8F-hi-XkE" customClass="emailTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
@@ -314,13 +315,42 @@
                     <view key="view" contentMode="scaleToFill" id="c6b-aT-lwn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y5c-wS-Tje">
+                                <rect key="frame" x="16" y="114" width="343" height="216"/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grade 9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xgm-1S-Fl0">
+                                <rect key="frame" x="16" y="94" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Xgm-1S-Fl0" firstAttribute="top" secondItem="ziB-aP-dbR" secondAttribute="bottom" constant="30" id="9wL-7S-JnC"/>
+                            <constraint firstItem="Xgm-1S-Fl0" firstAttribute="trailing" secondItem="c6b-aT-lwn" secondAttribute="trailingMargin" id="BuO-1t-Eax"/>
+                            <constraint firstItem="Xgm-1S-Fl0" firstAttribute="leading" secondItem="c6b-aT-lwn" secondAttribute="leadingMargin" id="DA3-de-0gA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="y5c-wS-Tje" secondAttribute="trailing" id="cc5-JE-4IQ"/>
+                            <constraint firstItem="y5c-wS-Tje" firstAttribute="top" secondItem="ziB-aP-dbR" secondAttribute="bottom" constant="50" id="e17-5q-L1s"/>
+                            <constraint firstItem="y5c-wS-Tje" firstAttribute="leading" secondItem="c6b-aT-lwn" secondAttribute="leadingMargin" id="h8g-xK-BfG"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Grade" id="R4A-gb-7Wr"/>
+                    <navigationItem key="navigationItem" title="Grade" id="R4A-gb-7Wr">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="nY7-Dx-TCz">
+                            <connections>
+                                <action selector="dismissView:" destination="yUO-Mk-2ZK" id="SJO-6N-87i"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="gradeLabel" destination="Xgm-1S-Fl0" id="Uaa-hk-aau"/>
+                        <outlet property="gradePickerView" destination="y5c-wS-Tje" id="qT2-rN-Xxm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OWk-dK-PNm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="943" y="901"/>
+            <point key="canvasLocation" x="1880.8" y="900.89955022488766"/>
         </scene>
         <!--Name-->
         <scene sceneID="Bfo-RI-hbZ">
@@ -369,10 +399,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Photo" id="tRa-Z2-yFd">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="camera" id="lSf-g1-RO4">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="lSf-g1-RO4">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <action selector="tapCameraButton:" destination="ecy-QU-M6Y" id="vTe-kd-dFx"/>
+                                <action selector="saveButton:" destination="ecy-QU-M6Y" id="B3s-A8-bE6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -387,6 +417,7 @@
         <!--More Settings-->
         <scene sceneID="lFD-3m-0OC">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bds-zk-doE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="wAe-hx-fmw" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="xp7-Wr-8Zv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -409,7 +440,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="More Settings" id="PtA-9y-1j5"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bds-zk-doE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1790" y="-670"/>
         </scene>
@@ -430,7 +460,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3hh-Fb-5bf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1790" y="793"/>
+            <point key="canvasLocation" x="2728.8000000000002" y="792.95352323838085"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Bsk-1U-7WF">

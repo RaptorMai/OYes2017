@@ -66,13 +66,14 @@
 		837A612A1F76F6F400F2182B /* gradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A611D1F76F6F400F2182B /* gradeTableViewCell.swift */; };
 		837A612B1F76F6F400F2182B /* GradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A611E1F76F6F400F2182B /* GradeViewController.swift */; };
 		837A612D1F76F6F400F2182B /* informationHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A61201F76F6F400F2182B /* informationHeaderTableViewCell.swift */; };
-		837A612E1F76F6F400F2182B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 837A61211F76F6F400F2182B /* Main.storyboard */; };
+		837A612E1F76F6F400F2182B /* ProfileMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 837A61211F76F6F400F2182B /* ProfileMain.storyboard */; };
 		837A612F1F76F6F400F2182B /* moreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A61221F76F6F400F2182B /* moreTableViewCell.swift */; };
 		837A61301F76F6F400F2182B /* MyProfileViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A61231F76F6F400F2182B /* MyProfileViewControllerTableViewController.swift */; };
 		837A61311F76F6F400F2182B /* nameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A61241F76F6F400F2182B /* nameTableViewCell.swift */; };
 		837A61321F76F6F400F2182B /* NameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A61251F76F6F400F2182B /* NameViewController.swift */; };
 		837A61331F76F6F400F2182B /* profileHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A61261F76F6F400F2182B /* profileHeaderTableViewCell.swift */; };
 		837A61341F76F6F400F2182B /* profilePictureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A61271F76F6F400F2182B /* profilePictureTableViewCell.swift */; };
+		837A613A1F7A0AD200F2182B /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A61391F7A0AD200F2182B /* ProfileSettingViewController.swift */; };
 		83AD01741F7357560089B72D /* OpenUrlController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AD01731F7357560089B72D /* OpenUrlController.swift */; };
 		9A06AB191DB584BA003A5B2E /* SettingsAboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB181DB584BA003A5B2E /* SettingsAboutTableViewController.swift */; };
 		9A06AB1C1DB58606003A5B2E /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06AB1A1DB58606003A5B2E /* LabelTableViewCell.swift */; };
@@ -346,13 +347,14 @@
 		837A611D1F76F6F400F2182B /* gradeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gradeTableViewCell.swift; sourceTree = "<group>"; };
 		837A611E1F76F6F400F2182B /* GradeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradeViewController.swift; sourceTree = "<group>"; };
 		837A61201F76F6F400F2182B /* informationHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = informationHeaderTableViewCell.swift; sourceTree = "<group>"; };
-		837A61211F76F6F400F2182B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		837A61211F76F6F400F2182B /* ProfileMain.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProfileMain.storyboard; sourceTree = "<group>"; };
 		837A61221F76F6F400F2182B /* moreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = moreTableViewCell.swift; sourceTree = "<group>"; };
 		837A61231F76F6F400F2182B /* MyProfileViewControllerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileViewControllerTableViewController.swift; sourceTree = "<group>"; };
 		837A61241F76F6F400F2182B /* nameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nameTableViewCell.swift; sourceTree = "<group>"; };
 		837A61251F76F6F400F2182B /* NameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameViewController.swift; sourceTree = "<group>"; };
 		837A61261F76F6F400F2182B /* profileHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		837A61271F76F6F400F2182B /* profilePictureTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profilePictureTableViewCell.swift; sourceTree = "<group>"; };
+		837A61391F7A0AD200F2182B /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		83AD01731F7357560089B72D /* OpenUrlController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenUrlController.swift; sourceTree = "<group>"; };
 		8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hyphenate_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A06AB181DB584BA003A5B2E /* SettingsAboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAboutTableViewController.swift; sourceTree = "<group>"; };
@@ -839,18 +841,19 @@
 		837A611A1F76F6F400F2182B /* ProfileSetting */ = {
 			isa = PBXGroup;
 			children = (
-				837A611B1F76F6F400F2182B /* emailTableViewCell.swift */,
-				837A611C1F76F6F400F2182B /* EmailViewController.swift */,
-				837A611D1F76F6F400F2182B /* gradeTableViewCell.swift */,
-				837A611E1F76F6F400F2182B /* GradeViewController.swift */,
-				837A61201F76F6F400F2182B /* informationHeaderTableViewCell.swift */,
-				837A61211F76F6F400F2182B /* Main.storyboard */,
-				837A61221F76F6F400F2182B /* moreTableViewCell.swift */,
-				837A61231F76F6F400F2182B /* MyProfileViewControllerTableViewController.swift */,
-				837A61241F76F6F400F2182B /* nameTableViewCell.swift */,
-				837A61251F76F6F400F2182B /* NameViewController.swift */,
 				837A61261F76F6F400F2182B /* profileHeaderTableViewCell.swift */,
 				837A61271F76F6F400F2182B /* profilePictureTableViewCell.swift */,
+				837A61241F76F6F400F2182B /* nameTableViewCell.swift */,
+				837A61201F76F6F400F2182B /* informationHeaderTableViewCell.swift */,
+				837A611D1F76F6F400F2182B /* gradeTableViewCell.swift */,
+				837A611B1F76F6F400F2182B /* emailTableViewCell.swift */,
+				837A61221F76F6F400F2182B /* moreTableViewCell.swift */,
+				837A61211F76F6F400F2182B /* ProfileMain.storyboard */,
+				837A61231F76F6F400F2182B /* MyProfileViewControllerTableViewController.swift */,
+				837A61391F7A0AD200F2182B /* ProfileSettingViewController.swift */,
+				837A61251F76F6F400F2182B /* NameViewController.swift */,
+				837A611C1F76F6F400F2182B /* EmailViewController.swift */,
+				837A611E1F76F6F400F2182B /* GradeViewController.swift */,
 			);
 			path = ProfileSetting;
 			sourceTree = "<group>";
@@ -1809,7 +1812,7 @@
 				5D43423B1F266F1700E5CA62 /* CameraViewAssets.xcassets in Resources */,
 				9A702BA01DA370FC005ED10C /* requestHeaderView.xib in Resources */,
 				9AC132391DA0DFE500A2BD05 /* SwitchTableViewCell.xib in Resources */,
-				837A612E1F76F6F400F2182B /* Main.storyboard in Resources */,
+				837A612E1F76F6F400F2182B /* ProfileMain.storyboard in Resources */,
 				9A702B9E1DA3401F005ED10C /* FriendRequestTableViewCell.xib in Resources */,
 				9A2E70AF1DA224FA00D3EE94 /* ProfileNameTableViewCell.xib in Resources */,
 				9A06AB251DB68FB5003A5B2E /* TextfieldTableViewCell.xib in Resources */,
@@ -1975,6 +1978,7 @@
 				B6346B641D9E6C5100CBEAE2 /* EaseRecordView.m in Sources */,
 				5D4342421F266F1700E5CA62 /* UIButtonExtensions.swift in Sources */,
 				B6346B4E1D9E6C5100CBEAE2 /* EaseUserCell.m in Sources */,
+				837A613A1F7A0AD200F2182B /* ProfileSettingViewController.swift in Sources */,
 				B6346AFD1D9E6C5100CBEAE2 /* MJRefreshBackFooter.m in Sources */,
 				B6346B611D9E6C5100CBEAE2 /* EaseFaceView.m in Sources */,
 				B6346B541D9E6C5100CBEAE2 /* EaseMessageTimeCell.m in Sources */,

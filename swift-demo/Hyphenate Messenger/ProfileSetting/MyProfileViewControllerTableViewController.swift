@@ -7,28 +7,31 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
-class MyProfileViewControllerTableViewController: UITableViewController {
+class MyProfileViewControllerTableViewController: UITableViewController{
+    
+    // MARK: - Properties
+    var ref = Database.database().reference()
+    var uid = "+1" + EMClient.shared().currentUsername!
 
+    // MARK: - Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    // MARK: - Table navigation bar
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //self.tabBarController?.navigationItem.title = "My Profile"
         self.navigationController?.navigationBar.tintColor = UIColor.black
-        
+        self.tableView.reloadData()
     }
-    
     
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
     }
 
-    // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -45,7 +48,6 @@ class MyProfileViewControllerTableViewController: UITableViewController {
             return 0
         }
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Section: PROFILE
@@ -54,7 +56,14 @@ class MyProfileViewControllerTableViewController: UITableViewController {
             // Profile Picture
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "profilePictureCell", for: indexPath) as! profilePictureTableViewCell
+//                let originalURL = downloadProfilePic()
+//                print(originalURL)
+//                let url = URL(string:"http://www.apple.com/euro/ios/ios8/a/generic/images/og.png")
+                //let url = URL(string: originalURL)
+                //let data = try? Data(contentsOf: url!)
+                //let image: UIImage = UIImage(data: data!)!
                 cell.profileImageView.image = UIImage(named: "jerryProfile")
+                //cell.profileImageView.image = image
                 cell.profilePhotoLabel.text = "Profile Photo"
                 return cell
             // Name
@@ -68,6 +77,7 @@ class MyProfileViewControllerTableViewController: UITableViewController {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
                 return cell
             }
+            
         // Section: INFORMARION
         } else {
             switch indexPath.row {
@@ -75,7 +85,21 @@ class MyProfileViewControllerTableViewController: UITableViewController {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "gradeCell", for: indexPath) as! gradeTableViewCell
                 cell.gradeCellLabel.text = "Grade"
-                cell.userGraderLabel.text = "Gr.12"
+                
+                // Retrive Grade from firebase
+                var updatedGrade:String?
+                self.ref.child("users").child(self.uid).child("grade").observeSingleEvent(of: .value, with: {
+                    (snapshot) in
+                    updatedGrade = snapshot.value as? String
+                    if updatedGrade == nil{
+                        cell.userGraderLabel.text = "N/A"
+                    } else {
+                        cell.userGraderLabel.text = updatedGrade
+                    }
+                }) {
+                    (error) in print (error.localizedDescription)
+                }
+
                 return cell
                 
             // Email
@@ -122,6 +146,17 @@ class MyProfileViewControllerTableViewController: UITableViewController {
         }
         return 40
     }
+    
+    func downloadProfilePic(){
+        var url: String!
+        self.ref.child("users").child(self.uid).child("profilepicURL").observeSingleEvent(of: .value, with: {
+            (snapshot) in
+            url = snapshot.value as? String
+        }){
+            (error) in print(error.localizedDescription)
+        }
+    }
+    
 
     /*
     // MARK: - Navigation

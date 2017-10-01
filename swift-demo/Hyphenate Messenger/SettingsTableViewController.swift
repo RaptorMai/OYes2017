@@ -2,12 +2,19 @@
 import UIKit
 import MessageUI
 import Foundation
+import Firebase
+import FirebaseDatabase
 
 
 class SettingsTableViewController: UITableViewController, MFMailComposeViewControllerDelegate{
     
+    var ref: DatabaseReference!
+    var uid = "+1" + EMClient.shared().currentUsername!
+    var profilePicURL: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
         self.tabBarController?.navigationItem.title = "Settings"
         self.tableView = UITableView(frame: self.tableView.frame, style: .grouped)
         self.tableView.backgroundColor = UIColor.init(hex: "F0EFF5")
@@ -24,12 +31,12 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Settings"
         self.tabBarController?.tabBar.isHidden = false
-        
     }
     
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
+    
     
     // MARK: - Table view data source
     
@@ -208,11 +215,43 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         // Dismiss mail view controller and back to setting page
         self.dismiss(animated:true, completion: nil)
     }
+    
+    
+    func getPhotosFromStorage(from url : String){
+        //print (url)
+        let storageRef = Storage.storage().reference(forURL:url)
+        storageRef.getData(maxSize: 2 * 1024 * 1024) { data, error in
+            if let error = error {
+                print(error)
+            } else {
+                print(data)
+                //self.dictArray[index]["picURL"] = data
+                //print(dic)
+            }
+        }
+    }
+    
+    func getPhotoUrl(from uid : String){
+        ref?.child("users").child(uid).child("profilepicURL").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let val = snapshot.value as? String
+            print(val!)
+            if (val! != ""){
+                self.profilePicURL = val!
+            } else {
+                print("No profile pic Up there")
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+    
+
 
     
     
 }
-    
 
-    
+
+
 

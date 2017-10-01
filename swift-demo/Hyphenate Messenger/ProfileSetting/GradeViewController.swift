@@ -7,19 +7,58 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
-class GradeViewController: UIViewController {
+
+class GradeViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    //MARK: - Firebase
+    var ref = Database.database().reference()
+    var uid = "+1" + EMClient.shared().currentUsername!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        gradePickerView.delegate = self
+        gradePickerView.dataSource = self
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    //MARK: - Properties
+    var grade = ["Grade 9", "Grade 10","Grade 11","Grade 12","Year 1","Year 2","Year 3","Year 4","Others"]
+    
+    //MARK: - Outlets
+    @IBOutlet weak var gradePickerView: UIPickerView!
+    @IBOutlet weak var gradeLabel: UILabel!
+    
+    //MARK: - Interactions
+    @IBAction func dismissView(_ sender: UIBarButtonItem) {
+        // Add the delegate method call
+        uploadGrade(gradeLabel.text)
+        self.navigationController?.popViewController(animated: true)
     }
+    
+    //MARK: - Functions
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return grade.count
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return grade[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        gradeLabel.text = grade[row]
+    }
+    
+    func uploadGrade(_ Grade: String?){
+        self.ref.child("users/\(self.uid)").updateChildValues(["grade":Grade!])
+    }
+    
     
 
     /*
