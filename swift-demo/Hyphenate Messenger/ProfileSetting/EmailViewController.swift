@@ -7,13 +7,26 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+
 
 class EmailViewController: UIViewController {
+    // Database
+    var ref: DatabaseReference! = Database.database().reference()
+    var uid = "+1" + EMClient.shared().currentUsername!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        // get email from DB
+        self.ref?.child("users").child(uid).child("email").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists(){
+                let val = snapshot.value as? String
+                if (val! != ""){
+                    self.EmailText.text = val!
+                }
+            }
+        }) { (error) in print(error.localizedDescription)}
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,7 +34,18 @@ class EmailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBOutlet weak var EmailText: UITextField!
+    
+    @IBAction func Save(_ sender: UIBarButtonItem) {
+        let email = EmailText.text
+        uploadEmail(email!)
+        self.navigationController?.popViewController(animated: true)
+        
+    }
+    func uploadEmail(_ email: String){
+        self.ref?.child("users/\(self.uid)").updateChildValues(["email":email])
+    }
+    
     /*
     // MARK: - Navigation
 

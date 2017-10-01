@@ -1,10 +1,18 @@
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class SettingsTableViewController: UITableViewController {
     
+    var ref: DatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Database
+        ref = Database.database().reference()
+        var uid = "+1" + EMClient.shared().currentUsername!
+        
         self.tabBarController?.navigationItem.title = "Settings"
         self.tableView = UITableView(frame: self.tableView.frame, style: .grouped)
         self.tableView.backgroundColor = UIColor.init(hex: "F0EFF5")
@@ -23,6 +31,10 @@ class SettingsTableViewController: UITableViewController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Settings"
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     
     // MARK: - Table view data source
@@ -84,7 +96,7 @@ class SettingsTableViewController: UITableViewController {
             let StoryBoard = UIStoryboard(name:"ProfileMain",bundle:nil)
             let myProfileVC = StoryBoard.instantiateViewController(withIdentifier: "myProfileVC") 
 
-            navigationController?.pushViewController(myProfileVC, animated: true)
+            tabBarController?.navigationController?.pushViewController(myProfileVC, animated: true)
         case 1:
             let settingsAboutVC = SettingsAboutTableViewController()
             navigationController?.pushViewController(settingsAboutVC, animated: true)
@@ -110,4 +122,5 @@ class SettingsTableViewController: UITableViewController {
             }
         }
     }
+    
 }

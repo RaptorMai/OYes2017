@@ -19,15 +19,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="PEj-66-d5h">
-                        <rect key="frame" x="15" y="20" width="50" height="50"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="PEj-66-d5h">
+                        <rect key="frame" x="8" y="8" width="74" height="74"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="acS-nv-ynH"/>
                             <constraint firstAttribute="height" constant="50" id="u8H-4n-LgR"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXf-MH-3lj">
-                        <rect key="frame" x="75" y="20" width="125" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXf-MH-3lj">
+                        <rect key="frame" x="98" y="20" width="125" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="EzG-BF-pKF"/>
                         </constraints>
@@ -35,8 +35,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNg-us-nE9">
-                        <rect key="frame" x="75" y="49" width="231" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNg-us-nE9">
+                        <rect key="frame" x="98" y="49" width="231" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="oyC-75-mhr"/>
                         </constraints>
@@ -53,8 +53,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y2H-YT-ig9" customClass="M13BadgeView">
-                        <rect key="frame" x="45" y="16" width="24" height="24"/>
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y2H-YT-ig9" customClass="M13BadgeView">
+                        <rect key="frame" x="66" y="8" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="Fmg-fp-Tx5"/>
                             <constraint firstAttribute="width" constant="24" id="dWh-LK-3qF"/>
