@@ -20,13 +20,19 @@ notes: tid(tutor id), qid(question id), sid(student id)
     <price amount (times 100 for stripe)>:<minutes>
 3. tutors:
     <tid>
-        balance:
+        monthSummary:
+            month(ex. 20179):
+                numOfQ:
+                stars:
+                balance:
         stars:
-        count:
+        numOfQ:
         email:
         token:
         category:
-
+        description:
+        profilePhoto:
+        
 4. users:
     <sid>:
         balance:
