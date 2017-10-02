@@ -37,10 +37,10 @@ extension UIViewController {
         let view = UIApplication.shared.delegate?.window
         let hub = MBProgressHUD.showAdded(to: view!, animated: true)
         hub?.isUserInteractionEnabled = false
-        hub?.mode = MBProgressHUDMode.text
+//        hub?.mode = MBProgressHUDMode.text
         hub?.labelText = hint
         hub?.margin = 10
-        hub?.yOffset = 180
+//        hub?.yOffset = 180
         hub?.removeFromSuperViewOnHide = true
         hub?.hide(true, afterDelay: 2)
     }

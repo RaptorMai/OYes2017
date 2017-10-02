@@ -34,9 +34,7 @@ protocol rescueButtonPressedProtocol {
 
 class MainTableViewController: UITableViewController, rescueButtonPressedProtocol, expandimageProtocol {
     let kCloseCellHeight: CGFloat = 179
-    let kOpenCellHeight: CGFloat = 488
-    var kRowsCount = 0
-    var cellHeights: [CGFloat] = []
+    let kOpenCellHeight: CGFloat = 442
     var specialty = ["Basic Calculus"]
     var dictArray = [Dictionary<String,Any>]()
     var ref: DatabaseReference?
@@ -51,18 +49,24 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
         self.automaticallyAdjustsScrollViewInsets = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.refresh),name:NSNotification.Name(rawValue: "refresh"), object: nil)
         UIApplication.shared.applicationIconBadgeNumber = 0
+        self.setup()
         
     }
     override func viewWillAppear(_ animated: Bool) {
-            self.refresh()
+        super.viewWillAppear(animated)
+        self.setup()
+        self.showHub(inView: self.view,"Loading")
+        self.refresh()
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.hideHub()
+    }
     func refresh(){
 
         self.dictArray.removeAll()
         self.automaticallyAdjustsScrollViewInsets = false
         self.getData(completion: { (success) -> Void in
-            
             print(self.dictArray)
             if success{
                 self.getPic(completion: {(success) -> Void in
@@ -76,11 +80,16 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
                         }
+                        self.hideHub()
                         self.delegate?.removeSpinner()
                         print("done")
                         
                     }
-                    else{return}
+                    else{
+                        self.hideHub()
+                        self.delegate?.removeSpinner()
+                        return
+                    }
                     
                 })
             }
@@ -90,22 +99,18 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
+                self.hideHub()
                 self.delegate?.removeSpinner()
                 print("refreshnot")
                 
             }
         })
-        //    self.setup()
-        print("hi")
-        //print(self.dictArray)
-        
+
         
     }
     
     private func setup() {
         self.automaticallyAdjustsScrollViewInsets = false
-        kRowsCount = dictArray.count
-        cellHeights = Array(repeating: kOpenCellHeight, count: kRowsCount)
         tableView.estimatedRowHeight = kOpenCellHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.backgroundColor = UIColor(hex: "F8F8F8")
@@ -158,7 +163,7 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
 extension MainTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return kRowsCount
+        return dictArray.count
     }
     
     
@@ -169,12 +174,7 @@ extension MainTableViewController {
         
         
         cell.backgroundColor = .clear
-        
-        if cellHeights[indexPath.row] == kCloseCellHeight {
-            cell.unfold(false, animated: false, completion:nil)
-        } else {
-            cell.unfold(true, animated: false, completion: nil)
-        }
+        cell.unfold(true, animated: false, completion: nil)
         if !dictArray.isEmpty{
             cell.subject = dictArray[indexPath.row]["category"] as! String
             cell.closeDescription.text = dictArray[indexPath.row]["description"] as? String
@@ -192,14 +192,16 @@ extension MainTableViewController {
         cell.durationsForCollapsedState = durations
         cell.delegate = self
         cell.tableDelegate = self
-        cell.requestorSid = dictArray[indexPath.row]["sid"] as! NSString
-        cell.category = dictArray[indexPath.row]["category"] as! NSString
-        cell.qid = dictArray[indexPath.row]["qid"] as! NSString
+        if !dictArray.isEmpty{
+            cell.requestorSid = dictArray[indexPath.row]["sid"] as! NSString
+            cell.category = dictArray[indexPath.row]["category"] as! NSString
+            cell.qid = dictArray[indexPath.row]["qid"] as! NSString
+        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return cellHeights[indexPath.row]
+        return kOpenCellHeight
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
