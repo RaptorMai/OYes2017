@@ -1,4 +1,3 @@
- 
 import UIKit
 import Hyphenate
 import Firebase
@@ -262,12 +261,14 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
             }
             
             // new message for ext
+            // create thumbnail image
+            let thumbnail = self.questionimage?.scaledImage(toSize:CGSize(width: 100, height: 50))
             let newMessage = EMMessage(conversationID: newConversationID,
                                        from: newConversationID,
                                        to: "Me",
                                        body: nil,
                                        ext: ["cat": self.category,
-                                             "pic": UIImagePNGRepresentation(self.questionimage!)?.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)])
+                                             "pic": UIImagePNGRepresentation(thumbnail!)?.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)])
             newConversation?.insert(newMessage, error: nil)
             
 //            newConversation?.lastReceivedMessage()?.from = newConversationID

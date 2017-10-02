@@ -637,25 +637,21 @@
     
     if ([imageBody type] == EMMessageBodyTypeImage) {
         if (imageBody.thumbnailDownloadStatus == EMDownloadStatusSuccessed) {
-            if (imageBody.downloadStatus == EMDownloadStatusSuccessed)
-            {
+            if (imageBody.downloadStatus == EMDownloadStatusSuccessed) {
                 //send the read acknowledgement
                 [weakSelf _sendHasReadResponseForMessages:@[model.message] isRead:YES];
                 NSString *localPath = model.message == nil ? model.fileLocalPath : [imageBody localPath];
                 if (localPath && localPath.length > 0) {
                     UIImage *image = [UIImage imageWithContentsOfFile:localPath];
                     
-                    if (image)
-                    {
+                    if (image) {
                         [[EaseMessageReadManager defaultManager] showBrowserWithImages:@[image] chatVC:self.navigationController];
+                        return;
                     }
-                    else
-                    {
-                        NSLog(@"Read %@ failed!", localPath);
-                    }
-                    return;
+                    // if image cannot be read, download the image from cloud
                 }
             }
+            
             [weakSelf showHudInView:weakSelf.view hint:NSEaseLocalizedString(@"message.downloadingImage", @"downloading a image...")];
             [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
                 [weakSelf hideHud];
@@ -1285,6 +1281,9 @@
             {
                 [self.conversation markMessageAsReadWithId:message.messageId error:nil];
             }
+            
+            // download message image in background
+            [self _downloadMessageAttachments:message];
         }
     }
 }
