@@ -27,6 +27,8 @@ class EmailViewController: UIViewController {
                 }
             }
         }) { (error) in print(error.localizedDescription)}
+        EmailText.becomeFirstResponder()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,8 +44,14 @@ class EmailViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
         
     }
+    
     func uploadEmail(_ email: String){
         self.ref?.child("users/\(self.uid)").updateChildValues(["email":email])
+    }
+    
+    // Dismiss Keyboard
+    func handleTap(_ tapGesture: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
     
     /*
@@ -57,3 +65,9 @@ class EmailViewController: UIViewController {
     */
 
 }
+
+
+
+
+
+

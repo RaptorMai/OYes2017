@@ -71,11 +71,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jerryProfile" translatesAutoresizingMaskIntoConstraints="NO" id="jKh-rW-qfs">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jKh-rW-qfs">
                                 <rect key="frame" x="50" y="164" width="275" height="275"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="jKh-rW-qfs" secondAttribute="height" multiplier="1:1" id="4Ed-ZG-rWI"/>
-                                    <constraint firstAttribute="width" secondItem="jKh-rW-qfs" secondAttribute="height" multiplier="1:1" id="w9b-Il-7tH"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -134,7 +133,6 @@
         <!--Navigation Controller-->
         <scene sceneID="Bsk-1U-7WF">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="g2V-SU-YcN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tun-kk-LtI" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QDp-28-5qY">
@@ -146,6 +144,7 @@
                         <segue destination="HDR-qw-8aX" kind="relationship" relationship="rootViewController" id="b91-5e-mZS"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g2V-SU-YcN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="169" y="82"/>
         </scene>
@@ -205,8 +204,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pQ0-sW-qSW">
-                                <rect key="frame" x="16" y="74" width="343" height="282"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pQ0-sW-qSW">
+                                <rect key="frame" x="16" y="74" width="343" height="250"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="uY4-V0-tNz"/>
@@ -529,6 +528,5 @@
     </scenes>
     <resources>
         <image name="icon right" width="7" height="10"/>
-        <image name="jerryProfile" width="1824" height="2736"/>
     </resources>
 </document>

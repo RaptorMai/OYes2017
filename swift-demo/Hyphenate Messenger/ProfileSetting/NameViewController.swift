@@ -33,6 +33,7 @@ class NameViewController: UIViewController {
                 }
             }
         }) { (error) in print(error.localizedDescription)}
+        nameChangTextView.becomeFirstResponder()
     }
     
     // MARK: - Outlets

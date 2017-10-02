@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import MBProgressHUD
 class ProfileSettingViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: - Firebase
@@ -24,10 +25,25 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
         imageView.contentMode = UIViewContentMode.scaleAspectFill
         imageView.layer.masksToBounds = true
-        imageView.image = UIImage(named: "jerryProfile")
+        imageView.layer.cornerRadius = imageView.frame.size.width/1.74
         
+        imageView.clipsToBounds = true
 
-        // Do any additional setup after loading the view.
+        
+        // get profile picture from DB
+        self.ref.child("users").child(uid).child("profilepicURL").observeSingleEvent(of: .value, with: {(snapshot) in
+            if snapshot.exists(){
+                let val = snapshot.value as? String
+                if (val == nil){
+                    self.imageView.image = #imageLiteral(resourceName: "profile")
+                }
+                else{
+                    let profileUrl = URL(string: val!)
+                    //print(val)
+                    self.imageView.sd_setImage(with: profileUrl)
+                }
+            }
+        }) { (error) in print(error.localizedDescription)}
     }
     
     
@@ -49,12 +65,15 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
     
     // MARK - Interaction
     @IBAction func saveButton(_ sender: UIBarButtonItem) {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         let imageData: Data = UIImagePNGRepresentation(imageView.image!)!
         uploadPicture(imageData, completion:{ (url) -> Void in
             self.ref.child("users/\(self.uid)").updateChildValues(["profilepicURL": url!])
+            MBProgressHUD.hide(for: self.view, animated: true)
+            self.navigationController?.popViewController(animated: true)
+            
             //label.removeFromSuperview()
         })
-        self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -105,7 +124,10 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         let imagePicker = UIImagePickerController()
         present(imagePicker, animated: true, completion: nil)
         imagePicker.delegate = self
+        imagePicker.allowsEditing = true
     }
+    
+
 
     
     

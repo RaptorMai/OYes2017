@@ -58,14 +58,19 @@ class MyProfileViewControllerTableViewController: UITableViewController{
             // Profile Picture
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "profilePictureCell", for: indexPath) as! profilePictureTableViewCell
-//                let originalURL = downloadProfilePic()
-//                print(originalURL)
-//                let url = URL(string:"http://www.apple.com/euro/ios/ios8/a/generic/images/og.png")
-                //let url = URL(string: originalURL)
-                //let data = try? Data(contentsOf: url!)
-                //let image: UIImage = UIImage(data: data!)!
-                cell.profileImageView.image = UIImage(named: "jerryProfile")
-                //cell.profileImageView.image = image
+                self.ref.child("users").child(uid).child("profilepicURL").observeSingleEvent(of: .value, with: {(snapshot) in
+                    if snapshot.exists(){
+                        let val = snapshot.value as? String
+                        if (val == nil){
+                            cell.profileImageView.image = #imageLiteral(resourceName: "profile")
+                        }
+                        else{
+                            let profileUrl = URL(string: val!)
+                            cell.profileImageView.sd_setImage(with: profileUrl)
+                        }
+                    }
+                }) { (error) in print(error.localizedDescription)}
+                
                 cell.profilePhotoLabel.text = "Profile Photo"
                 return cell
             // Name
@@ -107,7 +112,7 @@ class MyProfileViewControllerTableViewController: UITableViewController{
                     (snapshot) in
                     updatedGrade = snapshot.value as? String
                     if updatedGrade == nil{
-                        cell.userGraderLabel.text = "N/A"
+                        cell.userGraderLabel.text = "Unknown"
                     } else {
                         cell.userGraderLabel.text = updatedGrade
                     }

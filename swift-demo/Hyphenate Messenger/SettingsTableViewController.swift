@@ -15,7 +15,6 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Database
         ref = Database.database().reference()
 
         self.tabBarController?.navigationItem.title = "Settings"
@@ -36,6 +35,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Settings"
         self.tabBarController?.tabBar.isHidden = false
+        self.tableView.reloadData()
     }
     
     
@@ -57,11 +57,41 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         if indexPath.section == 0 {
             // My Profile TODO: don't use conversation table view cell, better make a new one
             let cell:ConversationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath) as! ConversationTableViewCell
-            cell.senderLabel.text = "Jerry"
+            cell.senderLabel.text = ""
             cell.badgeView.isHidden = true
             cell.timeLabel.isHidden = true
-            cell.senderImageView.image = UIImage(named: "jerryProfile")
             cell.lastMessageLabel.isHidden = true
+            cell.senderImageView.contentMode = UIViewContentMode.scaleAspectFill
+            
+            // get username from DB
+            self.ref.child("users").child(uid).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.exists(){
+                    let val = snapshot.value as? String
+                    if (val! != ""){
+                        cell.senderLabel.text = val!
+                    }
+                    else{
+                        print("Username is an empty string!")
+                        cell.senderLabel.text = ""
+                    }
+                }
+            }) { (error) in print(error.localizedDescription)}
+            
+            // get profile picture from DB
+            self.ref.child("users").child(uid).child("profilepicURL").observeSingleEvent(of: .value, with: {(snapshot) in
+                if snapshot.exists(){
+                    let val = snapshot.value as? String
+                    if (val == nil){
+                        cell.senderImageView.image = #imageLiteral(resourceName: "profile")
+                    }
+                    else{
+                        let profileUrl = URL(string: val!)
+                        //print(val)
+                        cell.senderImageView.sd_setImage(with: profileUrl)
+                    }
+                }
+            }) { (error) in print(error.localizedDescription)}
+            
             return cell
         }
         else if indexPath.section < 3 {
@@ -78,9 +108,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
             cell.textLabel?.textAlignment = .center
             
             return cell
-            
         }
-        
     }
     
     
@@ -88,13 +116,10 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         switch indexPath.section{
         // section 0
         case 0:
-            
             if indexPath.row == 0{
                 let StoryBoard = UIStoryboard(name:"ProfileMain",bundle:nil)
                 let myProfileVC = StoryBoard.instantiateViewController(withIdentifier: "myProfileVC")
                 tabBarController?.navigationController?.pushViewController(myProfileVC, animated: true)
-                //self.navigationController?.pushViewController(myProfileVC, animated: true)
-                
             }
         // section 1
         case 1:
@@ -145,20 +170,6 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     }
     
     
-    func logoutAction() {
-        EMClient.shared().logout(false) { (error) in
-            if let _ = error {
-                let alert = UIAlertController(title:"Sign Out error", message: "Please try again later", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
-                UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-            } else {
-                let loginController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginScene")
-                UIApplication.shared.keyWindow?.rootViewController = loginController
-                
-            }
-        }
-    }
-    
     // MARK: - Functions
     func openFacebookPage() {
         let page = "https://www.facebook.com/InstaSolve/"
@@ -177,7 +188,27 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         self.present(alert, animated: true, completion: nil)
     }
     
-    // MARK: - Send FeedBack Module
+    func logoutAction() {
+        EMClient.shared().logout(false) { (error) in
+            if let _ = error {
+                let alert = UIAlertController(title:"Sign Out error", message: "Please try again later", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
+                UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+            } else {
+                let loginController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginScene")
+                UIApplication.shared.keyWindow?.rootViewController = loginController
+                
+            }
+        }
+    }
+
+    
+    /*
+     *
+     Send Feed Back Module
+     *
+     */
+    
     // send Feedback
     func sendFeedback(){
         let composeVC = MFMailComposeViewController()
@@ -189,14 +220,14 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         self.present(composeVC, animated: true, completion:nil)
     }
     
-    // error handler
+    // Mail: error handler
     func showSendMailErrorAlert(){
         let sendMailErrorAlert = UIAlertController(title: "Mail cannot be sent", message: "Mailbox is not setup properly", preferredStyle: .alert )
         sendMailErrorAlert.addAction(UIAlertAction(title: "Yes", style: .default) {_ in})
         self.present(sendMailErrorAlert, animated: true)
     }
     
-    // dimiss controller
+    // Mail: dimiss controller
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         switch result {
         case MFMailComposeResult.cancelled:
@@ -212,36 +243,6 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         }
         // Dismiss mail view controller and back to setting page
         self.dismiss(animated:true, completion: nil)
-    }
-    
-    
-    func getPhotosFromStorage(from url : String){
-        //print (url)
-        let storageRef = Storage.storage().reference(forURL:url)
-        storageRef.getData(maxSize: 2 * 1024 * 1024) { data, error in
-            if let error = error {
-                print(error)
-            } else {
-                print(data)
-                //self.dictArray[index]["picURL"] = data
-                //print(dic)
-            }
-        }
-    }
-    
-    func getPhotoUrl(from uid : String){
-        ref?.child("users").child(uid).child("profilepicURL").observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            let val = snapshot.value as? String
-            print(val!)
-            if (val! != ""){
-                self.profilePicURL = val!
-            } else {
-                print("No profile pic Up there")
-            }
-        }) { (error) in
-            print(error.localizedDescription)
-        }
     }
 }
 
