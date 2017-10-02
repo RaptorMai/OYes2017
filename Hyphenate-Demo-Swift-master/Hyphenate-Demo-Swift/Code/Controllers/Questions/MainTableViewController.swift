@@ -211,14 +211,11 @@ extension MainTableViewController {
         
         let ref = Database.database().reference()
         let tid = EMClient.shared().currentUsername
-        
-        //print(tid)
-        // TO DO: get current questionId from db
         let qid: String = (qid as String)
         let category: String = (category as String)
-        let refStatus = ref.child("Request/active/" + category + "/" + qid)
+        let refQid = ref.child("Request/active/" + category + "/" + qid)
         //let refInactive = ref.child("Request/inactive/" + category + "/" + qid)
-        refStatus.runTransactionBlock ({ (currentData: MutableData) -> TransactionResult in
+        refQid.runTransactionBlock ({ (currentData: MutableData) -> TransactionResult in
             //print(currentData.value)
             if var data = currentData.value as? [String: Any] {
                 print("this is data \(data)")
@@ -264,7 +261,6 @@ extension MainTableViewController {
                     //print(snap!)
                 }
                 else{
-                    
                     let alert = UIAlertController(title: "Alert", message: "yeah you got the question", preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {
                         (alert: UIAlertAction!) in

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		301D34EF1F421BAE00C9A395 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301D34EE1F421BAE00C9A395 /* Spinner.swift */; };
+		3023AD421F81BA980066AD8E /* TutorConnected.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3023AD411F81BA2E0066AD8E /* TutorConnected.storyboard */; };
 		39062AE81D9F0D4400EE8412 /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39062AE71D9F0D4400EE8412 /* ContactTableViewCell.xib */; };
 		5C226CB1BB2ACE14FE2BC796 /* Pods_Hyphenate_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */; };
 		5D43421C1F266F1700E5CA62 /* AKImageCropperOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341DF1F266F1700E5CA62 /* AKImageCropperOverlayView.swift */; };
@@ -274,6 +275,7 @@
 
 /* Begin PBXFileReference section */
 		301D34EE1F421BAE00C9A395 /* Spinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
+		3023AD411F81BA2E0066AD8E /* TutorConnected.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TutorConnected.storyboard; sourceTree = "<group>"; };
 		39062AE71D9F0D4400EE8412 /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContactTableViewCell.xib; path = Views/ContactTableViewCell.xib; sourceTree = "<group>"; };
 		46CB1D5CA6E51EFA21BD9A5F /* Pods-Hyphenate Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.release.xcconfig"; sourceTree = "<group>"; };
 		5D4341DF1F266F1700E5CA62 /* AKImageCropperOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayView.swift; sourceTree = "<group>"; };
@@ -997,6 +999,7 @@
 				9A7FB37F1DA1EDA7005CC8C3 /* Profile.storyboard */,
 				9A3149911DA42B360081DB04 /* FriendRequest.storyboard */,
 				5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */,
+				3023AD411F81BA2E0066AD8E /* TutorConnected.storyboard */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -1764,6 +1767,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A3149921DA42B360081DB04 /* FriendRequest.storyboard in Resources */,
+				3023AD421F81BA980066AD8E /* TutorConnected.storyboard in Resources */,
 				9AFE4D721D9E2731007862CA /* Main.storyboard in Resources */,
 				5D43424B1F266F1700E5CA62 /* Images.xcassets in Resources */,
 				9A2E70B31DA2250D00D3EE94 /* ProfileSwitchTableViewCell.xib in Resources */,

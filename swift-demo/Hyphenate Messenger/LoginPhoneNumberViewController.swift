@@ -8,7 +8,6 @@ class LoginPhoneNumberViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var bannerLabel: UILabel!
     
     var mode: LoginViewControllerMode = .login
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

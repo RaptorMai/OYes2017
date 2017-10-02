@@ -52,7 +52,7 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
 
     @IBAction func submitRating(_ sender: Any) {
         
-        //TODO: submit rating to DB below
+
         print(self.floatRatingView.rating)
         self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["rate": self.floatRatingView.rating])
         self.dismiss(animated:true, completion:nil)

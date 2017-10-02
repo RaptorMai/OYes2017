@@ -2,7 +2,6 @@ import UIKit
 import FirebaseDatabase
 
 class TutorConnectedVC: UIViewController {
-
     var requestdict: [String: Any]? = nil
     var questionImage: UIImage?
     var questionDescription: String?
