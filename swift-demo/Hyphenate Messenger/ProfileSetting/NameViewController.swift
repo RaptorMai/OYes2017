@@ -7,26 +7,47 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class NameViewController: UIViewController {
+    // Database
+    var ref: DatabaseReference! = Database.database().reference()
+    var uid = "+1" + EMClient.shared().currentUsername!
+
     
     // MARK: - View Did Load
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameChangTextView.becomeFirstResponder()
-
-        // Do any additional setup after loading the view.
+        hideKeyboardWhenTappedAround()
+        // get username from DB
+        self.ref?.child("users").child(uid).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists(){
+                let val = snapshot.value as? String
+                if (val! != ""){
+                    self.nameChangTextView.text = val!
+                }
+                else{
+                    print("Username is an empty string!")
+                    self.nameChangTextView.text = "Unknown"
+                }
+            }
+        }) { (error) in print(error.localizedDescription)}
     }
     
     // MARK: - Outlets
     
     @IBOutlet weak var nameChangTextView: UITextView!
+    // MARK: - Actions
+    @IBAction func SaveText(_ sender: UIButton) {
+        let Name = nameChangTextView.text
+        uploadName(Name!)
+        self.navigationController?.popViewController(animated: true)
+    }
     
-
-
-    
-
+    func uploadName(_ Name: String){
+        self.ref?.child("users/\(self.uid)").updateChildValues(["username":Name])
+    }
     
 
     /*
@@ -40,3 +61,21 @@ class NameViewController: UIViewController {
     */
 
 }
+
+extension NameViewController{
+    //Allows the keyboard to be hidden when tapped outside of keyboard
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NameViewController.dismissKeyboard))
+        
+        let swipeOutOfKeyboard: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(NameViewController.dismissKeyboard))
+        swipeOutOfKeyboard.direction = .down
+        
+        view.addGestureRecognizer(tap)
+        view.addGestureRecognizer(swipeOutOfKeyboard)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+

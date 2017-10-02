@@ -1,4 +1,4 @@
-
+ 
 import UIKit
 import Hyphenate
 import Firebase
@@ -18,6 +18,8 @@ protocol DismissProtocol {
  */
 
 class ChatTableViewController: EaseMessageViewController,EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource,EMClientDelegate, DismissProtocol {
+    let CONVERSATION_ID_LENGTH: UInt32 = 10
+    let MAX_MESSAGE_LOAD_COUNT: Int32 = 500
     
     var timerLabel = UILabel()
     //var endSessionButton = UIButton(type: UIButtonType.custom)
@@ -143,7 +145,6 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     
     
     func endSession(){
-        
         //calculate time with ceil
         let ratingViewController = UIStoryboard(name: "Rating", bundle: nil).instantiateViewController(withIdentifier: "rateSession") as! RatingViewController
         ratingViewController.category = self.category
@@ -159,6 +160,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         
 //        let newConvId: String = (self.conversation.conversationId + String(Date().ticks))
 //        self.conversation.conversationId = newConvId
+        processSession()
     }
     
     func endSessionfromAppTermination(){
@@ -174,7 +176,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["rate": 5.0])
         //calldismiss to dismiss chatVC
         dismissParentVC()
-        
+        processSession()
     }
     
     func dismissParentVC() {
@@ -182,7 +184,71 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         //Dismiss Chat
         dismiss(animated: true, completion: nil)
-        
     }
-    
+
+    func processSession() {
+        // after a session ends, get the last session and copies all messages over to a new session
+        let chatManager = EMClient.shared().chatManager
+
+        // create a new conversation, generate a random numerical id first
+        let letters : NSString = "0123456789"
+        let len = UInt32(letters.length)
+        
+        var newConversationID = ""
+        
+        for _ in 0..<CONVERSATION_ID_LENGTH {
+            let rand = arc4random_uniform(len)
+            var nextChar = letters.character(at: Int(rand))
+            newConversationID += NSString(characters: &nextChar, length: 1) as String
+        }
+
+        let newConversation = chatManager?.getConversation(newConversationID, type: EMConversationTypeChat, createIfNotExist: true)
+
+        // get all messages from current conversation
+        let sessionEndTime = Int64(Date().timeIntervalSince1970) * 1000  // convert to millisecond
+        let sessionStartTime = Int64(beginTime.timeIntervalSince1970) * 1000
+        conversation?.loadMessages(from: sessionStartTime, to: sessionEndTime, count: MAX_MESSAGE_LOAD_COUNT, completion: { (messages, nil) in
+            // copy all messages to new conversation
+            if messages != nil {
+                for case let message as EMMessage in messages! {
+                    // model contains all information about a message
+                    let model = EaseMessageModel(message: message)
+                    var newMessage: EMMessage? = nil
+                    
+                    // if dealing with image, require that images are indeed stored in the message
+                    if model?.bodyType == EMMessageBodyTypeImage && model?.image != nil {
+                        let imageData = UIImageJPEGRepresentation((model?.image)!, 1)
+                        let messageBody = EMImageMessageBody(data: imageData, displayName: "Image.png")
+                        messageBody?.thumbnailDownloadStatus = EMDownloadStatusSuccessed  // if not set, the model will try download it
+                        if message.direction == EMMessageDirectionSend {
+                            // the message is going out, then the photo is local, setting the download status to succ
+                            messageBody?.downloadStatus = EMDownloadStatusSuccessed
+                        }
+                        
+                        newMessage = EMMessage(conversationID: newConversationID,
+                                               from: message.from, 
+                                               to: message.to,
+                                               body: messageBody,
+                                               ext: nil)
+                    } else {
+                        // for text messages, just copy the message body, which is text
+                        newMessage = EMMessage(conversationID: newConversationID,
+                                               from: message.from,
+                                               to: message.to,
+                                               body: message.body,
+                                               ext: nil)
+                    }
+                    
+                    newMessage?.direction = message.direction
+                    newMessage?.status = message.status
+                    newMessage?.chatType = EMChatTypeChat
+                    newConversation?.insert(newMessage, error: nil)
+                }
+            }
+            newConversation?.lastReceivedMessage()?.from = newConversationID
+        })
+        
+        // remove the current conversation from database
+        chatManager?.deleteConversation(conversation.conversationId, isDeleteMessages: true, completion: nil)
+    }
 }

@@ -21,7 +21,9 @@ class profilePictureTableViewCell: UITableViewCell {
     }
     
     // MARK: - Outlets
+
     @IBOutlet weak var profilePhotoLabel: UILabel!
+
     @IBOutlet weak var profileImageView: UIImageView!
     
     //    override func setSelected(_ selected: Bool, animated: Bool) {

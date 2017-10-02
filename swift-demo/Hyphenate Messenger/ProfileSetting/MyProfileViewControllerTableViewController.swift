@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
+
 class MyProfileViewControllerTableViewController: UITableViewController{
     
     // MARK: - Properties
@@ -17,20 +18,20 @@ class MyProfileViewControllerTableViewController: UITableViewController{
     var uid = "+1" + EMClient.shared().currentUsername!
 
     // MARK: - Override Functions
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    // MARK: - Table navigation bar
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // color of the back button
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.tableView.reloadData()
     }
-    
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-    }
+
+    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -48,6 +49,7 @@ class MyProfileViewControllerTableViewController: UITableViewController{
             return 0
         }
     }
+
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Section: PROFILE
@@ -69,15 +71,27 @@ class MyProfileViewControllerTableViewController: UITableViewController{
             // Name
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "nameCell", for: indexPath) as! nameTableViewCell
+                // get username from DB
+                self.ref.child("users").child(uid).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
+                    if snapshot.exists(){
+                        let val = snapshot.value as? String
+                        if (val! != ""){
+                            cell.userNameLabel.text = val!
+                        }
+                        else{
+                            print("Username is an empty string!")
+                            cell.userNameLabel.text = "Unknown"
+                        }
+                    }
+                }) { (error) in print(error.localizedDescription)}
                 cell.nameCellLabel.text = "Name"
-                cell.userNameLabel.text = "JerryGor"
                 return cell
             // Should Never Reach
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
                 return cell
             }
-            
+
         // Section: INFORMARION
         } else {
             switch indexPath.row {
@@ -85,6 +99,7 @@ class MyProfileViewControllerTableViewController: UITableViewController{
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "gradeCell", for: indexPath) as! gradeTableViewCell
                 cell.gradeCellLabel.text = "Grade"
+
                 
                 // Retrive Grade from firebase
                 var updatedGrade:String?
@@ -105,8 +120,20 @@ class MyProfileViewControllerTableViewController: UITableViewController{
             // Email
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "emailCell", for: indexPath) as! emailTableViewCell
+                // get email from DB
+                self.ref.child("users").child(uid).child("email").observeSingleEvent(of: .value, with: { (snapshot) in
+                    if snapshot.exists(){
+                        let val = snapshot.value as? String
+                        if (val! != ""){
+                            cell.userEmailLabel.text = val!
+                        }
+                        else{
+                            print("Username is an empty string!")
+                            cell.userEmailLabel.text = "Unknown"
+                        }
+                    }
+                }) { (error) in print(error.localizedDescription)}
                 cell.emailCellLabel.text = "Email"
-                cell.userEmailLabel.text = "123@gmail.com"
                 return cell
             // More
             case 2:
@@ -142,11 +169,13 @@ class MyProfileViewControllerTableViewController: UITableViewController{
     // change Height of Profile Picture Cell
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.section == 0 && indexPath.row == 0){
-            return 80
+            return 90
+
         }
         return 40
     }
     
+
     func downloadProfilePic(){
         var url: String!
         self.ref.child("users").child(self.uid).child("profilepicURL").observeSingleEvent(of: .value, with: {

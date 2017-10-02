@@ -12,9 +12,12 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     var uid = "+1" + EMClient.shared().currentUsername!
     var profilePicURL: String?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Database
         ref = Database.database().reference()
+
         self.tabBarController?.navigationItem.title = "Settings"
         self.tableView = UITableView(frame: self.tableView.frame, style: .grouped)
         self.tableView.backgroundColor = UIColor.init(hex: "F0EFF5")
@@ -23,6 +26,8 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.register(UINib(nibName: "SwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "switchCell")
         self.tableView.register(UINib(nibName: "LabelTableViewCell", bundle: nil), forCellReuseIdentifier: "labelCell")
+        self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "conversationCell")
+       
         
         self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "conversationCell")
     }
@@ -31,10 +36,6 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Settings"
         self.tabBarController?.tabBar.isHidden = false
-    }
-    
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
     }
     
     
@@ -52,29 +53,25 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     }
     
     
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section != 3{
-            if indexPath.section == 0 {
-                // My Profile TODO: don't use conversation table view cell, better make a new one
-                let cell:ConversationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath) as! ConversationTableViewCell
-                cell.senderLabel.text = "Jerry"
-                cell.badgeView.isHidden = true
-                cell.timeLabel.isHidden = true
-                cell.senderImageView.image = UIImage(named: "jerryProfile")
-                cell.senderImageView.contentMode = .scaleAspectFill
-                cell.lastMessageLabel.isHidden = true
-                return cell
-            } else{
-                let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-                cell.textLabel?.text = self.data[indexPath.section][indexPath.row][1] as? String
-                cell.imageView?.image = self.data[indexPath.section][indexPath.row][0] as? UIImage
-                
-                cell.accessoryType = .disclosureIndicator
-                return cell
-            }
+    override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            // My Profile TODO: don't use conversation table view cell, better make a new one
+            let cell:ConversationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath) as! ConversationTableViewCell
+            cell.senderLabel.text = "Jerry"
+            cell.badgeView.isHidden = true
+            cell.timeLabel.isHidden = true
+            cell.senderImageView.image = UIImage(named: "jerryProfile")
+            cell.lastMessageLabel.isHidden = true
+            return cell
         }
+        else if indexPath.section < 3 {
+            let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            cell.textLabel?.text = self.data[indexPath.section][indexPath.row][1] as? String
+            cell.imageView?.image = self.data[indexPath.section][indexPath.row][0] as? UIImage
+            
+            cell.accessoryType = .disclosureIndicator
+            return cell}
+
         else{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = self.data[indexPath.section][indexPath.row][0] as? String
@@ -91,6 +88,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         switch indexPath.section{
         // section 0
         case 0:
+            
             if indexPath.row == 0{
                 let StoryBoard = UIStoryboard(name:"ProfileMain",bundle:nil)
                 let myProfileVC = StoryBoard.instantiateViewController(withIdentifier: "myProfileVC")
@@ -110,7 +108,6 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
                 openMainPageVc.url = "https://www.instasolve.ca/"
                 tabBarController?.navigationController?.pushViewController(openMainPageVc, animated: true)
                 self.tabBarController?.tabBar.isHidden = true
-                
                 
             // Feedback
             case 1:
@@ -141,9 +138,10 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     // change Height of Profile Picture Cell
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.section == 0 && indexPath.row == 0){
-            return 80
+            return 100
+        } else {
+            return UITableViewAutomaticDimension
         }
-        return 40
     }
     
     
@@ -245,11 +243,6 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
             print(error.localizedDescription)
         }
     }
-    
-
-
-    
-    
 }
 
 

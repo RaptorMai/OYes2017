@@ -244,6 +244,7 @@ extension MainTableViewController {
         
         let ref = Database.database().reference()
         let tid = EMClient.shared().currentUsername
+        
         //print(tid)
         // TO DO: get current questionId from db
         let qid: String = (qid as String)
