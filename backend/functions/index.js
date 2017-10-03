@@ -144,7 +144,7 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 	console.log("what is amount");
 	console.log(event.data.current.child('amount').val());
 
-	var addBalanceHistory = admin.database().ref("/users/" + sid + "/balanceHistory");
+	var addBalanceHistory = admin.database().ref("/users/" + sid + "/completeBalanceHistory/" + pid);
 	var ref = admin.database().ref("/users/" + sid + "/balance");
 
 	ref.once("value").then(snapshot => {
@@ -165,7 +165,7 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 			ref.set(currentBalance);
 			return increment;
 		}).then(timePurchased => {
-				addBalanceHistory.push({
+				addBalanceHistory.set({
 							price: amount,
 							timePurchased: timePurchased,
 							date: date
@@ -228,7 +228,7 @@ exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{q
 		var today = new Date().getTime();
 
 		var addBalanceHistory = admin.database().ref("/users/" + sid + "/completeBalanceHistory/" + qid);
-		addBalanceHistory.push({
+		addBalanceHistory.set({
 								sessionTime: sessionTime,
 								date: today,
 								category: category
