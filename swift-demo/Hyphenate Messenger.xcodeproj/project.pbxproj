@@ -241,6 +241,7 @@
 		E40E53411F73042A00E12593 /* LoginVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40E533F1F73042900E12593 /* LoginVerificationViewController.swift */; };
 		E40E53431F7306B800E12593 /* AuthenticationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40E53421F7306B800E12593 /* AuthenticationHelper.swift */; };
 		E40E53461F73104700E12593 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E40E533D1F73039A00E12593 /* Authentication.storyboard */; };
+		E4EED04A1F82EA0E00F81986 /* ScaleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EED0491F82EA0E00F81986 /* ScaleImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -659,6 +660,7 @@
 		E40E533F1F73042900E12593 /* LoginVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVerificationViewController.swift; sourceTree = "<group>"; };
 		E40E53421F7306B800E12593 /* AuthenticationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationHelper.swift; sourceTree = "<group>"; };
 		E40E53481F734CBF00E12593 /* UIViewController+HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIViewController+HUD.swift"; path = "../../../Hyphenate-Demo-Swift-master/Hyphenate-Demo-Swift/Code/Utilities/Category/UIViewController+HUD.swift"; sourceTree = "<group>"; };
+		E4EED0491F82EA0E00F81986 /* ScaleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -902,6 +904,7 @@
 			isa = PBXGroup;
 			children = (
 				9A17BE281D9E20190075EF9F /* HyphenateMessengerHelper.swift */,
+				E4EED0491F82EA0E00F81986 /* ScaleImage.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -2081,6 +2084,7 @@
 				B6346B211D9E6C5100CBEAE2 /* UIButton+EMWebCache.m in Sources */,
 				B6346B131D9E6C5100CBEAE2 /* MWPhotoBrowser.m in Sources */,
 				B6346B2C1D9E6C5100CBEAE2 /* PSTCollectionViewData.m in Sources */,
+				E4EED04A1F82EA0E00F81986 /* ScaleImage.swift in Sources */,
 				9A17BE2F1D9E20190075EF9F /* ConversationsTableViewController.swift in Sources */,
 				5D4342461F266F1700E5CA62 /* CameraViewController.swift in Sources */,
 				B6346B481D9E6C5100CBEAE2 /* EaseConversationListViewController.m in Sources */,

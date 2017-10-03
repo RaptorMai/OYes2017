@@ -20,14 +20,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="PEj-66-d5h">
-                        <rect key="frame" x="16" y="6" width="88" height="66"/>
+                        <rect key="frame" x="8" y="6" width="88" height="66"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="88" id="acS-nv-ynH"/>
                             <constraint firstAttribute="height" constant="66" id="u8H-4n-LgR"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="sender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXf-MH-3lj">
-                        <rect key="frame" x="110" y="10" width="53" height="21"/>
+                        <rect key="frame" x="102" y="10" width="53" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="EzG-BF-pKF"/>
                         </constraints>
@@ -45,14 +45,14 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y2H-YT-ig9" customClass="M13BadgeView">
-                        <rect key="frame" x="91" y="6" width="16" height="16"/>
+                        <rect key="frame" x="83" y="6" width="16" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="Fmg-fp-Tx5"/>
                             <constraint firstAttribute="width" constant="16" id="dWh-LK-3qF"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNg-us-nE9">
-                        <rect key="frame" x="110" y="51" width="75" height="21"/>
+                        <rect key="frame" x="102" y="51" width="75" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="oyC-75-mhr"/>
                         </constraints>
@@ -64,7 +64,7 @@
                 <constraints>
                     <constraint firstItem="sNg-us-nE9" firstAttribute="leading" secondItem="PEj-66-d5h" secondAttribute="trailing" constant="6" id="4mF-Vn-ewW"/>
                     <constraint firstItem="sNg-us-nE9" firstAttribute="bottom" secondItem="PEj-66-d5h" secondAttribute="bottom" id="6pN-2z-Nry"/>
-                    <constraint firstItem="PEj-66-d5h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="GgM-kg-sEB"/>
+                    <constraint firstItem="PEj-66-d5h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="GgM-kg-sEB"/>
                     <constraint firstItem="KXf-MH-3lj" firstAttribute="leading" secondItem="PEj-66-d5h" secondAttribute="trailing" constant="6" id="GlS-gx-3b8"/>
                     <constraint firstItem="y2H-YT-ig9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="IFY-jb-wOI"/>
                     <constraint firstItem="Ay7-fi-F2f" firstAttribute="baseline" secondItem="KXf-MH-3lj" secondAttribute="baseline" id="QF0-Yv-rQD"/>
