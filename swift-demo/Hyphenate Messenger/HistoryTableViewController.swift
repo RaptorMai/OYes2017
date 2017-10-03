@@ -195,9 +195,13 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
             let timeStamp = ["SessionId":String(Date().ticks)]
             let sessionController = SessionTableViewController(conversationID: conversation.conversationId, conversationType: conversation.type, initWithExt: timeStamp)
             
-            print(conversation.conversationId)
+            // setting chatVC title
+            let messageExt = conversation.latestMessage.ext as? [String:String]
+            if messageExt != nil {
+                let categoryString = messageExt!["cat"]!
+                sessionController?.title = categoryString
+            }
             
-            sessionController?.title = conversation.latestMessage.from
             sessionController?.hidesBottomBarWhenPushed = true
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
             //self.navigationController!.pushViewController(sessionController!, animated: true)
