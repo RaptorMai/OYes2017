@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/MainViewController.swift"
-            timestampString = "525138930.844117"
+            timestampString = "528670786.981468"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "52"
@@ -392,12 +392,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/ShopTableVIewController.swift"
-            timestampString = "528595637.179136"
+            timestampString = "528668859.910829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "235"
             endingLineNumber = "235"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkName = "chargeUsingCustomerId(_:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -440,12 +440,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/ShopTableVIewController.swift"
-            timestampString = "528595637.179284"
+            timestampString = "528668859.911639"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "182"
             endingLineNumber = "182"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkName = "payButton(_:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -488,13 +488,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/ShopTableVIewController.swift"
-            timestampString = "528595637.179353"
+            timestampString = "528668859.912083"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "431"
-            endingLineNumber = "431"
-            landmarkName = "chargeUsingCustomerId(_:)"
-            landmarkType = "7">
+            startingLineNumber = "281"
+            endingLineNumber = "281">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -504,12 +502,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/ShopTableVIewController.swift"
-            timestampString = "528595637.179441"
+            timestampString = "528668859.912407"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "88"
             endingLineNumber = "88"
-            landmarkName = "viewWillAppear(_:)"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -520,12 +518,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/ShopTableVIewController.swift"
-            timestampString = "528595637.1795"
+            timestampString = "528668859.912853"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "119"
             endingLineNumber = "119"
-            landmarkName = "viewWillAppear(_:)"
+            landmarkName = "tableView(_:viewForFooterInSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -536,12 +534,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/ShopTableVIewController.swift"
-            timestampString = "528595637.17955"
+            timestampString = "528668859.913261"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "89"
             endingLineNumber = "89"
-            landmarkName = "viewWillAppear(_:)"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -552,12 +550,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/ShopTableVIewController.swift"
-            timestampString = "528595637.179602"
+            timestampString = "528668859.913662"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "211"
             endingLineNumber = "211"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkName = "addCardViewControllerDidCancel(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -568,12 +566,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/ShopTableVIewController.swift"
-            timestampString = "528595637.179648"
+            timestampString = "528668859.914086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "213"
             endingLineNumber = "213"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkName = "addCardViewController(_:didCreateToken:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -584,12 +582,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hyphenate Messenger/ShopTableVIewController.swift"
-            timestampString = "528595637.179705"
+            timestampString = "528668859.914549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "214"
             endingLineNumber = "214"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkName = "addCardViewController(_:didCreateToken:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

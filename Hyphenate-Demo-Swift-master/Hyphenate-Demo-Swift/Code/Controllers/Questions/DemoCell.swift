@@ -53,8 +53,8 @@ protocol expandimageProtocol {
 
 extension DemoCell {
     @IBAction func buttonHandler(_ sender: AnyObject) {
-        var disableMyButton = sender as? UIButton
-        disableMyButton?.isEnabled = false
+        let myButton = sender as? UIButton
+        myButton?.isEnabled = true
         if openQuestPic.image == nil{
             print("openQuestPic.image is nil")
         } else{
@@ -65,6 +65,6 @@ extension DemoCell {
         } else {
             print("openDescription.text is not nil")
         }
-        super.delegate.rescueButtonPressed(requestorSid: super.requestorSid, category: super.category, qid: super.qid, image: openQuestPic.image, description: openDescription.text)
+        super.delegate.rescueButtonPressed(requestorSid: super.requestorSid, category: super.category, qid: super.qid, image: openQuestPic.image, description: openDescription.text, sender:myButton!)
     }
 }

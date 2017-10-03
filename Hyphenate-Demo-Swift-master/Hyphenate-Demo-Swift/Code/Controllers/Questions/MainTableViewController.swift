@@ -29,7 +29,7 @@ import MBProgressHUD
 //import FirebaseDatabase
 
 protocol rescueButtonPressedProtocol {
-    func rescueButtonPressed(requestorSid: NSString, category: NSString, qid: NSString, image: UIImage?, description: String?)
+    func rescueButtonPressed(requestorSid: NSString, category: NSString, qid: NSString, image: UIImage?, description: String?, sender:UIButton)
 }
 
 class MainTableViewController: UITableViewController, rescueButtonPressedProtocol, expandimageProtocol {
@@ -209,13 +209,14 @@ extension MainTableViewController {
     
     
     
-    func rescueButtonPressed(requestorSid: NSString, category: NSString, qid: NSString, image:UIImage?, description: String?) {
+    func rescueButtonPressed(requestorSid: NSString, category: NSString, qid: NSString, image:UIImage?, description: String?, sender: UIButton) {
         
         let ref = Database.database().reference()
         let tid = EMClient.shared().currentUsername
         let qid: String = (qid as String)
         let category: String = (category as String)
         let refQid = ref.child("Request/active/" + category + "/" + qid)
+        sender.isEnabled = false
         //let refInactive = ref.child("Request/inactive/" + category + "/" + qid)
         refQid.runTransactionBlock ({ (currentData: MutableData) -> TransactionResult in
             //print(currentData.value)
@@ -250,10 +251,10 @@ extension MainTableViewController {
             //under snap variable has the value of the counter after
             //updates are done
             if commited {
-                
-                print(snap?.value)
+                sender.isEnabled = true
+                //print(snap?.value)
                 let checkNill = snap?.value! as? [String:AnyObject]
-                print(checkNill)
+                //print(checkNill)
                 if (checkNill == nil){
                     
                     let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
@@ -302,7 +303,7 @@ extension MainTableViewController {
                 
             }
             else{
-                
+                sender.isEnabled = true
                 let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {action in self.refresh()}))
                 self.present(alert, animated: true, completion: nil)
