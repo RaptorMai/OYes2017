@@ -200,6 +200,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
             newConversationID += NSString(characters: &nextChar, length: 1) as String
         }
 
+        // TODO: as new messageID tweak is found, consider rewrite this section of code
         let newConversation = chatManager?.getConversation(newConversationID, type: EMConversationTypeChat, createIfNotExist: true)
 
         // get all messages from current conversation
@@ -209,72 +210,36 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
             // copy all messages to new conversation
             if messages != nil {
                 for case let message as EMMessage in messages! {
-                    // model contains all information about a message
+                    // change the message's conversation ID to new, so that old message will not be loaded when the same
+                    // conversation ID comes again (because conversatoinID is essentially username, it'll show up again when
+                    // connected with the same tutor)
                     let model = EaseMessageModel(message: message)
-                    let body = message.body
-                    var newMessage: EMMessage? = nil
-                    
-                    // if dealing with image, require that images are indeed stored in the message
                     if model?.bodyType == EMMessageBodyTypeImage {
-                        var imageData: Data? = nil
-                        
-                        // if sending, the model contains the UIImage which is the image itself
-                        if message.direction == EMMessageDirectionSend {
-                            imageData = UIImageJPEGRepresentation((model?.image)!, 1)
-                            let messageBody = EMImageMessageBody(data: imageData, displayName: "Image.jpg")
-                            messageBody?.thumbnailDownloadStatus = EMDownloadStatusSuccessed
-                            messageBody?.downloadStatus = EMDownloadStatusSuccessed
-                            
-                            messageBody?.remotePath = model?.fileURLPath
-                            messageBody?.thumbnailRemotePath = model?.thumbnailFileURLPath
-                            
-                            newMessage = EMMessage(conversationID: newConversationID,
-                                                   from: message.from,
-                                                   to: message.to,
-                                                   body: messageBody,
-                                                   ext: nil)
-                        } else {
-                            // if dealing with incoming message, store the copied message body, which
-                            // contains the image and thumbnail remote address for later download,
-                            // if the image is downloaded, the image is stored locally by SDK
-                            newMessage = EMMessage(conversationID: newConversationID,
-                                                   from: message.from,
-                                                   to: message.to,
-                                                   body: message.body,
-                                                   ext: nil)
+                        // if dealing with image, download them if not yet downloaded
+                        let body = message.body as! EMImageMessageBody
+                        if body.downloadStatus != EMDownloadStatusSuccessed {
+                            EMClient.shared().chatManager.downloadMessageAttachment(message, progress: nil, completion: nil)
                         }
-                        
-                    } else {
-                        // for text messages, just copy the message body, which is text
-                        newMessage = EMMessage(conversationID: newConversationID,
-                                               from: message.from,
-                                               to: message.to,
-                                               body: message.body,
-                                               ext: nil)
                     }
                     
-                    newMessage?.direction = message.direction
-                    newMessage?.status = message.status
-                    newMessage?.chatType = EMChatTypeChat
-                    newConversation?.insert(newMessage, error: nil)
+                    message.conversationId = newConversationID
+                    self.conversation.updateMessageChange(message, error: nil)
                 }
             }
             
             // new message for ext
             // create thumbnail image
             let thumbnail = self.questionimage?.scaledImage(toSize:CGSize(width: 100, height: 50))
+            let textMessageBody = EMTextMessageBody(text: "End of chat")
             let newMessage = EMMessage(conversationID: newConversationID,
                                        from: newConversationID,
                                        to: "Me",
-                                       body: nil,
+                                       body: textMessageBody,
                                        ext: ["cat": self.category,
                                              "pic": UIImagePNGRepresentation(thumbnail!)?.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)])
-            newConversation?.insert(newMessage, error: nil)
+            newMessage?.status = EMMessageStatusSuccessed
             
-//            newConversation?.lastReceivedMessage()?.from = newConversationID
-//            // put information inside the last message
-//            newConversation?.latestMessage.ext = ["cat": self.category.data(using: .utf8) as Any,
-//                                                  "pic": UIImagePNGRepresentation(self.questionimage!) as Any]
+            newConversation?.insert(newMessage, error: nil)
         })
         
         // remove the current conversation from database

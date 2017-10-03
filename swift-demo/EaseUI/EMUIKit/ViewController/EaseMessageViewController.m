@@ -468,6 +468,7 @@
         {
             //download the message thumbnail
             [[[EMClient sharedClient] chatManager] downloadMessageThumbnail:message progress:nil completion:completion];
+            [[[EMClient sharedClient] chatManager] downloadMessageAttachment:message progress:nil completion:completion];
         }
     }
     else if ([messageBody type] == EMMessageBodyTypeVideo)
@@ -899,6 +900,7 @@
             sendCell = [[EaseBaseMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier model:model];
             sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
             sendCell.delegate = self;
+            sendCell.messageNameIsHidden = true;
         }
         
         sendCell.model = model;
