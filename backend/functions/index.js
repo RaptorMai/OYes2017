@@ -135,6 +135,7 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 	});
 
 
+// Update student balance everytime when they purchase a package
 exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{pid}').onUpdate(event => {
 	const sid = event.params.sid;
 	const id = event.params.pid;
@@ -143,7 +144,7 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 	console.log("what is amount");
 	console.log(event.data.current.child('amount').val());
 
-	var addBalanceHistory = admin.database().ref("/users/" + sid + "/balanceHistory");
+	var addBalanceHistory = admin.database().ref("/users/" + sid + "/completeBalanceHistory/" + pid);
 	var ref = admin.database().ref("/users/" + sid + "/balance");
 
 	ref.once("value").then(snapshot => {
@@ -164,7 +165,7 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 			ref.set(currentBalance);
 			return increment;
 		}).then(timePurchased => {
-				addBalanceHistory.push({
+				addBalanceHistory.set({
 							price: amount,
 							timePurchased: timePurchased,
 							date: date
@@ -197,6 +198,7 @@ exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{q
 })
 
 
+// Update student/tutor balance when they finish a session
 exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{questionId}').onWrite(event => {
 
 	const qid = event.params.questionId;
@@ -205,13 +207,15 @@ exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{q
 	console.log(category);
 
 	var ref = admin.database().ref("/Request/inactive/" + category + "/" + qid);
-	const sid = ref.once("value").then(snapshot => {
+	//const sid = ref.once("value").then(snapshot => {
+	ref.once("value").then(snapshot => {
 		console.log(snapshot.val());
 		const sid = "+1" + snapshot.val().sid;
 		console.log(sid);
 		const tid = snapshot.val().tid;
 		console.log(tid);
 		const sessionTime = snapshot.val().duration;
+		const rate = snapshot.val().rate;
 
 		// Update student balance
 		console.log("update student balance");
@@ -223,22 +227,68 @@ exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{q
 
 		var today = new Date().getTime();
 
-		var addBalanceHistory = admin.database().ref("/users/" + sid + "/balanceHistory");
-		addBalanceHistory.push({
+		var addBalanceHistory = admin.database().ref("/users/" + sid + "/completeBalanceHistory/" + qid);
+		addBalanceHistory.set({
 								sessionTime: sessionTime,
-								date: today
+								date: today,
+								category: category
 							});
 
-		// Update tutor balance
-		admin.database().ref("/tutors/" + tid + "/balance").once("value").then(snapshot => {
-			admin.database().ref("/tutors/" + tid + "/balance").set(parseInt(snapshot.val()) + parseInt(sessionTime))
-		})
+		// Update complete tutor balance + detailed breakdowns
+		var completeTutorProfile = admin.database().ref("/tutors/" + tid);
 
-		var tutorBalanceHistory = admin.database().ref("/tutors/" + tid + "/balanceHistory");
-		tutorBalanceHistory.push({
+		// Update tutor overall balance
+		completeTutorProfile.child("balance").once("value").then(snapshot => {
+			completeTutorProfile.child("balance").set(parseInt(snapshot.val()) + parseInt(sessionTime))
+		});
+
+		// Update tutor overall star
+		completeTutorProfile.child("stars").once("value").then(snapshot => {
+			completeTutorProfile.child("stars").set(parseInt(snapshot.val()) + parseInt(rate))
+		});
+
+		// Update tutor overall qnum
+		completeTutorProfile.child("totalQuestionNum").once("value").then(snapshot => {
+			completeTutorProfile.child("totalQuestionNum").set(parseInt(snapshot.val()) + 1)
+		});
+
+		// Add detailed balance history transaction
+		var tutorBalanceHistory = admin.database().ref("/tutors/" + tid + "/completeBalanceHistory/" + qid);
+		tutorBalanceHistory.set({
 								sessionTime: sessionTime,
-								date: today
+								date: today,
+								category: category
 							});
+
+		// Update tutor monthly data
+		var year = new Date().getFullYear();
+		var month = new Date().getMonth();
+
+		var tutorBalanceHistory = admin.database().ref("/tutors/" + tid + "/monthlyBalanceHistory/" + year + month);
+
+		// Update monthly total
+		tutorBalanceHistory.child("monthlyTotal").once("value").then(snapshot => {
+			if (snapshot.val() == null){
+				tutorBalanceHistory.child("monthlyTotal").set(0 + parseInt(sessionTime));
+			}
+			tutorBalanceHistory.child("monthlyTotal").set(parseInt(snapshot.val()) + parseInt(sessionTime));
+		});
+
+		// Update monthly stars
+		tutorBalanceHistory.child("stars").once("value").then(snapshot => {
+			if (snapshot.val() == null){
+				tutorBalanceHistory.child("stars").set(0 + parseInt(rate));
+			}
+			tutorBalanceHistory.child("stars").set(parseInt(snapshot.val()) + parseInt(rate));
+		});
+
+		// Update monthly total question numbers
+		tutorBalanceHistory.child("qnum").once("value").then(snapshot => {
+			if (snapshot.val() == null){
+				tutorBalanceHistory.child("qnum").set(1);
+			}
+			tutorBalanceHistory.child("qnum").set(parseInt(snapshot.val()) + 1);
+		});
 	})
 })
 
