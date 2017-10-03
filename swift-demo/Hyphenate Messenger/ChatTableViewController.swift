@@ -28,6 +28,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     var category: String = ""
     var key: String = ""
     var beginTime = Date()
+    var balance: Int = 1
     //let calendar = Calendar.current
 
     //questionimage and question description are automatically sent when the view loads. didFirstMessageSend keeps track of if the first message was sent.
@@ -41,12 +42,13 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     var dismissable = false
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.showRefreshHeader = true
         self.delegate = self
         self.dataSource = self
         self.ref = Database.database().reference()
         
+        getBalance()
         /* end session button*/
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         navigationController?.navigationBar.barTintColor = UIColor.white
@@ -101,6 +103,21 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     }
     
     // Mark: EaseMessageViewControllerDelegate
+    func getBalance(){
+        let sid = EMClient.shared().currentUsername!
+        let uidWithOne = "+1"+sid
+        ref?.child("users/\(uidWithOne)/balance").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            print(snapshot.value as! Int)
+            self.balance = snapshot.value as! Int
+            
+        }) { (error) in
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
     func messageViewController(_ viewController: EaseMessageViewController!, canLongPressRowAt indexPath: IndexPath!) -> Bool {
         return false
@@ -120,11 +137,17 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     func updateTimer() {
         //display time with floor
         time = Date().timeIntervalSince(beginTime)
-        timerLabel.text = String(Int(floor(Double(time)/60))) + " min"
-        //timerLabel.text = String(Int(floor(Double(time)))) + " min"
-        //TODO: check balance with server every minute, cut session if fund not enough
+        let minutes = Int(floor(Double(time)/60))
+        timerLabel.text = String(minutes) + " min"
+        if minutes >= self.balance{
+            let alert = UIAlertController(title: "Session finished", message: "Your balance is 0", preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler:{_ in self.endSession(minutes)})
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
+        }
         
     }
+    
     
     private func removeTimerLable() {
         timerLabel.text = ""
@@ -136,24 +159,25 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     func exitAlert(){
         let title = "Exit Session"
         let message = "Press Exit to end current session."
+        time = Date().timeIntervalSince(beginTime)
+        let sessionDuration = Int(ceil(Double(time)/60))
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Exit", style: UIAlertActionStyle.destructive, handler: {action in self.endSession()}))
+        alert.addAction(UIAlertAction(title: "Exit", style: UIAlertActionStyle.destructive, handler: {action in self.endSession(sessionDuration)}))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
         self.present(alert, animated: true, completion: nil)
     }
     
     
-    func endSession(){
+    func endSession(_ duration: Int){
         //calculate time with ceil
         let ratingViewController = UIStoryboard(name: "Rating", bundle: nil).instantiateViewController(withIdentifier: "rateSession") as! RatingViewController
         ratingViewController.category = self.category
         ratingViewController.key = self.key
         removeTimerLable()
-        time = Date().timeIntervalSince(beginTime)
-        let sessionDuration = Int(ceil(Double(time)/60))
-        //TODO: charge time to balance here
-        print(sessionDuration)
-        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":sessionDuration])
+        //time = Date().timeIntervalSince(beginTime)
+        //let sessionDuration = Int(ceil(Double(time)/60))
+        //print(sessionDuration)
+        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":duration])
         ratingViewController.delegate = self
         self.present(ratingViewController, animated: true)
         
@@ -237,7 +261,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
                                        body: textMessageBody,
                                        ext: ["cat": self.category,
                                              "pic": UIImagePNGRepresentation(thumbnail!)?.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)])
-            newMessage?.status = EMMessageStatusSuccessed
+            newMessage?.status = EMMessageStatusSucceed
             
             newConversation?.insert(newMessage, error: nil)
         })

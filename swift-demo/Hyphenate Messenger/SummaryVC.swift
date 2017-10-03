@@ -20,15 +20,15 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
     var key: String?
     var keyboardDisplayed = false
     var keyboardheight:CGFloat = 0
-    
+    var sid: String?
+    var balance:Int = 0
+    var threshold = 5
     //questionPic is the UIImageView that holds the question image.
     var questionPic: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight*0.37))
         image.backgroundColor = UIColor.white
         return image
     }()
-    
-    
     //categoryLabel is a UILabel that reads "Category:"
     let categoryLabel: UILabel = {
         let label = UILabel()
@@ -96,7 +96,8 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
         view.addSubview(nextButton)
         setupNextButton()
         hideKeyboardWhenTappedAround()
-        
+        sid = EMClient.shared().currentUsername!
+        getBalance()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,7 +106,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-      //  NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        //  NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         //NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     func createlabel()->UILabel{
@@ -130,45 +131,111 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
         
     }
     
+    func getBalance(){
+        let uidWithOne = "+1"+sid!
+        ref?.child("users/\(uidWithOne)/balance").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            print(snapshot.value as! Int)
+            self.balance = snapshot.value as! Int
+            
+        }) { (error) in
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     //flag variable monitors which screen we are on. States: -1 = not set, 0 = tutor connecting screen, 1 = tutor connected screen
     var flag = -1
     
     func requestHelpPressed(button: UIButton) {
-        //check if keyboard is displayed and if it is then dismiss before continuing
-        if keyboardDisplayed == true {
+        
+        if self.balance < self.threshold && self.balance > 0{
+            let alertController = UIAlertController(title: "Warning", message:
+                "Your balance is less than \(self.threshold) mins. Your session will terminate when your balance is 0 ", preferredStyle: UIAlertControllerStyle.alert)
+            
+            alertController.addAction(UIAlertAction(title: "Purchase minutes", style: UIAlertActionStyle.default, handler: { _ in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            
+            alertController.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.cancel, handler: { _ in
+                self.dismissKeyboard()
+                //Check if description was entered. If a description was not entered modify text uploaded to database.
+                if self.questionDescription.text == "Add Description Here..." {
+                    self.questionDescription.text = "No Description Available"
+                }
+                //write question to firebase
+                var data = Data()
+                data = UIImageJPEGRepresentation(self.questionPic.image!, 0.8)!
+                self.navigationController?.setNavigationBarHidden(true, animated: false)
+                _ = MKFullSpinner.show("Your tutor is on the way", view: self.view)
+                self.flag = 0
+                
+                //let label = createlabel()
+                //self.view.addSubview(label)
+                //setuplabel(label: label)
+                let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
+                button.setTitle("Cancel", for: .normal)
+                button.addTarget(self, action: #selector(self.cancelAction), for: .touchUpInside)
+                self.view.addSubview(button)
+                
+                self.uploadPicture(data, completion:{ (url) -> Void in
+                    let addRequest = ["sid": self.sid!, "picURL":url!, "category": self.categorytitle, "description":
+                        self.questionDescription.text as String, "status": 0, "qid": self.key!, "tid":"", "duration": "", "rate":""] as [String : Any]
+                    self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").setValue(addRequest)
+                    //label.removeFromSuperview()
+                })
+                
+                NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound(_:)), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
+            
+            }
+            ))
+            
+            present(alertController, animated: true, completion: nil)
+        }
+        else if self.balance <= 0{
+            let alertController = UIAlertController(title: "Warning", message:
+                "Your balance is 0", preferredStyle: UIAlertControllerStyle.alert)
+            
+            alertController.addAction(UIAlertAction(title: "Purchase minutes", style: UIAlertActionStyle.default, handler: { _ in
+                self.dismiss(animated: true, completion: nil)
+            }))
+             present(alertController, animated: true, completion: nil)
+        }
+        else{
+            //check if keyboard is displayed and if it is then dismiss before continuing
             dismissKeyboard()
+            //Check if description was entered. If a description was not entered modify text uploaded to database.
+            if self.questionDescription.text == "Add Description Here..." {
+                self.questionDescription.text = "No Description Available"
+            }
+            //write question to firebase
+            var data = Data()
+            data = UIImageJPEGRepresentation(questionPic.image!, 0.8)!
+            
+            
+            self.navigationController?.setNavigationBarHidden(true, animated: false)
+            _ = MKFullSpinner.show("Your tutor is on the way", view: self.view)
+            self.flag = 0
+            
+            //let label = createlabel()
+            //self.view.addSubview(label)
+            //setuplabel(label: label)
+            let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
+            button.setTitle("Cancel", for: .normal)
+            button.addTarget(self, action: #selector(self.cancelAction), for: .touchUpInside)
+            self.view.addSubview(button)
+            
+            uploadPicture(data, completion:{ (url) -> Void in
+                let addRequest = ["sid": self.sid!, "picURL":url!, "category": self.categorytitle, "description":
+                    self.questionDescription.text as String, "status": 0, "qid": self.key!, "tid":"", "duration": "", "rate":""] as [String : Any]
+                self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").setValue(addRequest)
+                //label.removeFromSuperview()
+            })
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound(_:)), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
         }
-        //Check if description was entered. If a description was not entered modify text uploaded to database.
-        if self.questionDescription.text == "Add Description Here..." {
-            self.questionDescription.text = "No Description Available"
-        }
-        //write question to firebase
-        var data = Data()
-        data = UIImageJPEGRepresentation(questionPic.image!, 0.8)!
-        let sid = EMClient.shared().currentUsername!
-        
-        
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        _ = MKFullSpinner.show("Your tutor is on the way", view: self.view)
-        self.flag = 0
-        
-        //let label = createlabel()
-        //self.view.addSubview(label)
-        //setuplabel(label: label)
-        let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
-        button.setTitle("Cancel", for: .normal)
-        button.addTarget(self, action: #selector(self.cancelAction), for: .touchUpInside)
-        self.view.addSubview(button)
-        
-        uploadPicture(data, completion:{ (url) -> Void in
-            let addRequest = ["sid": sid, "picURL":url!, "category": self.categorytitle, "description":
-                self.questionDescription.text as String, "status": 0, "qid": self.key!, "tid":"", "duration": "", "rate":""] as [String : Any]
-            self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").setValue(addRequest)
-            //label.removeFromSuperview()
-        })
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound(_:)), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
-        
     }
     
     var didStudentClickOkAfterTutorinChat = false
@@ -180,7 +247,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
         MKFullSpinner.hide()
         
         //tcVC - tutorconnectedVC
-
+        
         let storyBoard = UIStoryboard(name: "TutorConnected", bundle: nil)
         let tcVC = storyBoard.instantiateViewController(withIdentifier: "TutorConnected") as! TutorConnectedVC
         tcVC.questionDescription = self.questionDescription.text
@@ -194,7 +261,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(changeDidStudentClickOkAfterTutorinChat), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
         
         navigationController?.pushViewController(tcVC, animated: true)
-
+        
         //
         // self.present(alert, animated: true, completion: nil)
         //        self.startChatting(requestDict: notification.userInfo as! [String : Any])
@@ -398,27 +465,7 @@ extension SummaryVC {
         view.endEditing(true)
     }
     
-    //The below two functions allow the view to move up/down when the keyboard is presented/hidden. These functions are called by an observer for when the keyboard is presented/hidden.
-    func keyboardWillShow(notification: NSNotification) {
-        print("show")
-        
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            print(keyboardSize.height)
-            
-            
-            
-            
-            if keyboardSize.height > self.keyboardheight{
-                self.view.frame.origin.y -= (keyboardSize.height - self.keyboardheight)
-                
-                keyboardheight = keyboardSize.height
-            } else {
-            self.view.frame.origin.y -= self.keyboardheight
-            }
-        }
-        keyboardDisplayed = true
-    }
+    
     
     func keyboardWillHide(notification: NSNotification) {
         print("hide")
@@ -428,37 +475,4 @@ extension SummaryVC {
     }
 }
 
-/*
- CODE GRAVEYARD
- 
- //flag variable monitors which screen we are on. States: -1 = not set, 0 = tutor connecting screen, 1 = tutor connected screen
- var flag = 0
- func tutorFound(_ notification: NSNotification){
- if self.flag == 0 {
- let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
- alert.addAction(UIAlertAction(title: "OK",
- style: UIAlertActionStyle.default,
- handler: { (alert:UIAlertAction!) in
- MKFullSpinner.hide()
- _ = MKFullSpinner.show("Your tutor is working on your problem", view: self.view)
- self.flag = 1
- }))
- self.present(alert, animated: true, completion: nil)
- }
- if self.flag == 1 {
- let alert = UIAlertController(title: "Tutor is Ready", message: "Your tutor is now ready to begin your session.", preferredStyle: UIAlertControllerStyle.alert)
- alert.addAction(UIAlertAction(title: "OK",
- style: UIAlertActionStyle.default,
- handler: { (alert:UIAlertAction!) in
- MKFullSpinner.hide()
- self.startChatting(requestDict: notification.userInfo as! [String : Any])
- self.flag = 0
- }))
- self.present(alert, animated: true, completion: nil)
- }
- 
- }
- 
- 
- 
- */
+

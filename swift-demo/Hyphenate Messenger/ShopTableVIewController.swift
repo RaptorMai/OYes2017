@@ -239,58 +239,6 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         }
     }
     
-    /*override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-     /*let changeCardButton = UIButton(type: .custom)
-     changeCardButton.backgroundColor = UIColor.blue
-     changeCardButton.setTitle("Change Card", for: .normal)
-     changeCardButton.backgroundColor = .clear
-     changeCardButton.layer.cornerRadius = 5
-     changeCardButton.layer.borderWidth = 1
-     changeCardButton.layer.borderColor = theme.buttonColor.cgColor
-     changeCardButton.setTitleColor(theme.buttonColor, for:.normal )
-     changeCardButton.addTarget(self, action: #selector(ShopTableViewController.updateCard), for: .touchUpInside)
-     changeCardButton.frame = CGRect(x: 0, y: 200, width: UIScreen.main.bounds.size.width, height: 45)
-     
-     let footerView = UIView(frame: CGRect(x: 0, y: 200, width: UIScreen.main.bounds.size.width, height: 100))
-     
-     //UIScreen.main.bounds.size.height - 220
-     print("UI main screen height \(UIScreen.main.bounds.size.height)")
-     print("current view height \(view.bounds.size.height)")
-     // footerView.backgroundColor = UIColor.black*/
-     let footerView = UIView(frame: CGRect(x: 0, y: 200, width: UIScreen.main.bounds.size.width, height: 45))
-     footerView.translatesAutoresizingMaskIntoConstraints = false
-     changeCardButton.translatesAutoresizingMaskIntoConstraints = false
-     footerView.addSubview(changeCardButton)
-     
-     let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
-     footerView.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: 1)
-     changeCardButton.widthAnchor.constraint(equalTo: footerView.widthAnchor).isActive = true
-     changeCardButton.topAnchor.constraint(equalTo: footerView.topAnchor).isActive = true
-     changeCardButton.addTarget(self, action: #selector(ShopTableViewController.updateCard), for: .touchUpInside)
-     changeCardButton.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: 1)
-     footerView.backgroundColor = UIColor.red
-     return footerView
-     }*/
-    
-    /*override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-     return 200
-     }*/
-    
-    //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //        tableView.deselectRow(at: indexPath, animated: true)
-    //        product = products[indexPath.row]
-    //        price = prices[indexPath.row]
-    //
-    //        let title = "Confirm Purchase"
-    //        let message = "Proceed to purchase \(product) package for $\(price/100).00)?"
-    //        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    //        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
-    //        alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: {action in self.payButton()}))
-    //
-    //        self.present(alert, animated: true, completion: nil)
-    //
-    //    }
-    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.frame = CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height * 0.10)
