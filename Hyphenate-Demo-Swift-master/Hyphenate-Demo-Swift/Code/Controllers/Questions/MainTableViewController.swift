@@ -164,10 +164,12 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
         self.ref?.child("tutors/\(tid)/category").observeSingleEvent(of: .value, with: { (snapshot) in
             
             print(snapshot.value as! [String:Int])
-            let specDic = snapshot.value as! [String:Int]
-            self.specialty = Array(specDic.keys)
-            print(self.specialty)
-            completion(true)
+
+            if let specDic = snapshot.value as? [String:Int]{
+                self.specialty = Array(specDic.keys)
+                print(self.specialty)
+                completion(true)
+            }
         }) { (error) in
             let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
             let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
