@@ -124,14 +124,13 @@ class LoginVerificationViewController: UIViewController {
             let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationKey, verificationCode: numberField.text!)
             Auth.auth().signIn(with: credential, completion: { (user, error) in
                 if error != nil {
+                    self.hideHud()
                     print("error: \(String(describing: error?.localizedDescription))")
                     let alertView = UIAlertController(title: "Login failed", message: error?.localizedDescription, preferredStyle: .alert)
                     alertView.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                     self.present(alertView, animated: true, completion: nil)
                 } else {
                     // cellphone login successful
-                    let userInfo = user?.providerData[0]
-                    
                     // log into hyphenate, if mode is signup, perform signup flow
                     if self.mode == .login {
                         self.hyphenateLogin()
