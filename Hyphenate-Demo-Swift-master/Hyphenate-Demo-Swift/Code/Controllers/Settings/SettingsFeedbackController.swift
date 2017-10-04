@@ -20,7 +20,7 @@ class SendFeedbackController: UIViewController, MFMailComposeViewControllerDeleg
             return
         } else {
             sendFeedback()
-            
+
         }
     }
     

@@ -56,7 +56,6 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate{
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if indexPath.section != 3{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = self.data[indexPath.section][indexPath.row][1] as? String
@@ -78,7 +77,14 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch indexPath.section {
-        //case 0: profile
+        case 0:
+            if indexPath.row == 0{
+                let StoryBoard = UIStoryboard(name:"ProfileMain",bundle:nil)
+                let myProfileVC = StoryBoard.instantiateViewController(withIdentifier: "myProfileVC")
+                navigationController?.pushViewController(myProfileVC, animated: true)
+                self.tabBarController?.tabBar.isHidden = true
+                myProfileVC.navigationController?.navigationBar.tintColor = UIColor.white
+            }
         //case 1: bank account and cash out
         case 2:
             switch indexPath.row{
