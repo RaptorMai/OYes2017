@@ -25,10 +25,14 @@ notes: tid(tutor id), qid(question id), sid(student id)
         count:
         email:
         token:
-        category:
+        category:
 
 4. users:
     <sid>:
+        username:
+        grade:
+        email:
+        profilepicURL:
         balance:
         payments:
             customerId:
