@@ -24,6 +24,10 @@ struct Theme {
     let buttonColor = UIColor(red: 45.0/255.0, green: 162.0/255.0, blue: 220.0/255.0, alpha: 1.0)
 }
 
+protocol ShopPurchaseStatusDelegate {
+    func didFinishPurchasingWith(status succ: Bool)
+}
+
 class ShopTableViewController: UITableViewController, STPAddCardViewControllerDelegate{
     
     var ref: DatabaseReference? = Database.database().reference()
@@ -42,6 +46,12 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     var balance = 0
     var checkHide = 0
     var firstAppear = 0
+    
+    var delegate: ShopPurchaseStatusDelegate?
+ 
+    // set this flag when purchasing before starting chat, so it dismisses
+    // itself after successfully purchasing a package
+    var isPurchasingBeforeReqeusting = false
     
     /*let changeCardButton: UIButton = {
      let theme = Theme()
@@ -164,6 +174,12 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         
     }
     
+    func dismissShop() {
+        // this function is writen for UIBarbuttonItem when using modal present
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: Table view
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("numOfRow")
         print(self.products.count)
@@ -388,7 +404,15 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                     let title = "Payment Successed"
                     let message = "You have purchased \(self.product) package for $\(amount/100).00"
                     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {(action) in
+                        if self.isPurchasingBeforeReqeusting {
+                            // if is presented modally before requesting tutor, want to dismiss self and let
+                            // the summaryVC know about it
+                            self.delegate?.didFinishPurchasingWith(status: true)
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    }))
+                    
                     self.present(alert, animated: true, completion: nil)
                 } else {
                     print("postDict\(String(describing: postDict))")

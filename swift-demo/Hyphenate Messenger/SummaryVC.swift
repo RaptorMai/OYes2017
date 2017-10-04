@@ -12,7 +12,7 @@ import FirebaseDatabase
 import Alamofire
 import IHKeyboardAvoiding
 
-class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
+class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, ShopPurchaseStatusDelegate {
     //This class is a viewcontroller that gathers and displays the data inputted by the user about their question. This viewcontroler allows the user to double check the data, enter a description of their question, and send the request for help to our platform.
     
     var categorytitle: String = ""
@@ -156,45 +156,29 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
                 "Your balance is less than \(self.threshold) mins. Your session will terminate when your balance is 0 ", preferredStyle: UIAlertControllerStyle.alert)
             
             alertController.addAction(UIAlertAction(title: "Purchase minutes", style: UIAlertActionStyle.default, handler: { _ in
-                self.dismiss(animated: true, completion: nil)
+                // present modally the shop VC for purchasing minutes
+                let shopViewController = ShopTableViewController()
+                shopViewController.delegate = self
+                
+                let shopNavVC = UINavigationController(rootViewController: shopViewController)
+                shopNavVC.navigationBar.isTranslucent = false
+                shopNavVC.navigationBar.topItem?.title = "Shop"
+                
+                // dismissShop is defined in ShopTableViewController, just to dissmiss modal present
+                shopNavVC.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: shopViewController, action: Selector(("dismissShop")))
+                shopNavVC.navigationBar.topItem?.leftBarButtonItem?.tintColor = UIColor(hex: "2EA2DC")
+                
+                shopViewController.isPurchasingBeforeReqeusting = true
+                self.present(shopNavVC, animated: true, completion: nil)
+                // self.dismiss(animated: true, completion: nil)
             }))
             
-            alertController.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.cancel, handler: { _ in
-                self.dismissKeyboard()
-                //Check if description was entered. If a description was not entered modify text uploaded to database.
-                if self.questionDescription.text == "Add Description Here..." {
-                    self.questionDescription.text = "No Description Available"
-                }
-                //write question to firebase
-                var data = Data()
-                data = UIImageJPEGRepresentation(self.questionPic.image!, 0.8)!
-                self.navigationController?.setNavigationBarHidden(true, animated: false)
-                _ = MKFullSpinner.show("Your tutor is on the way", view: self.view)
-                self.flag = 0
-                
-                //let label = createlabel()
-                //self.view.addSubview(label)
-                //setuplabel(label: label)
-                let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
-                button.setTitle("Cancel", for: .normal)
-                button.addTarget(self, action: #selector(self.cancelAction), for: .touchUpInside)
-                self.view.addSubview(button)
-                
-                self.uploadPicture(data, completion:{ (url) -> Void in
-                    let addRequest = ["sid": self.sid!, "picURL":url!, "category": self.categorytitle, "description":
-                        self.questionDescription.text as String, "status": 0, "qid": self.key!, "tid":"", "duration": "", "rate":""] as [String : Any]
-                    self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").setValue(addRequest)
-                    //label.removeFromSuperview()
-                })
-                
-                NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound(_:)), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
-            
-            }
-            ))
+            alertController.addAction(UIAlertAction(title: "Continue", style: .destructive, handler: {_ in
+                self.requestTutor()
+            }))
             
             present(alertController, animated: true, completion: nil)
-        }
-        else if self.balance <= 0{
+        } else if self.balance <= 0 {
             let alertController = UIAlertController(title: "Warning", message:
                 "Your balance is 0", preferredStyle: UIAlertControllerStyle.alert)
             
@@ -202,40 +186,46 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
                 self.dismiss(animated: true, completion: nil)
             }))
              present(alertController, animated: true, completion: nil)
+        } else {
+            // if the balance is sufficient, just request
+            requestTutor()
         }
-        else{
-            //check if keyboard is displayed and if it is then dismiss before continuing
-            dismissKeyboard()
-            //Check if description was entered. If a description was not entered modify text uploaded to database.
-            if self.questionDescription.text == "Add Description Here..." {
-                self.questionDescription.text = "No Description Available"
-            }
-            //write question to firebase
-            var data = Data()
-            data = UIImageJPEGRepresentation(questionPic.image!, 0.8)!
-            
-            
-            self.navigationController?.setNavigationBarHidden(true, animated: false)
-            _ = MKFullSpinner.show("Your tutor is on the way", view: self.view)
-            self.flag = 0
-            
-            //let label = createlabel()
-            //self.view.addSubview(label)
-            //setuplabel(label: label)
-            let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
-            button.setTitle("Cancel", for: .normal)
-            button.addTarget(self, action: #selector(self.cancelAction), for: .touchUpInside)
-            self.view.addSubview(button)
-            
-            uploadPicture(data, completion:{ (url) -> Void in
-                let addRequest = ["sid": self.sid!, "picURL":url!, "category": self.categorytitle, "description":
-                    self.questionDescription.text as String, "status": 0, "qid": self.key!, "tid":"", "duration": "", "rate":""] as [String : Any]
-                self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").setValue(addRequest)
-                //label.removeFromSuperview()
-            })
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound(_:)), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
+    }
+    
+    /// Call this function to request a tutor
+    func requestTutor() {
+        //check if keyboard is displayed and if it is then dismiss before continuing
+        dismissKeyboard()
+        //Check if description was entered. If a description was not entered modify text uploaded to database.
+        if self.questionDescription.text == "Add Description Here..." {
+            self.questionDescription.text = "No Description Available"
         }
+        //write question to firebase
+        var data = Data()
+        data = UIImageJPEGRepresentation(questionPic.image!, 0.8)!
+        
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        let spinner = MKFullSpinner.show("Uploading question...", view: self.view)
+        self.flag = 0
+        
+        //let label = createlabel()
+        //self.view.addSubview(label)
+        //setuplabel(label: label)
+        let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
+        button.setTitle("Cancel", for: .normal)
+        button.addTarget(self, action: #selector(self.cancelAction), for: .touchUpInside)
+        self.view.addSubview(button)
+        
+        uploadPicture(data, completion:{ (url) -> Void in
+            spinner.title = "Your tutor is on the way"
+            let addRequest = ["sid": self.sid!, "picURL":url!, "category": self.categorytitle, "description":
+                self.questionDescription.text as String, "status": 0, "qid": self.key!, "tid":"", "duration": "", "rate":""] as [String : Any]
+            self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").setValue(addRequest)
+            //label.removeFromSuperview()
+        })
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound(_:)), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
     }
     
     var didStudentClickOkAfterTutorinChat = false
@@ -472,6 +462,13 @@ extension SummaryVC {
         self.view.frame.origin.y = 0
         keyboardheight = 0
         keyboardDisplayed = false
+    }
+    
+    // MARK: ShopViewDelegate
+    func didFinishPurchasingWith(status succ: Bool) {
+        if succ {
+            requestTutor()
+        }
     }
 }
 
