@@ -144,7 +144,7 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 	console.log("what is amount");
 	console.log(event.data.current.child('amount').val());
 
-	var addBalanceHistory = admin.database().ref("/users/" + sid + "/completeBalanceHistory/" + pid);
+	var addBalanceHistory = admin.database().ref("/users/" + sid + "/completeBalanceHistory/" + id);
 	var ref = admin.database().ref("/users/" + sid + "/balance");
 
 	ref.once("value").then(snapshot => {
