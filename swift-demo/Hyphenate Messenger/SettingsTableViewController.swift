@@ -29,6 +29,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
        
         
         self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "conversationCell")
+        
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -63,35 +64,13 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
             cell.lastMessageLabel.isHidden = true
             cell.senderImageView.contentMode = UIViewContentMode.scaleAspectFill
             
-            // get username from DB
-            self.ref.child("users").child(uid).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
-                if snapshot.exists(){
-                    let val = snapshot.value as? String
-                    if (val! != ""){
-                        cell.senderLabel.text = val!
-                    }
-                    else{
-                        print("Username is an empty string!")
-                        cell.senderLabel.text = ""
-                    }
-                }
-            }) { (error) in print(error.localizedDescription)}
-            
-            // get profile picture from DB
-            self.ref.child("users").child(uid).child("profilepicURL").observeSingleEvent(of: .value, with: {(snapshot) in
-                if snapshot.exists(){
-                    let val = snapshot.value as? String
-                    if (val == nil){
-                        cell.senderImageView.image = #imageLiteral(resourceName: "profile")
-                    }
-                    else{
-                        let profileUrl = URL(string: val!)
-                        //print(val)
-                        cell.senderImageView.sd_setImage(with: profileUrl)
-                    }
-                }
-            }) { (error) in print(error.localizedDescription)}
-            
+            // username
+            cell.senderLabel.text = UserDefaults.standard.string(forKey: "userName")
+            // profile picture
+            let data = UserDefaults.standard.data(forKey: "profilePicture")
+            let imageUIImage: UIImage = UIImage(data: data!)!
+            cell.senderImageView.image = imageUIImage
+
             return cell
         }
         else if indexPath.section < 3 {

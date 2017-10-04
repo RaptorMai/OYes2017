@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import MBProgressHUD
 
 
 class EmailViewController: UIViewController {
@@ -19,14 +20,7 @@ class EmailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // get email from DB
-        self.ref?.child("users").child(uid).child("email").observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.exists(){
-                let val = snapshot.value as? String
-                if (val! != ""){
-                    self.EmailText.text = val!
-                }
-            }
-        }) { (error) in print(error.localizedDescription)}
+        self.EmailText.text = UserDefaults.standard.string(forKey: "email")
         EmailText.becomeFirstResponder()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
     }
@@ -39,10 +33,28 @@ class EmailViewController: UIViewController {
     @IBOutlet weak var EmailText: UITextField!
     
     @IBAction func Save(_ sender: UIBarButtonItem) {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        
+        //Upload Email to DB
         let email = EmailText.text
         uploadEmail(email!)
-        self.navigationController?.popViewController(animated: true)
         
+        // Retrive Email from firebase
+        // Store data to UserDefaults
+        self.ref.child("users").child(uid).child("email").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists(){
+                let val = snapshot.value as? String
+                if (val! != ""){
+                    UserDefaults.standard.set(val, forKey: "email")
+                }
+                else{
+                    print("Username is an empty string!")
+                    UserDefaults.standard.set("Unknown", forKey: "email")
+                }
+            }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            self.navigationController?.popViewController(animated: true)
+        }) { (error) in print(error.localizedDescription)}
     }
     
     func uploadEmail(_ email: String){
@@ -53,17 +65,6 @@ class EmailViewController: UIViewController {
     func handleTap(_ tapGesture: UITapGestureRecognizer) {
         view.endEditing(true)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 

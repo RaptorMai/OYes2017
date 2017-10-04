@@ -16,8 +16,12 @@ class MyProfileViewControllerTableViewController: UITableViewController{
     // MARK: - Properties
     var ref = Database.database().reference()
     var uid = "+1" + EMClient.shared().currentUsername!
+    
 
-    // MARK: - Override Functions
+    // MARK: SETUP UserDefaults
+    let defaultProfilePic = UIImage(named: "profile")
+    
+    // MARK: - View Did Load
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,38 +62,16 @@ class MyProfileViewControllerTableViewController: UITableViewController{
             // Profile Picture
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "profilePictureCell", for: indexPath) as! profilePictureTableViewCell
-                self.ref.child("users").child(uid).child("profilepicURL").observeSingleEvent(of: .value, with: {(snapshot) in
-                    if snapshot.exists(){
-                        let val = snapshot.value as? String
-                        if (val == nil){
-                            cell.profileImageView.image = #imageLiteral(resourceName: "profile")
-                        }
-                        else{
-                            let profileUrl = URL(string: val!)
-                            cell.profileImageView.sd_setImage(with: profileUrl)
-                        }
-                    }
-                }) { (error) in print(error.localizedDescription)}
-                
+                let data = UserDefaults.standard.data(forKey: "profilePicture")
+                let imageUIImage: UIImage = UIImage(data: data!)!
+                cell.profileImageView.image = imageUIImage
                 cell.profilePhotoLabel.text = "Profile Photo"
                 return cell
             // Name
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "nameCell", for: indexPath) as! nameTableViewCell
-                // get username from DB
-                self.ref.child("users").child(uid).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
-                    if snapshot.exists(){
-                        let val = snapshot.value as? String
-                        if (val! != ""){
-                            cell.userNameLabel.text = val!
-                        }
-                        else{
-                            print("Username is an empty string!")
-                            cell.userNameLabel.text = "Unknown"
-                        }
-                    }
-                }) { (error) in print(error.localizedDescription)}
                 cell.nameCellLabel.text = "Name"
+                cell.userNameLabel.text = UserDefaults.standard.string(forKey: "userName")
                 return cell
             // Should Never Reach
             default:
@@ -104,41 +86,15 @@ class MyProfileViewControllerTableViewController: UITableViewController{
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "gradeCell", for: indexPath) as! gradeTableViewCell
                 cell.gradeCellLabel.text = "Grade"
-
-                
-                // Retrive Grade from firebase
-                var updatedGrade:String?
-                self.ref.child("users").child(self.uid).child("grade").observeSingleEvent(of: .value, with: {
-                    (snapshot) in
-                    updatedGrade = snapshot.value as? String
-                    if updatedGrade == nil{
-                        cell.userGraderLabel.text = "Unknown"
-                    } else {
-                        cell.userGraderLabel.text = updatedGrade
-                    }
-                }) {
-                    (error) in print (error.localizedDescription)
-                }
+                cell.userGraderLabel.text = UserDefaults.standard.string(forKey: "grade")
 
                 return cell
                 
             // Email
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "emailCell", for: indexPath) as! emailTableViewCell
-                // get email from DB
-                self.ref.child("users").child(uid).child("email").observeSingleEvent(of: .value, with: { (snapshot) in
-                    if snapshot.exists(){
-                        let val = snapshot.value as? String
-                        if (val! != ""){
-                            cell.userEmailLabel.text = val!
-                        }
-                        else{
-                            print("Username is an empty string!")
-                            cell.userEmailLabel.text = "Unknown"
-                        }
-                    }
-                }) { (error) in print(error.localizedDescription)}
                 cell.emailCellLabel.text = "Email"
+                cell.userEmailLabel.text = UserDefaults.standard.string(forKey: "email")
                 return cell
             // More
             case 2:
@@ -179,19 +135,6 @@ class MyProfileViewControllerTableViewController: UITableViewController{
         }
         return 40
     }
-    
-
-    func downloadProfilePic(){
-        var url: String!
-        self.ref.child("users").child(self.uid).child("profilepicURL").observeSingleEvent(of: .value, with: {
-            (snapshot) in
-            url = snapshot.value as? String
-        }){
-            (error) in print(error.localizedDescription)
-        }
-    }
-    
-
     /*
     // MARK: - Navigation
 

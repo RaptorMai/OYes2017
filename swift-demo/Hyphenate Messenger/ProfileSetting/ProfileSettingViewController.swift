@@ -28,22 +28,10 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         imageView.layer.cornerRadius = imageView.frame.size.width/1.74
         
         imageView.clipsToBounds = true
-
         
-        // get profile picture from DB
-        self.ref.child("users").child(uid).child("profilepicURL").observeSingleEvent(of: .value, with: {(snapshot) in
-            if snapshot.exists(){
-                let val = snapshot.value as? String
-                if (val == nil){
-                    self.imageView.image = #imageLiteral(resourceName: "profile")
-                }
-                else{
-                    let profileUrl = URL(string: val!)
-                    //print(val)
-                    self.imageView.sd_setImage(with: profileUrl)
-                }
-            }
-        }) { (error) in print(error.localizedDescription)}
+        let data = UserDefaults.standard.data(forKey: "profilePicture")
+        let imageUIImage: UIImage = UIImage(data: data!)!
+        imageView.image = imageUIImage
     }
     
     
@@ -67,12 +55,50 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
     @IBAction func saveButton(_ sender: UIBarButtonItem) {
         MBProgressHUD.showAdded(to: self.view, animated: true)
         let imageData: Data = UIImagePNGRepresentation(imageView.image!)!
+        
+        // Upload Profile Picture to DB
         uploadPicture(imageData, completion:{ (url) -> Void in
+            print("Uploading profile pic")
             self.ref.child("users/\(self.uid)").updateChildValues(["profilepicURL": url!])
-            MBProgressHUD.hide(for: self.view, animated: true)
-            self.navigationController?.popViewController(animated: true)
+//            MBProgressHUD.hide(for: self.view, animated: true)
+//            self.navigationController?.popViewController(animated: true)
+            print("Finished upload")
+            print("Going to download from DB")
+            // Retrive Profile Picture from DB
+            // Store data to UserDefaults
+            self.ref.child("users").child(self.uid).child("profilepicURL").observeSingleEvent(of: .value, with: {(snapshot) in
+                
+                print("downloaded from DB")
+                var imageBuffer: UIImage
+                
+                if snapshot.exists(){
+                    let val = snapshot.value as? String
+                    print(val)
+                    if (val == nil){
+                        imageBuffer = #imageLiteral(resourceName: "profile")
+                        let imgData = UIImageJPEGRepresentation(imageBuffer, 1)
+                        UserDefaults.standard.set(imgData, forKey: "profilePicture")
+                    }
+                    else{
+                        print("Recieve Non-null image")
+                        print("Setting UsersDefault")
+                        let imgData = UIImageJPEGRepresentation(self.imageView.image!, 1)
+                        UserDefaults.standard.set(imgData, forKey: "profilePicture")
+                        //let profileUrl = URL(string: val!)
+                        //print(val)
+                        //self.imageView.sd_setImage(with: profileUrl)
+                        //imageBuffer = self.imageView.image!
+                        
+                    }
+                }
+                
+                MBProgressHUD.hide(for: self.view, animated: true)
+                print("Dimiss VC")
+                self.navigationController?.popViewController(animated: true)
+            }) { (error) in print(error.localizedDescription)}
             
-            //label.removeFromSuperview()
+            
+            
         })
     }
     

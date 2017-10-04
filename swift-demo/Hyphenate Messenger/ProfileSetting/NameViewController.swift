@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import MBProgressHUD
 
 class NameViewController: UIViewController {
     // Database
@@ -19,64 +20,48 @@ class NameViewController: UIViewController {
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideKeyboardWhenTappedAround()
-        // get username from DB
-        self.ref?.child("users").child(uid).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.exists(){
-                let val = snapshot.value as? String
-                if (val! != ""){
-                    self.nameChangTextView.text = val!
-                }
-                else{
-                    print("Username is an empty string!")
-                    self.nameChangTextView.text = "Unknown"
-                }
-            }
-        }) { (error) in print(error.localizedDescription)}
+        self.nameChangTextView.text = UserDefaults.standard.string(forKey: "userName")
         nameChangTextView.becomeFirstResponder()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
     }
     
     // MARK: - Outlets
-    
-    @IBOutlet weak var nameChangTextView: UITextView!
+    @IBOutlet weak var nameChangTextView: UITextField!
+
     // MARK: - Actions
     @IBAction func SaveText(_ sender: UIButton) {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        
+        //Upload Name to DB
         let Name = nameChangTextView.text
         uploadName(Name!)
-        self.navigationController?.popViewController(animated: true)
+        
+        // Retrive Name from firebase
+        // Store data to UserDefaults
+        self.ref.child("users").child(uid).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists(){
+                let val = snapshot.value as? String
+                if (val! != ""){
+                    UserDefaults.standard.set(val, forKey: "userName")
+                }
+                else{
+                    UserDefaults.standard.set("Unknown", forKey: "userName")
+                }
+            }
+             MBProgressHUD.hide(for: self.view, animated: true)
+            self.navigationController?.popViewController(animated: true)
+        }) { (error) in print(error.localizedDescription)}
     }
     
     func uploadName(_ Name: String){
         self.ref?.child("users/\(self.uid)").updateChildValues(["username":Name])
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
-
-extension NameViewController{
-    //Allows the keyboard to be hidden when tapped outside of keyboard
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NameViewController.dismissKeyboard))
-        
-        let swipeOutOfKeyboard: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(NameViewController.dismissKeyboard))
-        swipeOutOfKeyboard.direction = .down
-        
-        view.addGestureRecognizer(tap)
-        view.addGestureRecognizer(swipeOutOfKeyboard)
-    }
-    
-    func dismissKeyboard() {
+    // Dismiss Keyboard
+    func handleTap(_ tapGesture: UITapGestureRecognizer) {
         view.endEditing(true)
     }
 }
+
+
 

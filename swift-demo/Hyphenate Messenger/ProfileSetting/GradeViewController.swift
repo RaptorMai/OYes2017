@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import MBProgressHUD
 
 
 class GradeViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDataSource {
@@ -16,11 +17,20 @@ class GradeViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     //MARK: - Firebase
     var ref = Database.database().reference()
     var uid = "+1" + EMClient.shared().currentUsername!
+    var selected: String {
+        return UserDefaults.standard.string(forKey: "selected") ?? ""
+    }
+    var gradeLabel: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         gradePickerView.delegate = self
         gradePickerView.dataSource = self
+        if let row = grade.index(of: selected) {
+            gradePickerView.selectRow(row, inComponent: 0, animated: false)
+        }
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        
         // Do any additional setup after loading the view.
     }
     
@@ -29,13 +39,35 @@ class GradeViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     
     //MARK: - Outlets
     @IBOutlet weak var gradePickerView: UIPickerView!
-    @IBOutlet weak var gradeLabel: UILabel!
+    
+
+    
     
     //MARK: - Interactions
     @IBAction func dismissView(_ sender: UIBarButtonItem) {
-        // Add the delegate method call
-        uploadGrade(gradeLabel.text)
-        self.navigationController?.popViewController(animated: true)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        
+        //Upload Grade to DB
+        uploadGrade(gradeLabel)
+        
+        // Retrive Grade from DB
+        // Store data to UserDefaults
+        var updatedGrade:String?
+        self.ref.child("users").child(self.uid).child("grade").observeSingleEvent(of: .value, with: {
+            (snapshot) in
+            updatedGrade = snapshot.value as? String
+            if updatedGrade == nil{
+                UserDefaults.standard.set("Unknown", forKey: "grade")
+            } else {
+                UserDefaults.standard.set(updatedGrade, forKey: "grade")
+            }
+            MBProgressHUD.hide(for: self.view, animated: true)
+            self.navigationController?.popViewController(animated: true)
+            UserDefaults.standard.set(self.gradeLabel, forKey: "selected")
+        }) {
+            (error) in print (error.localizedDescription)
+        }
+
     }
     
     //MARK: - Functions
@@ -52,7 +84,9 @@ class GradeViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        gradeLabel.text = grade[row]
+        //UserDefaults.standard.set(grade[row], forKey: "selected")
+        gradeLabel = grade[row]
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     func uploadGrade(_ Grade: String?){
