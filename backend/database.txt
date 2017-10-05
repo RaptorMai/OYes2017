@@ -41,3 +41,11 @@ notes: tid(tutor id), qid(question id), sid(student id)
             sources:
                 error:
                 token:
+ 5. globalConfig:
+        packageUpdateReq:{1 or 0}
+        categoryUpdateReq:{1 or 0}
+        forcedUpdateReq:{1 or 0}
+        
+6. category:
+        category{ex.Math}:
+            sub-category(ex. Basic Calculus):{1 or 0}
