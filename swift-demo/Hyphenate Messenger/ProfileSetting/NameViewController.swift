@@ -22,6 +22,7 @@ class NameViewController: UIViewController {
         super.viewDidLoad()
         self.nameChangTextView.text = UserDefaults.standard.string(forKey: "userName")
         nameChangTextView.becomeFirstResponder()
+        nameChangTextView.clearButtonMode = .always
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
     }
     

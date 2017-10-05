@@ -22,6 +22,7 @@ class EmailViewController: UIViewController {
         // get email from DB
         self.EmailText.text = UserDefaults.standard.string(forKey: "email")
         EmailText.becomeFirstResponder()
+        EmailText.clearButtonMode = .always
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
     }
 
