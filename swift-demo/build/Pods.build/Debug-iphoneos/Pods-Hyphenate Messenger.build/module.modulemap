@@ -1,6 +1,0 @@
-framework module Pods_Hyphenate_Messenger {
-  umbrella header "Pods-Hyphenate Messenger-umbrella.h"
-
-  export *
-  module * { export * }
-}

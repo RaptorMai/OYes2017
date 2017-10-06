@@ -17,12 +17,6 @@ protocol refreshSpinnerProtocol {
 
 
 class QuestionsVC: UIViewController, refreshSpinnerProtocol{
-    
-
-    // MARK: - Pull to Refresh ======================
-
-    // properties:
-    let pullToRefreshControl = UIRefreshControl()
     // function:
     func refreshTable(){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refresh"), object: nil)
