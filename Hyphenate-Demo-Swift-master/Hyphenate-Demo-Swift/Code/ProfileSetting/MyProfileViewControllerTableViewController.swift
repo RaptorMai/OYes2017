@@ -7,9 +7,23 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+import Hyphenate
 
-class MyProfileViewControllerTableViewController: UITableViewController {
 
+class MyProfileViewControllerTableViewController: UITableViewController{
+    
+    // MARK: - Properties
+    var ref = Database.database().reference()
+    var uid = "+1" + EMClient.shared().currentUsername!
+    
+    
+    // MARK: SETUP UserDefaults
+    let defaultProfilePic = UIImage(named: "profile")
+    
+    // MARK: - View Did Load
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -17,22 +31,17 @@ class MyProfileViewControllerTableViewController: UITableViewController {
     // MARK: - Table navigation bar
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //self.tabBarController?.navigationItem.title = "My Profile"
+        // color of the back button
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        
+        self.tableView.reloadData()
     }
     
-    
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-    }
-
     // MARK: - Table view data source
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         // Section: PROFILE
@@ -45,7 +54,7 @@ class MyProfileViewControllerTableViewController: UITableViewController {
             return 0
         }
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Section: PROFILE
@@ -54,35 +63,42 @@ class MyProfileViewControllerTableViewController: UITableViewController {
             // Profile Picture
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "profilePictureCell", for: indexPath) as! profilePictureTableViewCell
-                //cell.profileImageView.image = UIImage(named: "jerryProfile")
+                if let data = UserDefaults.standard.data(forKey: "profilePicture") {
+                    let imageUIImage: UIImage = UIImage(data: data)!
+                    cell.profileImageView.image = imageUIImage
+                } else {
+                    cell.profileImageView.image = UIImage(named: "placeholder")
+                }
                 cell.profilePhotoLabel.text = "Profile Photo"
                 return cell
             // Name
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "nameCell", for: indexPath) as! nameTableViewCell
                 cell.nameCellLabel.text = "Name"
-                cell.userNameLabel.text = "JerryGor"
+                cell.userNameLabel.text = UserDefaults.standard.string(forKey: "userName")
                 return cell
             // Should Never Reach
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
                 return cell
             }
-        // Section: INFORMARION
+            
+            // Section: INFORMARION
         } else {
             switch indexPath.row {
             // Grade
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "gradeCell", for: indexPath) as! gradeTableViewCell
                 cell.gradeCellLabel.text = "Grade"
-                cell.userGraderLabel.text = "Gr.12"
+                cell.userGraderLabel.text = UserDefaults.standard.string(forKey: "grade")
+                
                 return cell
                 
             // Email
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "emailCell", for: indexPath) as! emailTableViewCell
                 cell.emailCellLabel.text = "Email"
-                cell.userEmailLabel.text = "123@gmail.com"
+                cell.userEmailLabel.text = UserDefaults.standard.string(forKey: "email")
                 return cell
             // More
             case 2:
@@ -118,25 +134,25 @@ class MyProfileViewControllerTableViewController: UITableViewController {
     // change Height of Profile Picture Cell
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.section == 0 && indexPath.row == 0){
-            return 80
+            return 90
+            
         }
         return 40
     }
-
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     // MARK: - NOTES
     /*
      - to make headers non sticky: go to main storyboard and chage tableview style to: group
- 
-    */
-
+     
+     */
+    
 }

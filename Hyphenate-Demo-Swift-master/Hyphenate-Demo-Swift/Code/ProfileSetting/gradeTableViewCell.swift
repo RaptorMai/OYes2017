@@ -9,7 +9,7 @@
 import UIKit
 
 class gradeTableViewCell: UITableViewCell {
-
+    
     // MARK: - When Cell Loads
     
     override func awakeFromNib() {

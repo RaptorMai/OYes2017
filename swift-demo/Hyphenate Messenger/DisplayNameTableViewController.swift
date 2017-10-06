@@ -12,6 +12,11 @@ class DisplayNameTableViewController: UITableViewController {
         self.tableView.register(UINib(nibName: "TextfieldTableViewCell", bundle: nil), forCellReuseIdentifier: "textfieldCell")
        
         NotificationCenter.default.addObserver(self, selector: #selector(DisplayNameTableViewController.reloadData), name: NSNotification.Name(rawValue: "kNotification_displayNameUpdated"), object: nil)
+        
+        // keyboard dismiss interactively
+        self.tableView.keyboardDismissMode = .interactive
+        
+        
     }
 
     func reloadData() {

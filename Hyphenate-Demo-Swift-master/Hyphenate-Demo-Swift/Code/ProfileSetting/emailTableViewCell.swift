@@ -9,7 +9,7 @@
 import UIKit
 
 class emailTableViewCell: UITableViewCell {
-
+    
     // MARK: - When Cell Loads
     
     override func awakeFromNib() {

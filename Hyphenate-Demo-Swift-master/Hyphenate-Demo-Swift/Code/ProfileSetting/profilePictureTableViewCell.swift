@@ -9,7 +9,7 @@
 import UIKit
 
 class profilePictureTableViewCell: UITableViewCell {
-
+    
     // MARK: - When Cell Loads
     
     override func awakeFromNib() {
