@@ -1,6 +1,0 @@
-framework module SlimeRefresh {
-  umbrella header "SlimeRefresh-umbrella.h"
-
-  export *
-  module * { export * }
-}
