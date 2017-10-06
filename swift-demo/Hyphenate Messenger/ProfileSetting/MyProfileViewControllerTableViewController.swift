@@ -48,7 +48,7 @@ class MyProfileViewControllerTableViewController: UITableViewController{
             return 2
         // Section: INFORMATION
         case 1:
-            return 3
+            return 2
         default:
             return 0
         }
@@ -62,9 +62,12 @@ class MyProfileViewControllerTableViewController: UITableViewController{
             // Profile Picture
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "profilePictureCell", for: indexPath) as! profilePictureTableViewCell
-                let data = UserDefaults.standard.data(forKey: "profilePicture")
-                let imageUIImage: UIImage = UIImage(data: data!)!
-                cell.profileImageView.image = imageUIImage
+                if let data = UserDefaults.standard.data(forKey: "profilePicture"){
+                    let imageUIImage: UIImage = UIImage(data: data)!
+                    cell.profileImageView.image = imageUIImage
+                }else{
+                    cell.profileImageView.image = UIImage(named:"placeholder")
+                }
                 cell.profilePhotoLabel.text = "Profile Photo"
                 return cell
             // Name
@@ -97,10 +100,10 @@ class MyProfileViewControllerTableViewController: UITableViewController{
                 cell.userEmailLabel.text = UserDefaults.standard.string(forKey: "email")
                 return cell
             // More
-            case 2:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "moreCell", for: indexPath) as! moreTableViewCell
-                cell.moreCellLabel.text = "More"
-                return cell
+//            case 2:
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "moreCell", for: indexPath) as! moreTableViewCell
+//                cell.moreCellLabel.text = "More"
+//                return cell
             // Should Never Reach
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)

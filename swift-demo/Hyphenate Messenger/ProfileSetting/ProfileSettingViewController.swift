@@ -25,13 +25,15 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
         imageView.contentMode = UIViewContentMode.scaleAspectFill
         imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = imageView.frame.size.width/1.74
+        imageView.layer.cornerRadius = imageView.frame.size.width/1.8
         
         imageView.clipsToBounds = true
-        
-        let data = UserDefaults.standard.data(forKey: "profilePicture")
-        let imageUIImage: UIImage = UIImage(data: data!)!
-        imageView.image = imageUIImage
+        if let data = UserDefaults.standard.data(forKey: "profilePicture"){
+            let imageUIImage: UIImage = UIImage(data: data)!
+            imageView.image = imageUIImage
+        }else{
+            imageView.image = UIImage(named:"placeholder")
+        }
     }
     
     
