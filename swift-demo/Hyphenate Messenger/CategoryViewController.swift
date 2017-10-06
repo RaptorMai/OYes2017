@@ -51,24 +51,13 @@ class CategoryViewController: UIViewController {
     //This is code from online. It is gathering the data from MenuData.json to know what categories to display.
     func  initData()
     {
-        let path:String = (Bundle.main.path(forResource: "MenuData", ofType: "json"))!
-        let data:Data = try! Data(contentsOf: URL(fileURLWithPath: path))
-        let json:AnyObject = try!JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as AnyObject
-        let resultDict = json.object(forKey: "data") as! Dictionary<String,AnyObject>
-        let productMenuArr:[NSDictionary] = resultDict["productType"] as! Array
-        for i:Int in 0 ..< productMenuArr.count
-        {
-            productTypeArr.append(productMenuArr[i]["typeName"] as! String)
-            productNameArr.append(productMenuArr[i]["productName"] as! [String] as AnyObject)
-        }
-        // Once the data is gathered call the addSubView() function.
         self.addSubView()
     }
 
 //  Create the GroupTableView and present it. GroupTableView is the double menu table style.
     func addSubView(){
 //            调用时传入frame和数据源
-        classifyTable = GroupTableView(frame: CGRect(x: 0,y: 211,width: screenWidth,height: screenHeight-211), MenuTypeArr: productTypeArr, proNameArr: productNameArr)
+        classifyTable = GroupTableView(frame: CGRect(x: 0,y: 211,width: screenWidth,height: screenHeight-211))
         classifyTable?.navController = self.navController
         classifyTable?.picture.image = picture
         self.view.addSubview(classifyTable!)

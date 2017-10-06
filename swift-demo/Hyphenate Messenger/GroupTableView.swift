@@ -44,7 +44,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
     var categoryselected = false
     var navController:UINavigationController? = nil
     
-    init(frame:CGRect, MenuTypeArr:[String], proNameArr:[AnyObject]) {
+    override init(frame:CGRect) {
         super.init(frame: frame)
         self.initData()
         self.groupTableView = UITableView(frame: CGRect(x: frame.width*0.3, y: frame.height*0.25, width: frame.width*0.7, height: frame.height*0.75), style: UITableViewStyle.plain)
