@@ -61,6 +61,7 @@
 		5DF190FF1F198CA50019E6F0 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF190FE1F198CA50019E6F0 /* SessionTableViewController.swift */; };
 		5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */; };
 		830C2B111F720EC100E0AAE2 /* SettingsFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C2B101F720EC100E0AAE2 /* SettingsFeedbackController.swift */; };
+		8374F2EB1F873084002F1623 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8374F2EA1F873084002F1623 /* NetworkReachability.swift */; };
 		837A61281F76F6F400F2182B /* emailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A611B1F76F6F400F2182B /* emailTableViewCell.swift */; };
 		837A61291F76F6F400F2182B /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A611C1F76F6F400F2182B /* EmailViewController.swift */; };
 		837A612A1F76F6F400F2182B /* gradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A611D1F76F6F400F2182B /* gradeTableViewCell.swift */; };
@@ -342,6 +343,7 @@
 		5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScr.storyboard; sourceTree = "<group>"; };
 		71E15A43B314CB255A946243 /* Pods-Hyphenate Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		830C2B101F720EC100E0AAE2 /* SettingsFeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsFeedbackController.swift; sourceTree = "<group>"; };
+		8374F2EA1F873084002F1623 /* NetworkReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
 		837A611B1F76F6F400F2182B /* emailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = emailTableViewCell.swift; sourceTree = "<group>"; };
 		837A611C1F76F6F400F2182B /* EmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		837A611D1F76F6F400F2182B /* gradeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gradeTableViewCell.swift; sourceTree = "<group>"; };
@@ -1034,6 +1036,7 @@
 				9A06AB201DB68E9B003A5B2E /* DisplayNameTableViewController.swift */,
 				830C2B101F720EC100E0AAE2 /* SettingsFeedbackController.swift */,
 				83AD01731F7357560089B72D /* OpenUrlController.swift */,
+				8374F2EA1F873084002F1623 /* NetworkReachability.swift */,
 				83C68E7E1F7631EF005B1437 /* MyProfileCells */,
 			);
 			name = Settings;
@@ -1964,6 +1967,7 @@
 				830C2B111F720EC100E0AAE2 /* SettingsFeedbackController.swift in Sources */,
 				B6346B421D9E6C5100CBEAE2 /* EaseMessageReadManager.m in Sources */,
 				B6346B281D9E6C5100CBEAE2 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
+				8374F2EB1F873084002F1623 /* NetworkReachability.swift in Sources */,
 				B6346AF31D9E6C5100CBEAE2 /* EMCDDeviceManager+Remind.m in Sources */,
 				B6346B521D9E6C5100CBEAE2 /* EaseCustomMessageCell.m in Sources */,
 				B6346AFE1D9E6C5100CBEAE2 /* MJRefreshComponent.m in Sources */,
