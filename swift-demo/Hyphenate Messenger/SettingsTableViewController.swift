@@ -42,7 +42,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     
     // MARK: - Table view data source
     
-    let data = [[[#imageLiteral(resourceName: "profile"),"Profile"]], [[#imageLiteral(resourceName: "balance"),"My balance"], [#imageLiteral(resourceName: "-points"),"My points"]], [[#imageLiteral(resourceName: "HelpIcon"),"Help"], [#imageLiteral(resourceName: "Feedback"),"Feedback"], [#imageLiteral(resourceName: "Rate"),"Rate us"], [#imageLiteral(resourceName: "FaceBook"),"Like us on Facebook"]],[["Log out"]]]
+    let data = [[[#imageLiteral(resourceName: "profile"),"Profile"]], [], [[#imageLiteral(resourceName: "HelpIcon"),"Help"], [#imageLiteral(resourceName: "Feedback"),"Feedback"], [#imageLiteral(resourceName: "Rate"),"Rate us"], [#imageLiteral(resourceName: "FaceBook"),"Like us on Facebook"]],[["Log out"]]]
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return data.count
@@ -67,9 +67,15 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
             // username
             cell.senderLabel.text = UserDefaults.standard.string(forKey: "userName")
             // profile picture
-            let data = UserDefaults.standard.data(forKey: "profilePicture")
-            let imageUIImage: UIImage = UIImage(data: data!)!
+            let imageUIImage: UIImage
+            if let data = UserDefaults.standard.data(forKey: "profilePicture"){
+                imageUIImage = UIImage(data: data)!
+            }else{
+                imageUIImage = UIImage(named:"placeholder")!
+            }
             cell.senderImageView.image = imageUIImage
+            
+            cell.accessoryType = .disclosureIndicator
 
             return cell
         }

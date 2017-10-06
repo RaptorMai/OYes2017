@@ -68,7 +68,6 @@
 		837A612B1F76F6F400F2182B /* GradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A611E1F76F6F400F2182B /* GradeViewController.swift */; };
 		837A612D1F76F6F400F2182B /* informationHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A61201F76F6F400F2182B /* informationHeaderTableViewCell.swift */; };
 		837A612E1F76F6F400F2182B /* ProfileMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 837A61211F76F6F400F2182B /* ProfileMain.storyboard */; };
-		837A612F1F76F6F400F2182B /* moreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A61221F76F6F400F2182B /* moreTableViewCell.swift */; };
 		837A61301F76F6F400F2182B /* MyProfileViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A61231F76F6F400F2182B /* MyProfileViewControllerTableViewController.swift */; };
 		837A61311F76F6F400F2182B /* nameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A61241F76F6F400F2182B /* nameTableViewCell.swift */; };
 		837A61321F76F6F400F2182B /* NameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A61251F76F6F400F2182B /* NameViewController.swift */; };
@@ -350,7 +349,6 @@
 		837A611E1F76F6F400F2182B /* GradeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradeViewController.swift; sourceTree = "<group>"; };
 		837A61201F76F6F400F2182B /* informationHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = informationHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		837A61211F76F6F400F2182B /* ProfileMain.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProfileMain.storyboard; sourceTree = "<group>"; };
-		837A61221F76F6F400F2182B /* moreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = moreTableViewCell.swift; sourceTree = "<group>"; };
 		837A61231F76F6F400F2182B /* MyProfileViewControllerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileViewControllerTableViewController.swift; sourceTree = "<group>"; };
 		837A61241F76F6F400F2182B /* nameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nameTableViewCell.swift; sourceTree = "<group>"; };
 		837A61251F76F6F400F2182B /* NameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameViewController.swift; sourceTree = "<group>"; };
@@ -849,7 +847,6 @@
 				837A61201F76F6F400F2182B /* informationHeaderTableViewCell.swift */,
 				837A611D1F76F6F400F2182B /* gradeTableViewCell.swift */,
 				837A611B1F76F6F400F2182B /* emailTableViewCell.swift */,
-				837A61221F76F6F400F2182B /* moreTableViewCell.swift */,
 				837A61211F76F6F400F2182B /* ProfileMain.storyboard */,
 				837A61231F76F6F400F2182B /* MyProfileViewControllerTableViewController.swift */,
 				837A61391F7A0AD200F2182B /* ProfileSettingViewController.swift */,
@@ -1952,7 +1949,6 @@
 				837A61281F76F6F400F2182B /* emailTableViewCell.swift in Sources */,
 				B6346B041D9E6C5100CBEAE2 /* MJRefreshBackGifFooter.m in Sources */,
 				5D43421D1F266F1700E5CA62 /* AKImageCropperOverlayViewConfiguration.swift in Sources */,
-				837A612F1F76F6F400F2182B /* moreTableViewCell.swift in Sources */,
 				B6346B3A1D9E6C5100CBEAE2 /* EaseUserModel.m in Sources */,
 				9AE1B05C1DBDCB2F00E9E706 /* M13BadgeView.m in Sources */,
 				9A17BE2C1D9E20190075EF9F /* SignupViewController.swift in Sources */,

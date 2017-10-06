@@ -25,13 +25,15 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
         imageView.contentMode = UIViewContentMode.scaleAspectFill
         imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = imageView.frame.size.width/1.74
-        
+        imageView.layer.cornerRadius = imageView.frame.size.width/1.8
         imageView.clipsToBounds = true
-        
-        let data = UserDefaults.standard.data(forKey: "profilePicture")
-        let imageUIImage: UIImage = UIImage(data: data!)!
-        imageView.image = imageUIImage
+
+        if let data = UserDefaults.standard.data(forKey: "profilePicture"){
+            let imageUIImage: UIImage = UIImage(data: data)!
+            imageView.image = imageUIImage
+        }else{
+            imageView.image = UIImage(named:"placeholder")
+        }
         
         self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
@@ -112,7 +114,6 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
     // MARK: - UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         imageView.image = info[UIImagePickerControllerEditedImage] as! UIImage?
-        //self.profilePic = info[UIImagePickerControllerOriginalImage] as! UIImage?
         self.navigationItem.rightBarButtonItem?.isEnabled = true
         dismiss(animated: true, completion: nil)
     }
