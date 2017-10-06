@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Vyd-z9-jwz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Vyd-z9-jwz">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Login View Controller-->
         <scene sceneID="rKr-8k-JAK">
@@ -28,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Verification Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yQw-CV-GOo" customClass="HyphenateTextField" customModule="Hyphenate_Messenger" customModuleProvider="target">
-                                <rect key="frame" x="45" y="310" width="285" height="50"/>
+                                <rect key="frame" x="45" y="354" width="285" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="95V-qJ-A7n"/>
                                 </constraints>
@@ -45,10 +40,10 @@
                                 </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="OBd-gq-Jcw">
-                                <rect key="frame" x="137.5" y="100" width="100" height="92"/>
+                                <rect key="frame" x="137.5" y="144" width="100" height="92"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XbG-6A-XCL">
-                                <rect key="frame" x="87.5" y="380" width="200" height="30"/>
+                                <rect key="frame" x="87.5" y="424" width="200" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New to InstaSolve?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wel-pG-1gv">
                                         <rect key="frame" x="0.0" y="0.0" width="186" height="30"/>
@@ -107,7 +102,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KxP-KA-288" customClass="HyphenateTextField" customModule="Hyphenate_Messenger" customModuleProvider="target">
-                                <rect key="frame" x="45" y="245" width="285" height="50"/>
+                                <rect key="frame" x="45" y="289" width="285" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="v0e-BM-ITk"/>
                                 </constraints>
@@ -195,7 +190,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eye-iE-8T6" customClass="HyphenateTextField" customModule="Hyphenate_Messenger" customModuleProvider="target">
-                                <rect key="frame" x="45" y="245" width="285" height="50"/>
+                                <rect key="frame" x="45" y="289" width="285" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="4MF-Ef-ifq"/>
                                 </constraints>
@@ -212,7 +207,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Verification Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hFP-1W-1Td" customClass="HyphenateTextField" customModule="Hyphenate_Messenger" customModuleProvider="target">
-                                <rect key="frame" x="45" y="309" width="285" height="50"/>
+                                <rect key="frame" x="45" y="353" width="285" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="OdJ-BM-dVp"/>
                                 </constraints>
@@ -229,10 +224,10 @@
                                 </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="SzE-SC-6eS">
-                                <rect key="frame" x="137.5" y="100" width="100" height="92"/>
+                                <rect key="frame" x="137.5" y="144" width="100" height="92"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FbX-Pl-h0O">
-                                <rect key="frame" x="87.5" y="389" width="200" height="30"/>
+                                <rect key="frame" x="87.5" y="433" width="200" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have an account?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tfh-Pw-uYX">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="30"/>
@@ -324,7 +319,7 @@
                 <navigationController storyboardIdentifier="loginScene" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Vyd-z9-jwz" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" backIndicatorImage="back" id="too-Ml-Gkz">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -342,6 +337,6 @@
         <image name="logo" width="100" height="92"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aSn-GT-UAj"/>
+        <segue reference="Khw-bJ-H49"/>
     </inferredMetricsTieBreakers>
 </document>
