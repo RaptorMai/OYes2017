@@ -60,7 +60,9 @@ class LaunchViewController: UIViewController {
     
     func Register(){
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style:.plain, target: nil, action: nil)
-        navigationController?.pushViewController(RegisterVC(), animated: true)
+        let openMainPageVc = OpenUrlViewController()
+        openMainPageVc.url = "https://www.instasolve.ca/become-a-turor"
+        navigationController?.pushViewController(openMainPageVc, animated: true)
     }
     
     func setupRegisterButton(){
