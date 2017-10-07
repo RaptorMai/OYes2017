@@ -229,7 +229,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
 
         // get all messages from current conversation
         let sessionEndTime = Int64(Date().timeIntervalSince1970) * 1000  // convert to millisecond
-        let sessionStartTime = Int64(beginTime.timeIntervalSince1970) * 1000
+        let sessionStartTime = Int64(beginTime.timeIntervalSince1970 - 120) * 1000
         conversation?.loadMessages(from: sessionStartTime, to: sessionEndTime, count: MAX_MESSAGE_LOAD_COUNT, completion: { (messages, nil) in
             // copy all messages to new conversation
             if messages != nil {
