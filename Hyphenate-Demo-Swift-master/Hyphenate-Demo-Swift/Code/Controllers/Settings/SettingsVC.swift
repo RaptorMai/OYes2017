@@ -80,9 +80,8 @@ class SettingsVC: UITableViewController {
             logoutAction()
             
         case 1:
-            //let settingsNotificationVC = SettingsNotificationTableViewController()
-            //navigationController?.pushViewController(settingsNotificationVC, animated: true)
-            logoutAction()
+            let settingsNotificationVC = EMSettingsViewController()
+            navigationController?.pushViewController(settingsNotificationVC, animated: true)
         default:break
             
         }
