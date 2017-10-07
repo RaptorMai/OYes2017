@@ -20,6 +20,7 @@ class LoginVC: UIViewController {
     
     let Instructions: UILabel = {
         let label = UILabel()
+        label.adjustsFontSizeToFitWidth = true
         label.text = "Sign In With Account Name"
         label.textColor = UIColor.black
         label.font = UIFont(name: "Helvetica", size: 25)
@@ -205,6 +206,7 @@ class LoginVC: UIViewController {
         self.title = "Login"
         view.backgroundColor = UIColor(hex: "EFEFF4")
         ref = Database.database().reference()
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         
         view.addSubview(Instructions)
         setupInstructions()
