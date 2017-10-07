@@ -288,7 +288,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
             "qid" : self.key!,
             ]
         print(parameters)
-        Alamofire.request("http://us-central1-instasolve-d8c55.cloudfunctions.net/cancel",method:.get, parameters: parameters, encoding: URLEncoding.default)
+        Alamofire.request(urlForNetworkAPI(.cancel)!, method:.get, parameters: parameters, encoding: URLEncoding.default)
             .responseString { response in
                 print(response.result.value!)
                 
@@ -323,7 +323,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
             "qid" : self.key!,
             ]
         print(parameters)
-        Alamofire.request("http://us-central1-instasolve-d8c55.cloudfunctions.net/cancel",method:.get, parameters: parameters, encoding: URLEncoding.default)
+        Alamofire.request(urlForNetworkAPI(.cancel)!, method:.get, parameters: parameters, encoding: URLEncoding.default)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
