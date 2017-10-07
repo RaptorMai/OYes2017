@@ -100,8 +100,9 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        super.viewWillAppear(animated)
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
       //  NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -176,35 +177,26 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
     }
     
     func tutorFound(_ notification: NSNotification){
+        MKFullSpinner.hide()
         
-        let alert = UIAlertController(title: "Tutor Connected", message: "Tutor Connected", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(
-            title: "OK",style: UIAlertActionStyle.default, handler:
-            { (alert:UIAlertAction!) in
-                MKFullSpinner.hide()
-                
-                //tcVC - tutorconnectedVC
-                let tcVC = TutorConnectedVC()
-                tcVC.questionDescription = self.questionDescription.text
-                tcVC.questionImage = self.questionPic.image
-                tcVC.requestdict = notification.userInfo as? [String : Any]
-                tcVC.delegate = self
-                tcVC.didStudentCickOkAfterTutorinChat = self.didStudentClickOkAfterTutorinChat
-                
-                //if student clicks ok before tutor is in chat this variable will remain false. Hence the observer is removed. The observer will then be changed to calltcVC.startChatwithTutor inside the viewdidload of next VC
-                if self.didStudentClickOkAfterTutorinChat == false{
-                    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
-                }
-                self.flag = 1
-                self.navigationController?.pushViewController(tcVC, animated: true)
-        }))
-        
+        //tcVC - tutorconnectedVC
+
+        let storyBoard = UIStoryboard(name: "TutorConnected", bundle: nil)
+        let tcVC = storyBoard.instantiateViewController(withIdentifier: "TutorConnected") as! TutorConnectedVC
+        tcVC.questionDescription = self.questionDescription.text
+        tcVC.questionImage = self.questionPic.image
+        tcVC.requestdict = notification.userInfo as? [String : Any]
+        tcVC.delegate = self
+        tcVC.didStudentCickOkAfterTutorinChat = self.didStudentClickOkAfterTutorinChat        
         //Before the alert is presented we edit the friendrequest observer to call the function didStudentClickOkAfterTutorinChat function to notify the next VC, that the tutor is in chat if the student hasnt clicked ok on the alert before the tutor clicks ready to begin.
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
         //Add observer to lookout for notification
         NotificationCenter.default.addObserver(self, selector: #selector(changeDidStudentClickOkAfterTutorinChat), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
         
-        self.present(alert, animated: true, completion: nil)
+        navigationController?.pushViewController(tcVC, animated: true)
+
+        //
+        // self.present(alert, animated: true, completion: nil)
         //        self.startChatting(requestDict: notification.userInfo as! [String : Any])
         
     }
@@ -275,12 +267,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
             ]
         print(parameters)
         Alamofire.request("http://us-central1-instasolve-d8c55.cloudfunctions.net/cancel",method:.get, parameters: parameters, encoding: URLEncoding.default)
-        //            .responseString { response in
-        //                print(response.result.value!)
-        //
-        //        }
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        //        MKFullSpinner.hide()
     }
     
     func uploadPicture(_ data: Data, completion:@escaping (_ url: String?) -> ()) {
@@ -290,13 +277,10 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
                 print(error.localizedDescription)
                 completion(nil)
                 
-            }else{
+            } else {
                 //store downloadURL
                 completion((metaData?.downloadURL()?.absoluteString)!)
-                
-                
             }
-            
         }
     }
     
@@ -363,7 +347,6 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
             textView.text = ""
             textView.textColor = .black
         }
-        //        textView.becomeFirstResponder() //Optional
     }
     
     func textViewDidEndEditing(_ textView: UITextView)
@@ -373,9 +356,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate{
             textView.text = placeholdertext
             textView.textColor = .lightGray
         }
-        //        textView.resignFirstResponder()
     }
-    
 }
 
 //extension to UIColor to allow color definition by hex
@@ -432,28 +413,18 @@ extension SummaryVC {
                 self.view.frame.origin.y -= (keyboardSize.height - self.keyboardheight)
                 
                 keyboardheight = keyboardSize.height
-            }
-            else{
-            
+            } else {
             self.view.frame.origin.y -= self.keyboardheight
-            
             }
-
-         
-            
         }
         keyboardDisplayed = true
-
     }
     
     func keyboardWillHide(notification: NSNotification) {
         print("hide")
         self.view.frame.origin.y = 0
         keyboardheight = 0
-
-        
         keyboardDisplayed = false
-        
     }
 }
 

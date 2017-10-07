@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import MBProgressHUD
+import Cosmos
 
 
 protocol refreshSpinnerProtocol {
@@ -35,6 +36,7 @@ class QuestionsVC: UIViewController, refreshSpinnerProtocol{
         MBProgressHUD.showAdded(to: tableofquestions, animated: true)
     }
     
+    @IBOutlet weak var starView: CosmosView!  // settings in the IB
     
     @IBOutlet weak var tableofquestions: UIView!
     
@@ -48,8 +50,9 @@ class QuestionsVC: UIViewController, refreshSpinnerProtocol{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        let rating = 4.9
+        starView.rating = rating
+        starView.text = "\(rating)"
     }
     
     func removeSpinner(){

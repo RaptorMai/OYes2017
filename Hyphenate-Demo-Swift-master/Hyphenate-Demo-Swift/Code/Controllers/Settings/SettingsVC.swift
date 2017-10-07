@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Hyphenate
 
 class SettingsVC: UITableViewController {
 /*
@@ -89,22 +90,20 @@ class SettingsVC: UITableViewController {
     func logoutAction() {
         
         try! Auth.auth().signOut()
-        let LoginScreenNC = UINavigationController(rootViewController: LaunchViewController())
-        LoginScreenNC.navigationBar.barStyle = .blackTranslucent
-        present(LoginScreenNC, animated: true, completion: nil)
         
         //TODO add hyphenate logout
-        /*EMClient.shared().logout(false) { (error) in
+        EMClient.shared().logout(true) { (error) in
             if let _ = error {
                 let alert = UIAlertController(title:"Sign Out error", message: "Please try again later", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
                 UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
             } else {
-                let loginController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginScene")
-                UIApplication.shared.keyWindow?.rootViewController = loginController
+                let LoginScreenNC = UINavigationController(rootViewController: LaunchViewController())
+                LoginScreenNC.navigationBar.barStyle = .blackTranslucent
+                self.present(LoginScreenNC, animated: true, completion: nil)
                 
             }
-        }*/
+        }
     }
 
 

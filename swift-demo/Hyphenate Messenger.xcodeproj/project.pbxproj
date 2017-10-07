@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		301D34EF1F421BAE00C9A395 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301D34EE1F421BAE00C9A395 /* Spinner.swift */; };
+		3023AD421F81BA980066AD8E /* TutorConnected.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3023AD411F81BA2E0066AD8E /* TutorConnected.storyboard */; };
 		39062AE81D9F0D4400EE8412 /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39062AE71D9F0D4400EE8412 /* ContactTableViewCell.xib */; };
 		5C226CB1BB2ACE14FE2BC796 /* Pods_Hyphenate_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5A965B5FB0DF694BB4C542 /* Pods_Hyphenate_Messenger.framework */; };
 		5D43421C1F266F1700E5CA62 /* AKImageCropperOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4341DF1F266F1700E5CA62 /* AKImageCropperOverlayView.swift */; };
@@ -85,7 +86,6 @@
 		9A17BDF91D9E1FB70075EF9F /* Hyphenate_Messenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9A17BDF71D9E1FB70075EF9F /* Hyphenate_Messenger.xcdatamodeld */; };
 		9A17BE2A1D9E20190075EF9F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A17BE221D9E20190075EF9F /* LoginViewController.swift */; };
 		9A17BE2B1D9E20190075EF9F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A17BE231D9E20190075EF9F /* MainViewController.swift */; };
-		9A17BE2C1D9E20190075EF9F /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A17BE241D9E20190075EF9F /* SignupViewController.swift */; };
 		9A17BE2D1D9E20190075EF9F /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A17BE251D9E20190075EF9F /* ContactsTableViewController.swift */; };
 		9A17BE2E1D9E20190075EF9F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A17BE261D9E20190075EF9F /* SettingsTableViewController.swift */; };
 		9A17BE2F1D9E20190075EF9F /* ConversationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A17BE271D9E20190075EF9F /* ConversationsTableViewController.swift */; };
@@ -251,6 +251,11 @@
 		B6346B821D9E74CE00CBEAE2 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6346B811D9E74CE00CBEAE2 /* ContactTableViewCell.swift */; };
 		B6346B851DA24F5C00CBEAE2 /* RequestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6346B841DA24F5C00CBEAE2 /* RequestEntity.swift */; };
 		B6346B871DA24F8700CBEAE2 /* InvitationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6346B861DA24F8700CBEAE2 /* InvitationManager.swift */; };
+		E40E53401F73042A00E12593 /* LoginPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40E533E1F73042900E12593 /* LoginPhoneNumberViewController.swift */; };
+		E40E53411F73042A00E12593 /* LoginVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40E533F1F73042900E12593 /* LoginVerificationViewController.swift */; };
+		E40E53431F7306B800E12593 /* AuthenticationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40E53421F7306B800E12593 /* AuthenticationHelper.swift */; };
+		E40E53461F73104700E12593 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E40E533D1F73039A00E12593 /* Authentication.storyboard */; };
+		E4EED04A1F82EA0E00F81986 /* ScaleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EED0491F82EA0E00F81986 /* ScaleImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -285,6 +290,7 @@
 
 /* Begin PBXFileReference section */
 		301D34EE1F421BAE00C9A395 /* Spinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
+		3023AD411F81BA2E0066AD8E /* TutorConnected.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TutorConnected.storyboard; sourceTree = "<group>"; };
 		39062AE71D9F0D4400EE8412 /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContactTableViewCell.xib; path = Views/ContactTableViewCell.xib; sourceTree = "<group>"; };
 		46CB1D5CA6E51EFA21BD9A5F /* Pods-Hyphenate Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.release.xcconfig"; sourceTree = "<group>"; };
 		5D4341DF1F266F1700E5CA62 /* AKImageCropperOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKImageCropperOverlayView.swift; sourceTree = "<group>"; };
@@ -370,7 +376,6 @@
 		9A17BE0F1D9E1FB70075EF9F /* Hyphenate MessengerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hyphenate MessengerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A17BE221D9E20190075EF9F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9A17BE231D9E20190075EF9F /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		9A17BE241D9E20190075EF9F /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		9A17BE251D9E20190075EF9F /* ContactsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewController.swift; sourceTree = "<group>"; };
 		9A17BE261D9E20190075EF9F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		9A17BE271D9E20190075EF9F /* ConversationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsTableViewController.swift; sourceTree = "<group>"; };
@@ -678,6 +683,12 @@
 		B6346B811D9E74CE00CBEAE2 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactTableViewCell.swift; path = Views/ContactTableViewCell.swift; sourceTree = "<group>"; };
 		B6346B841DA24F5C00CBEAE2 /* RequestEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestEntity.swift; path = "Data Model/RequestEntity.swift"; sourceTree = "<group>"; };
 		B6346B861DA24F8700CBEAE2 /* InvitationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InvitationManager.swift; path = "Data Model/InvitationManager.swift"; sourceTree = "<group>"; };
+		E40E533D1F73039A00E12593 /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
+		E40E533E1F73042900E12593 /* LoginPhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneNumberViewController.swift; sourceTree = "<group>"; };
+		E40E533F1F73042900E12593 /* LoginVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVerificationViewController.swift; sourceTree = "<group>"; };
+		E40E53421F7306B800E12593 /* AuthenticationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationHelper.swift; sourceTree = "<group>"; };
+		E40E53481F734CBF00E12593 /* UIViewController+HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIViewController+HUD.swift"; path = "../../../Hyphenate-Demo-Swift-master/Hyphenate-Demo-Swift/Code/Utilities/Category/UIViewController+HUD.swift"; sourceTree = "<group>"; };
+		E4EED0491F82EA0E00F81986 /* ScaleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -911,6 +922,7 @@
 			isa = PBXGroup;
 			children = (
 				9A17BE231D9E20190075EF9F /* MainViewController.swift */,
+				E40E53471F734CA400E12593 /* Utility */,
 				5D9F39F31F19494900D388D9 /* Home */,
 				5D9F39F11F19491700D388D9 /* History */,
 				5D9F39F21F19492000D388D9 /* Shop */,
@@ -946,6 +958,7 @@
 			isa = PBXGroup;
 			children = (
 				9A17BE281D9E20190075EF9F /* HyphenateMessengerHelper.swift */,
+				E4EED0491F82EA0E00F81986 /* ScaleImage.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -986,8 +999,11 @@
 		9AC1323C1DA0ED8900A2BD05 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				E40E533D1F73039A00E12593 /* Authentication.storyboard */,
+				E40E533E1F73042900E12593 /* LoginPhoneNumberViewController.swift */,
+				E40E533F1F73042900E12593 /* LoginVerificationViewController.swift */,
 				9A17BE221D9E20190075EF9F /* LoginViewController.swift */,
-				9A17BE241D9E20190075EF9F /* SignupViewController.swift */,
+				E40E53421F7306B800E12593 /* AuthenticationHelper.swift */,
 			);
 			name = Authentication;
 			sourceTree = "<group>";
@@ -1044,6 +1060,7 @@
 				9A7FB37F1DA1EDA7005CC8C3 /* Profile.storyboard */,
 				9A3149911DA42B360081DB04 /* FriendRequest.storyboard */,
 				5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */,
+				3023AD411F81BA2E0066AD8E /* TutorConnected.storyboard */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -1650,6 +1667,14 @@
 			name = "Data Model";
 			sourceTree = "<group>";
 		};
+		E40E53471F734CA400E12593 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				E40E53481F734CBF00E12593 /* UIViewController+HUD.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		E4A9D6CF3A68620E18397F65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1803,11 +1828,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A3149921DA42B360081DB04 /* FriendRequest.storyboard in Resources */,
+				3023AD421F81BA980066AD8E /* TutorConnected.storyboard in Resources */,
 				9AFE4D721D9E2731007862CA /* Main.storyboard in Resources */,
 				5D43424B1F266F1700E5CA62 /* Images.xcassets in Resources */,
 				9A2E70B31DA2250D00D3EE94 /* ProfileSwitchTableViewCell.xib in Resources */,
 				5D43423B1F266F1700E5CA62 /* CameraViewAssets.xcassets in Resources */,
 				9A702BA01DA370FC005ED10C /* requestHeaderView.xib in Resources */,
+				E40E53461F73104700E12593 /* Authentication.storyboard in Resources */,
 				9AC132391DA0DFE500A2BD05 /* SwitchTableViewCell.xib in Resources */,
 				837A612E1F76F6F400F2182B /* ProfileMain.storyboard in Resources */,
 				9A702B9E1DA3401F005ED10C /* FriendRequestTableViewCell.xib in Resources */,
@@ -1881,6 +1908,11 @@
 				"${BUILT_PRODUCTS_DIR}/SlimeRefresh/SlimeRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.2/HyphenateFullSDK/Hyphenate.framework",
+				"${BUILT_PRODUCTS_DIR}/IHKeyboardAvoiding/IHKeyboardAvoiding.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SlimeRefresh/SlimeRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1894,6 +1926,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlimeRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlimeRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1948,7 +1982,7 @@
 				5D43421D1F266F1700E5CA62 /* AKImageCropperOverlayViewConfiguration.swift in Sources */,
 				B6346B3A1D9E6C5100CBEAE2 /* EaseUserModel.m in Sources */,
 				9AE1B05C1DBDCB2F00E9E706 /* M13BadgeView.m in Sources */,
-				9A17BE2C1D9E20190075EF9F /* SignupViewController.swift in Sources */,
+				E40E53401F73042A00E12593 /* LoginPhoneNumberViewController.swift in Sources */,
 				5D43423D1F266F1700E5CA62 /* CameraShot.swift in Sources */,
 				B6346B561D9E6C5100CBEAE2 /* EaseBubbleView+Gif.m in Sources */,
 				9A17BE2A1D9E20190075EF9F /* LoginViewController.swift in Sources */,
@@ -1965,6 +1999,7 @@
 				B6346AFE1D9E6C5100CBEAE2 /* MJRefreshComponent.m in Sources */,
 				B6346B311D9E6C5100CBEAE2 /* PSTGridLayoutInfo.m in Sources */,
 				B6346B531D9E6C5100CBEAE2 /* EaseMessageCell.m in Sources */,
+				E40E53431F7306B800E12593 /* AuthenticationHelper.swift in Sources */,
 				B6346B321D9E6C5100CBEAE2 /* PSTGridLayoutItem.m in Sources */,
 				5D4342511F266F1700E5CA62 /* PermissionsView.swift in Sources */,
 				B6346AF01D9E6C5100CBEAE2 /* EMCDDeviceManager+Media.m in Sources */,
@@ -2050,6 +2085,7 @@
 				B6346AEE1D9E6C5100CBEAE2 /* EMAudioPlayerUtil.m in Sources */,
 				5DE85BB31F2C165E00200C3E /* FloatRatingView.swift in Sources */,
 				B6346B0B1D9E6C5100CBEAE2 /* MJRefreshConst.m in Sources */,
+				E40E53411F73042A00E12593 /* LoginVerificationViewController.swift in Sources */,
 				9A17BE2E1D9E20190075EF9F /* SettingsTableViewController.swift in Sources */,
 				B6346B231D9E6C5100CBEAE2 /* UIImage+EMMultiFormat.m in Sources */,
 				9A17BE311D9E20190075EF9F /* ChatTableViewController.swift in Sources */,
@@ -2130,6 +2166,7 @@
 				B6346B211D9E6C5100CBEAE2 /* UIButton+EMWebCache.m in Sources */,
 				B6346B131D9E6C5100CBEAE2 /* MWPhotoBrowser.m in Sources */,
 				B6346B2C1D9E6C5100CBEAE2 /* PSTCollectionViewData.m in Sources */,
+				E4EED04A1F82EA0E00F81986 /* ScaleImage.swift in Sources */,
 				9A17BE2F1D9E20190075EF9F /* ConversationsTableViewController.swift in Sources */,
 				5D4342461F266F1700E5CA62 /* CameraViewController.swift in Sources */,
 				B6346B481D9E6C5100CBEAE2 /* EaseConversationListViewController.m in Sources */,

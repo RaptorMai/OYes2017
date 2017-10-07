@@ -76,7 +76,18 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         if needRemoveConversations.count > 0 {
             EMClient.shared().chatManager.deleteConversations(needRemoveConversations, isDeleteMessages: true, completion: nil)
         }
-        dataSource =  EMClient.shared().chatManager.getAllConversations() as [AnyObject]
+        dataSource =  EMClient.shared().chatManager.getAllConversations() as! [EMConversation]
+        
+        // order the data source according to the date added
+        dataSource = dataSource.sorted(by: {
+            let conv0 = $0 as! EMConversation
+            let conv1 = $1 as! EMConversation
+            if conv0.latestMessage != nil && conv1.latestMessage != nil {
+                return conv0.latestMessage.timestamp > conv1.latestMessage.timestamp
+            }
+            return false
+        })
+        
         DispatchQueue.main.async(execute: {
             self.tableView.reloadData()
         })
@@ -113,18 +124,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
                 self.present(alert, animated: true, completion: nil)
             })
         }
-        
-        let markAction = UITableViewRowAction(style: UITableViewRowActionStyle.normal,
-                                              title: "Mark as unread") { (action, indexPath) in
-                                                let conversation = self.dataSource[indexPath.row] as! EMConversation
-                                                let lastMessage = conversation.lastReceivedMessage()
-                                                lastMessage?.isRead = false
-                                                conversation.updateMessageChange(lastMessage, error: nil)
-                                                DispatchQueue.main.async(execute: {
-                                                    self.tableView.reloadData()
-                                                })
-        }
-        return [deleteAction, markAction]
+        return [deleteAction]
     }
     
     /// Handle deletion of session
@@ -165,8 +165,18 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
             cell.senderLabel.text = sender != EMClient.shared().currentUsername ? sender : recepient
         }
         
+        // message is defined in chatTableViewController, as [String:Data]. Keys are 'cat' and 'pic'
+        let messageExt = conversation.latestMessage.ext as? [String:String]
+        if messageExt != nil {
+            let categoryString = messageExt!["cat"]!
+            let imageData: Data = Data(base64Encoded:messageExt!["pic"]!, options:.ignoreUnknownCharacters)!
+            let image = UIImage(data: imageData)
+            cell.senderLabel.text = categoryString
+            cell.senderImageView.image = image
+        }
+        
         if let latestMessage: EMMessage = conversation.latestMessage {
-            let timeInterval: Double = Double(latestMessage.timestamp)
+            let timeInterval: Double = Double(latestMessage.timestamp) / 1000
             let date = Date(timeIntervalSince1970:timeInterval)
             let formatter = DateFormatter()
             formatter.timeStyle = .short
@@ -193,7 +203,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
     }
     
     override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90.0
+        return 78
     }
     
     override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -202,9 +212,13 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
             let timeStamp = ["SessionId":String(Date().ticks)]
             let sessionController = SessionTableViewController(conversationID: conversation.conversationId, conversationType: conversation.type, initWithExt: timeStamp)
             
-            print(conversation.conversationId)
+            // setting chatVC title
+            let messageExt = conversation.latestMessage.ext as? [String:String]
+            if messageExt != nil {
+                let categoryString = messageExt!["cat"]!
+                sessionController?.title = categoryString
+            }
             
-            sessionController?.title = conversation.latestMessage.from
             sessionController?.hidesBottomBarWhenPushed = true
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
             //self.navigationController!.pushViewController(sessionController!, animated: true)

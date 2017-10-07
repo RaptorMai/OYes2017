@@ -26,7 +26,9 @@ class AutoLoginVC: UIViewController {
         super.viewDidAppear(animated)
         let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
         self.present(homeVC, animated: true, completion: nil)
+        //Update notification token 
         let addToken = ["token": self.token] as [String: String?]
+        print(uid)
         self.ref?.child("tutors/\(uid)").updateChildValues(addToken)
 
         

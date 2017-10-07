@@ -5,7 +5,7 @@ admin.initializeApp(functions.config().firebase);
 
 const stripe = require('stripe')(functions.config().stripe.testkey);
 
-const price = {"1000": 10, "3000": 30, "6000": 60, "11900": 120};
+// const price = {"400": 10, "1100": 30, "2000": 60, "3800": 120};
 
 const cors = require('cors')({origin: true});
 
@@ -139,20 +139,37 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 	const sid = event.params.sid;
 	const id = event.params.pid;
 	const amount = event.data.current.child('amount').val();
+	const date = event.data.current.child('created').val();
 	console.log("what is amount");
 	console.log(event.data.current.child('amount').val());
 
+	var addBalanceHistory = admin.database().ref("/users/" + sid + "/balanceHistory");
 	var ref = admin.database().ref("/users/" + sid + "/balance");
+
 	ref.once("value").then(snapshot => {
 		console.log("what is snapshot in balance");
 		console.log(snapshot.val());
 		var currentBalance = snapshot.val();
 		// console.log(price);
 		let amountString = amount.toString();
-		let increment = price[amountString];
-		currentBalance += increment;
-		console.log(currentBalance);
-		ref.set(currentBalance);
+		console.log(amountString);
+
+		let mins = admin.database().ref("/price/" + amountString);
+		mins.once("value").then(snapshot => {
+			console.log("what is the increment");
+			var increment = snapshot.val();
+			console.log(increment);
+			currentBalance += increment;
+			console.log(currentBalance);
+			ref.set(currentBalance);
+			return increment;
+		}).then(timePurchased => {
+				addBalanceHistory.push({
+							price: amount,
+							timePurchased: timePurchased,
+							date: date
+							});
+		})
 	})
 
 })
@@ -181,11 +198,12 @@ exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{q
 
 
 exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{questionId}').onWrite(event => {
+
 	const qid = event.params.questionId;
 	const category = event.params.category;
 	console.log(qid);
 	console.log(category);
-	// var endTime = new Date();
+
 	var ref = admin.database().ref("/Request/inactive/" + category + "/" + qid);
 	const sid = ref.once("value").then(snapshot => {
 		console.log(snapshot.val());
@@ -203,10 +221,24 @@ exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{q
 			admin.database().ref("/users/" + sid + "/balance").set(snapshot.val() - sessionTime)
 		})
 
+		var today = new Date().getTime();
+
+		var addBalanceHistory = admin.database().ref("/users/" + sid + "/balanceHistory");
+		addBalanceHistory.push({
+								sessionTime: sessionTime,
+								date: today
+							});
+
 		// Update tutor balance
 		admin.database().ref("/tutors/" + tid + "/balance").once("value").then(snapshot => {
 			admin.database().ref("/tutors/" + tid + "/balance").set(parseInt(snapshot.val()) + parseInt(sessionTime))
 		})
+
+		var tutorBalanceHistory = admin.database().ref("/tutors/" + tid + "/balanceHistory");
+		tutorBalanceHistory.push({
+								sessionTime: sessionTime,
+								date: today
+							});
 	})
 })
 

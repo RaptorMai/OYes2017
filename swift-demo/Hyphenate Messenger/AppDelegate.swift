@@ -8,6 +8,11 @@ import Hyphenate
 import Firebase
 import Stripe
 
+struct Platform {
+    static var isSimulator: Bool {
+        return TARGET_OS_SIMULATOR != 0
+    }
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -298,7 +303,7 @@ extension AppDelegate {
         self.mainViewController = nil;
         
         HyphenateMessengerHelper.sharedInstance.mainVC = nil
-        let loginController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginScene")
+        let loginController = UIStoryboard(name: "Authentication", bundle: nil).instantiateViewController(withIdentifier: "AuthVC")
         window?.rootViewController = loginController
     }
     

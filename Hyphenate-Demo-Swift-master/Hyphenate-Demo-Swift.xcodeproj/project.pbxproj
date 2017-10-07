@@ -2104,6 +2104,10 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Hyphenate-Demo-Swift/Pods-Hyphenate-Demo-Swift-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+<<<<<<< HEAD
+=======
+				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
+>>>>>>> 2dcd4a66166e6d518d32c7dbc873c6e022fc4e97
 				"${BUILT_PRODUCTS_DIR}/DACircularProgress/DACircularProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
@@ -2120,6 +2124,10 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+<<<<<<< HEAD
+=======
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
+>>>>>>> 2dcd4a66166e6d518d32c7dbc873c6e022fc4e97
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DACircularProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",

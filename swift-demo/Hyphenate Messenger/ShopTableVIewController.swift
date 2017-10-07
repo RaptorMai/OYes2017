@@ -26,15 +26,35 @@ struct Theme {
 
 class ShopTableViewController: UITableViewController, STPAddCardViewControllerDelegate{
     
+    var ref: DatabaseReference? = Database.database().reference()
     
-    let products = ["10min package", "30min package", "60min package", "120min package", "Unlimite Questions"]
-    let prices = [400, 1100, 2000, 3800, 9900]
+    //var products = ["10min package", "30min package", "60min package", "120min package", "Unlimite Questions"]
+    //var prices = [400, 1100, 2000, 3800, 9900]
+    
+    var products = [String]()
+    var prices = [Int]()
     let theme = Theme()
+    let balanceLabel = UILabel()
     
-    var ref: DatabaseReference?
     var uid = "+1" + EMClient.shared().currentUsername!
     var price = 0
     var product = ""
+    var balance = 0
+    var checkHide = 0
+    var firstAppear = 0
+    
+    /*let changeCardButton: UIButton = {
+     let theme = Theme()
+     let button = UIButton(type: .system)
+     button.backgroundColor = UIColor.blue
+     button.setTitle("Change Card", for: .normal)
+     button.backgroundColor = .clear
+     button.layer.cornerRadius = 5
+     button.layer.borderWidth = 1
+     button.layer.borderColor = theme.buttonColor.cgColor
+     button.setTitleColor(theme.buttonColor, for:.normal)
+     return button
+     }()*/
     
     //let settingsVC = SettingsViewController()
     
@@ -42,16 +62,80 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         super.viewDidLoad()
         self.tabBarController?.navigationItem.title = "Shop"
         self.tableView.tableFooterView = UIView()
+        self.tableView.separatorInset = .zero
+        // Grab price - amount mapping from db
         
     }
-    
+    /*func setupButton(){
+     changeCardButton.translatesAutoresizingMaskIntoConstraints = false
+     changeCardButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+     changeCardButton.bottomAnchor.constraint(equalTo: self.tableView.bottomAnchor).isActive = true
+     changeCardButton.addTarget(self, action: #selector(ShopTableViewController.updateCard), for: .touchUpInside)
+     let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+     changeCardButton.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: 1)
+     }*/
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Shop"
+        showHud(in: view, hint: "loding")
+        products.removeAll()
+        prices.removeAll()
+        checkHide = 0
+        ref?.child("users/\(uid)/balance").observeSingleEvent(of: .value, with: { (snapshot) in
+            self.balance = (snapshot.value as? Int)!
+            if self.checkHide == 1{
+                self.hideHud()
+                self.tableView.reloadData()
+            }
+            else{self.checkHide = 1}
+        }){ (error) in
+            //print(error.localizedDescription)
+            if self.checkHide == 1{
+                self.hideHud()}
+            else{self.checkHide = 1}
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
+        }
+        ref?.child("price").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let mapping = snapshot.value as? NSDictionary
+            
+            // Get prices array from all keys of mapping dictionary
+            for p in (mapping?.allKeys)!{
+                self.prices.append(Int("\(p)")!)
+            }
+            
+            self.prices = self.prices.sorted()
+            
+            // Get products array by indexing mapping dictionary with items in prices
+            for i in self.prices{
+                let temp = "\(i)"
+                self.products.append("\((mapping?[temp])!) mins package")
+            }
+            if self.checkHide == 1{
+                self.hideHud()
+                self.tableView.reloadData()
+            }
+            else{self.checkHide = 1}
+            
+            
+        }) { (error) in
+            //print(error.localizedDescription)
+            if self.checkHide == 1{
+                self.hideHud()}
+            else{self.checkHide = 1}
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        let theme = Theme()
+        // let theme = Theme()
         super.viewDidAppear(animated)
         self.view.backgroundColor = theme.primaryBackgroundColor
         self.navigationController?.navigationBar.barTintColor = theme.secondaryBackgroundColor
@@ -68,94 +152,189 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         self.navigationItem.leftBarButtonItem?.setTitleTextAttributes(buttonAttributes, for: UIControlState())
         self.navigationItem.backBarButtonItem?.setTitleTextAttributes(buttonAttributes, for: UIControlState())
         //self.tableView.separatorColor = theme.primaryBackgroundColor
-        self.tableView.reloadData()
+        //self.tableView.reloadData()
+        
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Show the navigation bar on other view controllers
+        self.hideHud()
+        products.removeAll()
+        prices.removeAll()
         
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.products.count
+        print("numOfRow")
+        print(self.products.count)
+        if self.products.count != 0{
+            return self.products.count + 1
+        }
+        else{
+            return self.products.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
-        let product = products[indexPath.row]
-        let price = prices[indexPath.row]
-        //let theme = self.settingsVC.settings.theme
-        cell.backgroundColor = theme.secondaryBackgroundColor
-        cell.textLabel?.text = product
-        cell.textLabel?.font = theme.font
-        cell.textLabel?.textColor = theme.primaryForegroundColor
-        // cell.detailTextLabel?.text = "$\(price/100).00"
-        // cell.accessoryType = .disclosureIndicator
-        cell.accessoryType = UITableViewCellAccessoryType.none
-        
-        // to make it non selectable
-        cell.selectionStyle = UITableViewCellSelectionStyle.none;
-        
-        let priceButton = UIButton(type: .custom)
-        
-        priceButton.backgroundColor = .clear
-        priceButton.layer.cornerRadius = 5
-        priceButton.layer.borderWidth = 1
-        priceButton.layer.borderColor = theme.buttonColor.cgColor
-        // priceButton.backgroundColor = UIColor.blue
-        priceButton.setTitle("$\(price/100)", for: .normal)
-        priceButton.setTitleColor(theme.buttonColor, for:.normal )
-        priceButton.addTarget(self, action: #selector(ShopTableViewController.payAlert(_:)), for: .touchUpInside)
-        priceButton.frame = CGRect(x: 300, y: 7, width: 60, height: 30)
-        priceButton.tag = price
-        cell.addSubview(priceButton)
-        
-        return cell
+        print("yes")
+        if indexPath.row < self.products.count {
+            print(indexPath.row)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+            //cell.subviews.forEach({ $0.removeFromSuperview() })
+            let product = products[indexPath.row]
+            let price = prices[indexPath.row]
+            //let theme = self.settingsVC.settings.theme
+            cell.backgroundColor = theme.secondaryBackgroundColor
+            cell.textLabel?.text = product
+            cell.textLabel?.font = theme.font
+            cell.textLabel?.textColor = UIColor.black
+            // cell.detailTextLabel?.text = "$\(price/100).00"
+            // cell.accessoryType = .disclosureIndicator
+            cell.accessoryType = .none
+            // to make it non selectable
+            cell.selectionStyle = .none;
+            if self.firstAppear == 0{
+                let priceButton = UIButton(type: .custom)
+                priceButton.backgroundColor = .clear
+                priceButton.layer.cornerRadius = 5
+                priceButton.layer.borderWidth = 1
+                priceButton.layer.borderColor = theme.buttonColor.cgColor
+                // priceButton.backgroundColor = UIColor.blue
+                priceButton.setTitle("$\(price/100)", for: .normal)
+                priceButton.setTitleColor(theme.buttonColor, for:.normal )
+                priceButton.addTarget(self, action: #selector(ShopTableViewController.payAlert(_:)), for: .touchUpInside)
+                priceButton.frame = CGRect(x: UIScreen.main.bounds.size.width * 0.81, y: 7, width: 60, height: 30)
+                priceButton.tag = price
+                cell.addSubview(priceButton)
+                self.firstAppear = 1
+            }
+            else{
+                for view in cell.subviews {
+                    if view is UIButton{
+                        view.removeFromSuperview()
+                    }
+                }
+                let priceButton = UIButton(type: .custom)
+                priceButton.backgroundColor = .clear
+                priceButton.layer.cornerRadius = 5
+                priceButton.layer.borderWidth = 1
+                priceButton.layer.borderColor = theme.buttonColor.cgColor
+                // priceButton.backgroundColor = UIColor.blue
+                priceButton.setTitle("$\(price/100)", for: .normal)
+                priceButton.setTitleColor(theme.buttonColor, for:.normal )
+                priceButton.addTarget(self, action: #selector(ShopTableViewController.payAlert(_:)), for: .touchUpInside)
+                priceButton.frame = CGRect(x: UIScreen.main.bounds.size.width * 0.81, y: 7, width: 60, height: 30)
+                priceButton.tag = price
+                cell.addSubview(priceButton)
+            }
+
+            return cell
+        }
+        else{
+            print(indexPath.row)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+            cell.imageView?.image = #imageLiteral(resourceName: "creditcard")
+            cell.textLabel?.text = "Change your card"
+            return cell
+        }
     }
     
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let logoutButton = UIButton(type: .custom)
-        logoutButton.backgroundColor = UIColor.blue
-        logoutButton.setTitle("Change Card", for: .normal)
-        logoutButton.backgroundColor = .clear
-        logoutButton.layer.cornerRadius = 5
-        logoutButton.layer.borderWidth = 1
-        logoutButton.layer.borderColor = theme.buttonColor.cgColor
-        logoutButton.setTitleColor(theme.buttonColor, for:.normal )
-        logoutButton.addTarget(self, action: #selector(ShopTableViewController.updateCard), for: .touchUpInside)
-        logoutButton.frame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - 345, width: UIScreen.main.bounds.size.width, height: 45)
+    /*override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+     /*let changeCardButton = UIButton(type: .custom)
+     changeCardButton.backgroundColor = UIColor.blue
+     changeCardButton.setTitle("Change Card", for: .normal)
+     changeCardButton.backgroundColor = .clear
+     changeCardButton.layer.cornerRadius = 5
+     changeCardButton.layer.borderWidth = 1
+     changeCardButton.layer.borderColor = theme.buttonColor.cgColor
+     changeCardButton.setTitleColor(theme.buttonColor, for:.normal )
+     changeCardButton.addTarget(self, action: #selector(ShopTableViewController.updateCard), for: .touchUpInside)
+     changeCardButton.frame = CGRect(x: 0, y: 200, width: UIScreen.main.bounds.size.width, height: 45)
+     
+     let footerView = UIView(frame: CGRect(x: 0, y: 200, width: UIScreen.main.bounds.size.width, height: 100))
+     
+     //UIScreen.main.bounds.size.height - 220
+     print("UI main screen height \(UIScreen.main.bounds.size.height)")
+     print("current view height \(view.bounds.size.height)")
+     // footerView.backgroundColor = UIColor.black*/
+     let footerView = UIView(frame: CGRect(x: 0, y: 200, width: UIScreen.main.bounds.size.width, height: 45))
+     footerView.translatesAutoresizingMaskIntoConstraints = false
+     changeCardButton.translatesAutoresizingMaskIntoConstraints = false
+     footerView.addSubview(changeCardButton)
+     
+     let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+     footerView.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: 1)
+     changeCardButton.widthAnchor.constraint(equalTo: footerView.widthAnchor).isActive = true
+     changeCardButton.topAnchor.constraint(equalTo: footerView.topAnchor).isActive = true
+     changeCardButton.addTarget(self, action: #selector(ShopTableViewController.updateCard), for: .touchUpInside)
+     changeCardButton.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: 1)
+     footerView.backgroundColor = UIColor.red
+     return footerView
+     }*/
+    
+    /*override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+     return 200
+     }*/
+    
+    //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //        tableView.deselectRow(at: indexPath, animated: true)
+    //        product = products[indexPath.row]
+    //        price = prices[indexPath.row]
+    //
+    //        let title = "Confirm Purchase"
+    //        let message = "Proceed to purchase \(product) package for $\(price/100).00)?"
+    //        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    //        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+    //        alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: {action in self.payButton()}))
+    //
+    //        self.present(alert, animated: true, completion: nil)
+    //
+    //    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.frame = CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height * 0.10)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        //view.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor).isActive = true
+        view.backgroundColor = theme.buttonColor
         
-        let footerView = UIView(frame: CGRect(x: 0, y: 300, width: UIScreen.main.bounds.size.width, height: 300))
+        let imageAttachment =  NSTextAttachment()
+        imageAttachment.image = UIImage(named:"Balance2")
+        //Set bound to reposition
+        let imageOffsetY:CGFloat = -8.0;
+        imageAttachment.bounds = CGRect(x: -5, y: imageOffsetY, width: imageAttachment.image!.size.width, height: imageAttachment.image!.size.height)
+        //Create string with attachment
+        let attachmentString = NSAttributedString(attachment: imageAttachment)
+        //Initialize mutable string
+        let completeText = NSMutableAttributedString(string: "")
+        //Add image to mutable string
+        completeText.append(attachmentString)
+        //Add your text to mutable string
+        let  textAfterIcon = NSMutableAttributedString(string: "Balance: \(self.balance) minutes")
+        let range = ("Balance: \(self.balance) minutes" as NSString).range(of: "Balance: \(self.balance) minutes"
+        )
+        textAfterIcon.addAttribute(NSForegroundColorAttributeName, value: UIColor.white , range: range)
+        completeText.append(textAfterIcon)
+        balanceLabel.textAlignment = .center;
+        balanceLabel.attributedText = completeText;
+        balanceLabel.frame = CGRect(x:0, y: 0, width: UIScreen.main.bounds.size.width*0.8, height: UIScreen.main.bounds.size.height * 0.10*0.5)
+        balanceLabel.center = view.center
+        //label.backgroundColor = UIColor.white
         
-        //UIScreen.main.bounds.size.height - 220
-        print("UI main screen height \(UIScreen.main.bounds.size.height)")
-        print("current view height \(view.bounds.size.height)")
-        // footerView.backgroundColor = UIColor.black
-        footerView.addSubview(logoutButton)
-        return footerView
+        view.addSubview(balanceLabel)
+        return view
     }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return UIScreen.main.bounds.size.height - 300
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UIScreen.main.bounds.size.height * 0.10
     }
-    
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        product = products[indexPath.row]
-//        price = prices[indexPath.row]
-//        
-//        let title = "Confirm Purchase"
-//        let message = "Proceed to purchase \(product) package for $\(price/100).00)?"
-//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
-//        alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: {action in self.payButton()}))
-//        
-//        self.present(alert, animated: true, completion: nil)
-//        
-//    }
     
     func payAlert(_ sender: UIButton) {
         
         print("which button is pressed \(sender.tag)")
         
         let title = "Confirm Purchase"
-        let message = "Proceed to purchase package for \(String(describing: String(sender.currentTitle!)))?"
+        let message = "Proceed to purchase package for \(sender.currentTitle!)?"
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
         let amount:Int? = Int(sender.tag)
@@ -174,8 +353,8 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         print("pay button clicked")
         print(uid)
         
-        _ = MKFullSpinner.show("Processing your payment now", view: self.view)
-
+        //_ = MKFullSpinner.show("Processing your payment now", view: self.view)
+        showHud(in: view, hint: "Purchasing")
         ref = Database.database().reference()
         ref?.child("users").child(uid).child("payments").observeSingleEvent(of: .value, with: { (snapshot) in
             
@@ -245,19 +424,29 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                 if (postDict == "succeeded"){
                     // dismiss loading page
                     
-                    MKFullSpinner.hide()
-                    
+                    //MKFullSpinner.hide()
+                    self.hideHud()
+                    self.ref?.child("users/\(self.uid)/balance").observe(DataEventType.value, with: { (snapshot) in
+                        self.balance = (snapshot.value as? Int)!
+                        self.tableView.reloadData()
+                    }){ (error) in
+                        //print(error.localizedDescription)
+                        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                        let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                        alert.addAction(okay)
+                        self.present(alert, animated: true, completion: nil)
+                    }
                     // send alert
                     let title = "Payment Successed"
                     let message = "You have purchased \(self.product) package for $\(amount/100).00"
                     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
                     self.present(alert, animated: true, completion: nil)
-                    
                 } else {
                     print("postDict\(String(describing: postDict))")
                     
-                    MKFullSpinner.hide()
+                    //MKFullSpinner.hide()
+                    self.hideHud()
                     let title = "Payment Failed"
                     let message = "Please try again"
                     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -270,11 +459,17 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         })
         
     }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == self.products.count{
+            updateCard()
+        }
+        
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         // detach all listener for db
         ref?.removeAllObservers()
     }
-
+    
 }
