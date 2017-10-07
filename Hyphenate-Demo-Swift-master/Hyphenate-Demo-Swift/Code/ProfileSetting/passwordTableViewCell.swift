@@ -8,7 +8,7 @@
 
 import UIKit
 
-class gradeTableViewCell: UITableViewCell {
+class passwordTableViewCell: UITableViewCell {
     
     // MARK: - When Cell Loads
     
@@ -19,9 +19,9 @@ class gradeTableViewCell: UITableViewCell {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var gradeCellLabel: UILabel!
+    @IBOutlet weak var passwordCellLabel: UILabel!
     
-    @IBOutlet weak var userGraderLabel: UILabel!
+
     
     //    override func setSelected(_ selected: Bool, animated: Bool) {
     //        super.setSelected(selected, animated: animated)

@@ -35,11 +35,14 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate{
         
         self.tabBarController?.tabBar.isHidden = false
         // Do any additional setup after loading the view.
+        self.tableView.register(UINib(nibName: "SettingProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "settingProfileCell")
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "Settings"
+        self.tabBarController?.tabBar.isHidden = false
+        self.tableView.reloadData()
     }
     
     let data = [[[#imageLiteral(resourceName: "Profile"),"Profile"]], [[#imageLiteral(resourceName: "Bank"),"Bank account"], [#imageLiteral(resourceName: "Cash"),"Cash out"]], [[#imageLiteral(resourceName: "Help"),"Help"], [#imageLiteral(resourceName: "Feedback"),"Feedback"], [#imageLiteral(resourceName: "About"),"About"]],[["Log out"]]]
@@ -56,21 +59,45 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate{
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section != 3{
+        if indexPath.section == 0 {
+            // My Profile TODO: don't use conversation table view cell, better make a new one
+            let cell:SettingProfileTableViewCell = tableView.dequeueReusableCell(withIdentifier: "settingProfileCell", for: indexPath) as! SettingProfileTableViewCell
+            cell.senderLabel.text = ""
+            cell.timeLabel.isHidden = true
+            cell.lastMessageLabel.isHidden = true
+            cell.senderImageView.contentMode = UIViewContentMode.scaleAspectFill
+            
+            // username
+            cell.senderLabel.text = UserDefaults.standard.string(forKey: "userName")
+            // profile picture
+            let imageUIImage: UIImage
+            if let data = UserDefaults.standard.data(forKey: "profilePicture"){
+                imageUIImage = UIImage(data: data)!
+            }else{
+                imageUIImage = UIImage(named:"placeholder")!
+            }
+            cell.senderImageView.image = imageUIImage
+            
+            cell.accessoryType = .disclosureIndicator
+            
+            return cell
+        }
+        else if indexPath.section < 3 {
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = self.data[indexPath.section][indexPath.row][1] as? String
             cell.imageView?.image = self.data[indexPath.section][indexPath.row][0] as? UIImage
             
             cell.accessoryType = .disclosureIndicator
             return cell}
+            
         else{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = self.data[indexPath.section][indexPath.row][0] as? String
             cell.textLabel?.textAlignment = .center
-            return cell
             
+            return cell
         }
-        
+
     }
     
 
@@ -79,7 +106,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate{
         switch indexPath.section {
         case 0:
             if indexPath.row == 0{
-                let StoryBoard = UIStoryboard(name:"ProfileMain",bundle:nil)
+                let StoryBoard = UIStoryboard(name:"ProfileSetting",bundle:nil)
                 let myProfileVC = StoryBoard.instantiateViewController(withIdentifier: "myProfileVC")
                 navigationController?.pushViewController(myProfileVC, animated: true)
                 self.tabBarController?.tabBar.isHidden = true
@@ -120,6 +147,15 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate{
             
         }
     }
+    
+    // change Height of Profile Picture Cell
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath.section == 0 && indexPath.row == 0){
+            return 100
+        } else {
+            return UITableViewAutomaticDimension
+        }
+    }
 
     func logoutAction() {
         
@@ -152,11 +188,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate{
         // Pass the selected object to the new view controller.
     }
     */
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = false
-    }
+
     
     // MARK - Functions for email sending. (Feedback button)
     

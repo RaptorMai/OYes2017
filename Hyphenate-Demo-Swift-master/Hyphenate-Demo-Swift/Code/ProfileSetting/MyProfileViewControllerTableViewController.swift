@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import MessageUI
 import Firebase
 import FirebaseDatabase
 import Hyphenate
 
 
-class MyProfileViewControllerTableViewController: UITableViewController{
+class MyProfileViewControllerTableViewController: UITableViewController, MFMailComposeViewControllerDelegate{
     
     // MARK: - Properties
     var ref = Database.database().reference()
@@ -39,7 +40,7 @@ class MyProfileViewControllerTableViewController: UITableViewController{
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,9 +48,12 @@ class MyProfileViewControllerTableViewController: UITableViewController{
         // Section: PROFILE
         case 0:
             return 2
-        // Section: INFORMATION
+        // Section: PRIVACY
         case 1:
-            return 3
+            return 1
+        // Section: INFORMATION
+        case 2:
+            return 1
         default:
             return 0
         }
@@ -83,27 +87,28 @@ class MyProfileViewControllerTableViewController: UITableViewController{
                 return cell
             }
             
-            // Section: INFORMARION
-        } else {
+        // Section: INFORMARION
+        } else if indexPath.section == 1{
             switch indexPath.row {
-            // Grade
+            // Password
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "gradeCell", for: indexPath) as! gradeTableViewCell
-                cell.gradeCellLabel.text = "Grade"
-                cell.userGraderLabel.text = UserDefaults.standard.string(forKey: "grade")
-                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "passwordCell", for: indexPath) as! passwordTableViewCell
+                cell.passwordCellLabel.text = "Password"
                 return cell
-                
+            // Should Never Reach
+            default:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+                return cell
+            
+            }
+            
+        } else {
+            switch indexPath.row {                
             // Email
-            case 1:
+            case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "emailCell", for: indexPath) as! emailTableViewCell
                 cell.emailCellLabel.text = "Email"
                 cell.userEmailLabel.text = UserDefaults.standard.string(forKey: "email")
-                return cell
-            // More
-            case 2:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "moreCell", for: indexPath) as! moreTableViewCell
-                cell.moreCellLabel.text = "More"
                 return cell
             // Should Never Reach
             default:
@@ -111,6 +116,7 @@ class MyProfileViewControllerTableViewController: UITableViewController{
                 return cell
             }
         }
+            
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -119,6 +125,8 @@ class MyProfileViewControllerTableViewController: UITableViewController{
         case 0:
             cell.headerLabel.text = "PROFILE"
         case 1:
+            cell.headerLabel.text = "PRIVACY"
+        case 2:
             cell.headerLabel.text = "INFORMATION"
         default:
             break
@@ -139,6 +147,73 @@ class MyProfileViewControllerTableViewController: UITableViewController{
         }
         return 40
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 2{
+            if indexPath.row == 0{
+                print("clicked")
+                tableView.deselectRow(at: indexPath, animated: true)
+                createChangeEmailAlert()
+            }
+        }
+    }
+    
+    func createChangeEmailAlert (){
+        let alert = UIAlertController(title: "Alert", message: "Please notify us via Email", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertActionStyle.default, handler:nil))
+        alert.addAction(UIAlertAction(title:"Notify Us", style: UIAlertActionStyle.default, handler:{(action:UIAlertAction) in
+            if !MFMailComposeViewController.canSendMail(){
+                print("Mail services are not available")
+                self.showSendMailErrorAlert()
+                return
+            } else {
+                self.sendFeedback()
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    // send Feedback
+    func sendFeedback(){
+        let composeVC = MFMailComposeViewController()
+        composeVC.mailComposeDelegate = self
+        // Configure the fields of the interface
+        composeVC.setToRecipients(["instasolve1@gmail.com"])
+        composeVC.setSubject("Email Change Request - InstaSolve")
+        composeVC.setMessageBody("Please leave indicate your previous and new Email!", isHTML: false)
+        self.present(composeVC, animated: true, completion:nil)
+    }
+    
+    // Mail: error handler
+    func showSendMailErrorAlert(){
+        let sendMailErrorAlert = UIAlertController(title: "Mail cannot be sent", message: "Mailbox is not setup properly", preferredStyle: .alert )
+        sendMailErrorAlert.addAction(UIAlertAction(title: "Yes", style: .default) {_ in})
+        self.present(sendMailErrorAlert, animated: true)
+    }
+    
+    // Mail: dimiss controller
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result {
+        case MFMailComposeResult.cancelled:
+            print("Mail cancelled")
+        case MFMailComposeResult.saved:
+            print("Mail saved")
+        case MFMailComposeResult.sent:
+            print("Mail sent")
+        case MFMailComposeResult.failed:
+            print("Mail sent failure")
+        default:
+            break
+        }
+        // Dismiss mail view controller and back to setting page
+        self.dismiss(animated:true, completion: nil)
+    }
+    
+    
+
+    
+    
+    
     /*
      // MARK: - Navigation
      
