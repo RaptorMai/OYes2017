@@ -151,6 +151,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
     
     func requestHelpPressed(button: UIButton) {
         
+        let time = Date().timeIntervalSince1970
         if self.balance < self.threshold && self.balance > 0{
             let alertController = UIAlertController(title: "Warning", message:
                 "Your balance is less than \(self.threshold) mins. Your session will terminate when your balance is 0 ", preferredStyle: UIAlertControllerStyle.alert)
@@ -174,7 +175,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
             }))
             
             alertController.addAction(UIAlertAction(title: "Continue", style: .destructive, handler: {_ in
-                self.requestTutor()
+                self.requestTutor(time)
             }))
             
             present(alertController, animated: true, completion: nil)
@@ -188,12 +189,12 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
              present(alertController, animated: true, completion: nil)
         } else {
             // if the balance is sufficient, just request
-            requestTutor()
+            requestTutor(time)
         }
     }
     
     /// Call this function to request a tutor
-    func requestTutor() {
+    func requestTutor(_ time: TimeInterval) {
         //check if keyboard is displayed and if it is then dismiss before continuing
         dismissKeyboard()
         //Check if description was entered. If a description was not entered modify text uploaded to database.
@@ -220,7 +221,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
         uploadPicture(data, completion:{ (url) -> Void in
             spinner.title = "Your tutor is on the way"
             let addRequest = ["sid": self.sid!, "picURL":url!, "category": self.categorytitle, "description":
-                self.questionDescription.text as String, "status": 0, "qid": self.key!, "tid":"", "duration": "", "rate":""] as [String : Any]
+                self.questionDescription.text as String, "status": 0, "qid": self.key!, "tid":"", "duration": "", "rate":"", "time":time] as [String : Any]
             self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").setValue(addRequest)
             //label.removeFromSuperview()
         })
@@ -467,7 +468,8 @@ extension SummaryVC {
     // MARK: ShopViewDelegate
     func didFinishPurchasingWith(status succ: Bool) {
         if succ {
-            requestTutor()
+            let time = Date().timeIntervalSince1970
+            requestTutor(time)
         }
     }
 }
