@@ -130,7 +130,8 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
                 }
             // Rate us
             case 2:
-                break
+                UIApplication.shared.openURL(URL(string: "itms-apps://itunes.apple.com/")!)
+                tableView.deselectRow(at: indexPath, animated: true)
             // Like us on Facebook
             case 3:
                 openFacebookPage()
