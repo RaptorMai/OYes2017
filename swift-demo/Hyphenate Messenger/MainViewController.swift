@@ -55,19 +55,20 @@ class MainViewController: UITabBarController {
     }
 
     func updateUnreadMessageCount() {
-        let conversations: [EMConversation] = EMClient.shared().chatManager.getAllConversations() as! [EMConversation]
-        var unreadCount: Int = 0
-        conversations.forEach { (conversation) in
-            unreadCount = unreadCount + Int(conversation.unreadMessagesCount)
+        if let conversations: [EMConversation] = EMClient.shared().chatManager.getAllConversations() as? [EMConversation] {
+            var unreadCount: Int = 0
+            conversations.forEach { (conversation) in
+                unreadCount = unreadCount + Int(conversation.unreadMessagesCount)
+            }
+            
+            if unreadCount > 0 {
+                self.tabBar.items![1].badgeValue = "\(unreadCount)"
+            } else {
+                self.tabBar.items![1].badgeValue = nil
+            }
+            
+            UIApplication.shared.applicationIconBadgeNumber = unreadCount
         }
-        
-        if unreadCount > 0 {
-            self.tabBar.items![1].badgeValue = "\(unreadCount)"
-        } else {
-            self.tabBar.items![1].badgeValue = nil
-        }
-        
-        UIApplication.shared.applicationIconBadgeNumber = unreadCount
     }
 }
 
