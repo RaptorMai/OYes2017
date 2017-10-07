@@ -7,6 +7,7 @@ import Crashlytics
 import Hyphenate
 import Firebase
 import Stripe
+import UserNotifications
 
 struct Platform {
     static var isSimulator: Bool {
@@ -42,22 +43,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         var apnsCertName : String? = nil
         
+        let config = AppConfig.sharedInstance
+        
         #if DEBUG
             apnsCertName = AppDelegate.kHyphenatePushServiceDevelopment
         #else
             apnsCertName = AppDelegate.kHyphenatePushServiceDevelopment //kHyphenatePushServiceProduction
         #endif
-        
-        //UIUserNotification Deprecated in ios10
-        let pushSettings = UIUserNotificationSettings(types:[UIUserNotificationType.badge ,UIUserNotificationType.sound ,UIUserNotificationType.alert], categories: nil)
-        application.registerUserNotificationSettings(pushSettings)
-        
-        
-//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){(granted, error) in
-//            if !granted{
-//                print("Notification Not Granted")
-//            }
-//        }
         
         application.registerForRemoteNotifications()
         
@@ -68,10 +60,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         hyphenateApplication(application, didFinishLaunchingWithOptions: launchOptions, appKey: AppDelegate.kHyphenateAppKey, apnsCertname: apnsCertName!, otherConfig:[AppDelegate.kSDKConfigEnableConsoleLogger: NSNumber(booleanLiteral: true)])
         
+        registerNotification()
+        // configtype first launch is guaranteed to be int
+        if (config.getConfigForType(.ConfigTypeFirstLaunch)! as! Int) < 1 {
+            config.configAppFirstLaunch()
+        }
+        
+        AppConfig.sharedInstance.configAppLaunch()
         return true
     }
     
-
+    func registerNotification() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {(granted, error) in
+            guard granted else {return}
+            self.getNotificationSettings()
+        }
+    }
+    
+    func getNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            print("Notification settings: \(settings)")
+            guard settings.authorizationStatus == .authorized else { return }
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+    }
     
     /*
     func showSplashAnimation() {
@@ -116,7 +130,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        // check if the user comes back from appstore when force update needed
+        if AppConfig.sharedInstance.getConfigForType(.ConfigTypeAppUpdateRequired)! as! Bool {
+            AppConfig.sharedInstance.displayUpdateAlertForType(.ConfigTypeAppUpdateRequired)
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
