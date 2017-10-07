@@ -61,6 +61,8 @@
 		5DF190FF1F198CA50019E6F0 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF190FE1F198CA50019E6F0 /* SessionTableViewController.swift */; };
 		5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */; };
 		830C2B111F720EC100E0AAE2 /* SettingsFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C2B101F720EC100E0AAE2 /* SettingsFeedbackController.swift */; };
+		834D32411F8860E000ECD75E /* SettingProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 834D32401F8860E000ECD75E /* SettingProfileTableViewCell.xib */; };
+		834D32431F88613400ECD75E /* SettingProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834D32421F88613400ECD75E /* SettingProfileTableViewCell.swift */; };
 		8374F2EB1F873084002F1623 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8374F2EA1F873084002F1623 /* NetworkReachability.swift */; };
 		837A61281F76F6F400F2182B /* emailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A611B1F76F6F400F2182B /* emailTableViewCell.swift */; };
 		837A61291F76F6F400F2182B /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A611C1F76F6F400F2182B /* EmailViewController.swift */; };
@@ -342,6 +344,8 @@
 		5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScr.storyboard; sourceTree = "<group>"; };
 		71E15A43B314CB255A946243 /* Pods-Hyphenate Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate Messenger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		830C2B101F720EC100E0AAE2 /* SettingsFeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsFeedbackController.swift; sourceTree = "<group>"; };
+		834D32401F8860E000ECD75E /* SettingProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingProfileTableViewCell.xib; sourceTree = "<group>"; };
+		834D32421F88613400ECD75E /* SettingProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingProfileTableViewCell.swift; sourceTree = "<group>"; };
 		8374F2EA1F873084002F1623 /* NetworkReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
 		837A611B1F76F6F400F2182B /* emailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = emailTableViewCell.swift; sourceTree = "<group>"; };
 		837A611C1F76F6F400F2182B /* EmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
@@ -959,6 +963,8 @@
 				B6346B811D9E74CE00CBEAE2 /* ContactTableViewCell.swift */,
 				9A545C871DA0CB2200DEFBC7 /* ConversationTableViewCell.swift */,
 				9A545C881DA0CB2200DEFBC7 /* ConversationTableViewCell.xib */,
+				834D32421F88613400ECD75E /* SettingProfileTableViewCell.swift */,
+				834D32401F8860E000ECD75E /* SettingProfileTableViewCell.xib */,
 				9AC132361DA0DFE500A2BD05 /* SwitchTableViewCell.swift */,
 				9AC132371DA0DFE500A2BD05 /* SwitchTableViewCell.xib */,
 				9A2E70AC1DA224FA00D3EE94 /* ProfileNameTableViewCell.swift */,
@@ -1831,6 +1837,7 @@
 				B6346B351D9E6C5100CBEAE2 /* MWPhotoBrowser.bundle in Resources */,
 				5D43423A1F266F1700E5CA62 /* CameraView.strings in Resources */,
 				5DB951F71F2C1C7700F5C2F7 /* Assets.xcassets in Resources */,
+				834D32411F8860E000ECD75E /* SettingProfileTableViewCell.xib in Resources */,
 				5D4342291F266F1700E5CA62 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1877,12 +1884,13 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.4/HyphenateFullSDK/Hyphenate.framework",
+				"${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.4r1/HyphenateFullSDK/Hyphenate.framework",
 				"${BUILT_PRODUCTS_DIR}/IHKeyboardAvoiding/IHKeyboardAvoiding.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SlimeRefresh/SlimeRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1896,6 +1904,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlimeRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2074,6 +2083,7 @@
 				5DE85BAF1F2C13BD00200C3E /* RatingViewController.swift in Sources */,
 				B6346B581D9E6C5100CBEAE2 /* EaseBubbleView+Location.m in Sources */,
 				5D4342231F266F1700E5CA62 /* AKImageCropperScrollView.swift in Sources */,
+				834D32431F88613400ECD75E /* SettingProfileTableViewCell.swift in Sources */,
 				5D4342501F266F1700E5CA62 /* ImageCell.swift in Sources */,
 				9A06AB1C1DB58606003A5B2E /* LabelTableViewCell.swift in Sources */,
 				B6346B1C1D9E6C5100CBEAE2 /* EMSDWebImageDownloaderOperation.m in Sources */,

@@ -25,10 +25,10 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.register(UINib(nibName: "SwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "switchCell")
         self.tableView.register(UINib(nibName: "LabelTableViewCell", bundle: nil), forCellReuseIdentifier: "labelCell")
-        self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "conversationCell")
+        self.tableView.register(UINib(nibName: "SettingProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "settingProfileCell")
        
         
-        self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "conversationCell")
+        self.tableView.register(UINib(nibName: "SettingProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "settingProfileCell")
         
     }
     
@@ -57,7 +57,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             // My Profile TODO: don't use conversation table view cell, better make a new one
-            let cell:ConversationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath) as! ConversationTableViewCell
+            let cell:SettingProfileTableViewCell = tableView.dequeueReusableCell(withIdentifier: "settingProfileCell", for: indexPath) as! SettingProfileTableViewCell
             cell.senderLabel.text = ""
             cell.badgeView.isHidden = true
             cell.timeLabel.isHidden = true
