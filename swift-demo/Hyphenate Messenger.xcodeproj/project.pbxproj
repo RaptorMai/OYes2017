@@ -97,7 +97,6 @@
 		9AC132391DA0DFE500A2BD05 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC132371DA0DFE500A2BD05 /* SwitchTableViewCell.xib */; };
 		9AC132431DA17B8200A2BD05 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC132421DA17B8200A2BD05 /* ProfileViewController.swift */; };
 		9AE1B05C1DBDCB2F00E9E706 /* M13BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE1B05B1DBDCB2E00E9E706 /* M13BadgeView.m */; };
-		9AFE4D721D9E2731007862CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AFE4D711D9E2731007862CA /* Main.storyboard */; };
 		B0303F461F535F330061D7F7 /* TutorConnectedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0303F451F535F330061D7F7 /* TutorConnectedVC.swift */; };
 		B0E164A21F291A8C008121F1 /* GroupTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A11F291A8C008121F1 /* GroupTableView.swift */; };
 		B0E164A71F291A96008121F1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E164A41F291A96008121F1 /* CategoryViewController.swift */; };
@@ -241,6 +240,9 @@
 		E40E53411F73042A00E12593 /* LoginVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40E533F1F73042900E12593 /* LoginVerificationViewController.swift */; };
 		E40E53431F7306B800E12593 /* AuthenticationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40E53421F7306B800E12593 /* AuthenticationHelper.swift */; };
 		E40E53461F73104700E12593 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E40E533D1F73039A00E12593 /* Authentication.storyboard */; };
+		E4BB684E1F87392200E7296B /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB684D1F87392200E7296B /* Network.swift */; };
+		E4CBB68D1F893C5D0034FFB1 /* AlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBB68C1F893C5D0034FFB1 /* AlertControllerExtension.swift */; };
+		E4CDF1281F8676BC0008C938 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CDF1271F8676BC0008C938 /* Config.swift */; };
 		E4EED04A1F82EA0E00F81986 /* ScaleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EED0491F82EA0E00F81986 /* ScaleImage.swift */; };
 /* End PBXBuildFile section */
 
@@ -376,7 +378,6 @@
 		9AC132421DA17B8200A2BD05 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9AE1B05A1DBDCB2E00E9E706 /* M13BadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13BadgeView.h; sourceTree = "<group>"; };
 		9AE1B05B1DBDCB2E00E9E706 /* M13BadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13BadgeView.m; sourceTree = "<group>"; };
-		9AFE4D711D9E2731007862CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B0303F451F535F330061D7F7 /* TutorConnectedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorConnectedVC.swift; sourceTree = "<group>"; };
 		B0E164A11F291A8C008121F1 /* GroupTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableView.swift; sourceTree = "<group>"; };
 		B0E164A41F291A96008121F1 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -660,6 +661,9 @@
 		E40E533F1F73042900E12593 /* LoginVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVerificationViewController.swift; sourceTree = "<group>"; };
 		E40E53421F7306B800E12593 /* AuthenticationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationHelper.swift; sourceTree = "<group>"; };
 		E40E53481F734CBF00E12593 /* UIViewController+HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIViewController+HUD.swift"; path = "../../../Hyphenate-Demo-Swift-master/Hyphenate-Demo-Swift/Code/Utilities/Category/UIViewController+HUD.swift"; sourceTree = "<group>"; };
+		E4BB684D1F87392200E7296B /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		E4CBB68C1F893C5D0034FFB1 /* AlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerExtension.swift; sourceTree = "<group>"; };
+		E4CDF1271F8676BC0008C938 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E4EED0491F82EA0E00F81986 /* ScaleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -857,6 +861,7 @@
 				9A17BE361D9E20C50075EF9F /* View */,
 				9A17BE211D9E200B0075EF9F /* View Controllers */,
 				9A17BDF01D9E1FB70075EF9F /* AppDelegate.swift */,
+				E4CDF1271F8676BC0008C938 /* Config.swift */,
 				9A17BDFF1D9E1FB70075EF9F /* Info.plist */,
 				9A17BDF71D9E1FB70075EF9F /* Hyphenate_Messenger.xcdatamodeld */,
 				B634674A1D9E4AD500CBEAE2 /* Hyphenate-Bridging-Header.h */,
@@ -905,6 +910,8 @@
 			children = (
 				9A17BE281D9E20190075EF9F /* HyphenateMessengerHelper.swift */,
 				E4EED0491F82EA0E00F81986 /* ScaleImage.swift */,
+				E4BB684D1F87392200E7296B /* Network.swift */,
+				E4CBB68C1F893C5D0034FFB1 /* AlertControllerExtension.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -998,7 +1005,6 @@
 			isa = PBXGroup;
 			children = (
 				5DE85BB01F2C142F00200C3E /* Rating.storyboard */,
-				9AFE4D711D9E2731007862CA /* Main.storyboard */,
 				9A7FB37F1DA1EDA7005CC8C3 /* Profile.storyboard */,
 				9A3149911DA42B360081DB04 /* FriendRequest.storyboard */,
 				5DF32E861F1422A8002F43F7 /* LaunchScr.storyboard */,
@@ -1771,7 +1777,6 @@
 			files = (
 				9A3149921DA42B360081DB04 /* FriendRequest.storyboard in Resources */,
 				3023AD421F81BA980066AD8E /* TutorConnected.storyboard in Resources */,
-				9AFE4D721D9E2731007862CA /* Main.storyboard in Resources */,
 				5D43424B1F266F1700E5CA62 /* Images.xcassets in Resources */,
 				9A2E70B31DA2250D00D3EE94 /* ProfileSwitchTableViewCell.xib in Resources */,
 				5D43423B1F266F1700E5CA62 /* CameraViewAssets.xcassets in Resources */,
@@ -1842,13 +1847,13 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.4r1/HyphenateFullSDK/Hyphenate.framework",
+				"${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.4/HyphenateFullSDK/Hyphenate.framework",
 				"${BUILT_PRODUCTS_DIR}/IHKeyboardAvoiding/IHKeyboardAvoiding.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SlimeRefresh/SlimeRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1859,10 +1864,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hyphenate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IHKeyboardAvoiding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlimeRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1941,6 +1946,7 @@
 				B6346B591D9E6C5100CBEAE2 /* EaseBubbleView+Text.m in Sources */,
 				B6346B2B1D9E6C5100CBEAE2 /* PSTCollectionViewController.m in Sources */,
 				B6346B4D1D9E6C5100CBEAE2 /* EaseViewController.m in Sources */,
+				E4BB684E1F87392200E7296B /* Network.swift in Sources */,
 				5D4342251F266F1700E5CA62 /* IC_CGFloatExtension.swift in Sources */,
 				B6346B061D9E6C5100CBEAE2 /* MJRefreshBackStateFooter.m in Sources */,
 				B6346B0C1D9E6C5100CBEAE2 /* UIScrollView+MJExtension.m in Sources */,
@@ -1961,6 +1967,7 @@
 				B6346B461D9E6C5100CBEAE2 /* EaseEmotionManager.m in Sources */,
 				B6346B0E1D9E6C5100CBEAE2 /* UIView+MJExtension.m in Sources */,
 				B6346B291D9E6C5100CBEAE2 /* PSTCollectionView.m in Sources */,
+				E4CBB68D1F893C5D0034FFB1 /* AlertControllerExtension.swift in Sources */,
 				5D43423C1F266F1700E5CA62 /* CameraGlobals.swift in Sources */,
 				B6346B221D9E6C5100CBEAE2 /* UIImage+EMGIF.m in Sources */,
 				B6346B651D9E6C5100CBEAE2 /* EaseConversationCell.m in Sources */,
@@ -2009,6 +2016,7 @@
 				5D4342241F266F1700E5CA62 /* AKImageCropperView.swift in Sources */,
 				B6346B441D9E6C5100CBEAE2 /* EaseEmojiEmoticons.m in Sources */,
 				B6346AF71D9E6C5100CBEAE2 /* EMVoiceConverter.mm in Sources */,
+				E4CDF1281F8676BC0008C938 /* Config.swift in Sources */,
 				B6346B341D9E6C5100CBEAE2 /* PSTGridLayoutSection.m in Sources */,
 				B6346AEE1D9E6C5100CBEAE2 /* EMAudioPlayerUtil.m in Sources */,
 				5DE85BB31F2C165E00200C3E /* FloatRatingView.swift in Sources */,
