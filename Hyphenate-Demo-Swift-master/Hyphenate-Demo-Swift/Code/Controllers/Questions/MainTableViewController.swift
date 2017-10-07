@@ -35,28 +35,42 @@ protocol rescueButtonPressedProtocol {
 class MainTableViewController: UITableViewController, rescueButtonPressedProtocol, expandimageProtocol {
     let kCloseCellHeight: CGFloat = 179
     let kOpenCellHeight: CGFloat = 442
-    var specialty = ["Basic Calculus"]
+    var specialty = [String]()
     var dictArray = [Dictionary<String,Any>]()
     var ref: DatabaseReference?
     var delegate: refreshSpinnerProtocol?
-    
+    var tid:String = ""
+    var firstShow = 0
     //    var cache:NSCache<AnyObject, AnyObject>!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tid = EMClient.shared().currentUsername
+        print(tid)
+        ref = Database.database().reference()
         self.dictArray.removeAll()
         self.automaticallyAdjustsScrollViewInsets = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.refresh),name:NSNotification.Name(rawValue: "refresh"), object: nil)
         UIApplication.shared.applicationIconBadgeNumber = 0
         self.setup()
+        loadCategory(completion: { (success) -> Void in
+            if success{
+                self.refresh()
+                self.firstShow = 1
+            }
+            
+        })
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setup()
         self.showHub(inView: self.view,"Loading")
-        self.refresh()
+        if self.firstShow == 1{
+            self.refresh()
+        }
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -118,7 +132,6 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
     
     
     func getData(completion:@escaping (_ success: Bool) -> ()){
-        ref = Database.database().reference()
         for item in specialty{
             
             self.ref?.child("Request/active/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -147,7 +160,25 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
         completion(true)
         
     }
-    
+    func loadCategory(completion:@escaping (_ success: Bool) -> ()){
+        self.ref?.child("tutors/\(tid)/category").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            print(snapshot.value as! [String:Int])
+
+            if let specDic = snapshot.value as? [String:Int]{
+                self.specialty = Array(specDic.keys)
+                print(self.specialty)
+                completion(true)
+            }
+        }) { (error) in
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        
+    }
     func expandimage(cellimageview: UIImageView){
         if let image = cellimageview.image{
             let agrume = Agrume(image: image, backgroundColor: .black)
@@ -212,7 +243,6 @@ extension MainTableViewController {
     func rescueButtonPressed(requestorSid: NSString, category: NSString, qid: NSString, image:UIImage?, description: String?, sender: UIButton) {
         
         let ref = Database.database().reference()
-        let tid = EMClient.shared().currentUsername
         let qid: String = (qid as String)
         let category: String = (category as String)
         let refQid = ref.child("Request/active/" + category + "/" + qid)
@@ -231,7 +261,7 @@ extension MainTableViewController {
                 } else {
                     status = 1
                     data["status"] = status
-                    data["tid"] = tid
+                    data["tid"] = self.tid
                     // TO DO: assign tutorId to accepted question
                     // TO DO: connect to student to start session -> func startSession(sid)
                     

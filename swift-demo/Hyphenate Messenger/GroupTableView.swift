@@ -36,7 +36,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
     var groupTableView:UITableView!
     var classifyTableView:UITableView!
     var productTypeArr:[String] = []
-    var productNameArr:[AnyObject] = []
+    var productNameArr:[ [(area: String, enabled: Bool)] ] = []
     var currentExtendSection:Int = 0
     var isScrollSetSelect = false
     var isScrollClassiftyTable = false
@@ -44,9 +44,19 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
     var categoryselected = false
     var navController:UINavigationController? = nil
     
-    init(frame:CGRect, MenuTypeArr:[String], proNameArr:[AnyObject]) {
+    
+    /// Initialize the group table view with the data array
+    ///
+    /// - Parameters:
+    ///   - frame: Frame of the group table view
+    ///   - MenuTypeArr: all the types, like [math, phys]
+    ///   - proNameArr: product for each category, like [[(calculus,true) (algebra, false)],[]]
+    init(frame:CGRect, MenuTypeArr:[String], proNameArr:[ [(area: String, enabled: Bool)] ]) {
         super.init(frame: frame)
-        self.initData()
+        
+        self.productTypeArr = MenuTypeArr
+        self.productNameArr = proNameArr
+        
         self.groupTableView = UITableView(frame: CGRect(x: frame.width*0.3, y: frame.height*0.25, width: frame.width*0.7, height: frame.height*0.75), style: UITableViewStyle.plain)
         self.groupTableView.delegate = self
         self.groupTableView.dataSource = self
@@ -67,22 +77,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func  initData()
-    {
-        let path:String = (Bundle.main.path(forResource: "MenuData", ofType: "json"))!
-        let data:Data = try! Data(contentsOf: URL(fileURLWithPath: path))
-        let json:AnyObject = try!JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as AnyObject
-        let resultDict = json.object(forKey: "data") as! Dictionary<String,AnyObject>
-        let productMenuArr:[NSDictionary] = resultDict["productType"] as! Array
-        for i:Int in 0 ..< productMenuArr.count
-        {
-            productTypeArr.append(productMenuArr[i]["typeName"] as! String)
-            productNameArr.append(productMenuArr[i]["productName"] as! [String] as AnyObject)
-        }
-
-    }
-    
-        //MARK:UITableViewDataSource
+    // MARK:UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         if tableView == self.classifyTableView
@@ -115,48 +110,12 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
                 classifyCell.addSubview(tempView)
             }
             return classifyCell
-        }
-        else
-        {
-            if productNameArr[indexPath.section].count > indexPath.row
-            {
-                extendCell.productNameStr = (productNameArr[indexPath.section] as! Array)[indexPath.row] 
-            }
-            extendCell.addProClosure = {(cell:UITableViewCell,isAddProduct:Bool) in
-                let indexPath:IndexPath = (self.groupTableView.indexPath(for: cell))!
-                let cell:UITableViewCell = self.classifyTableView.cellForRow(at: IndexPath(row: indexPath.section, section: 0))!
-                var buyCountLab:UILabel? = cell.viewWithTag(200) as? UILabel
-                if buyCountLab == nil
-                {
-                    buyCountLab = UILabel(frame:CGRect(x: cell.frame.width-20,y: 5,width: 15,height: 15))
-                    buyCountLab?.backgroundColor = UIColor.red
-                    buyCountLab?.textColor = UIColor.white
-                    buyCountLab?.textAlignment = NSTextAlignment.center
-                    buyCountLab?.font = UIFont.systemFont(ofSize: 10)
-                    buyCountLab?.tag = 200
-                    buyCountLab?.text = "1"
-                    cell.addSubview(buyCountLab!)
-                }
-                else
-                {
-                    if isAddProduct == true
-                    {
-                        buyCountLab?.text = String(Int((buyCountLab?.text)!)!+1)
-                    }
-                    else
-                    {
-                        if Int((buyCountLab?.text)!) > 1
-                        {
-                            buyCountLab?.text = String(Int((buyCountLab?.text)!)!-1)
-                        }
-                        else
-                        {
-                            buyCountLab?.removeFromSuperview()
-                        }
-                    }
-                }
-                
-                print(indexPath.section)
+        } else {
+            // extendCell config
+            if productNameArr[indexPath.section].count > indexPath.row {
+                let areaDetail = productNameArr[indexPath.section][indexPath.row]
+                extendCell.productNameStr = areaDetail.area
+                extendCell.enabled = areaDetail.enabled
             }
             return extendCell
         }
@@ -164,8 +123,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int
     {
-        if tableView == self.groupTableView
-        {
+        if tableView == self.groupTableView {
             return productTypeArr.count
         }
         return 1
@@ -174,8 +132,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section:
         Int) -> String?
     {
-        if tableView == groupTableView
-        {
+        if tableView == groupTableView {
             return productTypeArr[section]
         }
         return ""
@@ -183,20 +140,16 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
         //MARK:UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        if tableView == self.classifyTableView
-        {
+        if tableView == self.classifyTableView {
             return 55
-        }
-        else
-        {
+        } else {
             return 85
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        if tableView == groupTableView
-        {
+        if tableView == groupTableView {
             return 30
         }
         return 0.1
@@ -204,17 +157,17 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        if tableView == self.classifyTableView
-        {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if tableView == self.classifyTableView {
                 //用户点击分类的tableview
             tableView.deselectRow(at: indexPath, animated: true)
             self.leftSectionSelected(indexPath, withTableView: tableView,didSelectClassifyTable:true)
         }
-        if tableView == self.groupTableView{
+        
+        if tableView == self.groupTableView {
             let summaryVC = SummaryVC()
-            let section = indexPath[0]
-            let category = indexPath[1]
-            summaryVC.categorytitle = "\((productNameArr[section][category]) ?? "error" )"
+            let areaDetail = productNameArr[indexPath.section][indexPath.row]
+            summaryVC.categorytitle = "\(areaDetail.area)"
             summaryVC.questionPic = picture
             navController?.pushViewController(summaryVC, animated: true)
         }
@@ -222,10 +175,8 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
     
     func leftSectionSelected(_ indexPath:IndexPath, withTableView tableView:UITableView,didSelectClassifyTable:Bool)
     {
-        if tableView == self.classifyTableView
-        {
-            if indexPath.row == currentExtendSection
-            {
+        if tableView == self.classifyTableView {
+            if indexPath.row == currentExtendSection {
                     //当前选中项与上次一致，直接return
                 return ;
             }
@@ -249,8 +200,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
             isScrollClassiftyTable = didSelectClassifyTable
             
             let cellR:CGRect = self.classifyTableView.rectForRow(at: indexPath)
-            if self.classifyTableView.contentOffset.y - cellR.origin.y > 54
-            {
+            if self.classifyTableView.contentOffset.y - cellR.origin.y > 54 {
                     //左边分类的tableview向上滚动（让选中的分类cell可见）
                 self.classifyTableView.contentOffset.y = CGFloat(55 * indexPath.row)
             }
@@ -259,21 +209,16 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
                     ////左边分类的tableview向下滚动（让选中的分类cell可见）
                 self.classifyTableView.contentOffset.y = cellR.origin.y - self.classifyTableView.frame.size.height+55
             }
-        
         }
-
     }
     
     func rightSectionSelected(_ indexPath:IndexPath, withTableView tableView:UITableView,didSelectGroupTable:Bool){
-        
-        
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
     {
         isScrollSetSelect = false
-        if scrollView == self.groupTableView
-        {
+        if scrollView == self.groupTableView {
             isScrollSetSelect = true
             isScrollClassiftyTable = false
         }
@@ -281,8 +226,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-        if scrollView == self.groupTableView && isScrollSetSelect && isScrollClassiftyTable == false
-        {
+        if scrollView == self.groupTableView && isScrollSetSelect && isScrollClassiftyTable == false {
                 //滚动右边tableview
             let indexPathArr:[IndexPath]? =  self.groupTableView.indexPathsForVisibleRows
             self.leftSectionSelected(IndexPath(row:indexPathArr![0].section, section: 0), withTableView: self.classifyTableView,didSelectClassifyTable: false)

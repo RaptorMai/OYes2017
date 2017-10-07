@@ -1,16 +1,28 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const stripe = require('stripe')(functions.config().stripe.testkey);
+const cors = require('cors')({origin: true});
+const gcs = require('@google-cloud/storage')()
 
 admin.initializeApp(functions.config().firebase);
 
-const stripe = require('stripe')(functions.config().stripe.testkey);
+// Create a stripe customer id for each user created on database
+// TODO: this includes both student and tutor, need to between  them
+exports.createStripeUser = functions.auth.user().onCreate(event => {
+	const data = event.data;
+	console.log("creating a new user!");
+	console.log(data);
+	return stripe.customers.create().then(customer => {
 
-// const price = {"400": 10, "1100": 30, "2000": 60, "3800": 120};
+		console.log("creating stripe customer");
+		console.log(customer);
+		// To use when integrated, use phone number as uid
+		// return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
+		return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
+	});
+});
 
-const cors = require('cors')({origin: true});
-
-const gcs = require('@google-cloud/storage')()
-
+// 
 exports.stripeCharge = functions.database
 								.ref('/users/{userId}/payments/charges/{id}')
 								.onWrite(event => {
@@ -58,19 +70,6 @@ exports.stripeCharge = functions.database
 												// });
 								});
 
-
-exports.createStripeUser = functions.auth.user().onCreate(event => {
-	const data = event.data;
-	console.log("creating a new user!");
-	console.log(data);
-	return stripe.customers.create().then(customer => {
-		console.log("creating stripe customer");
-		console.log(customer);
-		// To use when integrated, use phone number as uid
-		// return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
-		return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
-	});
-});
 
 
 exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sources/token').onWrite(event => {
@@ -144,7 +143,7 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 	console.log("what is amount");
 	console.log(event.data.current.child('amount').val());
 
-	var addBalanceHistory = admin.database().ref("/users/" + sid + "/completeBalanceHistory/" + pid);
+	var addBalanceHistory = admin.database().ref("/users/" + sid + "/completeBalanceHistory/" + id);
 	var ref = admin.database().ref("/users/" + sid + "/balance");
 
 	ref.once("value").then(snapshot => {
@@ -169,7 +168,7 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 							price: amount,
 							timePurchased: timePurchased,
 							date: date
-							});
+						});
 		})
 	})
 
@@ -291,6 +290,21 @@ exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{q
 		});
 	})
 })
+
+// Pull category from database
+exports.getCategory = functions.https.onRequest((req, res) => {
+	var result = [];
+	cors(req, res, () => {
+		admin.database().ref("/category").once("value").then(function(snapshot) {
+			snapshot.forEach(function(childSnapshot) {
+				result.push({"category": childSnapshot.key,
+							"subCate": childSnapshot.val()});
+			});
+		}).then(function(){
+				res.status(200).send(JSON.stringify(result));
+			});
+	});
+});
 
 exports.cancel = functions.https.onRequest((req, res) => {
 

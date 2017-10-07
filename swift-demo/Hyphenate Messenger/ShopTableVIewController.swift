@@ -24,14 +24,15 @@ struct Theme {
     let buttonColor = UIColor(red: 45.0/255.0, green: 162.0/255.0, blue: 220.0/255.0, alpha: 1.0)
 }
 
+protocol ShopPurchaseStatusDelegate {
+    func didFinishPurchasingWith(status succ: Bool)
+}
+
 class ShopTableViewController: UITableViewController, STPAddCardViewControllerDelegate{
     
     var ref: DatabaseReference? = Database.database().reference()
     
-    //var products = ["10min package", "30min package", "60min package", "120min package", "Unlimite Questions"]
-    //var prices = [400, 1100, 2000, 3800, 9900]
-    
-    var products = [String]()
+    var productMinutes = [Int]()
     var prices = [Int]()
     let theme = Theme()
     let balanceLabel = UILabel()
@@ -42,6 +43,12 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     var balance = 0
     var checkHide = 0
     var firstAppear = 0
+    
+    var delegate: ShopPurchaseStatusDelegate?
+ 
+    // set this flag when purchasing before starting chat, so it dismisses
+    // itself after successfully purchasing a package
+    var isPurchasingBeforeReqeusting = false
     
     /*let changeCardButton: UIButton = {
      let theme = Theme()
@@ -78,7 +85,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Shop"
         showHud(in: view, hint: "loding")
-        products.removeAll()
+        productMinutes.removeAll()
         prices.removeAll()
         checkHide = 0
         ref?.child("users/\(uid)/balance").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -87,7 +94,10 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                 self.hideHud()
                 self.tableView.reloadData()
             }
-            else{self.checkHide = 1}
+            else {
+                self.checkHide = 1
+                self.hideHud()
+            }
         }){ (error) in
             //print(error.localizedDescription)
             if self.checkHide == 1{
@@ -98,40 +108,24 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             alert.addAction(okay)
             self.present(alert, animated: true, completion: nil)
         }
-        ref?.child("price").observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            let mapping = snapshot.value as? NSDictionary
-            
-            // Get prices array from all keys of mapping dictionary
-            for p in (mapping?.allKeys)!{
-                self.prices.append(Int("\(p)")!)
+ 
+        // get mapping from user defaults
+        if let mapping = AppConfig.sharedInstance.getConfigForType(.ConfigTypePackage) as? NSDictionary {
+            // Get minutes array from all keys of mapping dictionary
+            for p in (mapping.allKeys) {
+                productMinutes.append(Int("\(p)")!)
             }
             
-            self.prices = self.prices.sorted()
+            productMinutes = productMinutes.sorted()
             
-            // Get products array by indexing mapping dictionary with items in prices
-            for i in self.prices{
-                let temp = "\(i)"
-                self.products.append("\((mapping?[temp])!) mins package")
+            // Get products array by indexing mapping dictionary with minute plan, mapping should contain
+            // ["10"(minutes):"400"]
+            for minutes in productMinutes {
+                prices.append(mapping["\(minutes)"]! as! Int)
             }
-            if self.checkHide == 1{
-                self.hideHud()
-                self.tableView.reloadData()
-            }
-            else{self.checkHide = 1}
             
-            
-        }) { (error) in
-            //print(error.localizedDescription)
-            if self.checkHide == 1{
-                self.hideHud()}
-            else{self.checkHide = 1}
-            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-            alert.addAction(okay)
-            self.present(alert, animated: true, completion: nil)
+            self.tableView.reloadData()
         }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -159,33 +153,37 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         super.viewWillDisappear(animated)
         // Show the navigation bar on other view controllers
         self.hideHud()
-        products.removeAll()
+        productMinutes.removeAll()
         prices.removeAll()
         
     }
     
+    func dismissShop() {
+        // this function is writen for UIBarbuttonItem when using modal present
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: Table view
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("numOfRow")
-        print(self.products.count)
-        if self.products.count != 0{
-            return self.products.count + 1
+        if productMinutes.count != 0{
+            return productMinutes.count + 1
         }
         else{
-            return self.products.count
+            return productMinutes.count
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("yes")
-        if indexPath.row < self.products.count {
+        if indexPath.row < productMinutes.count {
             print(indexPath.row)
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
             //cell.subviews.forEach({ $0.removeFromSuperview() })
-            let product = products[indexPath.row]
+            let product = productMinutes[indexPath.row]
             let price = prices[indexPath.row]
             //let theme = self.settingsVC.settings.theme
             cell.backgroundColor = theme.secondaryBackgroundColor
-            cell.textLabel?.text = product
+            cell.textLabel?.text = "\(product) mins package"
             cell.textLabel?.font = theme.font
             cell.textLabel?.textColor = UIColor.black
             // cell.detailTextLabel?.text = "$\(price/100).00"
@@ -388,7 +386,15 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                     let title = "Payment Successed"
                     let message = "You have purchased \(self.product) package for $\(amount/100).00"
                     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {(action) in
+                        if self.isPurchasingBeforeReqeusting {
+                            // if is presented modally before requesting tutor, want to dismiss self and let
+                            // the summaryVC know about it
+                            self.delegate?.didFinishPurchasingWith(status: true)
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    }))
+                    
                     self.present(alert, animated: true, completion: nil)
                 } else {
                     print("postDict\(String(describing: postDict))")
@@ -408,7 +414,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == self.products.count{
+        if indexPath.row == productMinutes.count{
             updateCard()
         }
         
