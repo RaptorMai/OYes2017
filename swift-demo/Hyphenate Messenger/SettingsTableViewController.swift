@@ -181,7 +181,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
                 alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
                 UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
             } else {
-                let loginController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginScene")
+                let loginController = UIStoryboard(name: "Authentication", bundle: nil).instantiateViewController(withIdentifier: "loginScene")
                 UIApplication.shared.keyWindow?.rootViewController = loginController
                 
             }
