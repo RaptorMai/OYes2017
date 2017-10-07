@@ -41,6 +41,7 @@ class PrdouctMenuTableViewCell: UITableViewCell,CAAnimationDelegate {
     var plusBtn:UIButton!
     var buyCount:UILabel!
     var separateLine:UIView?
+    var enabled: Bool = true
         ///实际项目中此处应该传model
     var productNameStr:String?
         ///声明闭包
@@ -49,11 +50,10 @@ class PrdouctMenuTableViewCell: UITableViewCell,CAAnimationDelegate {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.productName = UILabel(frame:CGRect(x: 15,y: 15,width: (screenWidth*0.7) - 30,height: 20))
-        self.productName.font = UIFont.systemFont(ofSize: 15)
-        self.productName.textColor = UIColor.black
-        self.productName.textAlignment = NSTextAlignment.left
-        self.contentView.addSubview(self.productName)
+        productName = UILabel(frame:CGRect(x: 15,y: 15,width: (screenWidth*0.7) - 30,height: 20))
+        productName.font = UIFont.systemFont(ofSize: 15)
+        productName.textAlignment = NSTextAlignment.left
+        contentView.addSubview(productName)
         
 //        self.plusBtn = UIButton(type: UIButtonType.custom)
 //        self.plusBtn.frame =  CGRect(x: (screenWidth*0.7) - 59,y: 36,width: 44,height: 44)
@@ -61,9 +61,9 @@ class PrdouctMenuTableViewCell: UITableViewCell,CAAnimationDelegate {
 //        self.plusBtn.addTarget(self, action: #selector(PrdouctMenuTableViewCell.plusBtnClick(_:)), for: UIControlEvents.touchUpInside)
 //        self.contentView.addSubview(self.plusBtn)
         
-        self.separateLine = UIView(frame:CGRect(x: 0,y: 85-0.5,width: screenWidth*0.7,height: 0.5))
-        self.separateLine?.backgroundColor = UIColor.gray
-        self.contentView.addSubview(self.separateLine!)
+        separateLine = UIView(frame:CGRect(x: 0,y: 85-0.5,width: screenWidth*0.7,height: 0.5))
+        separateLine?.backgroundColor = UIColor.gray
+        contentView.addSubview(self.separateLine!)
         
         
 //        self.minusBtn = UIButton(type: UIButtonType.custom)
@@ -87,7 +87,19 @@ class PrdouctMenuTableViewCell: UITableViewCell,CAAnimationDelegate {
     }
     
     override func layoutSubviews() {
-        self.productName.text = self.productNameStr
+        productName.text = productNameStr
+        if enabled {
+            productName.textColor = UIColor.black
+        } else {
+            productName.textColor = UIColor.gray
+            let comingSoonLabel = UILabel(frame:CGRect(x: 15,y: 35,width: (screenWidth*0.7) - 30,height: 20))
+            comingSoonLabel.font = UIFont.systemFont(ofSize: 12)
+            comingSoonLabel.textAlignment = NSTextAlignment.left
+            comingSoonLabel.textColor = UIColor.gray
+            comingSoonLabel.text = "This area is coming soon!"
+            contentView.addSubview(comingSoonLabel)
+            isUserInteractionEnabled = false
+        }
     }
     
 //    func plusBtnClick(_ btn:UIButton){

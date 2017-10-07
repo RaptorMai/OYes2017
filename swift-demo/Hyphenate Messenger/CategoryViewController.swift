@@ -10,8 +10,8 @@ import UIKit
 
 class CategoryViewController: UIViewController {
 
-    var productTypeArr:[String] = []
-    var productNameArr:[AnyObject] = []
+    var productTypeArr: [String] = []
+    var productNameArr: [ [(area: String, enabled: Bool)] ] = []
     var classifyTable: GroupTableView?
     var navController: UINavigationController? = nil
     var picture: UIImage? = nil
@@ -51,22 +51,43 @@ class CategoryViewController: UIViewController {
     //This is code from online. It is gathering the data from MenuData.json to know what categories to display.
     func  initData()
     {
-        let path:String = (Bundle.main.path(forResource: "MenuData", ofType: "json"))!
-        let data:Data = try! Data(contentsOf: URL(fileURLWithPath: path))
-        let json:AnyObject = try!JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as AnyObject
-        let resultDict = json.object(forKey: "data") as! Dictionary<String,AnyObject>
-        let productMenuArr:[NSDictionary] = resultDict["productType"] as! Array
-        for i:Int in 0 ..< productMenuArr.count
-        {
-            productTypeArr.append(productMenuArr[i]["typeName"] as! String)
-            productNameArr.append(productMenuArr[i]["productName"] as! [String] as AnyObject)
+        // sample json: [{"category": "Math",
+        //                "subCate" : { "calculus" : 1 }
+        //                }]
+        // load json from config
+        
+        var data = AppConfig.sharedInstance.getConfigForType(.ConfigTypeCategory) as? Data
+        if data == nil {
+            // load json locally
+            let path:String = (Bundle.main.path(forResource: "MenuData", ofType: "json"))!
+            data = try! Data(contentsOf: URL(fileURLWithPath: path))
+        }
+        
+        let json = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as! NSArray
+        // json.count: number of subjects, math, physics, etc
+        for i in 0 ..< json.count {
+            let subjectDict = json[i] as! NSDictionary
+            let subjectName = subjectDict.value(forKey: "category")! as! String
+            let areaDict = subjectDict.value(forKey: "subCate")! as! Dictionary<String, Int>
+            
+            // an array of all area in the subject, like [(calculus, 1)]
+            var subjectAreaList:[(area: String, enabled: Bool)] = []
+            
+            for (areaName, enabled) in areaDict {
+                let areaDetail = (area: areaName, enabled: Bool(enabled as NSNumber))
+                subjectAreaList.append(areaDetail)
+            }
+            
+            // sort the subjectArea, enabled ones come first
+            productNameArr.append(subjectAreaList.sorted(by: {$0.enabled && !$1.enabled}))
+            productTypeArr.append(subjectName)
         }
         // Once the data is gathered call the addSubView() function.
-        self.addSubView()
+        self.addGroupTableView()
     }
 
 //  Create the GroupTableView and present it. GroupTableView is the double menu table style.
-    func addSubView(){
+    func addGroupTableView(){
 //            调用时传入frame和数据源
         classifyTable = GroupTableView(frame: CGRect(x: 0,y: 211,width: screenWidth,height: screenHeight-211), MenuTypeArr: productTypeArr, proNameArr: productNameArr)
         classifyTable?.navController = self.navController

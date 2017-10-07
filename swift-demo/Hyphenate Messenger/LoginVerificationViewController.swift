@@ -163,6 +163,7 @@ class LoginVerificationViewController: UIViewController {
                 
                 self.present(alert, animated: true, completion: nil)
             } else if EMClient.shared().isLoggedIn {
+                self.hideHud()
                 // no error and is logged in
                 EMClient.shared().options.isAutoLogin = true
                 
