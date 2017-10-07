@@ -163,13 +163,21 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
     func loadCategory(completion:@escaping (_ success: Bool) -> ()){
         self.ref?.child("tutors/\(tid)/category").observeSingleEvent(of: .value, with: { (snapshot) in
             
-            print(snapshot.value as! [String:Int])
+            //print(snapshot.value as! [String:Int])
 
             if let specDic = snapshot.value as? [String:Int]{
                 self.specialty = Array(specDic.keys)
                 print(self.specialty)
                 completion(true)
             }
+            else{
+                let alert = UIAlertController(title: "Category not available", message: "Please send us email to confirm", preferredStyle: .alert)
+                let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                self.hideHub()
+                alert.addAction(okay)
+                self.present(alert, animated: true, completion: nil)
+            }
+            
         }) { (error) in
             let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
             let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
