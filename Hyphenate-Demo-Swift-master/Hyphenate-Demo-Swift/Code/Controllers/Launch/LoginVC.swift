@@ -170,7 +170,7 @@ class LoginVC: UIViewController {
         
     }
     func Login(){
-        self.show("Logining")
+        self.show("Logging in")
         if UsernameValid() && PasswordValid() {
             let email = Username.text!
             let emailNoSpace = email.trimmingCharacters(in: .whitespacesAndNewlines)
