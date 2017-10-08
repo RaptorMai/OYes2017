@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30423E381F8AB4CF0042B1DC /* ResetPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30423E371F8AB4CF0042B1DC /* ResetPWViewController.swift */; };
 		3051ACBC1F701651006CA756 /* AutoLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051ACBB1F701651006CA756 /* AutoLoginVC.swift */; };
 		5DB6C4C81F439B8F00F0128F /* Agrume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB6C4C31F439B8F00F0128F /* Agrume.swift */; };
 		5DB6C4C91F439B8F00F0128F /* AgrumeServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB6C4C41F439B8F00F0128F /* AgrumeServiceLocator.swift */; };
@@ -436,6 +437,7 @@
 /* Begin PBXFileReference section */
 		299C482D5D0A4D8D7E358C06 /* Pods-Hyphenate-Demo-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hyphenate-Demo-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hyphenate-Demo-Swift/Pods-Hyphenate-Demo-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		2C955AB940CDDDC270F02086 /* Pods_Hyphenate_Demo_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hyphenate_Demo_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30423E371F8AB4CF0042B1DC /* ResetPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPWViewController.swift; sourceTree = "<group>"; };
 		3051ACBB1F701651006CA756 /* AutoLoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AutoLoginVC.swift; path = Launch/AutoLoginVC.swift; sourceTree = "<group>"; };
 		5DB6C4C31F439B8F00F0128F /* Agrume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agrume.swift; sourceTree = "<group>"; };
 		5DB6C4C41F439B8F00F0128F /* AgrumeServiceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgrumeServiceLocator.swift; sourceTree = "<group>"; };
@@ -1634,6 +1636,7 @@
 				A134191C1F7B4FAE00C27275 /* nameTableViewCell.swift */,
 				A134191D1F7B4FAF00C27275 /* informationHeaderTableViewCell.swift */,
 				A13419201F7B4FB000C27275 /* passwordTableViewCell.swift */,
+				30423E371F8AB4CF0042B1DC /* ResetPWViewController.swift */,
 				834D324E1F895E7100ECD75E /* infoHeaderTableViewCell.swift */,
 				A13419211F7B4FB000C27275 /* emailTableViewCell.swift */,
 				A13419271F7B4FB200C27275 /* moreTableViewCell.swift */,
@@ -2310,6 +2313,7 @@
 				90B43DCB1F0120D00084E67F /* EMContactCell.swift in Sources */,
 				5DB6C4CA1F439B8F00F0128F /* ImageDownloader.swift in Sources */,
 				90F3DC461F0242AD00DEBB86 /* NSObject+EMAlertView.swift in Sources */,
+				30423E381F8AB4CF0042B1DC /* ResetPWViewController.swift in Sources */,
 				A134192B1F7B4FB200C27275 /* profilePictureTableViewCell.swift in Sources */,
 				90F3DC3A1F02125700DEBB86 /* EMApplyManager.swift in Sources */,
 				9084622D1EF7754F0008E480 /* EMMessageModel.swift in Sources */,
