@@ -274,9 +274,8 @@ extension AppDelegate {
     
     // login
     func proceedLogin() {
-        if (self.mainViewController == nil) {
-            self.mainViewController = MainViewController()
-        }
+
+        self.mainViewController = MainViewController()
         HyphenateMessengerHelper.sharedInstance.mainVC = mainViewController
         HyphenateMessengerHelper.sharedInstance.loadConversationFromDB()
         HyphenateMessengerHelper.sharedInstance.loadPushOptions()
