@@ -291,7 +291,9 @@ extension AppDelegate {
     
     // login
     func proceedLogin() {
-
+        let uid = "+1" + EMClient.shared().currentUsername!
+        AppConfig.sharedInstance.performUserSpecificConfigFor(uid)
+        
         self.mainViewController = MainViewController()
         HyphenateMessengerHelper.sharedInstance.mainVC = mainViewController
         HyphenateMessengerHelper.sharedInstance.loadConversationFromDB()
