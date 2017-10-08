@@ -249,7 +249,8 @@ class AppConfig {
     func configAppFirstLaunch() {
         let initialUserDefaults: [String:Int] = [DataBaseKeys.categoryVerKey: -1,
                                                  DataBaseKeys.packageVerKey: -1,
-                                                 DataBaseKeys.firstLaunchKey: 0]
+                                                 DataBaseKeys.firstLaunchKey: 0,
+                                                 DataBaseKeys.appRequiredVerKey: 1]
         defaults.register(defaults: initialUserDefaults)
     }
     

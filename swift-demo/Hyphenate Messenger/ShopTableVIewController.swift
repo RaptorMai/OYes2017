@@ -356,7 +356,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         ref?.child("users").child(uid).child("payments/charges").child(paymentId!).setValue(["amount": amount])
         print("Done writing to db")
         
-        // TO DO: add listener
+        // TODO: add listener
         // add loading page
         // display alert
         
