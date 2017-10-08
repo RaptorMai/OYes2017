@@ -151,8 +151,10 @@ class LoginVC: UIViewController {
     }
     func resetPW(){
         if UsernameValid(){
+            let email = Username.text!
+            let emailNoSpace = email.trimmingCharacters(in: .whitespacesAndNewlines)
             self.show("")
-            Auth.auth().sendPasswordReset(withEmail: Username.text!) { error in
+            Auth.auth().sendPasswordReset(withEmail: emailNoSpace) { error in
                 self.hideHub()
                 if error != nil{
                     let alert = UIAlertController(title: "Error", message: "\((error?.localizedDescription)!)", preferredStyle: .alert)
