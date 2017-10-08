@@ -41,7 +41,6 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     var price = 0
     var product = ""
     var balance = 0
-    var checkHide = 0
     var firstAppear = 0
     
     var delegate: ShopPurchaseStatusDelegate?
@@ -84,25 +83,17 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Shop"
-        showHud(in: view, hint: "loding")
+        showHud(in: view, hint: "Loading")
         productMinutes.removeAll()
         prices.removeAll()
-        checkHide = 0
+
         ref?.child("users/\(uid)/balance").observeSingleEvent(of: .value, with: { (snapshot) in
             self.balance = (snapshot.value as? Int)!
-            if self.checkHide == 1{
-                self.hideHud()
-                self.tableView.reloadData()
-            }
-            else {
-                self.checkHide = 1
-                self.hideHud()
-            }
+            self.hideHud()
+            self.tableView.reloadData()
         }){ (error) in
             //print(error.localizedDescription)
-            if self.checkHide == 1{
-                self.hideHud()}
-            else{self.checkHide = 1}
+            self.hideHud()
             let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
             let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alert.addAction(okay)
