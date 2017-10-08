@@ -17,7 +17,7 @@ class LoginVerificationViewController: UIViewController {
     {
         didSet {
             // update label everytime this is updated
-            timerLabel?.text = "It takes about \(timerRemaining)s to reeive the code"
+            timerLabel?.text = "It takes about \(timerRemaining)s to receive the code"
         }
     }
     
