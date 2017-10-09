@@ -168,23 +168,32 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     }
     
     func createAlert (){
-        let alert = UIAlertController(title: "Log Out InstaSolve?", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title:"Log Out", style: UIAlertActionStyle.default, handler:{(action:UIAlertAction) in self.logoutAction()}))
+        let alert = UIAlertController(title: "Log Out InstaSolve?", message: "All user data will be deleted", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertActionStyle.default, handler:nil))
+        alert.addAction(UIAlertAction(title:"Log Out", style: UIAlertActionStyle.destructive, handler:{(action:UIAlertAction) in self.logoutAction()}))
         self.present(alert, animated: true, completion: nil)
     }
     
     func logoutAction() {
-        EMClient.shared().logout(false) { (error) in
-            if let _ = error {
-                let alert = UIAlertController(title:"Sign Out error", message: "Please try again later", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
-                UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-            } else {
-                let loginController = UIStoryboard(name: "Authentication", bundle: nil).instantiateViewController(withIdentifier: "AuthVC")
-                UIApplication.shared.keyWindow?.rootViewController = loginController
-                
-            }
+        // delete all conversation history
+        let chatManager = EMClient.shared().chatManager
+        if let allConversations = EMClient.shared().chatManager.getAllConversations() as? [EMConversation] {
+            chatManager?.deleteConversations(allConversations, isDeleteMessages: true, completion: { (error) in
+                guard error == nil else {
+                    return
+                }
+                // process log out
+                EMClient.shared().logout(false) { (error) in
+                    if let _ = error {
+                        let alert = UIAlertController(title:"Sign Out error", message: "Please try again later", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
+                        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                    } else {
+                        let loginController = UIStoryboard(name: "Authentication", bundle: nil).instantiateViewController(withIdentifier: "AuthVC")
+                        UIApplication.shared.keyWindow?.rootViewController = loginController
+                    }
+                }
+            })
         }
     }
 
