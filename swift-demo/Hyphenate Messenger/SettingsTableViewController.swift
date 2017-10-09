@@ -42,7 +42,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     
     // MARK: - Table view data source
     
-    let data = [[[#imageLiteral(resourceName: "profile"),"Profile"]], [], [[#imageLiteral(resourceName: "HelpIcon"),"Help"], [#imageLiteral(resourceName: "Feedback"),"Feedback"], [#imageLiteral(resourceName: "Rate"),"Rate us"], [#imageLiteral(resourceName: "FaceBook"),"Like us on Facebook"]],[["Log out"]]]
+    let data = [[[#imageLiteral(resourceName: "profile"),"Profile"]], [[#imageLiteral(resourceName: "HelpIcon"),"Help"], [#imageLiteral(resourceName: "Feedback"),"Feedback"], [#imageLiteral(resourceName: "Rate"),"Rate us"], [#imageLiteral(resourceName: "FaceBook"),"Like us on Facebook"]],[["Log out"]]]
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return data.count
@@ -79,7 +79,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
 
             return cell
         }
-        else if indexPath.section < 3 {
+        else if indexPath.section < (data.count - 1) {
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = self.data[indexPath.section][indexPath.row][1] as? String
             cell.imageView?.image = self.data[indexPath.section][indexPath.row][0] as? UIImage
