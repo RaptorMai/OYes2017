@@ -15,12 +15,16 @@ import Alamofire
 /// - ConfigTypeAppUpdateRequired: will return Bool based on app version, from getConfigForType()
 /// - ConfigTypeAppUpdateSuggested: will return Bool based on app version, from getConfigForType()
 /// - ConfigTypeFirstLaunch: will return the interger count of open times from getConfigForType()
+/// - ConfigTypeDiscountAvailability: will return the interger count of available discounts from getConfigForType()
+/// - ConfigTypeDiscountRate: will return Double based on available discounts
 enum ConfigType {
     case ConfigTypeCategory
     case ConfigTypePackage
     case ConfigTypeAppUpdateRequired
     case ConfigTypeAppUpdateSuggested
     case ConfigTypeFirstLaunch
+    case ConfigTypeDiscountAvailability
+    case ConfigTypeDiscountRate
 }
 
 struct DataBaseKeys {
@@ -39,6 +43,9 @@ struct DataBaseKeys {
     static let appSuggestedVer = "appUpdateSuggested"
     static let appSuggestedVerKey = "appSuggestedVer"
     
+    static let discountAvailabilityKey = "discountAvailable"
+    static let discountRate = "discountRate"
+    
     static let serverAddress = "serverAddress"
     static let appStoreLink = "appStoreLink"
     
@@ -55,16 +62,22 @@ struct DataBaseKeys {
                               appStoreLink: "itms://itunes.apple.com/app" as NSObject]
 }
 
+enum ConfigError: Error {
+    case noUidError
+    case methodNotSupportedError
+}
+
 
 /// This class provides method to load/store/get configurations, including baseURL for http request, handle required version of packages, categories and app version
 class AppConfig {
     static let sharedInstance = AppConfig()
     private init() {}
-    
+    private var uid: String? = nil
     let defaults = UserDefaults.standard
     let ref: DatabaseReference! = Database.database().reference()
     
     var appVersion = Double(Bundle.main.infoDictionary?["CFBundleShortVersionString"]! as! String)!
+    
     
     var appUpdateRequired: Bool {
         get {
@@ -72,8 +85,28 @@ class AppConfig {
         }
     }
     
-    var isAlertShwon = false  // used to sync the alert, we show alert again in didBecomeActive, but needs to let it know not to show again
+    private var isAlertShown = false  // used to sync the alert, we show alert again in didBecomeActive, but needs to let it know not to show again
     
+    // MARK: public vars
+    var discountRate: Double {
+        get {
+            return defaults.double(forKey: DataBaseKeys.discountRate)
+        }
+    }
+    
+    var numDiscountAvailable: Int {
+        get {
+            return defaults.integer(forKey: DataBaseKeys.discountAvailabilityKey)
+        }
+    }
+    
+    var categoryJSONdata: Data? {
+        get {
+            return defaults.data(forKey: DataBaseKeys.categoryDictionaryKey)
+        }
+    }
+    
+    // MARK: methods
     private func storeConfigForKey(_ key: String, withData dataObj: Any) {
         defaults.set(dataObj, forKey: key)
     }
@@ -81,7 +114,6 @@ class AppConfig {
     private func getConfigForKey(_ key: String) -> Any? {
         return defaults.object(forKey: key)
     }
-    
     
     /// Fetch app's configuration using this function
     ///
@@ -111,6 +143,12 @@ class AppConfig {
         
         case .ConfigTypeAppUpdateSuggested:
             return getConfigForKey(DataBaseKeys.appRequiredVerKey)! as! Double > appVersion
+            
+        case .ConfigTypeDiscountAvailability:
+            return getConfigForKey(DataBaseKeys.discountAvailabilityKey) as? Int
+            
+        case .ConfigTypeDiscountRate:
+            return getConfigForKey(DataBaseKeys.discountRate) as? Double
 
         default:
             return nil
@@ -121,7 +159,8 @@ class AppConfig {
     /// It will compare the config(be it packege or category into)'s version number with that of the remote one. It local version is smaller, it will go fetch the new version from the cloud. It will store the pulled data in userDefaults for later reference
     ///
     /// - Parameter type: type for config request
-    func handleConfigRequestForType(_ type: ConfigType) {
+    /// - Parameter user: the user ID, used when pulling user specific information
+    func handleConfigRequestForType(_ type: ConfigType, forUser user: String? = nil) throws {
         switch type {
         case .ConfigTypeCategory:
             // check required category config version
@@ -184,6 +223,35 @@ class AppConfig {
                     self.displayUpdateAlertForType(.ConfigTypeAppUpdateSuggested)
                 }
             }, withCancel: nil)
+            
+        case .ConfigTypeDiscountAvailability:
+            // get the count of available discounts
+            if let uid = user {
+                ref?.child("users/\(uid)/\(DataBaseKeys.discountAvailabilityKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+                    // remote should return int value
+                    if let discountsAvail = snapshot.value as? Int {
+                        print("Discounts avail: \(discountsAvail)")
+                        
+                        self.defaults.set(discountsAvail, forKey: DataBaseKeys.discountAvailabilityKey)
+                        
+                        // set the badge view when value available
+                        if let mainVC = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers.last as? MainViewController {
+                            mainVC.tabBar.items![2].badgeValue = "\(discountsAvail)"
+                        }
+                    }
+                })
+            } else {
+                print("Pulling discount availability failed!")
+                throw ConfigError.noUidError
+            }
+            
+        case .ConfigTypeDiscountRate:
+            ref?.child(DataBaseKeys.configDBRef(DataBaseKeys.discountRate)).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let discountRate = snapshot.value as? Double {
+                    print("Discount rate: \(discountRate)")
+                    self.defaults.set(discountRate, forKey: DataBaseKeys.discountRate)
+                }
+            })
 
         default:
             break
@@ -192,10 +260,10 @@ class AppConfig {
     
     /// Displays the alert when app needs update. It will not display the alert twice. The alertView is displayed in appDelegate too, to prevent user resume to the app.
     func displayUpdateAlertForType(_ type: ConfigType) {
-        if !isAlertShwon {
+        if !isAlertShown {
             let alertView = UIAlertController(title: "New version available", message: "", preferredStyle: .alert)
             alertView.addAction(UIAlertAction(title: "Goto App Store", style: .default, handler: { (_) in
-                self.isAlertShwon = false
+                self.isAlertShown = false
                 let appStoreURLString = RemoteConfig.remoteConfig().configValue(forKey: DataBaseKeys.appStoreLink).stringValue
                 UIApplication.shared.open((URL(string: appStoreURLString!)!))
             }))
@@ -206,14 +274,14 @@ class AppConfig {
             case .ConfigTypeAppUpdateSuggested:
                 alertView.message = "Please consider updating the app to newer version"
                 alertView.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: {(_) in
-                    self.isAlertShwon = false
+                    self.isAlertShown = false
                 }))
             default:
                 return
             }
             
             // to prevent alert from displaying twice
-            self.isAlertShwon = true
+            self.isAlertShown = true
             DispatchQueue.main.async {
                 alertView.show()
             }
@@ -245,12 +313,32 @@ class AppConfig {
     }
     
     
+    /// Decrements the count for specific types of config
+    ///
+    /// Now supports ConfigTypeDiscountAvailability
+    /// - Parameter type: ConfigType
+    /// - Throws: ConfigError
+    func decrementCountForConfigType(_ type: ConfigType, withStep step: Int = 1) throws {
+        switch type {
+        case .ConfigTypeDiscountAvailability:
+            let key = DataBaseKeys.discountAvailabilityKey
+            let currentDiscountAvailablity = defaults.integer(forKey: key) - step
+            defaults.set(currentDiscountAvailablity, forKey: key)
+            try! updateRemoteValueForType(.ConfigTypeDiscountAvailability, forUser: uid!)
+        default:
+            throw ConfigError.methodNotSupportedError
+        }
+    }
+    
     /// Register user defaults when app first launches
     func configAppFirstLaunch() {
         let initialUserDefaults: [String:Int] = [DataBaseKeys.categoryVerKey: -1,
                                                  DataBaseKeys.packageVerKey: -1,
-                                                 DataBaseKeys.firstLaunchKey: 0,
-                                                 DataBaseKeys.appRequiredVerKey: 1]
+                                                 DataBaseKeys.firstLaunchKey: 0,  // TODO: check after user switch
+                                                 DataBaseKeys.appRequiredVerKey: 1,
+                                                 DataBaseKeys.discountAvailabilityKey: 0,
+                                                 DataBaseKeys.discountRate: 1]
+        
         defaults.register(defaults: initialUserDefaults)
     }
     
@@ -265,14 +353,48 @@ class AppConfig {
         }
         
         // get category update event, the snapshot should be int
-        handleConfigRequestForType(.ConfigTypeAppUpdateRequired)
-        handleConfigRequestForType(.ConfigTypeAppUpdateSuggested)
-        handleConfigRequestForType(.ConfigTypePackage)
-        handleConfigRequestForType(.ConfigTypeCategory)
+        // TODO: handle throw
+        try! handleConfigRequestForType(.ConfigTypeAppUpdateRequired)
+        try! handleConfigRequestForType(.ConfigTypeAppUpdateSuggested)
+        try! handleConfigRequestForType(.ConfigTypePackage)
+        try! handleConfigRequestForType(.ConfigTypeCategory)
+        try! handleConfigRequestForType(.ConfigTypeDiscountRate)
         
         // increment open counter
         defaults.set(defaults.integer(forKey: DataBaseKeys.firstLaunchKey) + 1, forKey: DataBaseKeys.firstLaunchKey)
         print(appVersion)
+    }
+    
+    
+    /// Fetch data for user specified with UID
+    ///
+    /// This function should be called when ever user log in info changes, like when login/app launch
+    /// - Parameter uid: String UID of hyphenate user name
+    func performUserSpecificConfigFor(_ uid: String) {
+        self.uid = uid
+        try! handleConfigRequestForType(.ConfigTypeDiscountAvailability, forUser: uid)
+    }
+    
+    
+    
+    // Update remote's value
+    /// Update configType's current value to FireBase
+    /// Supported type: ConfigTypeDiscountAvailability
+    /// - Parameter type: type of config to update
+    func updateRemoteValueForType(_ type: ConfigType, forUser user: String? = nil) throws {
+        switch type {
+        case .ConfigTypeDiscountAvailability:
+            if let uid = user {
+                let key = DataBaseKeys.discountAvailabilityKey
+                let currentDiscountAvailablity = defaults.integer(forKey: key)
+                ref?.child("users/\(uid)/").updateChildValues([key: currentDiscountAvailablity as Any])
+            } else {
+                throw ConfigError.noUidError
+            }
+            
+        default:
+            throw ConfigError.methodNotSupportedError
+        }
     }
 }
 
