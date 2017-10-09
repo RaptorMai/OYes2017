@@ -376,7 +376,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         // add loading page
         // display alert
         
-        let postRef = ref?.child("users").child(uid).child("payments/charges").child(paymentId!).child("status")
+        let postRef = ref?.child("users").child(uid).child("payments/charges").child(paymentId!).child("paymentDetail").child("status")
         
         _ = postRef?.observe(DataEventType.value, with: { (snapshot) in
             let postDict = snapshot.value as? String
