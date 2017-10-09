@@ -106,11 +106,8 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
                 let myProfileVC = StoryBoard.instantiateViewController(withIdentifier: "myProfileVC")
                 tabBarController?.navigationController?.pushViewController(myProfileVC, animated: true)
             }
-        // section 1
-        case 1:
-            break //TODO
         // section 2
-        case 2:
+        case 1:
             switch indexPath.row{
             // Help
             case 0:
@@ -139,7 +136,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
             default:break
             }
         // section 3
-        case 3:
+        case 2:
             tableView.deselectRow(at: indexPath, animated: true)
             createAlert()
         default:break

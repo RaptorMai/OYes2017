@@ -11,7 +11,7 @@ class LoginVerificationViewController: UIViewController {
     
     var mode: LoginViewControllerMode = .login
     
-    var phoneNumber: Int = 6478611125
+    var phoneNumber: UInt64 = 6478611125
     
     private var timerRemaining = 30
     {
@@ -63,7 +63,7 @@ class LoginVerificationViewController: UIViewController {
     ///
     /// - Parameter num: Int format of phone number
     /// - Returns: formatted string
-    func formatCellPhoneNumber(_ num: Int) -> String {
+    func formatCellPhoneNumber(_ num: UInt64) -> String {
         let area = num / 10000000
         let mid = (num - area * 10000000) / 10000
         let last = num - area * 10000000 - mid * 10000

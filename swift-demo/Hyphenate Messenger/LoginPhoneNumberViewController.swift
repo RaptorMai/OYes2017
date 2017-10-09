@@ -90,7 +90,7 @@ class LoginPhoneNumberViewController: UIViewController, UITextFieldDelegate {
         let verifyVC = segue.destination as! LoginVerificationViewController
         // setting the phone number and operation mode of verify VC
         // mode will determine whether VC calls signup or login for hyphenate
-        verifyVC.phoneNumber = Int((numberField?.text)!)!
+        verifyVC.phoneNumber = UInt64(Int((numberField?.text)!)!)
         verifyVC.mode = mode
     }
     
