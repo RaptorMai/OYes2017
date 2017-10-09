@@ -77,6 +77,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         self.tableView.separatorInset = .zero
         
         // Load user payment info
+        updatePaymentMethod()
     }
     
     open override func viewWillAppear(_ animated: Bool) {
