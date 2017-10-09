@@ -235,8 +235,10 @@ class AppConfig {
                         self.defaults.set(discountsAvail, forKey: DataBaseKeys.discountAvailabilityKey)
                         
                         // set the badge view when value available
-                        if let mainVC = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers.last as? MainViewController {
-                            mainVC.tabBar.items![2].badgeValue = "\(discountsAvail)"
+                        if discountsAvail > 0 {
+                            if let mainVC = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers.last as? MainViewController {
+                                mainVC.tabBar.items![2].badgeValue = "\(discountsAvail)"
+                            }
                         }
                     }
                 })
