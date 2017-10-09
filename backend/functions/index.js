@@ -6,73 +6,111 @@ const gcs = require('@google-cloud/storage')()
 
 admin.initializeApp(functions.config().firebase);
 
-// Create a stripe customer id for each user created on database
-// TODO: this includes both student and tutor, need to between  them
-exports.createStripeUser = functions.auth.user().onCreate(event => {
-	const data = event.data;
-	console.log("creating a new user!");
-	console.log(data);
-	return stripe.customers.create().then(customer => {
 
-		console.log("creating stripe customer");
-		console.log(customer);
-		// To use when integrated, use phone number as uid
-		// return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
-		return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
-	});
+exports.createStripeUser = functions.auth.user().onCreate(event => {
+
+	const data = event.data;
+	// Check if a customer is a student
+	console.log(data.phoneNumber);
+	if (data.phoneNumber != null){
+
+		stripe.customers.create(function(err, customers){
+
+			if(err){ return console.log(err);}
+
+			console.log("creating stripe customer");
+			console.log(customers);
+
+			admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customers.id, function(error){
+				if (error) {
+					console.log("Stripe customerID cannot be written into db: " + error);
+				};
+				admin.database().ref(`/users/${data.phoneNumber}/balance`).set(30, function(error){
+					if (error) {
+						console.log("New user balance cannot be created: " + error);
+					};
+					return console.log("Student account has been all setup");
+				});
+			});
+		});
+	}
+	// if phoneNumber does not exist, means user is a tutor
+	// Here we can set up tutor in the future
+	else { return console.log("This is a tutor, so no need to create stripe account");}
 });
 
-// 
+// Create a stripe charge to a customer ID
 exports.stripeCharge = functions.database
-								.ref('/users/{userId}/payments/charges/{id}')
+								.ref('/users/{userId}/payments/charges/{id}/content')
 								.onWrite(event => {
-									console.log('wirte triggered');
+									console.log("a new charge is written into db");
 									const val = event.data.val();
-									console.log("what is val");
+									admin.database().ref("/globalConfig/discountRate").once("value").then(snapshot => {
+										const discountRate = snapshot.val();
+										console.log("discount rate");
+										console.log(discountRate);
+										return discountRate;
+									}).then(disRate => {
+
+									// val should be amount of purchase
+									console.log("purchase info");
 									console.log(val);
 
-									if (val === null || val.id || val.error) return null;
+									var amount;
 
-									return admin.database()
-												.ref(`/users/${event.params.userId}/payments/customerId`)
+									if (val.discount == true){
+										amount = Math.ceil(disRate * val.amount);  
+									}
+									else {
+										amount = val.amount;
+									};
+									return amount;
+
+								}).then(amount => {
+									return admin.database().ref(`/users/${event.params.userId}/payments/customerId`)
 												.once('value')
 												.then(snapshot => {
-													console.log("user id");
-													console.log(event.params.userId);
+													console.log("Stripe customer ID");
+													console.log(snapshot.val());
+  
+													// get customerID to prepare a charge
 													return snapshot.val();
 												})
 												.then(customer => {
+													// get customerID to prepare a charge
 													console.log("customer ID");
 													console.log(customer);
-													const amount = val.amount;
 													const idempotency_key = event.params.id;
 													const currency = 'cad';
 													const charge = {amount, currency, customer};
 
-													console.log('charging the customers...');
+													console.log('creating a charge to the customers...');
 
-													if (val.source !== null) charge.source = val.source;
+													// if (val.source !== null) charge.source = val.source;
 
 													return stripe.charges.create(charge, {idempotency_key}, function(err, charge){
+														// If charge is not created successfully, return error
+														// TODO: check format of error, see if frontend need to handle
 														if (err){
-															console.log(err.Type);
 
-															return event.data.adminRef.set(error);
+															// if error happens when charging customer
+															// write a error message to database
+															// print error in firebase console
+															console.log(err.type);
+															console.log(err.message);
+															return event.data.adminRef.parent.child("error").set(err.message);
 														}
-														return event.data.adminRef.set(charge);
 
+														// if no error occures, write charge info to db
+														return event.data.adminRef.parent.child("paymentDetail").set(charge);
 													});
 												})
-												// .then(response => {
-												// 	console.log('writing back to db');
-												// 	if 
-												// 	return event.data.adminRef.set(response);			
-												// });
+								})
 								});
 
-
-
+// Add a payment token to create a card source for a specific user
 exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sources/token').onWrite(event => {
+	console.log("a new token/source is added to user's account");
 	const source = event.data.val();
 	console.log("this should be the token");
 	console.log(event.data.val());
@@ -85,94 +123,154 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 	// get customerId
 	return admin.database().ref(`/users/${event.params.userId}/payments/customerId`).once('value')
 		   .then(snapshot => {
-		   	console.log("snapshot in addPaymentToken");
-		   	console.log(snapshot.val());
-    return snapshot.val();
-	}).then (customer => {
-		console.log("customer inside addPaymentToken");
-		console.log(customer);
-		console.log("please let this be the token");
-		console.log(source);
-
-		// get customer object
-		return stripe.customers.retrieve(customer);// , function(err, customer) {
-			//console.log("GG something went wrong");
-
-  		}).then(customerobj => {
-  			console.log("got customer");
-
-			if (customerobj.default_source == null) {
-				console.log("whats with the source");
+	// 	   	console.log("This is the customer ID to add card to");
+	// 	   	console.log(snapshot.val());
+	// 	   	// return the customer id to add a source
+ 	//    		return snapshot.val();
+	// }).then (customer => {
+				console.log("customer inside addPaymentToken");
+				console.log(snapshot.val());
+				console.log("please let this be the token");
 				console.log(source);
 
-				return stripe.customers.createSource(customerobj.id, {source});
+				// return a customer object
+				return stripe.customers.retrieve(snapshot.val(), function(err, customerobj){
+					if (err) {
+						event.data.adminRef.parent.child('error').set(err.message);
+					}
+					else {
+						console.log("got customer object");
+						if (customerobj.default_source == null) {
+						console.log("current customer has no card in account, adding new one");
+						console.log(source);
+						return stripe.customers.createSource(customerobj.id, {source}, function(err, customer){
+							if (err) {
+								event.data.adminRef.parent.child('error').set(err.message);
+							}
+							else {
+								console.log("response from addPaymentToken");
+								console.log(customer);
+								return event.data.adminRef.set(customer);
+							}
+						});
+						}
+						else {
+							console.log("updating customer card");
+							return stripe.customers.update(customerobj.id, {source}, function(err, customer){
+								if (err) {
+									event.data.adminRef.parent.child('error').set(err.message);
+								}
+								else{
+									console.log("response from addPaymentToken");
+									console.log(customer);
+									return event.data.adminRef.set(customer);
+								}
+							});
+						}
+					}
+				});
+  		});
+	// 	.then(customerobj => {
+ //  			console.log("got customer object");
 
-			}
-			else {
-				console.log("updating customer card");
+	// 		if (customerobj.default_source == null) {
+	// 			console.log("current customer has no card in account, adding new one");
+	// 			console.log(source);
 
-				return stripe.customers.update(customerobj.id, {source})//, function(err, customer)
-				// {
-				// 	if (err) {
-				// 		console.log(err);
+	// 			return stripe.customers.createSource(customerobj.id, {source});
+	// 		}
+	// 		else {
+	// 			console.log("updating customer card");
 
-				// 	}
-				// 	console.log(customer);
-				// 	return event.data.adminRef.set(customer);
-				// });
-			}
-	}).then(response => {
+	// 			return stripe.customers.update(customerobj.id, {source});
+	// 		}
+	// }).then(response => {
 
-		console.log("response from addPaymentToken");
-		console.log(response);
-		return event.data.adminRef.set(response);
-	}, error => {
-		console.log(error);
-		return event.data.adminRef.parent.child('error').set(userFacingMessage(error));
+	// 	console.log("response from addPaymentToken");
+	// 	console.log(response);
+	// 	return event.data.adminRef.set(response);
+	// }, error => {
+	// 	console.log(error);
+	// 	return event.data.adminRef.parent.child('error').set(userFacingMessage(error));
 
-	 	});
+	//  	});
 	});
 
-
+//--------------------------------------------------------------when charge return an error will also be written into {pid}--------
 // Update student balance everytime when they purchase a package
-exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{pid}').onUpdate(event => {
+exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{pid}/paymentDetail').onWrite(event => {
 	const sid = event.params.sid;
 	const id = event.params.pid;
-	const amount = event.data.current.child('amount').val();
-	const date = event.data.current.child('created').val();
-	console.log("what is amount");
-	console.log(event.data.current.child('amount').val());
+	console.log(event.params);
+	admin.database().ref(`/users/${sid}/payments/charges/${id}/content/amount`).once("value").then(snapshot => {
+		const amount = snapshot.val();
+		console.log("what is amount");
+		console.log(amount);
+		const date = event.data.val().created;
 
-	var addBalanceHistory = admin.database().ref("/users/" + sid + "/completeBalanceHistory/" + id);
-	var ref = admin.database().ref("/users/" + sid + "/balance");
+		var addBalanceHistory = admin.database().ref("/users/" + sid + "/completeBalanceHistory/" + id);
+		var ref = admin.database().ref("/users/" + sid + "/balance");
 
-	ref.once("value").then(snapshot => {
-		console.log("what is snapshot in balance");
-		console.log(snapshot.val());
-		var currentBalance = snapshot.val();
-		// console.log(price);
-		let amountString = amount.toString();
-		console.log(amountString);
+		ref.once("value").then(snapshot => {
+			console.log("what is snapshot in balance");
+			console.log(snapshot.val());
+			var currentBalance = snapshot.val();
+			// console.log(price);
+			let amountString = amount.toString();
+			console.log(amountString);
 
-		let mins = admin.database().ref("/price/" + amountString);
-		mins.once("value").then(snapshot => {
-			console.log("what is the increment");
-			var increment = snapshot.val();
-			console.log(increment);
-			currentBalance += increment;
-			console.log(currentBalance);
-			ref.set(currentBalance);
-			return increment;
-		}).then(timePurchased => {
-				addBalanceHistory.set({
-							price: amount,
-							timePurchased: timePurchased,
-							date: date
-						});
+			let mins = admin.database().ref("/priceForBack/" + amountString);
+			mins.once("value").then(snapshot => {
+				console.log("what is the increment");
+				var increment = snapshot.val();
+				console.log(increment);
+				currentBalance += increment;
+				console.log(currentBalance);
+				ref.set(currentBalance);
+				return increment;
+			}).then(timePurchased => {
+					addBalanceHistory.set({
+								price: amount,
+								timePurchased: timePurchased,
+								date: date
+							});
+			})
 		})
-	})
+	});
+	// console.log("what is amount");
+	// console.log(amount);
+	// const date = event.data.val().created;
 
-})
+
+	// var addBalanceHistory = admin.database().ref("/users/" + sid + "/completeBalanceHistory/" + id);
+	// var ref = admin.database().ref("/users/" + sid + "/balance");
+
+	// ref.once("value").then(snapshot => {
+	// 	console.log("what is snapshot in balance");
+	// 	console.log(snapshot.val());
+	// 	var currentBalance = snapshot.val();
+	// 	// console.log(price);
+	// 	let amountString = amount.toString();
+	// 	console.log(amountString);
+
+	// 	let mins = admin.database().ref("/priceForBack/" + amountString);
+	// 	mins.once("value").then(snapshot => {
+	// 		console.log("what is the increment");
+	// 		var increment = snapshot.val();
+	// 		console.log(increment);
+	// 		currentBalance += increment;
+	// 		console.log(currentBalance);
+	// 		ref.set(currentBalance);
+	// 		return increment;
+	// 	}).then(timePurchased => {
+	// 			addBalanceHistory.set({
+	// 						price: amount,
+	// 						timePurchased: timePurchased,
+	// 						date: date
+	// 					});
+	// 	})
+	// })
+});
 
 
 exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{questionId}/rate').onUpdate(event => {
@@ -395,10 +493,5 @@ function userFacingMessage(error) {
   return error.type ? error.message : 'An error occurred, developers have been alerted';
 }
 
-// exports.readdata = functions.database.ref('/test').onWrite(event => {
-// 	admin.database().ref('/test').once("value").then(snapshot => {
-// 		console.log(snapshot.val());
-// 	});
-// })
 
 
