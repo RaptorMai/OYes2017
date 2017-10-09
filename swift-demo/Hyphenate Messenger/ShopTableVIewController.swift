@@ -143,13 +143,16 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         tabBarController?.tabBar.items![2].badgeValue = nil
         
         // display banner
-        let infoBanner = Banner(title: "Discount available!",
-                                subtitle: "Purchase any package at discounted price, \(numDiscountAvailable) times remaining",
-                                image: nil,
-                                backgroundColor: UIColor(red:48.00/255.0, green:174.0/255.0, blue:51.5/255.0, alpha:1.000))
-        
-        infoBanner.dismissesOnTap = true
-        infoBanner.show()
+        if numDiscountAvailable > 0 {
+            let infoBanner = Banner(title: "Discount available!",
+                                    subtitle: "Purchase any package at discounted price, \(numDiscountAvailable) times remaining",
+                image: nil,
+                backgroundColor: UIColor(red:48.00/255.0, green:174.0/255.0, blue:51.5/255.0, alpha:1.000))
+            
+            infoBanner.dismissesOnTap = true
+            infoBanner.dismissesOnSwipe = true
+            infoBanner.show(duration: 2.0)
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

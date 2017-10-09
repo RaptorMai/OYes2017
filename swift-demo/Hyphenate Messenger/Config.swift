@@ -396,5 +396,12 @@ class AppConfig {
             throw ConfigError.methodNotSupportedError
         }
     }
+    
+    func processUserLogout() {
+        // when user logout, it needs to clear user specific data, including
+        // 1. discount available
+        // 2. all user related profile information
+        defaults.set(0, forKey: DataBaseKeys.discountAvailabilityKey)
+    }
 }
 
