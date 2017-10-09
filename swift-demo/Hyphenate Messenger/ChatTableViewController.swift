@@ -48,6 +48,9 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         self.dataSource = self
         self.ref = Database.database().reference()
         
+        // scroll to dismiss keyboard
+        self.tableView.keyboardDismissMode = .onDrag
+        
         getBalance()
         /* end session button*/
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
