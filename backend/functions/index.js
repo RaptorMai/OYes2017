@@ -332,6 +332,7 @@ exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{q
 							});
 
 		// Update complete tutor balance + detailed breakdowns
+		console.log("update tutor balance");
 		var completeTutorProfile = admin.database().ref("/tutors/" + tid);
 
 		// Update tutor overall balance
