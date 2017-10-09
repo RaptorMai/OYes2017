@@ -36,6 +36,8 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     var checkHide = 0
     var firstAppear = false
     
+    private var isPaymentCardPresent = false
+    
     var numDiscountAvailable: Int {
         get {
             return AppConfig.sharedInstance.numDiscountAvailable
@@ -53,21 +55,20 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     // set this flag when purchasing before starting chat, so it dismisses
     // itself after successfully purchasing a package
     var isPurchasingBeforeReqeusting = false
-    
-    /*let changeCardButton: UIButton = {
-     let theme = Theme()
-     let button = UIButton(type: .system)
-     button.backgroundColor = UIColor.blue
-     button.setTitle("Change Card", for: .normal)
-     button.backgroundColor = .clear
-     button.layer.cornerRadius = 5
-     button.layer.borderWidth = 1
-     button.layer.borderColor = theme.buttonColor.cgColor
-     button.setTitleColor(theme.buttonColor, for:.normal)
-     return button
-     }()*/
-    
-    //let settingsVC = SettingsViewController()
+    func updatePaymentMethod() {
+        ref?.child("users").child(uid).child("payments").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let val = snapshot.value as? NSDictionary {
+                print(val)
+                if (val["sources"] != nil){
+                    print("Got payment value")
+                    self.isPaymentCardPresent = true
+                }
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
     
     // MARK: VC life cyele
     override func viewDidLoad() {
@@ -75,18 +76,10 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         self.tabBarController?.navigationItem.title = "Shop"
         self.tableView.tableFooterView = UIView()
         self.tableView.separatorInset = .zero
-        // Grab price - amount mapping from db
         
+        // Load user payment info
     }
     
-    /*func setupButton(){
-     changeCardButton.translatesAutoresizingMaskIntoConstraints = false
-     changeCardButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-     changeCardButton.bottomAnchor.constraint(equalTo: self.tableView.bottomAnchor).isActive = true
-     changeCardButton.addTarget(self, action: #selector(ShopTableViewController.updateCard), for: .touchUpInside)
-     let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
-     changeCardButton.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: 1)
-     }*/
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Shop"
@@ -95,7 +88,10 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         prices.removeAll()
         checkHide = 0
         ref?.child("users/\(uid)/balance").observeSingleEvent(of: .value, with: { (snapshot) in
-            self.balance = (snapshot.value as? Int)!
+            if let balance = snapshot.value as? Int {
+                self.balance = balance
+            }
+            
             if self.checkHide == 1{
                 self.hideHud()
                 self.tableView.reloadData()
@@ -257,7 +253,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             print(indexPath.row)
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
             cell.imageView?.image = #imageLiteral(resourceName: "creditcard")
-            cell.textLabel?.text = "Change your card"
+            cell.textLabel?.text = isPaymentCardPresent ? "Change your card" : "Add payment card"
             return cell
         }
     }
@@ -301,21 +297,32 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     }
     
     func payAlert(_ sender: UIButton) {
-        
-        print("which button is pressed \(sender.tag)")
-        
-        let title = "Confirm Purchase"
-        let message = "Proceed to purchase package for \(sender.currentTitle!)?"
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
-        let amount:Int? = Int(sender.tag)
-        alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: {action in self.payButton(amount!)}))
-        
-        self.present(alert, animated: true, completion: nil)
+        if isPaymentCardPresent {
+            updatePaymentMethod()
+            print("which button is pressed \(sender.tag)")
+            
+            let title = "Confirm Purchase"
+            let message = "Proceed to purchase package for \(sender.currentTitle!)?"
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+            let amount:Int? = Int(sender.tag)
+            alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: {action in self.payButton(amount!)}))
+            
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            // no payment method
+            let alertView = UIAlertController(title: "No payment method", message: "There's no payment method linked to your card, please add a card before proceeding", preferredStyle: .alert)
+            
+            alertView.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+            alertView.addAction(UIAlertAction(title: "Add card", style: .default, handler: { (_) in
+                self.addCard()
+            }))
+
+            self.present(alertView, animated: true, completion: nil)
+        }
     }
     
     func updateCard() {
-        
         self.addCard()
     }
     
@@ -325,25 +332,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         print(uid)
         
         showHud(in: view, hint: "Purchasing")
-        ref = Database.database().reference()
-        ref?.child("users").child(uid).child("payments").observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            let val = snapshot.value as? NSDictionary
-            print(val!)
-            if (val!["sources"] != nil){
-                print("Charging Costomer Now")
-                self.chargeUsingCustomerId(amount)
-            }
-            else{
-                // FIXME: need to present different alert view when no card associated
-                print("Please add a card first")
-                self.addCard()
-            }
-            
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-        
+        chargeUsingCustomerId(amount)
     }
     
     func addCard(){
@@ -352,7 +341,6 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         // STPAddCardViewController must be shown inside a UINavigationController.
         let navigationController = UINavigationController(rootViewController: addCardViewController)
         self.present(navigationController, animated: true, completion: nil)
-        // TODO: add a completion to to preceed to purchase or just add purchase
     }
     
     // MARK: STPAddCardViewControllerDelegate
@@ -366,6 +354,9 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         print(token)
         // Use token for backend process
         ref?.child("users").child(uid).child("payments/sources/token").setValue(token.tokenId)
+        
+        self.isPaymentCardPresent = true
+        
         self.dismiss(animated: true, completion: {
             completion(nil)
         })
@@ -422,7 +413,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
 
                     // send alert
                     let title = "Payment Successed"
-                    let message = "You have purchased \(self.product) package for $\(amount/100).00"
+                    let message = "You have purchased \(self.product) package for $\(Double(amount)/100)"
                     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {(action) in
                         if self.isPurchasingBeforeReqeusting {
@@ -449,7 +440,6 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             }
             
         })
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
