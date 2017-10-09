@@ -25,10 +25,10 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.register(UINib(nibName: "SwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "switchCell")
         self.tableView.register(UINib(nibName: "LabelTableViewCell", bundle: nil), forCellReuseIdentifier: "labelCell")
-        self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "conversationCell")
+        self.tableView.register(UINib(nibName: "SettingProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "settingProfileCell")
        
         
-        self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "conversationCell")
+        self.tableView.register(UINib(nibName: "SettingProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "settingProfileCell")
         
     }
     
@@ -42,7 +42,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     
     // MARK: - Table view data source
     
-    let data = [[[#imageLiteral(resourceName: "profile"),"Profile"]], [[#imageLiteral(resourceName: "balance"),"My balance"], [#imageLiteral(resourceName: "-points"),"My points"]], [[#imageLiteral(resourceName: "HelpIcon"),"Help"], [#imageLiteral(resourceName: "Feedback"),"Feedback"], [#imageLiteral(resourceName: "Rate"),"Rate us"], [#imageLiteral(resourceName: "FaceBook"),"Like us on Facebook"]],[["Log out"]]]
+    let data = [[[#imageLiteral(resourceName: "profile"),"Profile"]], [[#imageLiteral(resourceName: "HelpIcon"),"Help"], [#imageLiteral(resourceName: "Feedback"),"Feedback"], [#imageLiteral(resourceName: "Rate"),"Rate us"], [#imageLiteral(resourceName: "FaceBook"),"Like us on Facebook"]],[["Log out"]]]
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return data.count
@@ -57,7 +57,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             // My Profile TODO: don't use conversation table view cell, better make a new one
-            let cell:ConversationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "conversationCell", for: indexPath) as! ConversationTableViewCell
+            let cell:SettingProfileTableViewCell = tableView.dequeueReusableCell(withIdentifier: "settingProfileCell", for: indexPath) as! SettingProfileTableViewCell
             cell.senderLabel.text = ""
             cell.badgeView.isHidden = true
             cell.timeLabel.isHidden = true
@@ -67,13 +67,19 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
             // username
             cell.senderLabel.text = UserDefaults.standard.string(forKey: "userName")
             // profile picture
-            let data = UserDefaults.standard.data(forKey: "profilePicture")
-            let imageUIImage: UIImage = UIImage(data: data!)!
+            let imageUIImage: UIImage
+            if let data = UserDefaults.standard.data(forKey: "profilePicture"){
+                imageUIImage = UIImage(data: data)!
+            }else{
+                imageUIImage = UIImage(named:"placeholder")!
+            }
             cell.senderImageView.image = imageUIImage
+            
+            cell.accessoryType = .disclosureIndicator
 
             return cell
         }
-        else if indexPath.section < 3 {
+        else if indexPath.section < (data.count - 1) {
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = self.data[indexPath.section][indexPath.row][1] as? String
             cell.imageView?.image = self.data[indexPath.section][indexPath.row][0] as? UIImage
@@ -124,7 +130,8 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
                 }
             // Rate us
             case 2:
-                break
+                UIApplication.shared.openURL(URL(string: "itms-apps://itunes.apple.com/")!)
+                tableView.deselectRow(at: indexPath, animated: true)
             // Like us on Facebook
             case 3:
                 openFacebookPage()
@@ -161,23 +168,32 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     }
     
     func createAlert (){
-        let alert = UIAlertController(title: "Log Out InstaSolve?", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title:"Log Out", style: UIAlertActionStyle.default, handler:{(action:UIAlertAction) in self.logoutAction()}))
+        let alert = UIAlertController(title: "Log Out InstaSolve?", message: "All user data will be deleted", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertActionStyle.default, handler:nil))
+        alert.addAction(UIAlertAction(title:"Log Out", style: UIAlertActionStyle.destructive, handler:{(action:UIAlertAction) in self.logoutAction()}))
         self.present(alert, animated: true, completion: nil)
     }
     
     func logoutAction() {
-        EMClient.shared().logout(false) { (error) in
-            if let _ = error {
-                let alert = UIAlertController(title:"Sign Out error", message: "Please try again later", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
-                UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-            } else {
-                let loginController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginScene")
-                UIApplication.shared.keyWindow?.rootViewController = loginController
-                
-            }
+        // delete all conversation history
+        let chatManager = EMClient.shared().chatManager
+        if let allConversations = EMClient.shared().chatManager.getAllConversations() as? [EMConversation] {
+            chatManager?.deleteConversations(allConversations, isDeleteMessages: true, completion: { (error) in
+                guard error == nil else {
+                    return
+                }
+                // process log out
+                EMClient.shared().logout(false) { (error) in
+                    if let _ = error {
+                        let alert = UIAlertController(title:"Sign Out error", message: "Please try again later", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
+                        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                    } else {
+                        let loginController = UIStoryboard(name: "Authentication", bundle: nil).instantiateViewController(withIdentifier: "AuthVC")
+                        UIApplication.shared.keyWindow?.rootViewController = loginController
+                    }
+                }
+            })
         }
     }
 

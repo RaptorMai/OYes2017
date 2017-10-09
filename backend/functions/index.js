@@ -1,16 +1,28 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const stripe = require('stripe')(functions.config().stripe.testkey);
+const cors = require('cors')({origin: true});
+const gcs = require('@google-cloud/storage')()
 
 admin.initializeApp(functions.config().firebase);
 
-const stripe = require('stripe')(functions.config().stripe.testkey);
+// Create a stripe customer id for each user created on database
+// TODO: this includes both student and tutor, need to between  them
+exports.createStripeUser = functions.auth.user().onCreate(event => {
+	const data = event.data;
+	console.log("creating a new user!");
+	console.log(data);
+	return stripe.customers.create().then(customer => {
 
-const price = {"400": 10, "1100": 30, "2000": 60, "3800": 120};
+		console.log("creating stripe customer");
+		console.log(customer);
+		// To use when integrated, use phone number as uid
+		// return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
+		return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
+	});
+});
 
-const cors = require('cors')({origin: true});
-
-const gcs = require('@google-cloud/storage')()
-
+// 
 exports.stripeCharge = functions.database
 								.ref('/users/{userId}/payments/charges/{id}')
 								.onWrite(event => {
@@ -58,19 +70,6 @@ exports.stripeCharge = functions.database
 												// });
 								});
 
-
-exports.createStripeUser = functions.auth.user().onCreate(event => {
-	const data = event.data;
-	console.log("creating a new user!");
-	console.log(data);
-	return stripe.customers.create().then(customer => {
-		console.log("creating stripe customer");
-		console.log(customer);
-		// To use when integrated, use phone number as uid
-		// return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
-		return admin.database().ref(`/users/${data.phoneNumber}/payments/customerId`).set(customer.id);
-	});
-});
 
 
 exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sources/token').onWrite(event => {
@@ -135,14 +134,18 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 	});
 
 
+// Update student balance everytime when they purchase a package
 exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{pid}').onUpdate(event => {
 	const sid = event.params.sid;
 	const id = event.params.pid;
 	const amount = event.data.current.child('amount').val();
+	const date = event.data.current.child('created').val();
 	console.log("what is amount");
 	console.log(event.data.current.child('amount').val());
 
+	var addBalanceHistory = admin.database().ref("/users/" + sid + "/completeBalanceHistory/" + id);
 	var ref = admin.database().ref("/users/" + sid + "/balance");
+
 	ref.once("value").then(snapshot => {
 		console.log("what is snapshot in balance");
 		console.log(snapshot.val());
@@ -159,8 +162,16 @@ exports.updateBalance = functions.database.ref('/users/{sid}/payments/charges/{p
 			currentBalance += increment;
 			console.log(currentBalance);
 			ref.set(currentBalance);
+			return increment;
+		}).then(timePurchased => {
+				addBalanceHistory.set({
+							price: amount,
+							timePurchased: timePurchased,
+							date: date
+						});
 		})
 	})
+
 })
 
 
@@ -186,20 +197,24 @@ exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{q
 })
 
 
+// Update student/tutor balance when they finish a session
 exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{questionId}').onWrite(event => {
+
 	const qid = event.params.questionId;
 	const category = event.params.category;
 	console.log(qid);
 	console.log(category);
-	// var endTime = new Date();
+
 	var ref = admin.database().ref("/Request/inactive/" + category + "/" + qid);
-	const sid = ref.once("value").then(snapshot => {
+	//const sid = ref.once("value").then(snapshot => {
+	ref.once("value").then(snapshot => {
 		console.log(snapshot.val());
 		const sid = "+1" + snapshot.val().sid;
 		console.log(sid);
 		const tid = snapshot.val().tid;
 		console.log(tid);
 		const sessionTime = snapshot.val().duration;
+		const rate = snapshot.val().rate;
 
 		// Update student balance
 		console.log("update student balance");
@@ -209,12 +224,87 @@ exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{q
 			admin.database().ref("/users/" + sid + "/balance").set(snapshot.val() - sessionTime)
 		})
 
-		// Update tutor balance
-		admin.database().ref("/tutors/" + tid + "/balance").once("value").then(snapshot => {
-			admin.database().ref("/tutors/" + tid + "/balance").set(parseInt(snapshot.val()) + parseInt(sessionTime))
-		})
+		var today = new Date().getTime();
+
+		var addBalanceHistory = admin.database().ref("/users/" + sid + "/completeBalanceHistory/" + qid);
+		addBalanceHistory.set({
+								sessionTime: sessionTime,
+								date: today,
+								category: category
+							});
+
+		// Update complete tutor balance + detailed breakdowns
+		var completeTutorProfile = admin.database().ref("/tutors/" + tid);
+
+		// Update tutor overall balance
+		completeTutorProfile.child("balance").once("value").then(snapshot => {
+			completeTutorProfile.child("balance").set(parseInt(snapshot.val()) + parseInt(sessionTime))
+		});
+
+		// Update tutor overall star
+		completeTutorProfile.child("stars").once("value").then(snapshot => {
+			completeTutorProfile.child("stars").set(parseInt(snapshot.val()) + parseInt(rate))
+		});
+
+		// Update tutor overall qnum
+		completeTutorProfile.child("totalQuestionNum").once("value").then(snapshot => {
+			completeTutorProfile.child("totalQuestionNum").set(parseInt(snapshot.val()) + 1)
+		});
+
+		// Add detailed balance history transaction
+		var tutorBalanceHistory = admin.database().ref("/tutors/" + tid + "/completeBalanceHistory/" + qid);
+		tutorBalanceHistory.set({
+								sessionTime: sessionTime,
+								date: today,
+								category: category
+							});
+
+		// Update tutor monthly data
+		var year = new Date().getFullYear();
+		var month = new Date().getMonth();
+
+		var tutorBalanceHistory = admin.database().ref("/tutors/" + tid + "/monthlyBalanceHistory/" + year + month);
+
+		// Update monthly total
+		tutorBalanceHistory.child("monthlyTotal").once("value").then(snapshot => {
+			if (snapshot.val() == null){
+				tutorBalanceHistory.child("monthlyTotal").set(0 + parseInt(sessionTime));
+			}
+			tutorBalanceHistory.child("monthlyTotal").set(parseInt(snapshot.val()) + parseInt(sessionTime));
+		});
+
+		// Update monthly stars
+		tutorBalanceHistory.child("stars").once("value").then(snapshot => {
+			if (snapshot.val() == null){
+				tutorBalanceHistory.child("stars").set(0 + parseInt(rate));
+			}
+			tutorBalanceHistory.child("stars").set(parseInt(snapshot.val()) + parseInt(rate));
+		});
+
+		// Update monthly total question numbers
+		tutorBalanceHistory.child("qnum").once("value").then(snapshot => {
+			if (snapshot.val() == null){
+				tutorBalanceHistory.child("qnum").set(1);
+			}
+			tutorBalanceHistory.child("qnum").set(parseInt(snapshot.val()) + 1);
+		});
 	})
 })
+
+// Pull category from database
+exports.getCategory = functions.https.onRequest((req, res) => {
+	var result = [];
+	cors(req, res, () => {
+		admin.database().ref("/category").once("value").then(function(snapshot) {
+			snapshot.forEach(function(childSnapshot) {
+				result.push({"category": childSnapshot.key,
+							"subCate": childSnapshot.val()});
+			});
+		}).then(function(){
+				res.status(200).send(JSON.stringify(result));
+			});
+	});
+});
 
 exports.cancel = functions.https.onRequest((req, res) => {
 

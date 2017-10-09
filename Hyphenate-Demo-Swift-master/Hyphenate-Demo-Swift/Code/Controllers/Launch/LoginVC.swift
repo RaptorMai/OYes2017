@@ -20,6 +20,7 @@ class LoginVC: UIViewController {
     
     let Instructions: UILabel = {
         let label = UILabel()
+        label.adjustsFontSizeToFitWidth = true
         label.text = "Sign In With Account Name"
         label.textColor = UIColor.black
         label.font = UIFont(name: "Helvetica", size: 25)
@@ -34,12 +35,12 @@ class LoginVC: UIViewController {
         Instructions.topAnchor.constraint(equalTo: view.topAnchor, constant:125).isActive = true
         Instructions.widthAnchor.constraint(equalToConstant: screenWidth*0.8).isActive = true
     }
-
+    
     let Username: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Email Address"
         return tf
-
+        
     }()
     
     func setupUsername(){
@@ -101,46 +102,111 @@ class LoginVC: UIViewController {
         return button
     }()
     
+    let forgotPWButton:UIButton = {
+        let attrs = [NSFontAttributeName:UIFont(
+            name: "Helvetica",
+            size: 12.0)!,
+                     NSUnderlineStyleAttributeName : 1] as [String : Any]
+        let attributeString = NSMutableAttributedString(string: "Forgot password?",
+                                                        attributes: attrs)
+        let button = UIButton(type: .system)
+        button.setAttributedTitle(attributeString, for: .normal)
+        button.backgroundColor = UIColor(hex: "EFEFF4")
+        button.addTarget(self, action: #selector(resetPW), for: .touchUpInside)
+        return button
+    }()
+    
     func UsernameValid() -> Bool{
-        if Username.text == nil{
+        let email = Username.text!
+        let emailNoSpace = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        if emailNoSpace == ""{
+            let alert = UIAlertController(title: "Error", message: "Email can't be empty", preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
             return false
         }
-        return true
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Z0-9a-z.-]+\\.[A-Za-z]{2,15}"
+        let emailverify = NSPredicate(format:"SELF MATCHES %@",emailRegEx)
+        let res = emailverify.evaluate(with: emailNoSpace)
+        if !res{
+            let alert = UIAlertController(title: "Error", message: "Email is badly formatted", preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
+        }
+        return res
     }
     
     func PasswordValid() -> Bool{
-        if Password.text == nil{
+        let pw = Password.text!
+        let pwNoSpace = pw.trimmingCharacters(in: .whitespacesAndNewlines)
+        if pwNoSpace == ""{
+            let alert = UIAlertController(title: "Error", message: "Password can't be empty", preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
             return false
         }
         return true
     }
-    
+    func resetPW(){
+        if UsernameValid(){
+            let email = Username.text!
+            let emailNoSpace = email.trimmingCharacters(in: .whitespacesAndNewlines)
+            self.show("")
+            Auth.auth().sendPasswordReset(withEmail: emailNoSpace) { error in
+                self.hideHub()
+                if error != nil{
+                    let alert = UIAlertController(title: "Error", message: "\((error?.localizedDescription)!)", preferredStyle: .alert)
+                    let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    alert.addAction(okay)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else{
+                    let alert = UIAlertController(title: "Email Sent", message: "Please check Email and reset password", preferredStyle: .alert)
+                    let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    alert.addAction(okay)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+        
+    }
     func Login(){
-        if UsernameValid() || PasswordValid() {
-            Auth.auth().signIn(withEmail: Username.text!, password: Password.text!) { (user, error) in
+        self.show("Logging in")
+        if UsernameValid() && PasswordValid() {
+            let email = Username.text!
+            let emailNoSpace = email.trimmingCharacters(in: .whitespacesAndNewlines)
+            let pw = Password.text!
+            let pwNoSpace = pw.trimmingCharacters(in: .whitespacesAndNewlines)
+            Auth.auth().signIn(withEmail: emailNoSpace, password: pwNoSpace) { (user, error) in
                 if error != nil {
-                    print (" error: \(String(describing: error?.localizedDescription))")
-
-                    //An alert window will appear if the account infomation is invalid.
-                    let alertAccountController = UIAlertController(title: "Login", message: "Password is incorrect or the account does not exist.", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default) { (action) in }
-                    alertAccountController.addAction(okAction)
-                    self.present(alertAccountController, animated: true)
-
+                    self.hideHub()
+                    let alert = UIAlertController(title: "Error", message: "\((error?.localizedDescription)!)", preferredStyle: .alert)
+                    let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    alert.addAction(okay)
+                    self.present(alert, animated: true, completion: nil)
+                    
                 }
                 else{
                     var usernameNoSign = self.Username.text!.replacingOccurrences(of: "@", with: "")
                     usernameNoSign = usernameNoSign.replacingOccurrences(of: ".", with: "")
-                    MBProgressHUD.showAdded(to: self.view, animated: true)
                     weak var weakSelf = self
-                    EMClient.shared().login(withUsername: usernameNoSign, password: self.Password.text!) { (username, error) in
-                        MBProgressHUD.hide(for: weakSelf?.view, animated: true)
-                        
+                    EMClient.shared().login(withUsername: usernameNoSign, password: usernameNoSign) { (username, error) in
                         if error == nil {
+                            self.hideHub()
                             EMClient.shared().options.isAutoLogin = true
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue:KNOTIFICATION_LOGINCHANGE), object: NSNumber(value: true))
+                            //Save token to firebase
+                            if let tokenNotNil = self.token{
+                                let addToken = ["token": tokenNotNil] as [String: String?]
+                                self.ref?.child("tutors/\(usernameNoSign)").updateChildValues(addToken)
+                            }
+                            let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
+                            self.present(homeVC, animated: true, completion: nil)
                         } else {
-                            
+                            self.hideHub()
                             var alertStr = ""
                             switch error!.code {
                             case EMErrorUserNotFound:
@@ -167,26 +233,6 @@ class LoginVC: UIViewController {
                             alertView.show()  
                         }
                     }
-                    
-                    
-                    //Save token to firebase
-                    if let tokenNotNil = self.token{
-                        
-                    let addToken = ["token": tokenNotNil] as [String: String?]
-                        self.ref?.child("tutors/\(usernameNoSign)").updateChildValues(addToken)
-                    
-                    
-                    }
-                    
-                    
-                    
-                    
-                    let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
-
-                    
-                    self.present(homeVC, animated: true, completion: nil)
-                    
-
                 }
             }
         }
@@ -200,6 +246,13 @@ class LoginVC: UIViewController {
         LoginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
+    func setupForgotPWButton(){
+        forgotPWButton.translatesAutoresizingMaskIntoConstraints = false
+        forgotPWButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        forgotPWButton.topAnchor.constraint(equalTo: LoginButton.bottomAnchor, constant:15).isActive = true
+        //forgotPWButton.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        //#forgotPWButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
     override func viewDidLayoutSubviews(){
         let border = CALayer()
         let width = CGFloat(2.0)
@@ -224,6 +277,7 @@ class LoginVC: UIViewController {
         self.title = "Login"
         view.backgroundColor = UIColor(hex: "EFEFF4")
         ref = Database.database().reference()
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         
         view.addSubview(Instructions)
         setupInstructions()
@@ -237,12 +291,14 @@ class LoginVC: UIViewController {
         setupPasswordLabel()
         view.addSubview(LoginButton)
         setupLoginButton()
+        view.addSubview(forgotPWButton)
+        setupForgotPWButton()
         
         hideKeyboardWhenTappedAround()
         
-
+        
     }
-
+    
 }
 
 //extension to be able to tap outside of uitextview to dismiss keyboard

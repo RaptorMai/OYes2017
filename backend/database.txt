@@ -21,12 +21,25 @@ notes: tid(tutor id), qid(question id), sid(student id)
 3. tutors:
     <tid>
         balance:
-        stars:
-        count:
-        email:
-        token:
         category:
-
+        completeBalanceHistory:
+            <qid>
+                category:
+                date: (unix time format)
+                sesionTime: (in mins)
+        monthlyBalanceHistory:
+            <yearmonth ie:20179>
+                monthlyTotal:
+                qnum:
+                stars:
+        stars:
+        totalQuestionNum:
+        email:
+        category:
+        profilePhoto:
+        token: (casused by createStripeUser function)
+        
+>>>>>>> dev
 4. users:
     <sid>:
         username:
@@ -34,8 +47,21 @@ notes: tid(tutor id), qid(question id), sid(student id)
         email:
         profilepicURL:
         balance:
+        completeBalanceHistory:
+            <qid> if consume balance
+                date: (unix time format)
+                sesionTime: (in mins)
+            or
+            <pid> if purchase
+                price:
+                timePurchased:
+                date:
         payments:
+            charges:
+                <pid>
+                    bunch of shit returned by stripe
             customerId:
             sources:
                 error:
                 token:
+               

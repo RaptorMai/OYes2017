@@ -22,6 +22,7 @@ class NameViewController: UIViewController {
         super.viewDidLoad()
         self.nameChangTextView.text = UserDefaults.standard.string(forKey: "userName")
         nameChangTextView.becomeFirstResponder()
+        nameChangTextView.clearButtonMode = .always
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
     }
     
@@ -30,8 +31,8 @@ class NameViewController: UIViewController {
 
     // MARK: - Actions
     @IBAction func SaveText(_ sender: UIButton) {
+        if textCount(nameChangTextView){
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        
         //Upload Name to DB
         let Name = nameChangTextView.text
         uploadName(Name!)
@@ -51,6 +52,9 @@ class NameViewController: UIViewController {
              MBProgressHUD.hide(for: self.view, animated: true)
             self.navigationController?.popViewController(animated: true)
         }) { (error) in print(error.localizedDescription)}
+        } else {
+            createNameFormatAlert()
+        }
     }
     
     func uploadName(_ Name: String){
@@ -61,6 +65,21 @@ class NameViewController: UIViewController {
     func handleTap(_ tapGesture: UITapGestureRecognizer) {
         view.endEditing(true)
     }
+    
+    // Limit text in text view
+    func textCount(_ textView: UITextField) -> Bool {
+        let numberOfChars = textView.text?.characters.count
+        return numberOfChars! < 16
+    }
+    
+    func createNameFormatAlert (){
+        let alert = UIAlertController(title: "Format Error", message: "Limit your username in 15 characters", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title:"Try Again", style: UIAlertActionStyle.default, handler:nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    
+    
 }
 
 

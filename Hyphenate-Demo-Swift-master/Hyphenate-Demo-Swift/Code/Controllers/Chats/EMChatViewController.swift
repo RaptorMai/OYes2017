@@ -100,6 +100,9 @@ class EMChatViewController: UIViewController, EMChatToolBarDelegate, EMChatManag
         
         })
         
+        // Scroll to dismiss keyboard
+        tableView.keyboardDismissMode = .onDrag
+        
         //        NotificationCenter.default.addObserver(self, selector: #selector(remoteGroupNotification(noti:)), name: NSNotification.Name(rawValue:KEM_REMOVEGROUP_NOTIFICATION), object: nil) // oc demo in "viewDidAppear"
     }
     

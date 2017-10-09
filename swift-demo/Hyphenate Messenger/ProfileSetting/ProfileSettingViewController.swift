@@ -25,13 +25,17 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
         imageView.contentMode = UIViewContentMode.scaleAspectFill
         imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = imageView.frame.size.width/1.74
-        
+        imageView.layer.cornerRadius = imageView.frame.size.width/1.8
         imageView.clipsToBounds = true
+
+        if let data = UserDefaults.standard.data(forKey: "profilePicture"){
+            let imageUIImage: UIImage = UIImage(data: data)!
+            imageView.image = imageUIImage
+        }else{
+            imageView.image = UIImage(named:"placeholder")
+        }
         
-        let data = UserDefaults.standard.data(forKey: "profilePicture")
-        let imageUIImage: UIImage = UIImage(data: data!)!
-        imageView.image = imageUIImage
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     
@@ -53,59 +57,64 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
     
     // MARK - Interaction
     @IBAction func saveButton(_ sender: UIBarButtonItem) {
-        MBProgressHUD.showAdded(to: self.view, animated: true)
-        let imageData: Data = UIImagePNGRepresentation(imageView.image!)!
+        if Reachability.isConnectedToNetwork(){
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            let imageData: Data = UIImagePNGRepresentation(imageView.image!)!
+            // Upload Profile Picture to DB
+            uploadPicture(imageData, completion:{ (url) -> Void in
+                
+                if url == nil{
+                    print("Url is nil")
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    self.createNetworkAlert()
+                } else {
+                print("Uploading profile pic")
+                self.ref.child("users/\(self.uid)").updateChildValues(["profilepicURL": url!])
+                
+                print("Finished upload")
+                print("Going to download from DB")
+                // Retrive Profile Picture from DB
+                // Store data to UserDefaults
+                self.ref.child("users").child(self.uid).child("profilepicURL").observeSingleEvent(of: .value, with: {(snapshot) in
+                    
+                    print("downloaded from DB")
+                    var imageBuffer: UIImage
+                    
+                    if snapshot.exists(){
+                        let val = snapshot.value as? String
+                        print(val)
+                        if (val == nil){
+                            imageBuffer = UIImage(named: "placeholder")!
+                            let imgData = UIImageJPEGRepresentation(imageBuffer, 1)
+                            UserDefaults.standard.set(imgData, forKey: "profilePicture")
+                        }
+                        else{
+                            print("Recieve Non-null image")
+                            print("Setting UsersDefault")
+                            let imgData = UIImageJPEGRepresentation(self.imageView.image!, 1)
+                            UserDefaults.standard.set(imgData, forKey: "profilePicture")
+                        }
+                    } else {
+                        print("snapShot DNE error")
+                        MBProgressHUD.hide(for: self.view, animated: true)
+                        self.createNetworkAlert()
+                    }
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    print("Dimiss VC")
+                    self.navigationController?.popViewController(animated: true)
+                }) { (error) in print(error.localizedDescription)}
+            }
+            })
+        } else {
+            createNetworkAlert()
+        }
         
-        // Upload Profile Picture to DB
-        uploadPicture(imageData, completion:{ (url) -> Void in
-            print("Uploading profile pic")
-            self.ref.child("users/\(self.uid)").updateChildValues(["profilepicURL": url!])
-//            MBProgressHUD.hide(for: self.view, animated: true)
-//            self.navigationController?.popViewController(animated: true)
-            print("Finished upload")
-            print("Going to download from DB")
-            // Retrive Profile Picture from DB
-            // Store data to UserDefaults
-            self.ref.child("users").child(self.uid).child("profilepicURL").observeSingleEvent(of: .value, with: {(snapshot) in
-                
-                print("downloaded from DB")
-                var imageBuffer: UIImage
-                
-                if snapshot.exists(){
-                    let val = snapshot.value as? String
-                    print(val)
-                    if (val == nil){
-                        imageBuffer = #imageLiteral(resourceName: "profile")
-                        let imgData = UIImageJPEGRepresentation(imageBuffer, 1)
-                        UserDefaults.standard.set(imgData, forKey: "profilePicture")
-                    }
-                    else{
-                        print("Recieve Non-null image")
-                        print("Setting UsersDefault")
-                        let imgData = UIImageJPEGRepresentation(self.imageView.image!, 1)
-                        UserDefaults.standard.set(imgData, forKey: "profilePicture")
-                        //let profileUrl = URL(string: val!)
-                        //print(val)
-                        //self.imageView.sd_setImage(with: profileUrl)
-                        //imageBuffer = self.imageView.image!
-                        
-                    }
-                }
-                
-                MBProgressHUD.hide(for: self.view, animated: true)
-                print("Dimiss VC")
-                self.navigationController?.popViewController(animated: true)
-            }) { (error) in print(error.localizedDescription)}
-            
-            
-            
-        })
     }
     
     // MARK: - UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        imageView.image = info[UIImagePickerControllerOriginalImage] as! UIImage?
-        //self.profilePic = info[UIImagePickerControllerOriginalImage] as! UIImage?
+        imageView.image = info[UIImagePickerControllerEditedImage] as! UIImage?
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
         dismiss(animated: true, completion: nil)
     }
     
@@ -131,6 +140,12 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         actionSheet.addAction(UIAlertAction(title:"Cancel", style: .cancel, handler:nil))
         self.present(actionSheet, animated: true, completion: nil)
 
+    }
+    
+    func createNetworkAlert (){
+        let alert = UIAlertController(title: "Alert", message: "Network Connection Error", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title:"Try Again", style: UIAlertActionStyle.default, handler:nil))
+        self.present(alert, animated: true, completion: nil)
     }
 
     

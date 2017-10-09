@@ -15,7 +15,6 @@
 		5DB6C4CB1F439B8F00F0128F /* AgrumeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB6C4C61F439B8F00F0128F /* AgrumeCell.swift */; };
 		5DB6C4CC1F439B8F00F0128F /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB6C4C71F439B8F00F0128F /* UIViewExtensions.swift */; };
 		5DBF1ED21F40AF2C00CB2CC8 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1ECF1F40AF2C00CB2CC8 /* LoginVC.swift */; };
-		5DBF1ED31F40AF2C00CB2CC8 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1ED01F40AF2C00CB2CC8 /* RegisterVC.swift */; };
 		5DBF1ED41F40AF2C00CB2CC8 /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1ED11F40AF2C00CB2CC8 /* LaunchVC.swift */; };
 		5DBF1ED71F40B72600CB2CC8 /* UIColor+HexColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1ED61F40B72600CB2CC8 /* UIColor+HexColors.swift */; };
 		5DBF1ED91F40B94E00CB2CC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DBF1ED81F40B94E00CB2CC8 /* GoogleService-Info.plist */; };
@@ -31,6 +30,7 @@
 		834D324D1F894E0200ECD75E /* SettingProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 834D324C1F894E0200ECD75E /* SettingProfileTableViewCell.xib */; };
 		834D324F1F895E7100ECD75E /* infoHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834D324E1F895E7100ECD75E /* infoHeaderTableViewCell.swift */; };
 		834D32511F896CD200ECD75E /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834D32501F896CD200ECD75E /* NetworkReachability.swift */; };
+		7612B1981F895C0200C92625 /* OpenUrlController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7612B1971F895C0200C92625 /* OpenUrlController.swift */; };
 		9011DF451EEEBEA400C43D05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9011DF441EEEBEA400C43D05 /* AppDelegate.swift */; };
 		9011DF4A1EEEBEA400C43D05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9011DF481EEEBEA400C43D05 /* Main.storyboard */; };
 		9011DF4C1EEEBEA400C43D05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9011DF4B1EEEBEA400C43D05 /* Assets.xcassets */; };
@@ -445,7 +445,6 @@
 		5DB6C4C61F439B8F00F0128F /* AgrumeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgrumeCell.swift; sourceTree = "<group>"; };
 		5DB6C4C71F439B8F00F0128F /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		5DBF1ECF1F40AF2C00CB2CC8 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = Launch/LoginVC.swift; sourceTree = "<group>"; };
-		5DBF1ED01F40AF2C00CB2CC8 /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterVC.swift; path = Launch/RegisterVC.swift; sourceTree = "<group>"; };
 		5DBF1ED11F40AF2C00CB2CC8 /* LaunchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LaunchVC.swift; path = Launch/LaunchVC.swift; sourceTree = "<group>"; };
 		5DBF1ED61F40B72600CB2CC8 /* UIColor+HexColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HexColors.swift"; sourceTree = "<group>"; };
 		5DBF1ED81F40B94E00CB2CC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -460,6 +459,7 @@
 		834D324C1F894E0200ECD75E /* SettingProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingProfileTableViewCell.xib; sourceTree = "<group>"; };
 		834D324E1F895E7100ECD75E /* infoHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = infoHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		834D32501F896CD200ECD75E /* NetworkReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
+		7612B1971F895C0200C92625 /* OpenUrlController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpenUrlController.swift; path = Launch/OpenUrlController.swift; sourceTree = "<group>"; };
 		9011DF411EEEBEA400C43D05 /* Hyphenate-Demo-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hyphenate-Demo-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9011DF441EEEBEA400C43D05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9011DF491EEEBEA400C43D05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -927,9 +927,9 @@
 		5DBF1ED51F40AF3200CB2CC8 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
+				7612B1971F895C0200C92625 /* OpenUrlController.swift */,
 				5DBF1ECF1F40AF2C00CB2CC8 /* LoginVC.swift */,
 				3051ACBB1F701651006CA756 /* AutoLoginVC.swift */,
-				5DBF1ED01F40AF2C00CB2CC8 /* RegisterVC.swift */,
 				5DBF1ED11F40AF2C00CB2CC8 /* LaunchVC.swift */,
 			);
 			name = Launch;
@@ -2151,7 +2151,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		3D20CFBE5A5A6C83003022E2 /* [CP] Copy Pods Resources */ = {
@@ -2177,6 +2177,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Hyphenate-Demo-Swift/Pods-Hyphenate-Demo-Swift-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
 				"${BUILT_PRODUCTS_DIR}/DACircularProgress/DACircularProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
@@ -2193,6 +2194,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DACircularProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
@@ -2262,6 +2264,7 @@
 				834D32471F894C6E00ECD75E /* SettingProfileTableViewCell.swift in Sources */,
 				90190C7F1F0F76F000A238F3 /* EMChatsSettingViewController.swift in Sources */,
 				908462371EF77A140008E480 /* EMChatToolBar.swift in Sources */,
+				7612B1981F895C0200C92625 /* OpenUrlController.swift in Sources */,
 				5DBF1EE01F40C4C600CB2CC8 /* MainTableViewController.swift in Sources */,
 				90749ED91EF90E5B00D3A065 /* amrFileCodec.mm in Sources */,
 				B0303F491F54ED970061D7F7 /* ConnectedWithStudentVC.swift in Sources */,
