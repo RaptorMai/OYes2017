@@ -25,13 +25,45 @@ exports.createStripeUser = functions.auth.user().onCreate(event => {
 				if (error) {
 					console.log("Stripe customerID cannot be written into db: " + error);
 				};
-				admin.database().ref(`/users/${data.phoneNumber}/balance`).set(30, function(error){
+				admin.database().ref(`/users/${data.phoneNumber}/balance`).set(60, function(error){
 					if (error) {
 						console.log("New user balance cannot be created: " + error);
 					};
 					return console.log("Student account has been all setup");
 				});
 			});
+		});
+
+		admin.database().ref(`/users/${data.phoneNumber}/email`).set("Please add your email", function(error){
+					if (error) {
+						console.log("New user email cannot be created: " + error);
+					};
+					return console.log("email setup");
+		});
+		admin.database().ref(`/users/${data.phoneNumber}/username`).set("Please add your username", function(error){
+					if (error) {
+						console.log("New user username cannot be created: " + error);
+					};
+					return console.log("name setup");
+		});
+		admin.database().ref(`/users/${data.phoneNumber}/grade`).set("Please select your grade", function(error){
+					if (error) {
+						console.log("New user grade cannot be created: " + error);
+					};
+					return console.log("grade setup");
+		});
+		admin.database().ref(`/users/${data.phoneNumber}/profilepicURL`).set("", function(error){
+					if (error) {
+						console.log("New user profilepicURL cannot be created: " + error);
+					};
+					return console.log("profilepicURL setup");
+		});
+
+		admin.database().ref(`/users/${data.phoneNumber}/discountAvailable`).set(5, function(error){
+					if (error) {
+						console.log("New user discountAvailable cannot be created: " + error);
+					};
+					return console.log("discountAvailable setup");
 		});
 	}
 	// if phoneNumber does not exist, means user is a tutor
