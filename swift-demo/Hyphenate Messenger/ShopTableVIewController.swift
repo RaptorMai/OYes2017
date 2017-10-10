@@ -229,7 +229,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             let discountedPriceString = String(format: "$%.2f", discountedPrice / 100)
             
             cell.setDispayContent(packageName: "\(product) mins package", atPrice: "$\(Double(price)/100)", discounted: (numDiscountAvailable > 0), atPrice: discountedPriceString, discountRate: discountRateString)
-            cell.addPurchaseAction(self, action: #selector(ShopTableViewController.payAlert(_:)))
+            cell.addPurchaseAction(self, action: #selector(ShopTableViewController.payAlert(_:)), amount: price)
             
             return cell
         }
@@ -320,7 +320,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     
     
     func payButton(_ amount: Int) {
-        print("pay button clicked")
+        print("pay button clicked for amount: \(amount)")
         print(uid)
         
         showHud(in: view, hint: "Purchasing")
