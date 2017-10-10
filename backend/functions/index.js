@@ -44,6 +44,7 @@ exports.stripeCharge = functions.database
 								.ref('/users/{userId}/payments/charges/{id}/content')
 								.onWrite(event => {
 									console.log("a new charge is written into db");
+									// here val is {amount:xxx, discount:<0,1>}
 									const val = event.data.val();
 									admin.database().ref("/globalConfig/discountRate").once("value").then(snapshot => {
 										const discountRate = snapshot.val();
@@ -52,6 +53,7 @@ exports.stripeCharge = functions.database
 										return discountRate;
 									}).then(disRate => {
 
+									// here this two then callback could be combined
 									// val should be amount of purchase
 									console.log("purchase info");
 									console.log(val);
@@ -67,6 +69,7 @@ exports.stripeCharge = functions.database
 									return amount;
 
 								}).then(amount => {
+									// optimization: could change db architecture to use stripe customer ID as a key
 									return admin.database().ref(`/users/${event.params.userId}/payments/customerId`)
 												.once('value')
 												.then(snapshot => {
@@ -134,6 +137,7 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 				console.log(source);
 
 				// return a customer object
+				// here snapshot.val is stripe customer ID
 				return stripe.customers.retrieve(snapshot.val(), function(err, customerobj){
 					if (err) {
 						event.data.adminRef.parent.child('error').set(err.message);
