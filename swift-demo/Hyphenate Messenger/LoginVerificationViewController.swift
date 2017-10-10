@@ -67,7 +67,7 @@ class LoginVerificationViewController: UIViewController {
         let area = num / 10000000
         let mid = (num - area * 10000000) / 10000
         let last = num - area * 10000000 - mid * 10000
-        return "+1 (\(area)) \(mid) \(last)"
+        return String(format: "+1 (%03d) %03d %04d", area, mid, last)
     }
     
     // MARK: - Timer
