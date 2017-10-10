@@ -11,6 +11,7 @@ import MessageUI
 import Firebase
 import FirebaseDatabase
 import Hyphenate
+import FirebaseAuth
 
 
 class MyProfileViewControllerTableViewController: UITableViewController, MFMailComposeViewControllerDelegate{
@@ -87,13 +88,13 @@ class MyProfileViewControllerTableViewController: UITableViewController, MFMailC
                 return cell
             }
             
-        // Section: INFORMARION
+        // Section: PRIVACY
         } else if indexPath.section == 1{
             switch indexPath.row {
             // Password
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "passwordCell", for: indexPath) as! passwordTableViewCell
-                cell.passwordCellLabel.text = "Password"
+                cell.passwordCellLabel.text = "Reset Password"
                 return cell
             // Should Never Reach
             default:
@@ -102,7 +103,9 @@ class MyProfileViewControllerTableViewController: UITableViewController, MFMailC
             
             }
             
-        } else {
+        }
+            // Section: INFORMATION
+        else {
             switch indexPath.row {                
             // Email
             case 0:
@@ -151,9 +154,15 @@ class MyProfileViewControllerTableViewController: UITableViewController, MFMailC
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2{
             if indexPath.row == 0{
-                print("clicked")
+                print("clicked email")
                 tableView.deselectRow(at: indexPath, animated: true)
                 createChangeEmailAlert()
+            }
+        } else if indexPath.section == 1{
+            if indexPath.row == 0 {
+                print("cliced password")
+                tableView.deselectRow(at: indexPath, animated: true)
+                createPasswordChangeAlert()
             }
         }
     }
@@ -207,6 +216,38 @@ class MyProfileViewControllerTableViewController: UITableViewController, MFMailC
         }
         // Dismiss mail view controller and back to setting page
         self.dismiss(animated:true, completion: nil)
+    }
+    
+    // PW change alert
+    func createPasswordChangeAlert (){
+        let email = UserDefaults.standard.string(forKey: "userEmail")
+        let alert = UIAlertController(title: "Alert", message: "Do you want to reset your password? An email will be sent to you", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title:"Change Password", style: UIAlertActionStyle.default, handler:{(action:UIAlertAction) in
+            self.resetPW(email!)
+        }))
+        alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertActionStyle.default, handler:nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    // reset user password
+    func resetPW(_ email: String){
+        
+        self.show("")
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            self.hideHub()
+            if error != nil{
+                let alert = UIAlertController(title: "Error", message: "\((error?.localizedDescription)!)", preferredStyle: .alert)
+                let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(okay)
+                self.present(alert, animated: true, completion: nil)
+            }
+            else{
+                let alert = UIAlertController(title: "Email Sent", message: "Please check Email and reset password", preferredStyle: .alert)
+                let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(okay)
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
     
     

@@ -35,7 +35,6 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         }else{
             imageView.image = UIImage(named:"placeholder")
         }
-        
         self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
@@ -83,7 +82,6 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
                         
                         if snapshot.exists(){
                             let val = snapshot.value as? String
-                            print(val)
                             if (val == nil){
                                 imageBuffer = UIImage(named: "placeholder")!
                                 let imgData = UIImageJPEGRepresentation(imageBuffer, 1)

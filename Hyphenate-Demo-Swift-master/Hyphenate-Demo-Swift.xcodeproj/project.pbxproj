@@ -25,12 +25,23 @@
 		5DBF1EE41F40C4E300CB2CC8 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1EE31F40C4E300CB2CC8 /* SettingsVC.swift */; };
 		5DBF1EF31F40FAF400CB2CC8 /* FoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBF1EF21F40FAF400CB2CC8 /* FoldingCell.swift */; };
 		672BE66FDFF04D2E7D8741AD /* Pods_Hyphenate_Demo_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C955AB940CDDDC270F02086 /* Pods_Hyphenate_Demo_Swift.framework */; };
+		7632A7B31F8BFBED00A8A4FC /* emailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7632A7A71F8BFBEC00A8A4FC /* emailTableViewCell.swift */; };
+		7632A7B41F8BFBED00A8A4FC /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7632A7A81F8BFBEC00A8A4FC /* EmailViewController.swift */; };
+		7632A7B51F8BFBED00A8A4FC /* GradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7632A7A91F8BFBEC00A8A4FC /* GradeViewController.swift */; };
+		7632A7B61F8BFBED00A8A4FC /* informationHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7632A7AA1F8BFBEC00A8A4FC /* informationHeaderTableViewCell.swift */; };
+		7632A7B71F8BFBED00A8A4FC /* moreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7632A7AB1F8BFBEC00A8A4FC /* moreTableViewCell.swift */; };
+		7632A7B81F8BFBED00A8A4FC /* MyProfileViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7632A7AC1F8BFBEC00A8A4FC /* MyProfileViewControllerTableViewController.swift */; };
+		7632A7B91F8BFBED00A8A4FC /* nameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7632A7AD1F8BFBEC00A8A4FC /* nameTableViewCell.swift */; };
+		7632A7BA1F8BFBED00A8A4FC /* NameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7632A7AE1F8BFBEC00A8A4FC /* NameViewController.swift */; };
+		7632A7BB1F8BFBED00A8A4FC /* passwordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7632A7AF1F8BFBEC00A8A4FC /* passwordTableViewCell.swift */; };
+		7632A7BC1F8BFBED00A8A4FC /* profileHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7632A7B01F8BFBEC00A8A4FC /* profileHeaderTableViewCell.swift */; };
+		7632A7BD1F8BFBED00A8A4FC /* profilePictureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7632A7B11F8BFBEC00A8A4FC /* profilePictureTableViewCell.swift */; };
+		7632A7BE1F8BFBED00A8A4FC /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7632A7B21F8BFBEC00A8A4FC /* ProfileSettingViewController.swift */; };
 		834D32451F887CD800ECD75E /* ProfileSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 834D32441F887CD800ECD75E /* ProfileSetting.storyboard */; };
 		834D32471F894C6E00ECD75E /* SettingProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834D32461F894C6E00ECD75E /* SettingProfileTableViewCell.swift */; };
 		834D324D1F894E0200ECD75E /* SettingProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 834D324C1F894E0200ECD75E /* SettingProfileTableViewCell.xib */; };
 		834D324F1F895E7100ECD75E /* infoHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834D324E1F895E7100ECD75E /* infoHeaderTableViewCell.swift */; };
 		834D32511F896CD200ECD75E /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834D32501F896CD200ECD75E /* NetworkReachability.swift */; };
-		7612B1981F895C0200C92625 /* OpenUrlController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7612B1971F895C0200C92625 /* OpenUrlController.swift */; };
 		9011DF451EEEBEA400C43D05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9011DF441EEEBEA400C43D05 /* AppDelegate.swift */; };
 		9011DF4A1EEEBEA400C43D05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9011DF481EEEBEA400C43D05 /* Main.storyboard */; };
 		9011DF4C1EEEBEA400C43D05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9011DF4B1EEEBEA400C43D05 /* Assets.xcassets */; };
@@ -415,18 +426,6 @@
 		90FB78971EF7EE9B00B02F60 /* EMConvertToCommonEmoticonsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FB78921EF7EE9B00B02F60 /* EMConvertToCommonEmoticonsHelper.m */; };
 		90FB78981EF7EE9B00B02F60 /* EMEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FB78941EF7EE9B00B02F60 /* EMEmoji.m */; };
 		90FB78991EF7EE9B00B02F60 /* EMEmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FB78961EF7EE9B00B02F60 /* EMEmojiEmoticons.m */; };
-		A13419281F7B4FB200C27275 /* profileHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A134191B1F7B4FAE00C27275 /* profileHeaderTableViewCell.swift */; };
-		A13419291F7B4FB200C27275 /* nameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A134191C1F7B4FAE00C27275 /* nameTableViewCell.swift */; };
-		A134192A1F7B4FB200C27275 /* informationHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A134191D1F7B4FAF00C27275 /* informationHeaderTableViewCell.swift */; };
-		A134192B1F7B4FB200C27275 /* profilePictureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A134191F1F7B4FAF00C27275 /* profilePictureTableViewCell.swift */; };
-		A134192C1F7B4FB200C27275 /* passwordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13419201F7B4FB000C27275 /* passwordTableViewCell.swift */; };
-		A134192D1F7B4FB200C27275 /* emailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13419211F7B4FB000C27275 /* emailTableViewCell.swift */; };
-		A134192E1F7B4FB200C27275 /* NameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13419221F7B4FB000C27275 /* NameViewController.swift */; };
-		A134192F1F7B4FB200C27275 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13419231F7B4FB000C27275 /* ProfileSettingViewController.swift */; };
-		A13419301F7B4FB200C27275 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13419241F7B4FB000C27275 /* EmailViewController.swift */; };
-		A13419311F7B4FB200C27275 /* GradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13419251F7B4FB100C27275 /* GradeViewController.swift */; };
-		A13419321F7B4FB200C27275 /* MyProfileViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13419261F7B4FB200C27275 /* MyProfileViewControllerTableViewController.swift */; };
-		A13419331F7B4FB200C27275 /* moreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13419271F7B4FB200C27275 /* moreTableViewCell.swift */; };
 		A1E4B1971F735875003077B4 /* SettingsFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4B1961F735875003077B4 /* SettingsFeedbackController.swift */; };
 		A1E4B1991F740EC0003077B4 /* webViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4B1981F740EC0003077B4 /* webViewController.swift */; };
 		A1E4B19B1F755E4A003077B4 /* settingEmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4B19A1F755E4A003077B4 /* settingEmailVC.swift */; };
@@ -454,12 +453,23 @@
 		5DBF1EDE1F40C4C600CB2CC8 /* QuestionsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionsVC.swift; path = Questions/QuestionsVC.swift; sourceTree = "<group>"; };
 		5DBF1EE31F40C4E300CB2CC8 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		5DBF1EF21F40FAF400CB2CC8 /* FoldingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoldingCell.swift; path = Questions/FoldingCell.swift; sourceTree = "<group>"; };
+		7632A7A71F8BFBEC00A8A4FC /* emailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = emailTableViewCell.swift; sourceTree = "<group>"; };
+		7632A7A81F8BFBEC00A8A4FC /* EmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
+		7632A7A91F8BFBEC00A8A4FC /* GradeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradeViewController.swift; sourceTree = "<group>"; };
+		7632A7AA1F8BFBEC00A8A4FC /* informationHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = informationHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		7632A7AB1F8BFBEC00A8A4FC /* moreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = moreTableViewCell.swift; sourceTree = "<group>"; };
+		7632A7AC1F8BFBEC00A8A4FC /* MyProfileViewControllerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileViewControllerTableViewController.swift; sourceTree = "<group>"; };
+		7632A7AD1F8BFBEC00A8A4FC /* nameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nameTableViewCell.swift; sourceTree = "<group>"; };
+		7632A7AE1F8BFBEC00A8A4FC /* NameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameViewController.swift; sourceTree = "<group>"; };
+		7632A7AF1F8BFBEC00A8A4FC /* passwordTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passwordTableViewCell.swift; sourceTree = "<group>"; };
+		7632A7B01F8BFBEC00A8A4FC /* profileHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		7632A7B11F8BFBEC00A8A4FC /* profilePictureTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profilePictureTableViewCell.swift; sourceTree = "<group>"; };
+		7632A7B21F8BFBEC00A8A4FC /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		834D32441F887CD800ECD75E /* ProfileSetting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProfileSetting.storyboard; sourceTree = "<group>"; };
 		834D32461F894C6E00ECD75E /* SettingProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingProfileTableViewCell.swift; sourceTree = "<group>"; };
 		834D324C1F894E0200ECD75E /* SettingProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingProfileTableViewCell.xib; sourceTree = "<group>"; };
 		834D324E1F895E7100ECD75E /* infoHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = infoHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		834D32501F896CD200ECD75E /* NetworkReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
-		7612B1971F895C0200C92625 /* OpenUrlController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpenUrlController.swift; path = Launch/OpenUrlController.swift; sourceTree = "<group>"; };
 		9011DF411EEEBEA400C43D05 /* Hyphenate-Demo-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hyphenate-Demo-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9011DF441EEEBEA400C43D05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9011DF491EEEBEA400C43D05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -869,18 +879,6 @@
 		90FB78951EF7EE9B00B02F60 /* EMEmojiEmoticons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMEmojiEmoticons.h; sourceTree = "<group>"; };
 		90FB78961EF7EE9B00B02F60 /* EMEmojiEmoticons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMEmojiEmoticons.m; sourceTree = "<group>"; };
 		90FB789D1EF7EF4B00B02F60 /* Hyphenate-Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hyphenate-Bridge-Header.h"; sourceTree = "<group>"; };
-		A134191B1F7B4FAE00C27275 /* profileHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = profileHeaderTableViewCell.swift; path = "Hyphenate-Demo-Swift/Code/ProfileSetting/profileHeaderTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
-		A134191C1F7B4FAE00C27275 /* nameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = nameTableViewCell.swift; path = "Hyphenate-Demo-Swift/Code/ProfileSetting/nameTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
-		A134191D1F7B4FAF00C27275 /* informationHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = informationHeaderTableViewCell.swift; path = "Hyphenate-Demo-Swift/Code/ProfileSetting/informationHeaderTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
-		A134191F1F7B4FAF00C27275 /* profilePictureTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = profilePictureTableViewCell.swift; path = "Hyphenate-Demo-Swift/Code/ProfileSetting/profilePictureTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
-		A13419201F7B4FB000C27275 /* passwordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = passwordTableViewCell.swift; path = "Hyphenate-Demo-Swift/Code/ProfileSetting/passwordTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
-		A13419211F7B4FB000C27275 /* emailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = emailTableViewCell.swift; path = "Hyphenate-Demo-Swift/Code/ProfileSetting/emailTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
-		A13419221F7B4FB000C27275 /* NameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NameViewController.swift; path = "Hyphenate-Demo-Swift/Code/ProfileSetting/NameViewController.swift"; sourceTree = SOURCE_ROOT; };
-		A13419231F7B4FB000C27275 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileSettingViewController.swift; path = "Hyphenate-Demo-Swift/Code/ProfileSetting/ProfileSettingViewController.swift"; sourceTree = SOURCE_ROOT; };
-		A13419241F7B4FB000C27275 /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmailViewController.swift; path = "Hyphenate-Demo-Swift/Code/ProfileSetting/EmailViewController.swift"; sourceTree = SOURCE_ROOT; };
-		A13419251F7B4FB100C27275 /* GradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GradeViewController.swift; path = "Hyphenate-Demo-Swift/Code/ProfileSetting/GradeViewController.swift"; sourceTree = SOURCE_ROOT; };
-		A13419261F7B4FB200C27275 /* MyProfileViewControllerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyProfileViewControllerTableViewController.swift; path = "Hyphenate-Demo-Swift/Code/ProfileSetting/MyProfileViewControllerTableViewController.swift"; sourceTree = SOURCE_ROOT; };
-		A13419271F7B4FB200C27275 /* moreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = moreTableViewCell.swift; path = "Hyphenate-Demo-Swift/Code/ProfileSetting/moreTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		A1E4B1961F735875003077B4 /* SettingsFeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeedbackController.swift; sourceTree = "<group>"; };
 		A1E4B1981F740EC0003077B4 /* webViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = webViewController.swift; sourceTree = "<group>"; };
 		A1E4B19A1F755E4A003077B4 /* settingEmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingEmailVC.swift; sourceTree = "<group>"; };
@@ -927,7 +925,6 @@
 		5DBF1ED51F40AF3200CB2CC8 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
-				7612B1971F895C0200C92625 /* OpenUrlController.swift */,
 				5DBF1ECF1F40AF2C00CB2CC8 /* LoginVC.swift */,
 				3051ACBB1F701651006CA756 /* AutoLoginVC.swift */,
 				5DBF1ED11F40AF2C00CB2CC8 /* LaunchVC.swift */,
@@ -955,6 +952,25 @@
 				2C955AB940CDDDC270F02086 /* Pods_Hyphenate_Demo_Swift.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7632A7A61F8BFBEC00A8A4FC /* ProfileSetting */ = {
+			isa = PBXGroup;
+			children = (
+				7632A7A71F8BFBEC00A8A4FC /* emailTableViewCell.swift */,
+				7632A7A81F8BFBEC00A8A4FC /* EmailViewController.swift */,
+				7632A7A91F8BFBEC00A8A4FC /* GradeViewController.swift */,
+				7632A7AA1F8BFBEC00A8A4FC /* informationHeaderTableViewCell.swift */,
+				7632A7AB1F8BFBEC00A8A4FC /* moreTableViewCell.swift */,
+				7632A7AC1F8BFBEC00A8A4FC /* MyProfileViewControllerTableViewController.swift */,
+				7632A7AD1F8BFBEC00A8A4FC /* nameTableViewCell.swift */,
+				7632A7AE1F8BFBEC00A8A4FC /* NameViewController.swift */,
+				7632A7AF1F8BFBEC00A8A4FC /* passwordTableViewCell.swift */,
+				7632A7B01F8BFBEC00A8A4FC /* profileHeaderTableViewCell.swift */,
+				7632A7B11F8BFBEC00A8A4FC /* profilePictureTableViewCell.swift */,
+				7632A7B21F8BFBEC00A8A4FC /* ProfileSettingViewController.swift */,
+			);
+			path = ProfileSetting;
 			sourceTree = "<group>";
 		};
 		9011DF381EEEBEA400C43D05 = {
@@ -1631,25 +1647,13 @@
 		908324F11EEFF06400811A97 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				A134191B1F7B4FAE00C27275 /* profileHeaderTableViewCell.swift */,
-				A134191F1F7B4FAF00C27275 /* profilePictureTableViewCell.swift */,
-				A134191C1F7B4FAE00C27275 /* nameTableViewCell.swift */,
-				A134191D1F7B4FAF00C27275 /* informationHeaderTableViewCell.swift */,
-				A13419201F7B4FB000C27275 /* passwordTableViewCell.swift */,
+				7632A7A61F8BFBEC00A8A4FC /* ProfileSetting */,
 				30423E371F8AB4CF0042B1DC /* ResetPWViewController.swift */,
 				834D324E1F895E7100ECD75E /* infoHeaderTableViewCell.swift */,
-				A13419211F7B4FB000C27275 /* emailTableViewCell.swift */,
-				A13419271F7B4FB200C27275 /* moreTableViewCell.swift */,
 				834D32441F887CD800ECD75E /* ProfileSetting.storyboard */,
-				A13419261F7B4FB200C27275 /* MyProfileViewControllerTableViewController.swift */,
-				A13419231F7B4FB000C27275 /* ProfileSettingViewController.swift */,
-				A13419221F7B4FB000C27275 /* NameViewController.swift */,
-				A13419241F7B4FB000C27275 /* EmailViewController.swift */,
-				A13419251F7B4FB100C27275 /* GradeViewController.swift */,
 				834D324C1F894E0200ECD75E /* SettingProfileTableViewCell.xib */,
 				834D32461F894C6E00ECD75E /* SettingProfileTableViewCell.swift */,
 				834D32501F896CD200ECD75E /* NetworkReachability.swift */,
-				A13418FE1F7B445900C27275 /* Profile */,
 				5DBF1EE31F40C4E300CB2CC8 /* SettingsVC.swift */,
 				90F3DC3D1F023B4E00DEBB86 /* EMBaseSettingController.swift */,
 				901D8D051F0F3998009D6644 /* EMSettingsViewController.swift */,
@@ -1728,13 +1732,6 @@
 				90FB78961EF7EE9B00B02F60 /* EMEmojiEmoticons.m */,
 			);
 			path = Emoji;
-			sourceTree = "<group>";
-		};
-		A13418FE1F7B445900C27275 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2151,7 +2148,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3D20CFBE5A5A6C83003022E2 /* [CP] Copy Pods Resources */ = {
@@ -2176,6 +2173,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Hyphenate-Demo-Swift/Pods-Hyphenate-Demo-Swift-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
 				"${BUILT_PRODUCTS_DIR}/DACircularProgress/DACircularProgress.framework",
@@ -2193,6 +2192,8 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DACircularProgress.framework",
@@ -2229,7 +2230,6 @@
 				90B43DC71F00F1100084E67F /* EMMessageReadManager.swift in Sources */,
 				9011E1CC1EEEC38600C43D05 /* EMColorUtils.swift in Sources */,
 				90FB78981EF7EE9B00B02F60 /* EMEmoji.m in Sources */,
-				A13419331F7B4FB200C27275 /* moreTableViewCell.swift in Sources */,
 				90190C831F0F997D00A238F3 /* EMPushNotificationViewController.swift in Sources */,
 				5DBF1EE11F40C4C600CB2CC8 /* QuestionsVC.swift in Sources */,
 				9024B15A1F00AEAD0043FD81 /* EMLocationViewController.swift in Sources */,
@@ -2237,24 +2237,25 @@
 				90749ED21EF90E5B00D3A065 /* EMAudioPlayerUtil.m in Sources */,
 				908462341EF779270008E480 /* EMChatViewController.swift in Sources */,
 				90B43DD81F0133180084E67F /* EMApplyModel.swift in Sources */,
+				7632A7B71F8BFBED00A8A4FC /* moreTableViewCell.swift in Sources */,
 				90749ED51EF90E5B00D3A065 /* EMCDDeviceManager+Microphone.m in Sources */,
 				906AD6421EFB6D22004CCCAE /* EMChatBaseCell.swift in Sources */,
+				7632A7BA1F8BFBED00A8A4FC /* NameViewController.swift in Sources */,
+				7632A7B81F8BFBED00A8A4FC /* MyProfileViewControllerTableViewController.swift in Sources */,
+				7632A7B41F8BFBED00A8A4FC /* EmailViewController.swift in Sources */,
 				90FB788D1EF7E76700B02F60 /* EMFaceView.swift in Sources */,
 				90169F601EF275A300B9ADC6 /* UIImage+HeadImage.swift in Sources */,
 				906FB2551EFCD2A400CA241E /* EMChatImageBubbleView.swift in Sources */,
+				7632A7B91F8BFBED00A8A4FC /* nameTableViewCell.swift in Sources */,
 				90F3DC3F1F023B4E00DEBB86 /* EMBaseSettingController.swift in Sources */,
-				5DBF1ED31F40AF2C00CB2CC8 /* RegisterVC.swift in Sources */,
 				A1E4B19B1F755E4A003077B4 /* settingEmailVC.swift in Sources */,
-				A134192F1F7B4FB200C27275 /* ProfileSettingViewController.swift in Sources */,
 				90B43DD11F012D8F0084E67F /* EMGroupTitleCell.swift in Sources */,
-				A13419301F7B4FB200C27275 /* EmailViewController.swift in Sources */,
 				90B43DCE1F0120F10084E67F /* EMUserModel.swift in Sources */,
 				90190C781F0F470F00A238F3 /* EMAboutViewController.swift in Sources */,
 				906AD6471EFB8705004CCCAE /* EMChatTextBubbleView.swift in Sources */,
 				906AD6491EFBC74A004CCCAE /* EMSDKHelper.swift in Sources */,
 				90B43DC31F00C9C90084E67F /* EMChatLocationBubbleView.swift in Sources */,
 				5DB6C4CB1F439B8F00F0128F /* AgrumeCell.swift in Sources */,
-				A134192E1F7B4FB200C27275 /* NameViewController.swift in Sources */,
 				5DBF1ED41F40AF2C00CB2CC8 /* LaunchVC.swift in Sources */,
 				90FB78971EF7EE9B00B02F60 /* EMConvertToCommonEmoticonsHelper.m in Sources */,
 				3051ACBC1F701651006CA756 /* AutoLoginVC.swift in Sources */,
@@ -2263,22 +2264,21 @@
 				5DB6C4CC1F439B8F00F0128F /* UIViewExtensions.swift in Sources */,
 				834D32471F894C6E00ECD75E /* SettingProfileTableViewCell.swift in Sources */,
 				90190C7F1F0F76F000A238F3 /* EMChatsSettingViewController.swift in Sources */,
+				7632A7B31F8BFBED00A8A4FC /* emailTableViewCell.swift in Sources */,
+				7632A7BB1F8BFBED00A8A4FC /* passwordTableViewCell.swift in Sources */,
 				908462371EF77A140008E480 /* EMChatToolBar.swift in Sources */,
-				7612B1981F895C0200C92625 /* OpenUrlController.swift in Sources */,
 				5DBF1EE01F40C4C600CB2CC8 /* MainTableViewController.swift in Sources */,
 				90749ED91EF90E5B00D3A065 /* amrFileCodec.mm in Sources */,
 				B0303F491F54ED970061D7F7 /* ConnectedWithStudentVC.swift in Sources */,
+				7632A7B61F8BFBED00A8A4FC /* informationHeaderTableViewCell.swift in Sources */,
 				90B777CF1EF140E0006D0977 /* EMChatsCell.swift in Sources */,
 				5DBF1EDF1F40C4C600CB2CC8 /* DemoCell.swift in Sources */,
 				5DBF1EE41F40C4E300CB2CC8 /* SettingsVC.swift in Sources */,
-				A13419321F7B4FB200C27275 /* MyProfileViewControllerTableViewController.swift in Sources */,
-				A13419291F7B4FB200C27275 /* nameTableViewCell.swift in Sources */,
 				90749EDA1EF90E5B00D3A065 /* wav.mm in Sources */,
 				90FB78991EF7EE9B00B02F60 /* EMEmojiEmoticons.m in Sources */,
 				90749ED41EF90E5B00D3A065 /* EMCDDeviceManager+Media.m in Sources */,
 				5DB6C4C81F439B8F00F0128F /* Agrume.swift in Sources */,
 				90749ED81EF90E5B00D3A065 /* EMCDDeviceManagerBase.m in Sources */,
-				A134192D1F7B4FB200C27275 /* emailTableViewCell.swift in Sources */,
 				90FB78891EF7BFAE00B02F60 /* EMChatRecordView.swift in Sources */,
 				906AD64C1EFBD2DC004CCCAE /* UIViewController+HUD.swift in Sources */,
 				902C0BC31EF24AC80069165E /* EMBaseRefreshTableViewController.swift in Sources */,
@@ -2287,12 +2287,11 @@
 				90FB78851EF78EB000B02F60 /* EMMessageTextView.swift in Sources */,
 				908324EA1EEFE5F000811A97 /* EMMainViewController.swift in Sources */,
 				A1E4B1991F740EC0003077B4 /* webViewController.swift in Sources */,
-				A13419311F7B4FB200C27275 /* GradeViewController.swift in Sources */,
 				906AD6451EFB836D004CCCAE /* EMChatBaseBubbleView.swift in Sources */,
 				5DBF1ED21F40AF2C00CB2CC8 /* LoginVC.swift in Sources */,
 				90C00C771EEF8C5D0049BFAD /* UIView+HyphenateView.swift in Sources */,
 				90B43DC51F00DE0B0084E67F /* EMChatAudioBubbleView.swift in Sources */,
-				A13419281F7B4FB200C27275 /* profileHeaderTableViewCell.swift in Sources */,
+				7632A7B51F8BFBED00A8A4FC /* GradeViewController.swift in Sources */,
 				5DB6C4C91F439B8F00F0128F /* AgrumeServiceLocator.swift in Sources */,
 				90169F621EF2767200B9ADC6 /* EMUserProfileManager.swift in Sources */,
 				908324F51EF0072700811A97 /* EMChatsController.swift in Sources */,
@@ -2302,22 +2301,22 @@
 				902C0BC61EF24BFD0069165E /* EMNotificationNames.swift in Sources */,
 				5DBF1ED71F40B72600CB2CC8 /* UIColor+HexColors.swift in Sources */,
 				90BE5EC41F133D0D00C126EB /* EMSetNameViewController.swift in Sources */,
-				A134192A1F7B4FB200C27275 /* informationHeaderTableViewCell.swift in Sources */,
+				7632A7BE1F8BFBED00A8A4FC /* ProfileSettingViewController.swift in Sources */,
 				90F3DC3C1F023A4D00DEBB86 /* EMChatDemoHelper.swift in Sources */,
 				90749ED61EF90E5B00D3A065 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
+				7632A7BC1F8BFBED00A8A4FC /* profileHeaderTableViewCell.swift in Sources */,
 				90B43DD51F012E910084E67F /* EMApplyRequestCell.swift in Sources */,
 				90749EDB1EF90E5B00D3A065 /* EMVoiceConverter.mm in Sources */,
 				90B777D21EF149AB006D0977 /* EMConversationModel.swift in Sources */,
+				7632A7BD1F8BFBED00A8A4FC /* profilePictureTableViewCell.swift in Sources */,
 				90749ED71EF90E5B00D3A065 /* EMCDDeviceManager+Remind.m in Sources */,
 				90C00C791EEF92290049BFAD /* EMHyphenateDemoUIDefine.swift in Sources */,
 				A1E4B1971F735875003077B4 /* SettingsFeedbackController.swift in Sources */,
 				90AC4A451EFD104F0062DB30 /* EMChatVideoBubbleView.swift in Sources */,
-				A134192C1F7B4FB200C27275 /* passwordTableViewCell.swift in Sources */,
 				90B43DCB1F0120D00084E67F /* EMContactCell.swift in Sources */,
 				5DB6C4CA1F439B8F00F0128F /* ImageDownloader.swift in Sources */,
 				90F3DC461F0242AD00DEBB86 /* NSObject+EMAlertView.swift in Sources */,
 				30423E381F8AB4CF0042B1DC /* ResetPWViewController.swift in Sources */,
-				A134192B1F7B4FB200C27275 /* profilePictureTableViewCell.swift in Sources */,
 				90F3DC3A1F02125700DEBB86 /* EMApplyManager.swift in Sources */,
 				9084622D1EF7754F0008E480 /* EMMessageModel.swift in Sources */,
 				90F9B7231F04F00500513DC1 /* EMContactInfoViewController.swift in Sources */,
