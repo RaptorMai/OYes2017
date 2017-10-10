@@ -13,8 +13,9 @@
 >>> cd functions
 >>> npm install strip --save
 >>> firebase functions:config:set stripe.testkey=""
-
 ```
+firebase init functions will generate firebase.json and functions folder
+after npm install, copy index.js, firebase deploy
 4. delpoy firebase functions:
 ```
 >>> firebase deploy --only functions: <function name you want to deploy>
