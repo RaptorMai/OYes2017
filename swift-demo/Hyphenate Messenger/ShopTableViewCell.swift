@@ -28,8 +28,9 @@ class ShopTableViewCell: UITableViewCell {
     var discountRate: String? = nil
     
     
-    func addPurchaseAction(_ target: Any?, action: Selector) {
+    func addPurchaseAction(_ target: Any?, action: Selector, amount tag: Int) {
         purchaseButton.addTarget(target, action: action, for: .touchUpInside)
+        purchaseButton.tag = tag
     }
     
     func setDispayContent(packageName name: String, atPrice price: String, discounted dis: Bool, atPrice disPrice: String?, discountRate rate: String?) {
