@@ -34,6 +34,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     var product = ""
     var balance = 0
     var firstAppear = false
+    var didShowBanner = false
     
     private var isPaymentCardPresent = false
     
@@ -72,11 +73,13 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     // MARK: VC life cyele
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.navigationItem.title = "Shop"
-        self.tableView.tableFooterView = UIView()
-        self.tableView.separatorInset = .zero
-        
+        tabBarController?.navigationItem.title = "Shop"
+        tableView.tableFooterView = UIView()
+        tableView.separatorInset = .zero
+        // register for cell XIB
+        tableView.register(UINib.init(nibName: "ShopTableViewCell", bundle: nil), forCellReuseIdentifier: "shopTVCell")
         // Load user payment info
+        updatePaymentMethod()
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -143,7 +146,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         tabBarController?.tabBar.items![2].badgeValue = nil
         
         // display banner
-        if numDiscountAvailable > 0 {
+        if numDiscountAvailable > 0 && !didShowBanner {
             let infoBanner = Banner(title: "Discount available!",
                                     subtitle: "Purchase any package at discounted price, \(numDiscountAvailable) times remaining",
                 image: nil,
@@ -152,8 +155,10 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             infoBanner.dismissesOnTap = true
             infoBanner.dismissesOnSwipe = true
             infoBanner.show(duration: 2.0)
+            didShowBanner = true
         }
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Show the navigation bar on other view controllers
@@ -214,33 +219,18 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         print("yes")
         if indexPath.row < productMinutes.count {
             print(indexPath.row)
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "shopTVCell") as! ShopTableViewCell
             //cell.subviews.forEach({ $0.removeFromSuperview() })
             let product = productMinutes[indexPath.row]
             let price = prices[indexPath.row]
-            //let theme = self.settingsVC.settings.theme
-            cell.backgroundColor = theme.secondaryBackgroundColor
-            cell.textLabel?.text = "\(product) mins package"
-            cell.textLabel?.font = theme.font
-            cell.textLabel?.textColor = UIColor.black
-            // cell.detailTextLabel?.text = "$\(price/100).00"
-            // cell.accessoryType = .disclosureIndicator
-            cell.accessoryType = .none
-            // to make it non selectable
-            cell.selectionStyle = .none;
-            if firstAppear == false {
-                firstAppear = true
-                addPurchaseButtonInCell(cell, atIndexPath: indexPath)
-            }
-            else{
-                for view in cell.subviews {
-                    if view is UIButton{
-                        view.removeFromSuperview()
-                    }
-                }
-                addPurchaseButtonInCell(cell, atIndexPath: indexPath)
-            }
-
+            
+            let discountRateString = "\(Int((1 - discountRate) * 100))% off"
+            let discountedPrice = (Double(price) * discountRate).rounded(.up) // in cents
+            let discountedPriceString = String(format: "$%.2f", discountedPrice / 100)
+            
+            cell.setDispayContent(packageName: "\(product) mins package", atPrice: "$\(Double(price)/100)", discounted: (numDiscountAvailable > 0), atPrice: discountedPriceString, discountRate: discountRateString)
+            cell.addPurchaseAction(self, action: #selector(ShopTableViewController.payAlert(_:)))
+            
             return cell
         }
         else{
@@ -249,6 +239,14 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             cell.imageView?.image = #imageLiteral(resourceName: "creditcard")
             cell.textLabel?.text = isPaymentCardPresent ? "Change your card" : "Add payment card"
             return cell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row < productMinutes.count {
+            return 54
+        } else {
+            return 45
         }
     }
     
@@ -406,8 +404,10 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                     self.hideHud()
 
                     // send alert
-                    let title = "Payment Successed"
-                    let message = "You have purchased \(self.product) package for $\(Double(amount)/100)"
+                    let title = "Payment successful"
+                    let chargedAmount: Double = (self.numDiscountAvailable > 0) ? (Double(amount) * self.discountRate).rounded(.up) : Double(amount)
+                    let message = "You have purchased \(self.product) minutes for $\(chargedAmount/100)"
+                    
                     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {(action) in
                         if self.isPurchasingBeforeReqeusting {

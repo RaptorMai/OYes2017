@@ -257,6 +257,8 @@
 		E40E53411F73042A00E12593 /* LoginVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40E533F1F73042900E12593 /* LoginVerificationViewController.swift */; };
 		E40E53431F7306B800E12593 /* AuthenticationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40E53421F7306B800E12593 /* AuthenticationHelper.swift */; };
 		E40E53461F73104700E12593 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E40E533D1F73039A00E12593 /* Authentication.storyboard */; };
+		E4B1A27D1F8C046F00043483 /* ShopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4B1A27C1F8C046F00043483 /* ShopTableViewCell.xib */; };
+		E4B1A2811F8C04F300043483 /* ShopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1A2801F8C04F300043483 /* ShopTableViewCell.swift */; };
 		E4BB684E1F87392200E7296B /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB684D1F87392200E7296B /* Network.swift */; };
 		E4CBB68D1F893C5D0034FFB1 /* AlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBB68C1F893C5D0034FFB1 /* AlertControllerExtension.swift */; };
 		E4CDF1281F8676BC0008C938 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CDF1271F8676BC0008C938 /* Config.swift */; };
@@ -695,6 +697,8 @@
 		E40E533F1F73042900E12593 /* LoginVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVerificationViewController.swift; sourceTree = "<group>"; };
 		E40E53421F7306B800E12593 /* AuthenticationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationHelper.swift; sourceTree = "<group>"; };
 		E40E53481F734CBF00E12593 /* UIViewController+HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIViewController+HUD.swift"; path = "../../../Hyphenate-Demo-Swift-master/Hyphenate-Demo-Swift/Code/Utilities/Category/UIViewController+HUD.swift"; sourceTree = "<group>"; };
+		E4B1A27C1F8C046F00043483 /* ShopTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopTableViewCell.xib; sourceTree = "<group>"; };
+		E4B1A2801F8C04F300043483 /* ShopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTableViewCell.swift; sourceTree = "<group>"; };
 		E4BB684D1F87392200E7296B /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		E4CBB68C1F893C5D0034FFB1 /* AlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerExtension.swift; sourceTree = "<group>"; };
 		E4CDF1271F8676BC0008C938 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -829,6 +833,8 @@
 			isa = PBXGroup;
 			children = (
 				5D9F39ED1F1946FE00D388D9 /* ShopTableVIewController.swift */,
+				E4B1A27C1F8C046F00043483 /* ShopTableViewCell.xib */,
+				E4B1A2801F8C04F300043483 /* ShopTableViewCell.swift */,
 			);
 			name = Shop;
 			sourceTree = "<group>";
@@ -1865,6 +1871,7 @@
 				5DF32E871F1422A8002F43F7 /* LaunchScr.storyboard in Resources */,
 				39062AE81D9F0D4400EE8412 /* ContactTableViewCell.xib in Resources */,
 				B6346B501D9E6C5100CBEAE2 /* EMContactDetailedTableViewCell.xib in Resources */,
+				E4B1A27D1F8C046F00043483 /* ShopTableViewCell.xib in Resources */,
 				5D9F39E81F182EA000D388D9 /* GoogleService-Info.plist in Resources */,
 				B6346B351D9E6C5100CBEAE2 /* MWPhotoBrowser.bundle in Resources */,
 				5D43423A1F266F1700E5CA62 /* CameraView.strings in Resources */,
@@ -2123,6 +2130,7 @@
 				B6346B581D9E6C5100CBEAE2 /* EaseBubbleView+Location.m in Sources */,
 				5D4342231F266F1700E5CA62 /* AKImageCropperScrollView.swift in Sources */,
 				834D32431F88613400ECD75E /* SettingProfileTableViewCell.swift in Sources */,
+				E4B1A2811F8C04F300043483 /* ShopTableViewCell.swift in Sources */,
 				5D4342501F266F1700E5CA62 /* ImageCell.swift in Sources */,
 				9A06AB1C1DB58606003A5B2E /* LabelTableViewCell.swift in Sources */,
 				B6346B1C1D9E6C5100CBEAE2 /* EMSDWebImageDownloaderOperation.m in Sources */,
