@@ -24,10 +24,7 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
         imageView.contentMode = UIViewContentMode.scaleAspectFill
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = imageView.frame.size.width/1.8
-        imageView.clipsToBounds = true
-
+        
         if let data = UserDefaults.standard.data(forKey: DataBaseKeys.profilePhotoKey){
             let imageUIImage: UIImage = UIImage(data: data)!
             imageView.image = imageUIImage
@@ -38,6 +35,12 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
+    override func viewDidLayoutSubviews() {
+        // using constraints, the frame can change
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = imageView.frame.width / 2
+        imageView.clipsToBounds = true
+    }
     
     // MARK: - Title
     open override func viewWillAppear(_ animated: Bool) {
@@ -48,8 +51,6 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         super.viewWillDisappear(animated)
         
     }
-    
- 
     
     
     // MARK: - Outlets
@@ -135,7 +136,7 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
     func handleTap(_ tapGesture: UITapGestureRecognizer) {
         let actionSheet = UIAlertController(title: "Upload Profile Picture", message: nil, preferredStyle: .actionSheet)
         
-        actionSheet.addAction(UIAlertAction(title:"Choose from Albumn", style: .default, handler:{(action:UIAlertAction) in self.pickPhoto()}))
+        actionSheet.addAction(UIAlertAction(title:"Choose from Album", style: .default, handler:{(action:UIAlertAction) in self.pickPhoto()}))
         
         actionSheet.addAction(UIAlertAction(title:"Cancel", style: .cancel, handler:nil))
         self.present(actionSheet, animated: true, completion: nil)
@@ -143,8 +144,8 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
     }
     
     func createNetworkAlert (){
-        let alert = UIAlertController(title: "Alert", message: "Network Connection Error", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title:"Try Again", style: UIAlertActionStyle.default, handler:nil))
+        let alert = UIAlertController(title: "Photo upload failed", message: "Network connection error", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title:"Try again later", style: UIAlertActionStyle.default, handler:nil))
         self.present(alert, animated: true, completion: nil)
     }
 

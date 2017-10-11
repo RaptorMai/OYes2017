@@ -334,7 +334,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         print("pay button clicked for amount: \(amount)")
         print(uid)
         
-        showHud(in: view, hint: "Purchasing")
+        showHud(in: view, hint: "Purchasing\nPlease do not leave the app")
         chargeUsingCustomerId(amount)
     }
     

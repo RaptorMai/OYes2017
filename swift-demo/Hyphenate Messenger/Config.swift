@@ -370,9 +370,11 @@ class AppConfig {
         
         let initialProfileDefaults: [String:String] = [DataBaseKeys.profileEmailKey: "example@gmail.com",
                                                        DataBaseKeys.profileUserNameKey: "Please complete profile",
-                                                       DataBaseKeys.profileGradeKey: "Others",
-                                                       DataBaseKeys.profilePhotoKey: "placeholder"]
+                                                       DataBaseKeys.profileGradeKey: "Others"]
         defaults.register(defaults: initialProfileDefaults)
+        
+        // setting profile photo to placeholder
+        defaults.register(defaults: [DataBaseKeys.profilePhotoKey: UIImageJPEGRepresentation(UIImage(named:"placeholder")!, 1)!])
     }
     
     /// Call this function for first time users
@@ -380,8 +382,8 @@ class AppConfig {
         defaults.set("example@gmail.com", forKey: DataBaseKeys.profileEmailKey)
         defaults.set("Please complete profile", forKey: DataBaseKeys.profileUserNameKey)
         defaults.set("Others", forKey: DataBaseKeys.profileGradeKey)
-        defaults.set("placeholder", forKey: DataBaseKeys.profilePhotoKey)
         defaults.set(1, forKey: DataBaseKeys.profileNeedsUpdateKey)
+        defaults.set(UIImageJPEGRepresentation(UIImage(named:"placeholder")!, 1)!, forKey: DataBaseKeys.profilePhotoKey)
     }
     
     /// Fetch user default from cloud when user first log in
@@ -390,7 +392,7 @@ class AppConfig {
     func getUserProfileAtLogin(_ uid: String) {
         // user name
         ref?.child("users/\(uid)/\(DataBaseKeys.profileUserNameRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
-            if let value = snapshot.value {
+            if let value = snapshot.value as? String {
                 self.defaults.set(value, forKey: DataBaseKeys.profileUserNameKey)
                 self.profileDelegate?.didFetchConfigTypeProfile!()
             }
@@ -400,12 +402,14 @@ class AppConfig {
         ref?.child("users/\(uid)/\(DataBaseKeys.profilePhotoRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
             if let picURLString = snapshot.value as? String {
                 // value is the URL for image, has to download and set to data
-                Alamofire.request(picURLString, method: HTTPMethod.get).responseData(completionHandler: { (data) in
-                    if let imageData = data.data {
-                        self.defaults.set(imageData, forKey: DataBaseKeys.profilePhotoKey)
-                        self.profileDelegate?.didFetchConfigTypeProfile!()
-                    }
-                })
+                if let picURL = URL(string: picURLString) {
+                    Alamofire.request(picURL, method: HTTPMethod.get).responseData(completionHandler: { (data) in
+                        if let imageData = data.data {
+                            self.defaults.set(imageData, forKey: DataBaseKeys.profilePhotoKey)
+                            self.profileDelegate?.didFetchConfigTypeProfile!()
+                        }
+                    })
+                }
             }
         })
         
