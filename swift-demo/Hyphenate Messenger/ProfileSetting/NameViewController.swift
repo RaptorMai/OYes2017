@@ -11,12 +11,13 @@ import Firebase
 import FirebaseDatabase
 import MBProgressHUD
 
-class NameViewController: UIViewController {
+class NameViewController: UIViewController, UITextFieldDelegate {
     // Database
     var ref: DatabaseReference! = Database.database().reference()
     var uid = "+1" + EMClient.shared().currentUsername!
 
     
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,8 +79,12 @@ class NameViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-    
-    
+    // MARK: textfielddelegate
+    // handle return press on keyboard
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        SaveText(saveButton as! UIButton)
+        return true
+    }
 }
 
 
