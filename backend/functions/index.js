@@ -34,19 +34,19 @@ exports.createStripeUser = functions.auth.user().onCreate(event => {
 			});
 		});
 
-		admin.database().ref(`/users/${data.phoneNumber}/email`).set("Please add your email", function(error){
+		admin.database().ref(`/users/${data.phoneNumber}/email`).set("Please add email", function(error){
 					if (error) {
 						console.log("New user email cannot be created: " + error);
 					};
 					return console.log("email setup");
 		});
-		admin.database().ref(`/users/${data.phoneNumber}/username`).set("Please add your username", function(error){
+		admin.database().ref(`/users/${data.phoneNumber}/username`).set("Please add username", function(error){
 					if (error) {
 						console.log("New user username cannot be created: " + error);
 					};
 					return console.log("name setup");
 		});
-		admin.database().ref(`/users/${data.phoneNumber}/grade`).set("Please select your grade", function(error){
+		admin.database().ref(`/users/${data.phoneNumber}/grade`).set("Please select grade", function(error){
 					if (error) {
 						console.log("New user grade cannot be created: " + error);
 					};
