@@ -300,6 +300,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
         self.flag = -1
     }
     
+    ///Use onDisconnect class to cancel question if the app is terminated during waiting
     func cancelFromAppTermination(){
         // This function is called when a cancel order needs to be put through because the app is terminated. It is the same function as cancel action but deleted one line of code "sender.removeFromSuperview()" since there is no sender.
         self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").onDisconnectRemoveValue()

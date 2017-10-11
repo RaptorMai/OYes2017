@@ -195,6 +195,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         //TODO: add conversationid to user default, the conversation need to be processed next time
     }
     
+    ///When the app disconnects firebasem the following value will be set
     func setWhenDisconnected(){
 
         self.ref?.child("Request/active/\(self.category)/\(self.key)").onDisconnectUpdateChildValues(["duration":self.updatedDuration,"rate": 5.0])
