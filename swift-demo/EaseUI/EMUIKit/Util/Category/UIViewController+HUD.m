@@ -19,6 +19,8 @@ static const void *HttpRequestHUDKey = &HttpRequestHUDKey;
 - (void)showHudInView:(UIView *)view hint:(NSString *)hint{
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:view];
     HUD.labelText = hint;
+    HUD.userInteractionEnabled = YES;
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [view addSubview:HUD];
     [HUD show:YES];
     [self setHUD:HUD];
@@ -54,6 +56,7 @@ static const void *HttpRequestHUDKey = &HttpRequestHUDKey;
 
 - (void)hideHud{
     [[self HUD] hide:YES];
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
 }
 
 @end

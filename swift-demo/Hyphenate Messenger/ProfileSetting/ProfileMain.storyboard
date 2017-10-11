@@ -47,7 +47,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OWk-dK-PNm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="790" y="884"/>
+            <point key="canvasLocation" x="1005" y="914"/>
         </scene>
         <!--Photo-->
         <scene sceneID="VAl-LF-bax">
@@ -89,7 +89,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="80d-dm-ACy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="975" y="-618"/>
+            <point key="canvasLocation" x="2252" y="-697"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Bsk-1U-7WF">
@@ -122,19 +122,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter your email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kvf-Vv-Ppn">
-                                <rect key="frame" x="47" y="114" width="229" height="60"/>
+                                <rect key="frame" x="16" y="114" width="288" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="m3m-TT-EzV"/>
+                                    <constraint firstAttribute="height" constant="40" id="m3m-TT-EzV"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" textContentType="email"/>
+                                <connections>
+                                    <outlet property="delegate" destination="2Wq-QP-Ide" id="8Qw-Nk-Nzj"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Kvf-Vv-Ppn" secondAttribute="trailing" constant="28" id="0eT-Bj-vOS"/>
-                            <constraint firstItem="Kvf-Vv-Ppn" firstAttribute="leading" secondItem="naF-A4-qD0" secondAttribute="leadingMargin" constant="31" id="7Zz-i4-wOE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Kvf-Vv-Ppn" secondAttribute="trailing" id="0eT-Bj-vOS"/>
+                            <constraint firstItem="Kvf-Vv-Ppn" firstAttribute="leading" secondItem="naF-A4-qD0" secondAttribute="leadingMargin" id="7Zz-i4-wOE"/>
                             <constraint firstItem="Kvf-Vv-Ppn" firstAttribute="top" secondItem="g4V-vw-y3M" secondAttribute="bottom" constant="50" id="XxD-er-abE"/>
                         </constraints>
                     </view>
@@ -147,11 +150,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="EmailText" destination="Kvf-Vv-Ppn" id="muy-vi-riT"/>
+                        <outlet property="emailField" destination="Kvf-Vv-Ppn" id="ZbY-OT-lw4"/>
+                        <outlet property="saveButton" destination="TXE-Ff-1kW" id="PWU-mX-oPZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T87-Xj-0ge" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1708" y="741"/>
+            <point key="canvasLocation" x="1547" y="883"/>
         </scene>
         <!--Name-->
         <scene sceneID="B6S-ku-0mW">
@@ -166,20 +171,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter your name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EvD-sI-j1c">
-                                <rect key="frame" x="47" y="114" width="229" height="60"/>
+                                <rect key="frame" x="16" y="114" width="288" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="tNm-vY-Awg"/>
+                                    <constraint firstAttribute="height" constant="40" id="tNm-vY-Awg"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Ra1-J8-NcZ" id="kD0-bD-Bu0"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="EvD-sI-j1c" secondAttribute="trailing" constant="28" id="NmV-26-kmh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="EvD-sI-j1c" secondAttribute="trailing" id="NmV-26-kmh"/>
                             <constraint firstItem="EvD-sI-j1c" firstAttribute="top" secondItem="o1n-Qx-ho3" secondAttribute="bottom" constant="50" id="inH-iC-x2f"/>
-                            <constraint firstItem="EvD-sI-j1c" firstAttribute="leading" secondItem="WDb-c5-nUp" secondAttribute="leadingMargin" constant="31" id="xcf-15-Ks6"/>
+                            <constraint firstItem="EvD-sI-j1c" firstAttribute="leading" secondItem="WDb-c5-nUp" secondAttribute="leadingMargin" id="xcf-15-Ks6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Name" id="5Dx-la-F7e">
@@ -197,6 +205,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="nameChangTextView" destination="EvD-sI-j1c" id="bAG-tF-t1m"/>
+                        <outlet property="saveButton" destination="Gzs-os-Nl6" id="84Z-CC-Y2G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LtZ-eP-gbM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -212,23 +221,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="profileHeaderCell" id="XKD-S7-wqk" customClass="profileHeaderTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="320" height="40"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="profileHeaderCell" rowHeight="35" id="XKD-S7-wqk" customClass="profileHeaderTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="320" height="35"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XKD-S7-wqk" id="JNF-Jo-Ndj">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="34.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROFILE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sg0-pP-rae">
-                                            <rect key="frame" x="18" y="8" width="294" height="23.5"/>
-                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
-                                            <color key="textColor" red="0.61629542820000005" green="0.63843911919999996" blue="0.62872373469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <rect key="frame" x="8" y="8" width="304" height="18.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                            <color key="textColor" red="0.40539323255876064" green="0.4183636443869112" blue="0.41437849641584157" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="sg0-pP-rae" firstAttribute="top" secondItem="JNF-Jo-Ndj" secondAttribute="topMargin" id="Pcb-RQ-g3h"/>
-                                        <constraint firstItem="sg0-pP-rae" firstAttribute="leading" secondItem="JNF-Jo-Ndj" secondAttribute="leadingMargin" constant="10" id="QNu-iQ-UDJ"/>
+                                        <constraint firstItem="sg0-pP-rae" firstAttribute="leading" secondItem="JNF-Jo-Ndj" secondAttribute="leadingMargin" id="QNu-iQ-UDJ"/>
                                         <constraint firstItem="sg0-pP-rae" firstAttribute="trailing" secondItem="JNF-Jo-Ndj" secondAttribute="trailingMargin" id="ojc-Lx-zp9"/>
                                         <constraint firstItem="sg0-pP-rae" firstAttribute="bottom" secondItem="JNF-Jo-Ndj" secondAttribute="bottomMargin" id="rCD-Ef-VGE"/>
                                     </constraints>
@@ -238,7 +247,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="profilePictureCell" rowHeight="91" id="Fr9-Rt-QWm" customClass="profilePictureTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="95.5" width="320" height="91"/>
+                                <rect key="frame" x="0.0" y="90.5" width="320" height="91"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fr9-Rt-QWm" id="HDt-B9-sQS">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="90.5"/>
@@ -285,7 +294,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nameCell" id="N6p-AA-fin" customClass="nameTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="186.5" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="181.5" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N6p-AA-fin" id="aBq-fZ-bei">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
@@ -327,24 +336,24 @@
                                     <segue destination="Ra1-J8-NcZ" kind="show" id="jFg-D3-9Iq"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="informationHeaderCell" id="HOr-Og-mrE" customClass="informationHeaderTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="226.5" width="320" height="40"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="informationHeaderCell" rowHeight="35" id="HOr-Og-mrE" customClass="informationHeaderTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="221.5" width="320" height="35"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HOr-Og-mrE" id="uxK-K8-1Wl">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="34.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INFORMATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jx5-G3-5BJ">
-                                            <rect key="frame" x="18" y="8" width="294" height="23.5"/>
-                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
-                                            <color key="textColor" red="0.61629542820000005" green="0.63843911919999996" blue="0.62872373469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <rect key="frame" x="8" y="8" width="304" height="18.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                            <color key="textColor" red="0.40539323259999999" green="0.41836364440000001" blue="0.41437849640000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Jx5-G3-5BJ" firstAttribute="bottom" secondItem="uxK-K8-1Wl" secondAttribute="bottomMargin" id="1vV-yv-nSb"/>
                                         <constraint firstItem="Jx5-G3-5BJ" firstAttribute="top" secondItem="uxK-K8-1Wl" secondAttribute="topMargin" id="TQK-dj-C0e"/>
-                                        <constraint firstItem="Jx5-G3-5BJ" firstAttribute="leading" secondItem="uxK-K8-1Wl" secondAttribute="leadingMargin" constant="10" id="d3y-V7-Fbf"/>
+                                        <constraint firstItem="Jx5-G3-5BJ" firstAttribute="leading" secondItem="uxK-K8-1Wl" secondAttribute="leadingMargin" id="d3y-V7-Fbf"/>
                                         <constraint firstItem="Jx5-G3-5BJ" firstAttribute="trailing" secondItem="uxK-K8-1Wl" secondAttribute="trailingMargin" id="fpL-5l-VpT"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -353,7 +362,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="gradeCell" id="MY3-Hs-Zn3" customClass="gradeTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="266.5" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="256.5" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MY3-Hs-Zn3" id="5Gn-JY-6BP">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
@@ -396,7 +405,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="emailCell" id="Lcv-1I-qEq" customClass="emailTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="306.5" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="296.5" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lcv-1I-qEq" id="lIY-il-FFv">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>

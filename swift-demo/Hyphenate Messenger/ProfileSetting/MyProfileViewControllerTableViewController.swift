@@ -1,17 +1,9 @@
-//
-//  MyProfileViewControllerTableViewController.swift
-//  ProfileSetting
-//
-//  Created by Yi Jerry on 2017-09-23.
-//  Copyright © 2017 Yi Jerry. All rights reserved.
-//
-
 import UIKit
 import Firebase
 import FirebaseDatabase
 
 
-class MyProfileViewControllerTableViewController: UITableViewController{
+class MyProfileViewControllerTableViewController: UITableViewController {
     
     // MARK: - Properties
     var ref = Database.database().reference()
@@ -117,9 +109,9 @@ class MyProfileViewControllerTableViewController: UITableViewController{
         let cell = tableView.dequeueReusableCell(withIdentifier: "profileHeaderCell") as! profileHeaderTableViewCell
         switch section {
         case 0:
-            cell.headerLabel.text = "PROFILE"
+            cell.headerLabel.text = "Profile"
         case 1:
-            cell.headerLabel.text = "INFORMATION"
+            cell.headerLabel.text = "Information"
         default:
             break
         }
@@ -128,7 +120,7 @@ class MyProfileViewControllerTableViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 35
     }
     
     // change Height of Profile Picture Cell
@@ -139,6 +131,7 @@ class MyProfileViewControllerTableViewController: UITableViewController{
         }
         return 40
     }
+    
     /*
     // MARK: - Navigation
 

@@ -49,6 +49,18 @@ struct DataBaseKeys {
     static let serverAddress = "serverAddress"
     static let appStoreLink = "appStoreLink"
     
+    static let profileUserNameKey = "userName"
+    static let profileEmailKey = "email"
+    static let profilePhotoKey = "profilePicture"
+    static let profileGradeKey = "grade"
+    
+    static let profileUserNameRemoteKey = "username"
+    static let profileEmailRemoteKey = "email"
+    static let profilePhotoRemoteKey = "profilepicURL"
+    static let profileGradeRemoteKey = "grade"
+    
+    static let profileNeedsUpdateKey = "profileNeedsUpdate"
+
     
     /// Returns db reference string based on key
     ///
@@ -67,6 +79,10 @@ enum ConfigError: Error {
     case methodNotSupportedError
 }
 
+@objc protocol ConfigDelegate {
+    @objc optional func didFetchConfigTypeProfile()
+}
+
 
 /// This class provides method to load/store/get configurations, including baseURL for http request, handle required version of packages, categories and app version
 class AppConfig {
@@ -75,6 +91,8 @@ class AppConfig {
     private var uid: String? = nil
     let defaults = UserDefaults.standard
     let ref: DatabaseReference! = Database.database().reference()
+    
+    var profileDelegate: ConfigDelegate?
     
     var appVersion = Double(Bundle.main.infoDictionary?["CFBundleShortVersionString"]! as! String)!
     
@@ -103,6 +121,12 @@ class AppConfig {
     var categoryJSONdata: Data? {
         get {
             return defaults.data(forKey: DataBaseKeys.categoryDictionaryKey)
+        }
+    }
+    
+    var profileNeedsUpdate: Bool {
+        get {
+            return defaults.integer(forKey: DataBaseKeys.profileNeedsUpdateKey) > 0
         }
     }
     
@@ -339,9 +363,69 @@ class AppConfig {
                                                  DataBaseKeys.firstLaunchKey: 0,  // TODO: check after user switch
                                                  DataBaseKeys.appRequiredVerKey: 1,
                                                  DataBaseKeys.discountAvailabilityKey: 0,
-                                                 DataBaseKeys.discountRate: 1]
+                                                 DataBaseKeys.discountRate: 1,
+                                                 DataBaseKeys.profileNeedsUpdateKey: 1]
         
         defaults.register(defaults: initialUserDefaults)
+        
+        let initialProfileDefaults: [String:String] = [DataBaseKeys.profileEmailKey: "example@gmail.com",
+                                                       DataBaseKeys.profileUserNameKey: "Please complete profile",
+                                                       DataBaseKeys.profileGradeKey: "Others",
+                                                       DataBaseKeys.profilePhotoKey: "placeholder"]
+        defaults.register(defaults: initialProfileDefaults)
+    }
+    
+    /// Call this function for first time users
+    func resetProfileDefaults() {
+        defaults.set("example@gmail.com", forKey: DataBaseKeys.profileEmailKey)
+        defaults.set("Please complete profile", forKey: DataBaseKeys.profileUserNameKey)
+        defaults.set("Others", forKey: DataBaseKeys.profileGradeKey)
+        defaults.set("placeholder", forKey: DataBaseKeys.profilePhotoKey)
+        defaults.set(1, forKey: DataBaseKeys.profileNeedsUpdateKey)
+    }
+    
+    /// Fetch user default from cloud when user first log in
+    ///
+    /// - Parameter uid: user ID
+    func getUserProfileAtLogin(_ uid: String) {
+        // user name
+        ref?.child("users/\(uid)/\(DataBaseKeys.profileUserNameRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value {
+                self.defaults.set(value, forKey: DataBaseKeys.profileUserNameKey)
+                self.profileDelegate?.didFetchConfigTypeProfile!()
+            }
+        })
+        
+        // profile photo
+        ref?.child("users/\(uid)/\(DataBaseKeys.profilePhotoRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if let picURLString = snapshot.value as? String {
+                // value is the URL for image, has to download and set to data
+                Alamofire.request(picURLString, method: HTTPMethod.get).responseData(completionHandler: { (data) in
+                    if let imageData = data.data {
+                        self.defaults.set(imageData, forKey: DataBaseKeys.profilePhotoKey)
+                        self.profileDelegate?.didFetchConfigTypeProfile!()
+                    }
+                })
+            }
+        })
+        
+        // grade
+        ref?.child("users/\(uid)/\(DataBaseKeys.profileGradeRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value as? String {
+                self.defaults.set(value, forKey: DataBaseKeys.profileGradeKey)
+                self.profileDelegate?.didFetchConfigTypeProfile!()
+            }
+        })
+        
+        // email
+        ref?.child("users/\(uid)/\(DataBaseKeys.profileEmailRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value as? String {
+                self.defaults.set(value, forKey: DataBaseKeys.profileEmailKey)
+                self.profileDelegate?.didFetchConfigTypeProfile!()
+            }
+        })
+        
+        defaults.set(0, forKey: DataBaseKeys.profileNeedsUpdateKey)
     }
     
     /// Do app refresh at launch, it does: 1. handle remote config, 2. check category/package for necessary update, 3. increment open count
@@ -377,8 +461,6 @@ class AppConfig {
         try! handleConfigRequestForType(.ConfigTypeDiscountAvailability, forUser: uid)
     }
     
-    
-    
     // Update remote's value
     /// Update configType's current value to FireBase
     /// Supported type: ConfigTypeDiscountAvailability
@@ -402,8 +484,10 @@ class AppConfig {
     func processUserLogout() {
         // when user logout, it needs to clear user specific data, including
         // 1. discount available
-        // 2. all user related profile information
         defaults.set(0, forKey: DataBaseKeys.discountAvailabilityKey)
+        
+        // set the user profile defaults to initial values
+        resetProfileDefaults()
     }
 }
 
