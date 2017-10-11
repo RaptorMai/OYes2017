@@ -186,7 +186,8 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 							else {
 								console.log("response from addPaymentToken");
 								console.log(customer);
-								return event.data.adminRef.set(customer);
+								//write to another node, otherwise this function will be triggered twice
+								return event.data.adminRef.parent.child('cardInfo').set(customer);
 							}
 						});
 						}
@@ -199,7 +200,8 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 								else{
 									console.log("response from addPaymentToken");
 									console.log(customer);
-									return event.data.adminRef.set(customer);
+									//write to another node, otherwise this function will be triggered twice
+									return event.data.adminRef.parent.child('cardInfo').set(customer);
 								}
 							});
 						}
