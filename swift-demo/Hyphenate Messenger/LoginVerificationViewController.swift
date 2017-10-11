@@ -129,6 +129,9 @@ class LoginVerificationViewController: UIViewController {
                     let alertView = UIAlertController(title: "Login failed", message: error?.localizedDescription, preferredStyle: .alert)
                     alertView.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                     self.present(alertView, animated: true, completion: nil)
+                    
+                    // to display resend button
+                    self.timerRemaining = 0
                 } else {
                     // cellphone login successful
                     // log into hyphenate, if mode is signup, perform signup flow

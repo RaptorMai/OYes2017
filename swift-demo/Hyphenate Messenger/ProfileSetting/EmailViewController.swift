@@ -12,11 +12,14 @@ import FirebaseDatabase
 import MBProgressHUD
 
 
-class EmailViewController: UIViewController {
+class EmailViewController: UIViewController, UITextFieldDelegate {
     // Database
     var ref: DatabaseReference! = Database.database().reference()
     var uid = "+1" + EMClient.shared().currentUsername!
 
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var emailField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // get email from DB
@@ -74,6 +77,9 @@ class EmailViewController: UIViewController {
         if email == "" {
             return true
         }
+        
+        emailField.text = emailField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let email = emailField.text!
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Z0-9a-z.-]+\\.[A-Za-z]{2,15}"
         let emailverify = NSPredicate(format:"SELF MATCHES %@",emailRegEx)
         let res = emailverify.evaluate(with: email)
@@ -83,6 +89,13 @@ class EmailViewController: UIViewController {
     // Dismiss Keyboard
     func handleTap(_ tapGesture: UITapGestureRecognizer) {
         view.endEditing(true)
+    }
+    
+    // MARK: textfielddelegate
+    // handle return press on keyboard
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        Save(saveButton)
+        return true
     }
 }
 

@@ -122,19 +122,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter your email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kvf-Vv-Ppn">
-                                <rect key="frame" x="47" y="114" width="229" height="60"/>
+                                <rect key="frame" x="16" y="114" width="288" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="m3m-TT-EzV"/>
+                                    <constraint firstAttribute="height" constant="40" id="m3m-TT-EzV"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" textContentType="email"/>
+                                <connections>
+                                    <outlet property="delegate" destination="2Wq-QP-Ide" id="8Qw-Nk-Nzj"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Kvf-Vv-Ppn" secondAttribute="trailing" constant="28" id="0eT-Bj-vOS"/>
-                            <constraint firstItem="Kvf-Vv-Ppn" firstAttribute="leading" secondItem="naF-A4-qD0" secondAttribute="leadingMargin" constant="31" id="7Zz-i4-wOE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Kvf-Vv-Ppn" secondAttribute="trailing" id="0eT-Bj-vOS"/>
+                            <constraint firstItem="Kvf-Vv-Ppn" firstAttribute="leading" secondItem="naF-A4-qD0" secondAttribute="leadingMargin" id="7Zz-i4-wOE"/>
                             <constraint firstItem="Kvf-Vv-Ppn" firstAttribute="top" secondItem="g4V-vw-y3M" secondAttribute="bottom" constant="50" id="XxD-er-abE"/>
                         </constraints>
                     </view>
@@ -147,11 +150,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="EmailText" destination="Kvf-Vv-Ppn" id="muy-vi-riT"/>
+                        <outlet property="emailField" destination="Kvf-Vv-Ppn" id="ZbY-OT-lw4"/>
+                        <outlet property="saveButton" destination="TXE-Ff-1kW" id="PWU-mX-oPZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T87-Xj-0ge" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2252" y="733"/>
+            <point key="canvasLocation" x="1547" y="883"/>
         </scene>
         <!--Name-->
         <scene sceneID="B6S-ku-0mW">
@@ -166,20 +171,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter your name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EvD-sI-j1c">
-                                <rect key="frame" x="47" y="114" width="229" height="60"/>
+                                <rect key="frame" x="16" y="114" width="288" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="tNm-vY-Awg"/>
+                                    <constraint firstAttribute="height" constant="40" id="tNm-vY-Awg"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Ra1-J8-NcZ" id="kD0-bD-Bu0"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="EvD-sI-j1c" secondAttribute="trailing" constant="28" id="NmV-26-kmh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="EvD-sI-j1c" secondAttribute="trailing" id="NmV-26-kmh"/>
                             <constraint firstItem="EvD-sI-j1c" firstAttribute="top" secondItem="o1n-Qx-ho3" secondAttribute="bottom" constant="50" id="inH-iC-x2f"/>
-                            <constraint firstItem="EvD-sI-j1c" firstAttribute="leading" secondItem="WDb-c5-nUp" secondAttribute="leadingMargin" constant="31" id="xcf-15-Ks6"/>
+                            <constraint firstItem="EvD-sI-j1c" firstAttribute="leading" secondItem="WDb-c5-nUp" secondAttribute="leadingMargin" id="xcf-15-Ks6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Name" id="5Dx-la-F7e">
@@ -197,6 +205,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="nameChangTextView" destination="EvD-sI-j1c" id="bAG-tF-t1m"/>
+                        <outlet property="saveButton" destination="Gzs-os-Nl6" id="84Z-CC-Y2G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LtZ-eP-gbM" userLabel="First Responder" sceneMemberID="firstResponder"/>
