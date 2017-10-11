@@ -29,6 +29,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     var key: String = ""
     var beginTime = Date()
     var balance: Int = 1
+    var updatedDuration = 0
     //let calendar = Calendar.current
 
     //questionimage and question description are automatically sent when the view loads. didFirstMessageSend keeps track of if the first message was sent.
@@ -50,7 +51,6 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         
         // scroll to dismiss keyboard
         self.tableView.keyboardDismissMode = .onDrag
-        
         getBalance()
         /* end session button*/
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -141,6 +141,8 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         //display time with floor
         time = Date().timeIntervalSince(beginTime)
         let minutes = Int(floor(Double(time)/60))
+        updatedDuration = Int(ceil(Double(time)/60))
+        setWhenDisconnected()
         timerLabel.text = String(minutes) + " min"
         if minutes >= self.balance{
             let alert = UIAlertController(title: "Session finished", message: "Your balance is 0", preferredStyle: .alert)
@@ -190,21 +192,13 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     }
     
     func endSessionfromAppTermination(){
-        // get time of chat session
-        time = Date().timeIntervalSince(beginTime)
-        let sessionDuration = Int(ceil(Double(time)/60))
-        //TODO: charge time to balance here
-        print(sessionDuration)
-        //store duration
-        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":sessionDuration])
-        
-        // add rating to tutor
-        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["rate": 5.0])
-        //calldismiss to dismiss chatVC
-        dismissParentVC()
-        processSession()
+        //TODO: add conversationid to user default, the conversation need to be processed next time
     }
     
+    func setWhenDisconnected(){
+
+        self.ref?.child("Request/active/\(self.category)/\(self.key)").onDisconnectUpdateChildValues(["duration":self.updatedDuration,"rate": 5.0])
+    }
     func dismissParentVC() {
         //Dismiss Keyboard
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -213,6 +207,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     }
 
     func processSession() {
+
         // after a session ends, get the last session and copies all messages over to a new session
         let chatManager = EMClient.shared().chatManager
         // create a new conversation, generate a random numerical id first

@@ -298,34 +298,12 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
         sender.removeFromSuperview()
         MKFullSpinner.hide()
         self.flag = -1
-        
-        /* let storage = Storage.storage()
-         let storageRef = storage.reference()
-         let removeRef = storageRef.child("image/\(self.categorytitle)/\(self.key!))")
-         removeRef.delete { (Error) in
-         if let error = Error {
-         let alert = UIAlertController(title: "Delete error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
-         self.present(alert, animated: true, completion: nil)
-         
-         } else {
-         self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").removeValue()
-         }
-         }
-         self.navigationController?.setNavigationBarHidden(false, animated: false)
-         sender.removeFromSuperview()
-         MKFullSpinner.hide()*/
     }
     
     func cancelFromAppTermination(){
         // This function is called when a cancel order needs to be put through because the app is terminated. It is the same function as cancel action but deleted one line of code "sender.removeFromSuperview()" since there is no sender.
-        let parameters: Parameters = [
-            "category" : self.categorytitle,
-            "qid" : self.key!,
-            ]
-        print(parameters)
-        Alamofire.request(urlForNetworkAPI(.cancel)!, method:.get, parameters: parameters, encoding: URLEncoding.default)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))").onDisconnectRemoveValue()
+
     }
     
     func uploadPicture(_ data: Data, completion:@escaping (_ url: String?) -> ()) {
