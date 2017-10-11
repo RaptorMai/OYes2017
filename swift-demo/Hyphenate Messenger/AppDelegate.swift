@@ -34,8 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mainViewController: MainViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        Stripe.setDefaultPublishableKey("pk_test_lTfNGp2OD3CytvWX9XCPA41z")
+        //test
+        //Stripe.setDefaultPublishableKey("pk_test_lTfNGp2OD3CytvWX9XCPA41z")
+        //live
+        //Stripe.setDefaultPublishableKey("pk_live_pmb3J5laKj7HXRw4Ro8Z8P2G")
         FirebaseApp.configure()
  
         //TODO: create our own gif with our logo, need to add our gif to "copy bundle researces" under "build phase"
