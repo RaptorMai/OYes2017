@@ -1,11 +1,3 @@
-//
-//  profileHeaderTableViewCell.swift
-//  ProfileSetting
-//
-//  Created by Yi Jerry on 2017-09-23.
-//  Copyright © 2017 Yi Jerry. All rights reserved.
-//
-
 import UIKit
 
 class profileHeaderTableViewCell: UITableViewCell {

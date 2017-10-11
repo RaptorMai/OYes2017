@@ -40,9 +40,6 @@ class GradeViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     //MARK: - Outlets
     @IBOutlet weak var gradePickerView: UIPickerView!
     
-
-    
-    
     //MARK: - Interactions
     @IBAction func dismissView(_ sender: UIBarButtonItem) {
         MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -53,13 +50,13 @@ class GradeViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         // Retrive Grade from DB
         // Store data to UserDefaults
         var updatedGrade:String?
-        self.ref.child("users").child(self.uid).child("grade").observeSingleEvent(of: .value, with: {
+        self.ref.child("users").child(self.uid).child(DataBaseKeys.profileGradeKey).observeSingleEvent(of: .value, with: {
             (snapshot) in
             updatedGrade = snapshot.value as? String
             if updatedGrade == nil{
-                UserDefaults.standard.set("Unknown", forKey: "grade")
+                UserDefaults.standard.set("Unknown", forKey: DataBaseKeys.profileGradeKey)
             } else {
-                UserDefaults.standard.set(updatedGrade, forKey: "grade")
+                UserDefaults.standard.set(updatedGrade, forKey: DataBaseKeys.profileGradeKey)
             }
             MBProgressHUD.hide(for: self.view, animated: true)
             self.navigationController?.popViewController(animated: true)

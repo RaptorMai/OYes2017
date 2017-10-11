@@ -28,7 +28,7 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         imageView.layer.cornerRadius = imageView.frame.size.width/1.8
         imageView.clipsToBounds = true
 
-        if let data = UserDefaults.standard.data(forKey: "profilePicture"){
+        if let data = UserDefaults.standard.data(forKey: DataBaseKeys.profilePhotoKey){
             let imageUIImage: UIImage = UIImage(data: data)!
             imageView.image = imageUIImage
         }else{
@@ -75,7 +75,7 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
                 print("Going to download from DB")
                 // Retrive Profile Picture from DB
                 // Store data to UserDefaults
-                self.ref.child("users").child(self.uid).child("profilepicURL").observeSingleEvent(of: .value, with: {(snapshot) in
+            self.ref.child("users").child(self.uid).child("profilepicURL").observeSingleEvent(of: .value, with: {(snapshot) in
                     
                     print("downloaded from DB")
                     var imageBuffer: UIImage
@@ -86,13 +86,13 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
                         if (val == nil){
                             imageBuffer = UIImage(named: "placeholder")!
                             let imgData = UIImageJPEGRepresentation(imageBuffer, 1)
-                            UserDefaults.standard.set(imgData, forKey: "profilePicture")
+                            UserDefaults.standard.set(imgData, forKey: DataBaseKeys.profilePhotoKey)
                         }
                         else{
                             print("Recieve Non-null image")
                             print("Setting UsersDefault")
                             let imgData = UIImageJPEGRepresentation(self.imageView.image!, 1)
-                            UserDefaults.standard.set(imgData, forKey: "profilePicture")
+                            UserDefaults.standard.set(imgData, forKey: DataBaseKeys.profilePhotoKey)
                         }
                     } else {
                         print("snapShot DNE error")

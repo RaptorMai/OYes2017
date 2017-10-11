@@ -6,7 +6,7 @@ import Firebase
 import FirebaseDatabase
 
 
-class SettingsTableViewController: UITableViewController, MFMailComposeViewControllerDelegate{
+class SettingsTableViewController: UITableViewController, MFMailComposeViewControllerDelegate, ConfigDelegate {
     
     var ref: DatabaseReference!
     var uid = "+1" + EMClient.shared().currentUsername!
@@ -59,16 +59,14 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
             // My Profile TODO: don't use conversation table view cell, better make a new one
             let cell:SettingProfileTableViewCell = tableView.dequeueReusableCell(withIdentifier: "settingProfileCell", for: indexPath) as! SettingProfileTableViewCell
             cell.senderLabel.text = ""
-            cell.badgeView.isHidden = true
-            cell.timeLabel.isHidden = true
             cell.lastMessageLabel.isHidden = true
             cell.senderImageView.contentMode = UIViewContentMode.scaleAspectFill
             
             // username
-            cell.senderLabel.text = UserDefaults.standard.string(forKey: "userName")
+            cell.senderLabel.text = UserDefaults.standard.string(forKey: DataBaseKeys.profileUserNameKey)
             // profile picture
             let imageUIImage: UIImage
-            if let data = UserDefaults.standard.data(forKey: "profilePicture"){
+            if let data = UserDefaults.standard.data(forKey:  DataBaseKeys.profilePhotoKey){
                 imageUIImage = UIImage(data: data)!
             }else{
                 imageUIImage = UIImage(named:"placeholder")!
@@ -146,7 +144,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     // change Height of Profile Picture Cell
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.section == 0 && indexPath.row == 0){
-            return 100
+            return 90
         } else {
             return UITableViewAutomaticDimension
         }
@@ -172,6 +170,9 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     }
     
     func logoutAction() {
+        // config the usser logout
+        AppConfig.sharedInstance.processUserLogout()
+        
         // delete all conversation history
         let chatManager = EMClient.shared().chatManager
         if let allConversations = EMClient.shared().chatManager.getAllConversations() as? [EMConversation] {
@@ -235,6 +236,11 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         }
         // Dismiss mail view controller and back to setting page
         self.dismiss(animated:true, completion: nil)
+    }
+    
+    // MARK: - finish loading profile data
+    func didFetchConfigTypeProfile() {
+        tableView.reloadData()
     }
 }
 

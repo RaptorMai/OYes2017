@@ -23,7 +23,7 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // get email from DB
-        self.EmailText.text = UserDefaults.standard.string(forKey: "email")
+        self.EmailText.text = UserDefaults.standard.string(forKey: DataBaseKeys.profileEmailKey)
         EmailText.becomeFirstResponder()
         EmailText.clearButtonMode = .always
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
@@ -46,15 +46,15 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
         
         // Retrive Email from firebase
         // Store data to UserDefaults
-        self.ref.child("users").child(uid).child("email").observeSingleEvent(of: .value, with: { (snapshot) in
+        self.ref.child("users").child(uid).child(DataBaseKeys.profileEmailKey).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists(){
                 let val = snapshot.value as? String
                 if (val! != ""){
-                    UserDefaults.standard.set(val, forKey: "email")
+                    UserDefaults.standard.set(val, forKey: DataBaseKeys.profileEmailKey)
                 }
                 else{
                     print("Username is an empty string!")
-                    UserDefaults.standard.set("Unknown", forKey: "email")
+                    UserDefaults.standard.set("Unknown", forKey: DataBaseKeys.profileEmailKey)
                 }
             }
             MBProgressHUD.hide(for: self.view, animated: true)
