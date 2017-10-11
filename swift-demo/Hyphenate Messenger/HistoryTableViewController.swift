@@ -24,8 +24,6 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         newConversationButton.setBackgroundImage(image, for: UIControlState())
         newConversationButton.addTarget(self, action: #selector(ConversationsTableViewController.composeConversationAction), for: .touchUpInside)
         newConversationButton.showsTouchWhenHighlighted = true
-        let rightButtonItem = UIBarButtonItem(customView: newConversationButton)
-        self.tabBarController?.navigationItem.rightBarButtonItem = rightButtonItem
         
         self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
@@ -38,17 +36,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "History"
         self.tabBarController?.tabBar.isHidden = false
-        
-        //reload button
-        let image = UIImage(named: "iconNewConversation")
-        let imageFrame = CGRect(x: 0, y: 0, width: (image?.size.width)!, height: (image?.size.height)!)
-        let newConversationButton = UIButton(frame: imageFrame)
-        newConversationButton.setBackgroundImage(image, for: UIControlState())
-        newConversationButton.addTarget(self, action: #selector(ConversationsTableViewController.composeConversationAction), for: .touchUpInside)
-        newConversationButton.showsTouchWhenHighlighted = true
-        let rightButtonItem = UIBarButtonItem(customView: newConversationButton)
-        self.tabBarController?.navigationItem.rightBarButtonItem = rightButtonItem
-        
+        self.presentShopView()
         reloadDataSource()
     }
     
