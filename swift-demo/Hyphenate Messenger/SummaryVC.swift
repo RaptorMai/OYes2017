@@ -149,6 +149,23 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
     //flag variable monitors which screen we are on. States: -1 = not set, 0 = tutor connecting screen, 1 = tutor connected screen
     var flag = -1
     
+    func presentShopView() {
+        // present modally the shop VC for purchasing minutes
+        let shopViewController = ShopTableViewController()
+        shopViewController.delegate = self
+        
+        let shopNavVC = UINavigationController(rootViewController: shopViewController)
+        shopNavVC.navigationBar.isTranslucent = false
+        shopNavVC.navigationBar.topItem?.title = "Shop"
+        
+        // dismissShop is defined in ShopTableViewController, just to dissmiss modal present
+        shopNavVC.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: shopViewController, action: Selector(("dismissShop")))
+        shopNavVC.navigationBar.topItem?.leftBarButtonItem?.tintColor = UIColor(hex: "2EA2DC")
+        
+        shopViewController.isPurchasingBeforeReqeusting = true
+        self.present(shopNavVC, animated: true, completion: nil)
+    }
+    
     func requestHelpPressed(button: UIButton) {
         
         let time = Date().timeIntervalSince1970
@@ -157,21 +174,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
                 "Your balance is less than \(self.threshold) mins. Your session will terminate when your balance is 0 ", preferredStyle: UIAlertControllerStyle.alert)
             
             alertController.addAction(UIAlertAction(title: "Purchase minutes", style: UIAlertActionStyle.default, handler: { _ in
-                // present modally the shop VC for purchasing minutes
-                let shopViewController = ShopTableViewController()
-                shopViewController.delegate = self
-                
-                let shopNavVC = UINavigationController(rootViewController: shopViewController)
-                shopNavVC.navigationBar.isTranslucent = false
-                shopNavVC.navigationBar.topItem?.title = "Shop"
-                
-                // dismissShop is defined in ShopTableViewController, just to dissmiss modal present
-                shopNavVC.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: shopViewController, action: Selector(("dismissShop")))
-                shopNavVC.navigationBar.topItem?.leftBarButtonItem?.tintColor = UIColor(hex: "2EA2DC")
-                
-                shopViewController.isPurchasingBeforeReqeusting = true
-                self.present(shopNavVC, animated: true, completion: nil)
-                // self.dismiss(animated: true, completion: nil)
+                self.presentShopView()
             }))
             
             alertController.addAction(UIAlertAction(title: "Continue", style: .destructive, handler: {_ in
@@ -184,7 +187,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
                 "Your balance is 0", preferredStyle: UIAlertControllerStyle.alert)
             
             alertController.addAction(UIAlertAction(title: "Purchase minutes", style: UIAlertActionStyle.default, handler: { _ in
-                self.dismiss(animated: true, completion: nil)
+                self.presentShopView()
             }))
              present(alertController, animated: true, completion: nil)
         } else {
