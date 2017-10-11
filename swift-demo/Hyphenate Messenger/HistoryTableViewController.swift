@@ -36,7 +36,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "History"
         self.tabBarController?.tabBar.isHidden = false
-        self.presentShopView()
+        
         reloadDataSource()
     }
     
@@ -75,6 +75,22 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
             }
             return false
         })
+        
+        // display no history message when no histry
+        if dataSource.count == 0 {
+            let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            messageLabel.text = "There's no history yet\nCheck back after asking questions!"
+            messageLabel.textColor = .gray
+            messageLabel.numberOfLines = 2;
+            messageLabel.textAlignment = .center;
+            messageLabel.font = UIFont.systemFont(ofSize: 20)
+            messageLabel.sizeToFit()
+            
+            tableView.backgroundView = messageLabel;
+            tableView.separatorStyle = .none;
+        } else {
+            tableView.backgroundView = nil
+        }
         
         DispatchQueue.main.async(execute: {
             self.tableView.reloadData()

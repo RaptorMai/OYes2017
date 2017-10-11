@@ -163,9 +163,9 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     }
     
     func createAlert (){
-        let alert = UIAlertController(title: "Log Out InstaSolve?", message: "All user data will be deleted", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Log out InstaSolve?", message: "All user data will be deleted", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertActionStyle.default, handler:nil))
-        alert.addAction(UIAlertAction(title:"Log Out", style: UIAlertActionStyle.destructive, handler:{(action:UIAlertAction) in self.logoutAction()}))
+        alert.addAction(UIAlertAction(title:"Log out", style: UIAlertActionStyle.destructive, handler:{(action:UIAlertAction) in self.logoutAction()}))
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -183,7 +183,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
                 // process log out
                 EMClient.shared().logout(false) { (error) in
                     if let _ = error {
-                        let alert = UIAlertController(title:"Sign Out error", message: "Please try again later", preferredStyle: .alert)
+                        let alert = UIAlertController(title:"Sign out error", message: "Please try again later", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel, handler: nil))
                         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
                     } else {

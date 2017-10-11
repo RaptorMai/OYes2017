@@ -390,7 +390,7 @@ class AppConfig {
     func getUserProfileAtLogin(_ uid: String) {
         // user name
         ref?.child("users/\(uid)/\(DataBaseKeys.profileUserNameRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
-            if let value = snapshot.value {
+            if let value = snapshot.value as? String {
                 self.defaults.set(value, forKey: DataBaseKeys.profileUserNameKey)
                 self.profileDelegate?.didFetchConfigTypeProfile!()
             }
