@@ -8,9 +8,11 @@
 
 import UIKit
 import Firebase
+import MBProgressHUD
+import MessageUI
 import Hyphenate
 
-class SettingsVC: UITableViewController {
+class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate{
 /*
     @IBAction func LogOut(_ sender: Any) {
         try! Auth.auth().signOut()
@@ -31,12 +33,17 @@ class SettingsVC: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.register(UINib(nibName: "SwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "switchCell")
         self.tableView.register(UINib(nibName: "LabelTableViewCell", bundle: nil), forCellReuseIdentifier: "labelCell")
+        
+        self.tabBarController?.tabBar.isHidden = false
         // Do any additional setup after loading the view.
+        self.tableView.register(UINib(nibName: "SettingProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "settingProfileCell")
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "Settings"
+        self.tabBarController?.tabBar.isHidden = false
+        self.tableView.reloadData()
     }
     
     let data = [[[#imageLiteral(resourceName: "Profile"),"Profile"]], [[#imageLiteral(resourceName: "Bank"),"Bank account"], [#imageLiteral(resourceName: "Cash"),"Cash out"]], [[#imageLiteral(resourceName: "Help"),"Help"], [#imageLiteral(resourceName: "Feedback"),"Feedback"], [#imageLiteral(resourceName: "About"),"About"]],[["Log out"]]]
@@ -53,37 +60,101 @@ class SettingsVC: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section != 3{
+        if indexPath.section == 0 {
+            // My Profile TODO: don't use conversation table view cell, better make a new one
+            let cell:SettingProfileTableViewCell = tableView.dequeueReusableCell(withIdentifier: "settingProfileCell", for: indexPath) as! SettingProfileTableViewCell
+            cell.senderLabel.text = ""
+            cell.timeLabel.isHidden = true
+            cell.lastMessageLabel.isHidden = true
+            cell.senderImageView.contentMode = UIViewContentMode.scaleAspectFill
+            
+            // username
+            cell.senderLabel.text = UserDefaults.standard.string(forKey: "userName")
+            // profile picture
+            let imageUIImage: UIImage
+            if let data = UserDefaults.standard.data(forKey: "profilePicture"){
+                imageUIImage = UIImage(data: data)!
+            }else{
+                imageUIImage = UIImage(named:"placeholder")!
+            }
+            cell.senderImageView.image = imageUIImage
+            
+            cell.accessoryType = .disclosureIndicator
+            
+            return cell
+        }
+        else if indexPath.section < 3 {
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = self.data[indexPath.section][indexPath.row][1] as? String
             cell.imageView?.image = self.data[indexPath.section][indexPath.row][0] as? UIImage
             
             cell.accessoryType = .disclosureIndicator
             return cell}
+            
         else{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = self.data[indexPath.section][indexPath.row][0] as? String
             cell.textLabel?.textAlignment = .center
-            return cell
             
+            return cell
         }
-        
+
     }
     
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
+        
+        switch indexPath.section {
         case 0:
-            //let proVC = SettingsAboutTableViewController()
-            //navigationController?.pushViewController(settingsAboutVC, animated: true)
-            logoutAction()
+            if indexPath.row == 0{
+                let StoryBoard = UIStoryboard(name:"ProfileSetting",bundle:nil)
+                let myProfileVC = StoryBoard.instantiateViewController(withIdentifier: "myProfileVC")
+                navigationController?.pushViewController(myProfileVC, animated: true)
+                self.tabBarController?.tabBar.isHidden = true
+                myProfileVC.navigationController?.navigationBar.tintColor = UIColor.white
+            }
+        //case 1: bank account and cash out
+        case 2:
+            switch indexPath.row{
+            case 0:
+                let openWebPageVC = OpenUrlViewController()
+                openWebPageVC.url = "https://www.instasolve.ca/"
+                navigationController?.pushViewController(openWebPageVC, animated: true)
+                self.tabBarController?.tabBar.isHidden = true
+                self.navigationController?.navigationBar.tintColor = UIColor.white
+            case 1:
+                if !MFMailComposeViewController.canSendMail(){
+                    print("Mail services are not available")
+                    self.showSendMailErrorAlert()
+                    return
+                } else {
+                    sendFeedback()
+                    
+                }
+                tableView.deselectRow(at: indexPath, animated: true)
+            default:break
+            }
+        case 3:
+            //An alert window will appear if the user click the log out button.
+            let alertController = UIAlertController(title: "Logout", message: "Are you sure you want to log out?", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Logout", style: .default) { (action) in self.logoutAction()}
+            alertController.addAction(okAction)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+            alertController.addAction(cancelAction)
+            tabBarController!.present(alertController, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
             
-        case 1:
-            let settingsNotificationVC = EMSettingsViewController()
-            navigationController?.pushViewController(settingsNotificationVC, animated: true)
         default:break
             
+        }
+    }
+    
+    // change Height of Profile Picture Cell
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath.section == 0 && indexPath.row == 0){
+            return 100
+        } else {
+            return UITableViewAutomaticDimension
         }
     }
 
@@ -116,5 +187,60 @@ class SettingsVC: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+    
+    // MARK - Functions for email sending. (Feedback button)
+    
+    // send Feedback
+    func sendFeedback(){
+        let composeVC = MFMailComposeViewController()
+        composeVC.mailComposeDelegate = self
+        // Configure the fields of the interface
+        composeVC.setToRecipients(["instasolve1@gmail.com"])
+        composeVC.setSubject("Feedback - InstaSolve")
+        composeVC.setMessageBody("Please leave us your precious feedback!", isHTML: false)
+        self.present(composeVC, animated: true, completion:nil)
+        
+    }
+    
+    // error handler
+    func showSendMailErrorAlert(){
+        let sendMailErrorAlert = UIAlertController(title: "Mail cannot be sent", message: "Mailbox is not setup properly", preferredStyle: .alert )
+        sendMailErrorAlert.addAction(UIAlertAction(title: "Yes", style: .default) {_ in})
+        self.present(sendMailErrorAlert, animated: true)
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        mailComposerVC.setToRecipients(["someone@somewhere.com"])
+        mailComposerVC.setSubject("Sending you an in-app e-mail...")
+        mailComposerVC.setMessageBody("Sending e-mail in-app is not so bad!", isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    // dimiss controller
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        //Dismiss the black view controller.
+        //self.presentingViewController?.dismiss(animated: false, completion: nil)
+        
+        switch result {
+        case MFMailComposeResult.cancelled:
+            print("Mail cancelled")
+        case MFMailComposeResult.saved:
+            print("Mail saved")
+        case MFMailComposeResult.sent:
+            print("Mail sent")
+        case MFMailComposeResult.failed:
+            print("Mail sent failure")
+        default:
+            break
+        }
+        // Dismiss mail view controller and back to setting page
+        self.dismiss(animated:true, completion: nil)
+    }
+
 
 }

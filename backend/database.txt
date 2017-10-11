@@ -35,11 +35,17 @@ notes: tid(tutor id), qid(question id), sid(student id)
         stars:
         totalQuestionNum:
         email:
+        category:
         profilePhoto:
         token: (casused by createStripeUser function)
         
+>>>>>>> dev
 4. users:
     <sid>:
+        username:
+        grade:
+        email:
+        profilepicURL:
         balance:
         name:
         email:

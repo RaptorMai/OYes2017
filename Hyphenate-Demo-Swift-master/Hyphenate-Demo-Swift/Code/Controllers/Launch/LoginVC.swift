@@ -10,6 +10,9 @@ import UIKit
 import Firebase
 import Hyphenate
 import MBProgressHUD
+import SDWebImage
+import Alamofire
+import AlamofireImage
 
 
 class LoginVC: UIViewController {
@@ -25,6 +28,7 @@ class LoginVC: UIViewController {
         label.textColor = UIColor.black
         label.font = UIFont(name: "Helvetica", size: 25)
         label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -194,7 +198,6 @@ class LoginVC: UIViewController {
                     weak var weakSelf = self
                     EMClient.shared().login(withUsername: usernameNoSign, password: usernameNoSign) { (username, error) in
                         if error == nil {
-                            self.hideHub()
                             EMClient.shared().options.isAutoLogin = true
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue:KNOTIFICATION_LOGINCHANGE), object: NSNumber(value: true))
                             //Save token to firebase
@@ -202,8 +205,9 @@ class LoginVC: UIViewController {
                                 let addToken = ["token": tokenNotNil] as [String: String?]
                                 self.ref?.child("tutors/\(usernameNoSign)").updateChildValues(addToken)
                             }
-                            let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
-                            self.present(homeVC, animated: true, completion: nil)
+                            // Get data from DB to user defaults, including profile picture, username, rating,etc
+                            self.populateUserDefaultsFromDB(usernameNoSign)
+                            
                         } else {
                             self.hideHub()
                             var alertStr = ""
@@ -296,6 +300,78 @@ class LoginVC: UIViewController {
         hideKeyboardWhenTappedAround()
         
         
+    }
+    func populateUserDefaultsFromDB(_ usernameNoSign: String) {
+        // Get user profile image
+        self.ref?.child("tutors/\(usernameNoSign)/profilePhoto").observeSingleEvent(of:.value, with:
+            {(snapshot) in
+                if snapshot.exists(){
+                    print(snapshot.value as! String)
+                    let profilePhotoURL = URL(string: snapshot.value as! String)
+                    Alamofire.request(profilePhotoURL!, method: .get).responseImage { response in
+                        guard let image = response.result.value else {
+                            // Handle error
+                            print("Image not found")
+                            return
+                        }
+                        let imgData = UIImageJPEGRepresentation(image, 1)
+                        print("SETTING PROFILEPIC")
+                        UserDefaults.standard.set(imgData, forKey: "profilePicture")
+                        self.hideHub()
+                        let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
+                        self.present(homeVC, animated: true, completion: nil)
+                    }
+                }
+                
+                
+        }) {(error) in print(error.localizedDescription)}
+        
+        // Get User Name
+        self.ref?.child("tutors/\(usernameNoSign)/username").observeSingleEvent(of:.value, with:
+            {(snapshot) in
+                if snapshot.exists(){
+                    let val = snapshot.value as? String
+                    print("SETTING USER NAME: \(String(describing: val))")
+                    UserDefaults.standard.set(val, forKey: "userName")
+                }
+                
+        }) {(error) in print(error.localizedDescription)}
+        
+        // Get User Stars
+        self.ref?.child("tutors/\(usernameNoSign)/stars").observeSingleEvent(of:.value, with:
+            {(snapshot) in
+                if snapshot.exists(){
+                    if let val = snapshot.value as? Double{
+                        print("SETTING User Stars with val: \(String(describing: val))")
+                        UserDefaults.standard.set(val, forKey: "star")
+                    }
+                    else {
+                        print("Stars is not a Double!!!")
+                    }
+                } else {
+                    print("SETTING User Stars without val")
+                    UserDefaults.standard.set("5", forKey: "star")
+                }
+                
+        }) {(error) in print(error.localizedDescription)}
+        
+        // Get User Number of Questions
+        self.ref?.child("tutors/\(usernameNoSign)/qnum").observeSingleEvent(of:.value, with:
+            {(snapshot) in
+                if snapshot.exists(){
+                    if let val = snapshot.value as? Int {
+                        print("SETTING Qnum with val: \(String(describing: val))")
+                        UserDefaults.standard.set(val, forKey: "qnum")
+                    }else{
+                        print("Qnum is not an Integer!!!")
+                    }
+                } else {
+                    print("SETTING Qnum without val")
+                    UserDefaults.standard.set("0.0", forKey: "qnum")
+                }
+                let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
+                self.present(homeVC, animated: true, completion: nil)
+        }) {(error) in print(error.localizedDescription)}
     }
     
 }

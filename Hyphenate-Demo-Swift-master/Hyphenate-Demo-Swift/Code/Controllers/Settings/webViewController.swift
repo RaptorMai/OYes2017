@@ -1,14 +1,15 @@
 //
-//  OpenUrlController.swift
-//  Hyphenate Messenger
+//  webViewController.swift
+//  Hyphenate-Demo-Swift
 //
-//  Created by Yi Jerry on 2017-09-20.
-//  Copyright © 2017 Hyphenate Inc. All rights reserved.
+//  Created by Caryn Cheung on 2017-09-21.
+//  Copyright © 2017 杜洁鹏. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import WebKit
-
+import MBProgressHUD
 class OpenUrlViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     var url : String?
@@ -69,7 +70,6 @@ class OpenUrlViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         progressView.setProgress(0.0, animated: false)
-        self.navigationItem.title = webView.title
     }
     
     deinit {
@@ -77,7 +77,6 @@ class OpenUrlViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         webView.removeObserver(self, forKeyPath: "estimatedProgress")
         progressView.reloadInputViews()
     }
-  
+    
     
 }
-
