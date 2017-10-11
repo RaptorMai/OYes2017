@@ -20,8 +20,7 @@ protocol ShopPurchaseStatusDelegate {
     func didFinishPurchasingWith(status succ: Bool)
 }
 
-class ShopTableViewController: UITableViewController, STPAddCardViewControllerDelegate{
-    
+class ShopTableViewController: UITableViewController, STPAddCardViewControllerDelegate {
     var ref: DatabaseReference? = Database.database().reference()
     
     var productMinutes = [Int]()
@@ -147,15 +146,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         
         // display banner
         if numDiscountAvailable > 0 && !didShowBanner {
-            let infoBanner = Banner(title: "Discount available!",
-                                    subtitle: "Purchase any package at discounted price, \(numDiscountAvailable) times remaining",
-                image: nil,
-                backgroundColor: UIColor(red:48.00/255.0, green:174.0/255.0, blue:51.5/255.0, alpha:1.000))
-            
-            infoBanner.dismissesOnTap = true
-            infoBanner.dismissesOnSwipe = true
-            infoBanner.show(duration: 2.0)
-            didShowBanner = true
+            showDiscountBanner()
         }
     }
     
@@ -165,6 +156,27 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         self.hideHud()
         productMinutes.removeAll()
         prices.removeAll()
+    }
+    
+    func showDiscountBanner() {
+        var infoBanner: Banner? = nil
+        // setting the banner based on is there discount available. The only time, when there's no discount available and this function is called is when user finishes a purchase
+        if numDiscountAvailable > 0 {
+            infoBanner = Banner(title: "Discount available!",
+                                    subtitle: "Purchase any package at discounted price for \(numDiscountAvailable) times!",
+                image: nil,
+                backgroundColor: UIColor(red:48.00/255.0, green:174.0/255.0, blue:51.5/255.0, alpha:1.000))
+        } else {
+//            infoBanner = Banner(title: "All discounts used",
+//                                    subtitle: "Keep using the app, more discounts will come 😉",
+//                image: nil,
+//                backgroundColor: UIColor(red:100/255.0, green:154/255.0, blue:209/255.0, alpha:1.000))
+        }
+        
+        infoBanner?.dismissesOnTap = true
+        infoBanner?.dismissesOnSwipe = true
+        infoBanner?.show(duration: 2.0)
+        didShowBanner = true
     }
     
     func dismissShop() {
@@ -232,8 +244,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             cell.addPurchaseAction(self, action: #selector(ShopTableViewController.payAlert(_:)), amount: price)
             
             return cell
-        }
-        else{
+        } else {
             print(indexPath.row)
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
             cell.imageView?.image = #imageLiteral(resourceName: "creditcard")
@@ -415,7 +426,13 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                             // the summaryVC know about it
                             self.delegate?.didFinishPurchasingWith(status: true)
                             self.dismiss(animated: true, completion: nil)
+                        } else {
+                            // show the discount available banner
+                            DispatchQueue.main.async {
+                                self.showDiscountBanner()
+                            }
                         }
+                        
                     }))
                     
                     self.present(alert, animated: true, completion: nil)
