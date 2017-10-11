@@ -240,7 +240,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     
     // MARK: - finish loading profile data
     func didFetchConfigTypeProfile() {
-        tableView.reloadData()
+        tableView?.reloadData()
     }
 }
 
