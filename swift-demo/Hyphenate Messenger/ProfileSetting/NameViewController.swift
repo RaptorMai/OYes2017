@@ -20,7 +20,7 @@ class NameViewController: UIViewController {
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.nameChangTextView.text = UserDefaults.standard.string(forKey: "userName")
+        self.nameChangTextView.text = UserDefaults.standard.string(forKey: DataBaseKeys.profileUserNameKey)
         nameChangTextView.becomeFirstResponder()
         nameChangTextView.clearButtonMode = .always
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
@@ -43,10 +43,10 @@ class NameViewController: UIViewController {
             if snapshot.exists(){
                 let val = snapshot.value as? String
                 if (val! != ""){
-                    UserDefaults.standard.set(val, forKey: "userName")
+                    UserDefaults.standard.set(val, forKey: DataBaseKeys.profileUserNameKey)
                 }
                 else{
-                    UserDefaults.standard.set("Unknown", forKey: "userName")
+                    UserDefaults.standard.set("Unknown", forKey: DataBaseKeys.profileUserNameKey)
                 }
             }
              MBProgressHUD.hide(for: self.view, animated: true)
