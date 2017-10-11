@@ -406,7 +406,10 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                     // send alert
                     let title = "Payment successful"
                     let chargedAmount: Double = (self.numDiscountAvailable > 0) ? (Double(amount) * self.discountRate).rounded(.up) : Double(amount)
-                    let message = "You have purchased \(self.product) minutes for $\(chargedAmount/100)"
+                    
+                    let packageIdx = self.prices.index(of: amount) ?? 0
+                    let minutesPurchased = self.productMinutes[packageIdx]
+                    let message = "You have purchased \(minutesPurchased) minutes for $\(chargedAmount/100)"
                     
                     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {(action) in
@@ -440,7 +443,6 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         if indexPath.row == productMinutes.count{
             updateCard()
         }
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {

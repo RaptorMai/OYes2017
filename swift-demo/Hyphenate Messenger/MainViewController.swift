@@ -26,6 +26,8 @@ class MainViewController: UITabBarController {
         let settingsRootViewController:UINavigationController = UINavigationController(rootViewController: settingsViewController)
         settingsRootViewController.navigationBar.isTranslucent = false
         settingsRootViewController.title = "Settings"
+        // reload table when profile fetch completes
+        AppConfig.sharedInstance.profileDelegate = settingsViewController
 
         self.setViewControllers([homeViewController, historyRootViewController, shopRootViewController, settingsRootViewController], animated: true)
         
