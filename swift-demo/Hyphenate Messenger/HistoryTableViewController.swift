@@ -24,8 +24,6 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         newConversationButton.setBackgroundImage(image, for: UIControlState())
         newConversationButton.addTarget(self, action: #selector(ConversationsTableViewController.composeConversationAction), for: .touchUpInside)
         newConversationButton.showsTouchWhenHighlighted = true
-        let rightButtonItem = UIBarButtonItem(customView: newConversationButton)
-        self.tabBarController?.navigationItem.rightBarButtonItem = rightButtonItem
         
         self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
