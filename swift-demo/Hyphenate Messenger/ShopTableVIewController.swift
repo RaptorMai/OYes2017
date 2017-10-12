@@ -427,27 +427,13 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             if (postDict != nil){
                 
                 if (postDict == "succeeded"){
-                    // dismiss loading page
-                    
-                    //MKFullSpinner.hide()
-                    /*self.ref?.child("users/\(self.uid)/balance").observe(DataEventType.value, with: { (snapshot) in
-                        self.balance = (snapshot.value as? Int)!
-                        self.tableView.reloadData()
-                    }){ (error) in
-                        //print(error.localizedDescription)
-                        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                        let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-                        alert.addAction(okay)
-                        self.present(alert, animated: true, completion: nil)
-                    }*/
-                    
+                
                     // if discount available, decrement discount
                     if self.numDiscountAvailable > 0 {
                         try! AppConfig.sharedInstance.decrementCountForConfigType(.ConfigTypeDiscountAvailability)
                     }
-                    
+                    // dismiss loading page
                     self.hideHud()
-                    
                     // send alert
                     let title = "Payment successful"
                     let chargedAmount: Double = (self.numDiscountAvailable > 0) ? (Double(amount) * self.discountRate).rounded(.up) : Double(amount)
