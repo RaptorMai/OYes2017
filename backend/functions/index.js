@@ -76,6 +76,7 @@ exports.stripeCharge = functions.database
 								.ref('/users/{userId}/payments/charges/{id}/content')
 								.onWrite(event => {
 									console.log("a new charge is written into db");
+									event.data.adminRef.parent.child("error").remove()
 									// here val is {amount:xxx, discount:<0,1>}
 									const val = event.data.val();
 									admin.database().ref("/globalConfig/discountRate").once("value").then(snapshot => {
@@ -146,6 +147,7 @@ exports.stripeCharge = functions.database
 // Add a payment token to create a card source for a specific user
 exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sources/token').onWrite(event => {
 	console.log("a new token/source is added to user's account");
+	event.data.adminRef.parent.child('error').remove()
 	const source = event.data.val();
 	console.log("this should be the token");
 	console.log(event.data.val());
@@ -186,6 +188,7 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 							else {
 								console.log("response from addPaymentToken");
 								console.log(customer);
+								
 								//write to another node, otherwise this function will be triggered twice
 								return event.data.adminRef.parent.child('cardInfo').set(customer);
 							}
@@ -200,6 +203,7 @@ exports.addPaymentToken = functions.database.ref('/users/{userId}/payments/sourc
 								else{
 									console.log("response from addPaymentToken");
 									console.log(customer);
+									
 									//write to another node, otherwise this function will be triggered twice
 									return event.data.adminRef.parent.child('cardInfo').set(customer);
 								}

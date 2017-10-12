@@ -359,7 +359,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         ref?.child("users").child(uid).child("payments/sources/token").setValue(token.tokenId)
         self.isPaymentCardPresent = true
         //If add card successfully
-        self.ref?.child("users/\(self.uid)/payments/sources/cardInfo/default_source").observe(DataEventType.value, with: { (snapshot) in
+        self.ref?.child("users/\(self.uid)/payments/sources/cardInfo/object").observe(DataEventType.value, with: { (snapshot) in
             let card = (snapshot.value) as? String
             if (card != nil){
                 self.dismiss(animated: true, completion: {
@@ -373,20 +373,20 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             print(error.localizedDescription)
         }
         //If add card fail
-        self.ref?.child("users/\(self.uid)/payments/sources/error").observe(DataEventType.value, with: { (snapshot) in
-            let error = (snapshot.value) as? String
-            if (error != nil){
-                
+        self.ref?.child("users/\(uid)/payments/sources/error").observe(DataEventType.value, with: { (snapshot) in
+            if let errorString = snapshot.value as? String {
                 self.dismiss(animated: true, completion: {
-                    completion(nil)})}
-                let alert = UIAlertController(title: "Error", message: error!, preferredStyle: .alert)
-                let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-                alert.addAction(okay)
-                self.present(alert, animated: true, completion: nil)
-        }){ (error) in
+                    let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
+                    let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    alert.addAction(okay)
+                    self.present(alert, animated: true, completion: nil)
+                })
+            }
+        }, withCancel: { (error) in
             print(error.localizedDescription)
-        }
+        })
     }
+    
     func chargeUsingCustomerId(_ amount: Int){
         // Post data to Firebase
         print("charge using customerId----------------------")
@@ -406,9 +406,20 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         // TODO: add listener
         // add loading page
         // display alert
+        ref?.child("users").child(uid).child("payments/charges").child(paymentId!).child("error").observe(DataEventType.value, with: { (snapshot) in
+            if let errorString = snapshot.value as? String {
+                self.hideHud()
+                let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
+                let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(okay)
+                self.present(alert, animated: true, completion: nil)
+
+            }
+        }, withCancel: { (error) in
+            print(error.localizedDescription)
+        })
         
         let postRef = ref?.child("users").child(uid).child("payments/charges").child(paymentId!).child("paymentDetail").child("status")
-        
         _ = postRef?.observe(DataEventType.value, with: { (snapshot) in
             let postDict = snapshot.value as? String
             // let status = postDict["status"] as? String ?? ""
