@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /** Hyphenate configuration constants **/
     static let kHyphenateAppKey = "1500170706002947#instasolve"
     static let kHyphenatePushServiceDevelopment = "InstasolveDevCertificates"
-    static let kHyphenatePushServiceProduction = "InstasolveDevCertificates"
+    static let kHyphenatePushServiceProduction = "InstaSolveProductionCertificates"
     static let kSDKConfigEnableConsoleLogger = "SDKConfigEnableConsoleLogger"
     
     /** Google Analytics configuration constants **/
@@ -34,24 +34,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mainViewController: MainViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        //test
-        Stripe.setDefaultPublishableKey("pk_test_lTfNGp2OD3CytvWX9XCPA41z")
-        //live
-        //Stripe.setDefaultPublishableKey("pk_live_pmb3J5laKj7HXRw4Ro8Z8P2G")
+        var apnsCertName : String? = nil
+        // ignore the Xcode "will never be executed" warning
+        if _isDebugAssertConfiguration() {
+            print("Setting test stripe key")
+            Stripe.setDefaultPublishableKey("pk_test_lTfNGp2OD3CytvWX9XCPA41z")
+            apnsCertName = AppDelegate.kHyphenatePushServiceDevelopment
+        } else {
+            print("Setting production stripe key")
+            Stripe.setDefaultPublishableKey("pk_live_pmb3J5laKj7HXRw4Ro8Z8P2G")
+            apnsCertName = AppDelegate.kHyphenatePushServiceProduction
+        }
+        
         FirebaseApp.configure()
  
         //TODO: create our own gif with our logo, need to add our gif to "copy bundle researces" under "build phase"
         //showSplashAnimation()
-
-        var apnsCertName : String? = nil
         
         let config = AppConfig.sharedInstance
-        
-        #if DEBUG
-            apnsCertName = AppDelegate.kHyphenatePushServiceDevelopment
-        #else
-            apnsCertName = AppDelegate.kHyphenatePushServiceDevelopment //kHyphenatePushServiceProduction
-        #endif
         
         application.registerForRemoteNotifications()
         

@@ -65,11 +65,11 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
             // username
             cell.senderLabel.text = UserDefaults.standard.string(forKey: DataBaseKeys.profileUserNameKey)
             // profile picture
-            let imageUIImage: UIImage
-            if let data = UserDefaults.standard.data(forKey:  DataBaseKeys.profilePhotoKey){
-                imageUIImage = UIImage(data: data)!
+            let imageUIImage: UIImage?
+            if let data = UserDefaults.standard.data(forKey: DataBaseKeys.profilePhotoKey){
+                imageUIImage = UIImage(data: data)
             }else{
-                imageUIImage = UIImage(named:"placeholder")!
+                imageUIImage = UIImage(named:"placeholder")
             }
             cell.senderImageView.image = imageUIImage
             
