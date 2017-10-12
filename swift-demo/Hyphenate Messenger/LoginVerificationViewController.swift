@@ -131,7 +131,7 @@ class LoginVerificationViewController: UIViewController {
                     self.present(alertView, animated: true, completion: nil)
                     
                     // to display resend button
-                    self.timerRemaining = 0
+                    self.timerRemaining = 1
                 } else {
                     // cellphone login successful
                     // log into hyphenate, if mode is signup, perform signup flow
