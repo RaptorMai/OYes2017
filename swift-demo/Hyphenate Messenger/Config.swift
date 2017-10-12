@@ -71,7 +71,7 @@ struct DataBaseKeys {
     }
     
     static let defaultDict = [serverAddress: "us-central1-instasolve-d8c55.cloudfunctions.net" as NSObject,
-                              appStoreLink: "itms://itunes.apple.com/app" as NSObject]
+                              appStoreLink: "itms://itunes.apple.com/app/apple-store/id1295553974?mt=8" as NSObject]
 }
 
 enum ConfigError: Error {
@@ -83,6 +83,12 @@ enum ConfigError: Error {
     @objc optional func didFetchConfigTypeProfile()
 }
 
+extension String {
+    func getVersionNumbers() -> (major: Int, minor: Int, maintain: Int) {
+        let versionArr = self.components(separatedBy: ".")
+        return (major: Int(versionArr[0])!, minor: Int(versionArr[1])!, maintain: Int(versionArr[2])!)
+    }
+}
 
 /// This class provides method to load/store/get configurations, including baseURL for http request, handle required version of packages, categories and app version
 class AppConfig {
@@ -94,15 +100,23 @@ class AppConfig {
     
     var profileDelegate: ConfigDelegate?
     
-    var appVersion = Double(Bundle.main.infoDictionary?["CFBundleShortVersionString"]! as! String)!
+    var appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"]! as! String).getVersionNumbers()
     
-    
-    var appUpdateRequired: Bool {
+    var appForceUpdateRequired: Bool {
         get {
-            return getConfigForKey(DataBaseKeys.appRequiredVerKey)! as! Double > appVersion
+            // the
+            return shouldDisplayUpdateInformation(forRequriedVersion: defaults.string(forKey: DataBaseKeys.appRequiredVerKey)!)
+       }
+    }
+
+    var appUpdateSuggested: Bool {
+        get {
+            // the
+            return shouldDisplayUpdateInformation(forRequriedVersion: defaults.string(forKey: DataBaseKeys.appSuggestedVerKey)!)
         }
     }
-    
+
+
     private var isAlertShown = false  // used to sync the alert, we show alert again in didBecomeActive, but needs to let it know not to show again
     
     // MARK: public vars
@@ -163,10 +177,10 @@ class AppConfig {
             return defaults.integer(forKey: DataBaseKeys.firstLaunchKey)
             
         case .ConfigTypeAppUpdateRequired:
-            return appUpdateRequired
+            return appForceUpdateRequired
         
         case .ConfigTypeAppUpdateSuggested:
-            return getConfigForKey(DataBaseKeys.appRequiredVerKey)! as! Double > appVersion
+            return appUpdateSuggested
             
         case .ConfigTypeDiscountAvailability:
             return getConfigForKey(DataBaseKeys.discountAvailabilityKey) as? Int
@@ -226,10 +240,10 @@ class AppConfig {
         case .ConfigTypeAppUpdateRequired:
             // get required version number
             ref?.child(DataBaseKeys.configDBRef(DataBaseKeys.appRequiredVer)).observeSingleEvent(of: .value, with: { (snapshot) in
-                let requiredVersion = snapshot.value as! Double
+                let requiredVersion = snapshot.value as! String
                 
                 self.defaults.set(requiredVersion, forKey: DataBaseKeys.appRequiredVerKey)
-                if requiredVersion > self.appVersion {
+                if self.shouldDisplayUpdateInformation(forRequriedVersion: requiredVersion) {
                     // display
                     self.displayUpdateAlertForType(.ConfigTypeAppUpdateRequired)
                 }
@@ -239,10 +253,10 @@ class AppConfig {
         case .ConfigTypeAppUpdateSuggested:
             // get required version number
             ref?.child(DataBaseKeys.configDBRef(DataBaseKeys.appSuggestedVer)).observeSingleEvent(of: .value, with: { (snapshot) in
-                let suggestedVer = snapshot.value as! Double
+                let suggestedVer = snapshot.value as! String
                 
                 self.defaults.set(suggestedVer, forKey: DataBaseKeys.appSuggestedVerKey)
-                if suggestedVer > self.appVersion {
+                if self.shouldDisplayUpdateInformation(forRequriedVersion: suggestedVer) {
                     // display
                     self.displayUpdateAlertForType(.ConfigTypeAppUpdateSuggested)
                 }
@@ -293,7 +307,6 @@ class AppConfig {
                 let appStoreURLString = RemoteConfig.remoteConfig().configValue(forKey: DataBaseKeys.appStoreLink).stringValue
                 UIApplication.shared.open((URL(string: appStoreURLString!)!))
             }))
-            
             switch type {
             case .ConfigTypeAppUpdateRequired:
                 alertView.message = "Please update the app to newer version"
@@ -313,7 +326,23 @@ class AppConfig {
             }
         }
     }
+
     
+    /// Call this function to see if the current app version needs update, compare to the version string supplied
+    ///
+    /// - Parameter ver: the (maybe) newer version that you want to compare against the current app version
+    /// - Returns: true if the current version is lower, false otherwise
+    func shouldDisplayUpdateInformation(forRequriedVersion ver: String) -> Bool {
+        let (major, minor, maintain) = ver.getVersionNumbers()
+        if major > appVersion.major {
+            return true
+        } else if minor > appVersion.minor {
+            return true
+        } else if maintain > appVersion.maintain {
+            return true
+        }
+        return  false
+    }
     
     /// Pulls new category Json from cloud
     ///
@@ -361,7 +390,6 @@ class AppConfig {
         let initialUserDefaults: [String:Int] = [DataBaseKeys.categoryVerKey: -1,
                                                  DataBaseKeys.packageVerKey: -1,
                                                  DataBaseKeys.firstLaunchKey: 0,  // TODO: check after user switch
-                                                 DataBaseKeys.appRequiredVerKey: 1,
                                                  DataBaseKeys.discountAvailabilityKey: 0,
                                                  DataBaseKeys.discountRate: 1,
                                                  DataBaseKeys.profileNeedsUpdateKey: 1]
@@ -370,7 +398,11 @@ class AppConfig {
         
         let initialProfileDefaults: [String:String] = [DataBaseKeys.profileEmailKey: "example@gmail.com",
                                                        DataBaseKeys.profileUserNameKey: "Please complete profile",
-                                                       DataBaseKeys.profileGradeKey: "Others"]
+                                                       DataBaseKeys.profileGradeKey: "Others",
+                                                       DataBaseKeys.appRequiredVerKey: "1.0.0",
+                                                       DataBaseKeys.appSuggestedVerKey: "1.0.0",
+                                                       ]
+        
         defaults.register(defaults: initialProfileDefaults)
         
         // setting profile photo to placeholder
@@ -434,12 +466,13 @@ class AppConfig {
     
     /// Do app refresh at launch, it does: 1. handle remote config, 2. check category/package for necessary update, 3. increment open count
     func configAppLaunch() {
-        RemoteConfig.remoteConfig().setDefaults(DataBaseKeys.defaultDict)
+        let remoteConfig = RemoteConfig.remoteConfig()
+        remoteConfig.setDefaults(DataBaseKeys.defaultDict)
         
         // activate the fetched data from last time app is opened
-        RemoteConfig.remoteConfig().fetch { (status, error) in
+        remoteConfig.fetch { (status, error) in
             guard error == nil else {return}
-            RemoteConfig.remoteConfig().activateFetched()
+            remoteConfig.activateFetched()
         }
         
         // get category update event, the snapshot should be int
