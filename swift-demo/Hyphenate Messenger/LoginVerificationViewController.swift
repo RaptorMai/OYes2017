@@ -57,6 +57,11 @@ class LoginVerificationViewController: UIViewController {
         numberField.layer.masksToBounds = true
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        numberField.becomeFirstResponder()
+    }
+    
     // MARK: - Cellphone number formatting
     
     /// Formats int phone number to (xxx)xxx xxxx format

@@ -56,14 +56,12 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            // My Profile TODO: don't use conversation table view cell, better make a new one
             let cell:SettingProfileTableViewCell = tableView.dequeueReusableCell(withIdentifier: "settingProfileCell", for: indexPath) as! SettingProfileTableViewCell
-            cell.senderLabel.text = ""
-            cell.lastMessageLabel.isHidden = true
             cell.senderImageView.contentMode = UIViewContentMode.scaleAspectFill
             
             // username
             cell.senderLabel.text = UserDefaults.standard.string(forKey: DataBaseKeys.profileUserNameKey)
+            cell.lastMessageLabel.text = UserDefaults.standard.string(forKey: DataBaseKeys.profileGradeKey)
             // profile picture
             let imageUIImage: UIImage?
             if let data = UserDefaults.standard.data(forKey: DataBaseKeys.profilePhotoKey){
@@ -125,7 +123,8 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
                 }
             // Rate us
             case 2:
-                UIApplication.shared.openURL(URL(string: "itms-apps://itunes.apple.com/")!)
+                let appStoreURLString = RemoteConfig.remoteConfig().configValue(forKey: DataBaseKeys.appStoreLink).stringValue
+                UIApplication.shared.open((URL(string: appStoreURLString!)!))
                 tableView.deselectRow(at: indexPath, animated: true)
             // Like us on Facebook
             case 3:

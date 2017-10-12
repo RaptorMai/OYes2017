@@ -40,7 +40,8 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
         //Upload Email to DB
-        let email = EmailText.text
+        var email = EmailText.text
+        email = email?.trimmingCharacters(in: .whitespacesAndNewlines)
         if verifyEmail(email: email!){
         uploadEmail(email!)
         

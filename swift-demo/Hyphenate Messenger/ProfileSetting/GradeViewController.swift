@@ -35,7 +35,7 @@ class GradeViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     }
     
     //MARK: - Properties
-    var grade = ["Grade 9", "Grade 10","Grade 11","Grade 12","Year 1","Year 2","Year 3","Year 4","Others"]
+    var grade = ["Grade 9", "Grade 10","Grade 11","Grade 12","University 1st year","University 2nd year","University 3rd year","University 4th year","Others"]
     
     //MARK: - Outlets
     @IBOutlet weak var gradePickerView: UIPickerView!
