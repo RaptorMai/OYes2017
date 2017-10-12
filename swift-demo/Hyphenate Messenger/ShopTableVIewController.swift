@@ -50,7 +50,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     }
     
     var delegate: ShopPurchaseStatusDelegate?
- 
+    
     // set this flag when purchasing before starting chat, so it dismisses
     // itself after successfully purchasing a package
     var isPurchasingBeforeReqeusting = false
@@ -87,7 +87,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         showHud(in: view, hint: "Loading")
         productMinutes.removeAll()
         prices.removeAll()
-
+        
         ref?.child("users/\(uid)/balance").observeSingleEvent(of: .value, with: { (snapshot) in
             if let balance = snapshot.value as? Int {
                 self.balance = balance
@@ -103,7 +103,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             alert.addAction(okay)
             self.present(alert, animated: true, completion: nil)
         }
- 
+        
         // get mapping from user defaults
         if let mapping = AppConfig.sharedInstance.getConfigForType(.ConfigTypePackage) as? NSDictionary {
             // Get minutes array from all keys of mapping dictionary
@@ -140,7 +140,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         navigationController?.navigationBar.titleTextAttributes = titleAttributes
         navigationItem.leftBarButtonItem?.setTitleTextAttributes(buttonAttributes, for: UIControlState())
         navigationItem.backBarButtonItem?.setTitleTextAttributes(buttonAttributes, for: UIControlState())
-
+        
         // set badge view to 0
         tabBarController?.tabBar.items![2].badgeValue = nil
         
@@ -163,14 +163,14 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         // setting the banner based on is there discount available. The only time, when there's no discount available and this function is called is when user finishes a purchase
         if numDiscountAvailable > 0 {
             infoBanner = Banner(title: "Discount available!",
-                                    subtitle: "Purchase any package at discounted price for \(numDiscountAvailable) times!",
+                                subtitle: "Purchase any package at discounted price for \(numDiscountAvailable) times!",
                 image: nil,
                 backgroundColor: UIColor(red:48.00/255.0, green:174.0/255.0, blue:51.5/255.0, alpha:1.000))
         } else {
-//            infoBanner = Banner(title: "All discounts used",
-//                                    subtitle: "Keep using the app, more discounts will come 😉",
-//                image: nil,
-//                backgroundColor: UIColor(red:100/255.0, green:154/255.0, blue:209/255.0, alpha:1.000))
+            //            infoBanner = Banner(title: "All discounts used",
+            //                                    subtitle: "Keep using the app, more discounts will come 😉",
+            //                image: nil,
+            //                backgroundColor: UIColor(red:100/255.0, green:154/255.0, blue:209/255.0, alpha:1.000))
         }
         
         infoBanner?.dismissesOnTap = true
@@ -191,7 +191,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         priceButton.frame = CGRect(x: UIScreen.main.bounds.size.width * 0.81, y: 7, width: 60, height: 30)
         priceButton.backgroundColor = .clear
         // priceButton.backgroundColor = UIColor.blue
-
+        
         priceButton.layer.cornerRadius = 5
         priceButton.layer.borderWidth = 1
         priceButton.layer.borderColor = theme.buttonColor.cgColor
@@ -320,7 +320,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             alertView.addAction(UIAlertAction(title: "Add card", style: .default, handler: { (_) in
                 self.addCard()
             }))
-
+            
             self.present(alertView, animated: true, completion: nil)
         }
     }
@@ -357,14 +357,36 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         print(token)
         // Use token for backend process
         ref?.child("users").child(uid).child("payments/sources/token").setValue(token.tokenId)
-        
         self.isPaymentCardPresent = true
-        
-        self.dismiss(animated: true, completion: {
-            completion(nil)
-        })
+        //If add card successfully
+        self.ref?.child("users/\(self.uid)/payments/sources/cardInfo/default_source").observe(DataEventType.value, with: { (snapshot) in
+            let card = (snapshot.value) as? String
+            if (card != nil){
+                self.dismiss(animated: true, completion: {
+                completion(nil)})}
+                let alert = UIAlertController(title: "Successful", message: "Your card is added Successfully!", preferredStyle: .alert)
+                let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(okay)
+                self.present(alert, animated: true, completion: nil)
+            
+        }){ (error) in
+            print(error.localizedDescription)
+        }
+        //If add card fail
+        self.ref?.child("users/\(self.uid)/payments/sources/error").observe(DataEventType.value, with: { (snapshot) in
+            let error = (snapshot.value) as? String
+            if (error != nil){
+                
+                self.dismiss(animated: true, completion: {
+                    completion(nil)})}
+                let alert = UIAlertController(title: "Error", message: error!, preferredStyle: .alert)
+                let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(okay)
+                self.present(alert, animated: true, completion: nil)
+        }){ (error) in
+            print(error.localizedDescription)
+        }
     }
-    
     func chargeUsingCustomerId(_ amount: Int){
         // Post data to Firebase
         print("charge using customerId----------------------")
@@ -377,7 +399,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         // discount is available if discountrate < 1 and there are available discount for this user
         let isPriceAfterDiscount = (discountRate < 1 && numDiscountAvailable > 0)
         // here amount should be before discount
-
+        
         ref?.child("users").child(uid).child("payments/charges/\(paymentId!)/content").setValue(["amount": amount,"discount": isPriceAfterDiscount ? 1 : 0])
         print("Done writing to db")
         
@@ -413,7 +435,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                     }
                     
                     self.hideHud()
-
+                    
                     // send alert
                     let title = "Payment successful"
                     let chargedAmount: Double = (self.numDiscountAvailable > 0) ? (Double(amount) * self.discountRate).rounded(.up) : Double(amount)

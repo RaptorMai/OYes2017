@@ -34,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mainViewController: MainViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         var apnsCertName : String? = nil
         // ignore the Xcode "will never be executed" warning
         if _isDebugAssertConfiguration() {
