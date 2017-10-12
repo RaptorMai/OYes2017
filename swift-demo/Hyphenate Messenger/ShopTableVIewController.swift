@@ -228,9 +228,9 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("yes")
+        //print("yes")
         if indexPath.row < productMinutes.count {
-            print(indexPath.row)
+            //print(indexPath.row)
             let cell = tableView.dequeueReusableCell(withIdentifier: "shopTVCell") as! ShopTableViewCell
             //cell.subviews.forEach({ $0.removeFromSuperview() })
             let product = productMinutes[indexPath.row]
@@ -406,6 +406,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         // TODO: add listener
         // add loading page
         // display alert
+        //add error listener
         ref?.child("users").child(uid).child("payments/charges").child(paymentId!).child("error").observe(DataEventType.value, with: { (snapshot) in
             if let errorString = snapshot.value as? String {
                 self.hideHud()
@@ -429,7 +430,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                     // dismiss loading page
                     
                     //MKFullSpinner.hide()
-                    self.ref?.child("users/\(self.uid)/balance").observe(DataEventType.value, with: { (snapshot) in
+                    /*self.ref?.child("users/\(self.uid)/balance").observe(DataEventType.value, with: { (snapshot) in
                         self.balance = (snapshot.value as? Int)!
                         self.tableView.reloadData()
                     }){ (error) in
@@ -438,7 +439,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                         let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
                         alert.addAction(okay)
                         self.present(alert, animated: true, completion: nil)
-                    }
+                    }*/
                     
                     // if discount available, decrement discount
                     if self.numDiscountAvailable > 0 {
@@ -453,6 +454,8 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                     
                     let packageIdx = self.prices.index(of: amount) ?? 0
                     let minutesPurchased = self.productMinutes[packageIdx]
+                    self.balance += minutesPurchased
+                    self.tableView.reloadData()
                     let message = "You have purchased \(minutesPurchased) minutes for $\(chargedAmount/100)"
                     
                     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
