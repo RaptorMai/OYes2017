@@ -9,6 +9,11 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Verdana.ttf">
+            <string>Verdana</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -26,18 +31,18 @@
                             <constraint firstAttribute="width" constant="70" id="HD0-mT-Dme"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lkA-uK-713">
-                        <rect key="frame" x="91" y="10" width="212" height="27.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Luyuan Chen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lkA-uK-713">
+                        <rect key="frame" x="91" y="14" width="212" height="27.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="27.5" id="Rsm-4a-svl"/>
                             <constraint firstAttribute="width" constant="212" id="V9W-bi-K1X"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="19"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="96V-zl-Q50">
-                        <rect key="frame" x="91" y="51.5" width="212" height="21"/>
+                        <rect key="frame" x="91" y="49.5" width="212" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -45,8 +50,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="96V-zl-Q50" firstAttribute="width" secondItem="lkA-uK-713" secondAttribute="width" id="1ob-Sk-Ipx"/>
-                    <constraint firstItem="96V-zl-Q50" firstAttribute="top" secondItem="lkA-uK-713" secondAttribute="bottom" constant="14" id="Rta-N3-BXw"/>
-                    <constraint firstItem="lkA-uK-713" firstAttribute="top" secondItem="VTW-na-8pl" secondAttribute="top" id="UgP-iz-BSU"/>
+                    <constraint firstItem="96V-zl-Q50" firstAttribute="top" secondItem="lkA-uK-713" secondAttribute="bottom" constant="8" id="Rta-N3-BXw"/>
+                    <constraint firstItem="lkA-uK-713" firstAttribute="top" secondItem="VTW-na-8pl" secondAttribute="top" constant="4" id="UgP-iz-BSU"/>
                     <constraint firstItem="VTW-na-8pl" firstAttribute="leading" secondItem="jwt-th-fZv" secondAttribute="leadingMargin" id="ZrL-Mm-bo1"/>
                     <constraint firstItem="VTW-na-8pl" firstAttribute="centerY" secondItem="jwt-th-fZv" secondAttribute="centerY" id="gN1-Ax-waw"/>
                     <constraint firstItem="96V-zl-Q50" firstAttribute="leading" secondItem="lkA-uK-713" secondAttribute="leading" id="gcV-J3-MmM"/>
