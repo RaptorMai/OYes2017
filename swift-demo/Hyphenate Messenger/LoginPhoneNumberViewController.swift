@@ -7,8 +7,7 @@ class LoginPhoneNumberViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var verifyButton: UIButton!
     @IBOutlet weak var bannerLabel: UILabel!
     
-    var mode: String = "Login"
-    
+    var mode: LoginViewControllerMode = .login
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,10 +24,10 @@ class LoginPhoneNumberViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         // setting values here because the verification VC might pop, and view did load will not be called
         super.viewWillAppear(animated)
-        let titleString = (mode == "login") ? "Login" : "Sign up"
+        let titleString = (mode == .login) ? "Login" : "Sign up"
         title = titleString
         
-        let bannerTitle = (mode == "login") ? "Please log in with phone number" : "Please sign up with phone number"
+        let bannerTitle = (mode == .login) ? "Please log in with phone number" : "Please sign up with phone number"
         bannerLabel.text = bannerTitle
         
         navigationController?.navigationBar.isHidden = false
@@ -91,7 +90,7 @@ class LoginPhoneNumberViewController: UIViewController, UITextFieldDelegate {
         let verifyVC = segue.destination as! LoginVerificationViewController
         // setting the phone number and operation mode of verify VC
         // mode will determine whether VC calls signup or login for hyphenate
-        verifyVC.phoneNumber = Int((numberField?.text)!)!
+        verifyVC.phoneNumber = UInt64(Int((numberField?.text)!)!)
         verifyVC.mode = mode
     }
     

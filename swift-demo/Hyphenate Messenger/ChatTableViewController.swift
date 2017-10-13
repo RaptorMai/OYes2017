@@ -1,4 +1,3 @@
- 
 import UIKit
 import Hyphenate
 import Firebase
@@ -29,25 +28,30 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     var category: String = ""
     var key: String = ""
     var beginTime = Date()
+    var balance: Int = 1
+    var updatedDuration = 0
     //let calendar = Calendar.current
 
     //questionimage and question description are automatically sent when the view loads. didFirstMessageSend keeps track of if the first message was sent.
     var questionimage: UIImage?
     var questiondescription: String?
     var didFirstMessageSend = false
- 
+
     var ref: DatabaseReference!
    
     
     var dismissable = false
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.showRefreshHeader = true
         self.delegate = self
         self.dataSource = self
         self.ref = Database.database().reference()
         
+        // scroll to dismiss keyboard
+        self.tableView.keyboardDismissMode = .onDrag
+        getBalance()
         /* end session button*/
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         navigationController?.navigationBar.barTintColor = UIColor.white
@@ -102,6 +106,21 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     }
     
     // Mark: EaseMessageViewControllerDelegate
+    func getBalance(){
+        let sid = EMClient.shared().currentUsername!
+        let uidWithOne = "+1"+sid
+        ref?.child("users/\(uidWithOne)/balance").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            print(snapshot.value as! Int)
+            self.balance = snapshot.value as! Int
+            
+        }) { (error) in
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
     func messageViewController(_ viewController: EaseMessageViewController!, canLongPressRowAt indexPath: IndexPath!) -> Bool {
         return false
@@ -121,11 +140,19 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     func updateTimer() {
         //display time with floor
         time = Date().timeIntervalSince(beginTime)
-        timerLabel.text = String(Int(floor(Double(time)/60))) + " min"
-        //timerLabel.text = String(Int(floor(Double(time)))) + " min"
-        //TODO: check balance with server every minute, cut session if fund not enough
+        let minutes = Int(floor(Double(time)/60))
+        updatedDuration = Int(ceil(Double(time)/60))
+        setWhenDisconnected()
+        timerLabel.text = String(minutes) + " min"
+        if minutes >= self.balance{
+            let alert = UIAlertController(title: "Session finished", message: "Your balance is 0", preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler:{_ in self.endSession(minutes)})
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
+        }
         
     }
+    
     
     private func removeTimerLable() {
         timerLabel.text = ""
@@ -137,24 +164,25 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     func exitAlert(){
         let title = "Exit Session"
         let message = "Press Exit to end current session."
+        time = Date().timeIntervalSince(beginTime)
+        let sessionDuration = Int(ceil(Double(time)/60))
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Exit", style: UIAlertActionStyle.destructive, handler: {action in self.endSession()}))
+        alert.addAction(UIAlertAction(title: "Exit", style: UIAlertActionStyle.destructive, handler: {action in self.endSession(sessionDuration)}))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
         self.present(alert, animated: true, completion: nil)
     }
     
     
-    func endSession(){
+    func endSession(_ duration: Int){
         //calculate time with ceil
         let ratingViewController = UIStoryboard(name: "Rating", bundle: nil).instantiateViewController(withIdentifier: "rateSession") as! RatingViewController
         ratingViewController.category = self.category
         ratingViewController.key = self.key
         removeTimerLable()
-        time = Date().timeIntervalSince(beginTime)
-        let sessionDuration = Int(ceil(Double(time)/60))
-        //TODO: charge time to balance here
-        print(sessionDuration)
-        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":sessionDuration])
+        //time = Date().timeIntervalSince(beginTime)
+        //let sessionDuration = Int(ceil(Double(time)/60))
+        //print(sessionDuration)
+        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":duration])
         ratingViewController.delegate = self
         self.present(ratingViewController, animated: true)
         
@@ -164,21 +192,14 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     }
     
     func endSessionfromAppTermination(){
-        // get time of chat session
-        time = Date().timeIntervalSince(beginTime)
-        let sessionDuration = Int(ceil(Double(time)/60))
-        //TODO: charge time to balance here
-        print(sessionDuration)
-        //store duration
-        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":sessionDuration])
-        
-        // add rating to tutor
-        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["rate": 5.0])
-        //calldismiss to dismiss chatVC
-        dismissParentVC()
-        processSession()
+        //TODO: add conversationid to user default, the conversation need to be processed next time
     }
     
+    ///When the app disconnects firebasem the following value will be set
+    func setWhenDisconnected(){
+
+        self.ref?.child("Request/active/\(self.category)/\(self.key)").onDisconnectUpdateChildValues(["duration":self.updatedDuration,"rate": 5.0])
+    }
     func dismissParentVC() {
         //Dismiss Keyboard
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -187,9 +208,9 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     }
 
     func processSession() {
+
         // after a session ends, get the last session and copies all messages over to a new session
         let chatManager = EMClient.shared().chatManager
-
         // create a new conversation, generate a random numerical id first
         let letters : NSString = "0123456789"
         let len = UInt32(letters.length)
@@ -202,53 +223,49 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
             newConversationID += NSString(characters: &nextChar, length: 1) as String
         }
 
+        // TODO: as new messageID tweak is found, consider rewrite this section of code
         let newConversation = chatManager?.getConversation(newConversationID, type: EMConversationTypeChat, createIfNotExist: true)
 
         // get all messages from current conversation
         let sessionEndTime = Int64(Date().timeIntervalSince1970) * 1000  // convert to millisecond
-        let sessionStartTime = Int64(beginTime.timeIntervalSince1970) * 1000
+        let sessionStartTime = Int64(beginTime.timeIntervalSince1970 - 120) * 1000
         conversation?.loadMessages(from: sessionStartTime, to: sessionEndTime, count: MAX_MESSAGE_LOAD_COUNT, completion: { (messages, nil) in
             // copy all messages to new conversation
             if messages != nil {
                 for case let message as EMMessage in messages! {
-                    // model contains all information about a message
+                    // change the message's conversation ID to new, so that old message will not be loaded when the same
+                    // conversation ID comes again (because conversatoinID is essentially username, it'll show up again when
+                    // connected with the same tutor)
                     let model = EaseMessageModel(message: message)
-                    var newMessage: EMMessage? = nil
-                    
-                    // if dealing with image, require that images are indeed stored in the message
-                    if model?.bodyType == EMMessageBodyTypeImage && model?.image != nil {
-                        let imageData = UIImageJPEGRepresentation((model?.image)!, 1)
-                        let messageBody = EMImageMessageBody(data: imageData, displayName: "Image.png")
-                        messageBody?.thumbnailDownloadStatus = EMDownloadStatusSuccessed  // if not set, the model will try download it
-                        if message.direction == EMMessageDirectionSend {
-                            // the message is going out, then the photo is local, setting the download status to succ
-                            messageBody?.downloadStatus = EMDownloadStatusSuccessed
+                    if model?.bodyType == EMMessageBodyTypeImage {
+                        // if dealing with image, download them if not yet downloaded
+                        let body = message.body as! EMImageMessageBody
+                        if body.downloadStatus != EMDownloadStatusSuccessed {
+                            EMClient.shared().chatManager.downloadMessageAttachment(message, progress: nil, completion: nil)
                         }
-                        
-                        newMessage = EMMessage(conversationID: newConversationID,
-                                               from: message.from, 
-                                               to: message.to,
-                                               body: messageBody,
-                                               ext: nil)
-                    } else {
-                        // for text messages, just copy the message body, which is text
-                        newMessage = EMMessage(conversationID: newConversationID,
-                                               from: message.from,
-                                               to: message.to,
-                                               body: message.body,
-                                               ext: nil)
                     }
                     
-                    newMessage?.direction = message.direction
-                    newMessage?.status = message.status
-                    newMessage?.chatType = EMChatTypeChat
-                    newConversation?.insert(newMessage, error: nil)
+                    message.conversationId = newConversationID
+                    self.conversation.updateMessageChange(message, error: nil)
                 }
             }
-            newConversation?.lastReceivedMessage()?.from = newConversationID
+            
+            // new message for ext
+            // create thumbnail image
+            let thumbnail = self.questionimage?.scaledImage(toSize:CGSize(width: 100, height: 50))
+            let textMessageBody = EMTextMessageBody(text: "End of chat")
+            let newMessage = EMMessage(conversationID: newConversationID,
+                                       from: newConversationID,
+                                       to: "Me",
+                                       body: textMessageBody,
+                                       ext: ["cat": self.category,
+                                             "pic": UIImagePNGRepresentation(thumbnail!)?.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)])
+            newMessage?.status = EMMessageStatusSucceed
+            
+            newConversation?.insert(newMessage, error: nil)
         })
         
         // remove the current conversation from database
-        chatManager?.deleteConversation(conversation.conversationId, isDeleteMessages: true, completion: nil)
+        chatManager?.deleteConversation(conversation.conversationId, isDeleteMessages: false, completion: nil)
     }
 }

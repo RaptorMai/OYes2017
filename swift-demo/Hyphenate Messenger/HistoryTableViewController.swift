@@ -24,8 +24,6 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         newConversationButton.setBackgroundImage(image, for: UIControlState())
         newConversationButton.addTarget(self, action: #selector(ConversationsTableViewController.composeConversationAction), for: .touchUpInside)
         newConversationButton.showsTouchWhenHighlighted = true
-        let rightButtonItem = UIBarButtonItem(customView: newConversationButton)
-        self.tabBarController?.navigationItem.rightBarButtonItem = rightButtonItem
         
         self.tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
@@ -38,7 +36,14 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "History"
         self.tabBarController?.tabBar.isHidden = false
+        
         reloadDataSource()
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.navigationItem.rightBarButtonItem = nil
+        
     }
     
     /// Reload table view data after processing
@@ -59,7 +64,34 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         if needRemoveConversations.count > 0 {
             EMClient.shared().chatManager.deleteConversations(needRemoveConversations, isDeleteMessages: true, completion: nil)
         }
-        dataSource =  EMClient.shared().chatManager.getAllConversations() as [AnyObject]
+        dataSource =  EMClient.shared().chatManager.getAllConversations() as! [EMConversation]
+        
+        // order the data source according to the date added
+        dataSource = dataSource.sorted(by: {
+            let conv0 = $0 as! EMConversation
+            let conv1 = $1 as! EMConversation
+            if conv0.latestMessage != nil && conv1.latestMessage != nil {
+                return conv0.latestMessage.timestamp > conv1.latestMessage.timestamp
+            }
+            return false
+        })
+        
+        // display no history message when no histry
+        if dataSource.count == 0 {
+            let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            messageLabel.text = "There's no history yet\nCheck back after asking questions!"
+            messageLabel.textColor = .gray
+            messageLabel.numberOfLines = 2;
+            messageLabel.textAlignment = .center;
+            messageLabel.font = UIFont.systemFont(ofSize: 20)
+            messageLabel.sizeToFit()
+            
+            tableView.backgroundView = messageLabel;
+            tableView.separatorStyle = .none;
+        } else {
+            tableView.backgroundView = nil
+        }
+        
         DispatchQueue.main.async(execute: {
             self.tableView.reloadData()
         })
@@ -96,18 +128,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
                 self.present(alert, animated: true, completion: nil)
             })
         }
-        
-        let markAction = UITableViewRowAction(style: UITableViewRowActionStyle.normal,
-                                              title: "Mark as unread") { (action, indexPath) in
-                                                let conversation = self.dataSource[indexPath.row] as! EMConversation
-                                                let lastMessage = conversation.lastReceivedMessage()
-                                                lastMessage?.isRead = false
-                                                conversation.updateMessageChange(lastMessage, error: nil)
-                                                DispatchQueue.main.async(execute: {
-                                                    self.tableView.reloadData()
-                                                })
-        }
-        return [deleteAction, markAction]
+        return [deleteAction]
     }
     
     /// Handle deletion of session
@@ -148,8 +169,18 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
             cell.senderLabel.text = sender != EMClient.shared().currentUsername ? sender : recepient
         }
         
+        // message is defined in chatTableViewController, as [String:Data]. Keys are 'cat' and 'pic'
+        let messageExt = conversation.latestMessage.ext as? [String:String]
+        if messageExt != nil {
+            let categoryString = messageExt!["cat"]!
+            let imageData: Data = Data(base64Encoded:messageExt!["pic"]!, options:.ignoreUnknownCharacters)!
+            let image = UIImage(data: imageData)
+            cell.senderLabel.text = categoryString
+            cell.senderImageView.image = image
+        }
+        
         if let latestMessage: EMMessage = conversation.latestMessage {
-            let timeInterval: Double = Double(latestMessage.timestamp)
+            let timeInterval: Double = Double(latestMessage.timestamp) / 1000
             let date = Date(timeIntervalSince1970:timeInterval)
             let formatter = DateFormatter()
             formatter.timeStyle = .short
@@ -176,7 +207,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
     }
     
     override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90.0
+        return 78
     }
     
     override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -185,9 +216,13 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
             let timeStamp = ["SessionId":String(Date().ticks)]
             let sessionController = SessionTableViewController(conversationID: conversation.conversationId, conversationType: conversation.type, initWithExt: timeStamp)
             
-            print(conversation.conversationId)
+            // setting chatVC title
+            let messageExt = conversation.latestMessage.ext as? [String:String]
+            if messageExt != nil {
+                let categoryString = messageExt!["cat"]!
+                sessionController?.title = categoryString
+            }
             
-            sessionController?.title = conversation.latestMessage.from
             sessionController?.hidesBottomBarWhenPushed = true
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
             //self.navigationController!.pushViewController(sessionController!, animated: true)

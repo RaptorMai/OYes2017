@@ -7,7 +7,13 @@ import Crashlytics
 import Hyphenate
 import Firebase
 import Stripe
+import UserNotifications
 
+struct Platform {
+    static var isSimulator: Bool {
+        return TARGET_OS_SIMULATOR != 0
+    }
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /** Hyphenate configuration constants **/
     static let kHyphenateAppKey = "1500170706002947#instasolve"
     static let kHyphenatePushServiceDevelopment = "InstasolveDevCertificates"
-    static let kHyphenatePushServiceProduction = "InstasolveDevCertificates"
+    static let kHyphenatePushServiceProduction = "InstaSolveProductionCertificates"
     static let kSDKConfigEnableConsoleLogger = "SDKConfigEnableConsoleLogger"
     
     /** Google Analytics configuration constants **/
@@ -28,31 +34,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mainViewController: MainViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        var apnsCertName : String? = nil
+        // ignore the Xcode "will never be executed" warning
+        if _isDebugAssertConfiguration() {
+            print("Setting test stripe key")
+            Stripe.setDefaultPublishableKey("pk_test_lTfNGp2OD3CytvWX9XCPA41z")
+            apnsCertName = AppDelegate.kHyphenatePushServiceDevelopment
+        } else {
+            print("Setting production stripe key")
+            Stripe.setDefaultPublishableKey("pk_live_pmb3J5laKj7HXRw4Ro8Z8P2G")
+            apnsCertName = AppDelegate.kHyphenatePushServiceProduction
+        }
         
-        Stripe.setDefaultPublishableKey("pk_test_lTfNGp2OD3CytvWX9XCPA41z")
         FirebaseApp.configure()
  
         //TODO: create our own gif with our logo, need to add our gif to "copy bundle researces" under "build phase"
         //showSplashAnimation()
-
-        var apnsCertName : String? = nil
         
-        #if DEBUG
-            apnsCertName = AppDelegate.kHyphenatePushServiceDevelopment
-        #else
-            apnsCertName = AppDelegate.kHyphenatePushServiceDevelopment //kHyphenatePushServiceProduction
-        #endif
-        
-        //UIUserNotification Deprecated in ios10
-        let pushSettings = UIUserNotificationSettings(types:[UIUserNotificationType.badge ,UIUserNotificationType.sound ,UIUserNotificationType.alert], categories: nil)
-        application.registerUserNotificationSettings(pushSettings)
-        
-        
-//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){(granted, error) in
-//            if !granted{
-//                print("Notification Not Granted")
-//            }
-//        }
+        let config = AppConfig.sharedInstance
         
         application.registerForRemoteNotifications()
         
@@ -63,10 +62,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         hyphenateApplication(application, didFinishLaunchingWithOptions: launchOptions, appKey: AppDelegate.kHyphenateAppKey, apnsCertname: apnsCertName!, otherConfig:[AppDelegate.kSDKConfigEnableConsoleLogger: NSNumber(booleanLiteral: true)])
         
+        registerNotification()
+        // configtype first launch is guaranteed to be int
+        if (config.getConfigForType(.ConfigTypeFirstLaunch)! as! Int) < 1 {
+            config.configAppFirstLaunch()
+        }
+        
+        AppConfig.sharedInstance.configAppLaunch()
         return true
     }
     
-
+    func registerNotification() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {(granted, error) in
+            guard granted else {return}
+            self.getNotificationSettings()
+        }
+    }
+    
+    func getNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            print("Notification settings: \(settings)")
+            guard settings.authorizationStatus == .authorized else { return }
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+    }
     
     /*
     func showSplashAnimation() {
@@ -111,7 +132,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        // check if the user comes back from appstore when force update needed
+        if AppConfig.sharedInstance.getConfigForType(.ConfigTypeAppUpdateRequired)! as! Bool {
+            AppConfig.sharedInstance.displayUpdateAlertForType(.ConfigTypeAppUpdateRequired)
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -269,9 +293,14 @@ extension AppDelegate {
     
     // login
     func proceedLogin() {
-        if (self.mainViewController == nil) {
-            self.mainViewController = MainViewController()
+        let uid = "+1" + EMClient.shared().currentUsername!
+        AppConfig.sharedInstance.performUserSpecificConfigFor(uid)
+        
+        if AppConfig.sharedInstance.profileNeedsUpdate {
+            AppConfig.sharedInstance.getUserProfileAtLogin(uid)
         }
+        
+        self.mainViewController = MainViewController()
         HyphenateMessengerHelper.sharedInstance.mainVC = mainViewController
         HyphenateMessengerHelper.sharedInstance.loadConversationFromDB()
         HyphenateMessengerHelper.sharedInstance.loadPushOptions()

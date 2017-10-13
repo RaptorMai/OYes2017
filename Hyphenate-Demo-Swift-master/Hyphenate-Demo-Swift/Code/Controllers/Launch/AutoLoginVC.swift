@@ -28,6 +28,7 @@ class AutoLoginVC: UIViewController {
         self.present(homeVC, animated: true, completion: nil)
         //Update notification token 
         let addToken = ["token": self.token] as [String: String?]
+        print(uid)
         self.ref?.child("tutors/\(uid)").updateChildValues(addToken)
 
         

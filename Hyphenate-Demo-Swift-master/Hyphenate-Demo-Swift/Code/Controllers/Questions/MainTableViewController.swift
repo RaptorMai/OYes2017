@@ -29,73 +29,58 @@ import MBProgressHUD
 //import FirebaseDatabase
 
 protocol rescueButtonPressedProtocol {
-    func rescueButtonPressed(requestorSid: NSString, category: NSString, qid: NSString, image: UIImage?, description: String?)
+    func rescueButtonPressed(requestorSid: NSString, category: NSString, qid: NSString, image: UIImage?, description: String?, sender:UIButton)
 }
 
 class MainTableViewController: UITableViewController, rescueButtonPressedProtocol, expandimageProtocol {
     let kCloseCellHeight: CGFloat = 179
-    let kOpenCellHeight: CGFloat = 488
-    var kRowsCount = 0
-    var cellHeights: [CGFloat] = []
-    var specialty = ["Basic Calculus"]
+    let kOpenCellHeight: CGFloat = 442
+    var specialty = [String]()
     var dictArray = [Dictionary<String,Any>]()
     var ref: DatabaseReference?
     var delegate: refreshSpinnerProtocol?
-    
+    var tid:String = ""
+    var firstShow = 0
     //    var cache:NSCache<AnyObject, AnyObject>!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tid = EMClient.shared().currentUsername
+        print(tid)
+        ref = Database.database().reference()
         self.dictArray.removeAll()
         self.automaticallyAdjustsScrollViewInsets = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.refresh),name:NSNotification.Name(rawValue: "refresh"), object: nil)
         UIApplication.shared.applicationIconBadgeNumber = 0
-        self.getData(completion: { (success) -> Void in
-            
+        self.setup()
+        loadCategory(completion: { (success) -> Void in
             if success{
-                self.getPic(completion: {(success) -> Void in
-                    
-                    if success{
-                        
-                        //print(self.dictArray)
-                        
-                        
-                        self.setup()
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        
-                        }
-                        print("done")
-                        
-                    }
-                    else{return}
-                    
-                })
+                self.refresh()
+                self.firstShow = 1
             }
-            else{
-                
-                
-                print("not")
-                
-                
-            }
+            
         })
-        //    self.setup()
-        print("hi")
-        
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setup()
+        self.showHub(inView: self.view,"Loading")
+        if self.firstShow == 1{
             self.refresh()
+        }
+        
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.hideHub()
+    }
     func refresh(){
-        super.viewDidLoad()
+
         self.dictArray.removeAll()
         self.automaticallyAdjustsScrollViewInsets = false
         self.getData(completion: { (success) -> Void in
-            
             print(self.dictArray)
             if success{
                 self.getPic(completion: {(success) -> Void in
@@ -109,11 +94,16 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
                         }
+                        self.hideHub()
                         self.delegate?.removeSpinner()
                         print("done")
                         
                     }
-                    else{return}
+                    else{
+                        self.hideHub()
+                        self.delegate?.removeSpinner()
+                        return
+                    }
                     
                 })
             }
@@ -123,22 +113,18 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
+                self.hideHub()
                 self.delegate?.removeSpinner()
                 print("refreshnot")
                 
             }
         })
-        //    self.setup()
-        print("hi")
-        //print(self.dictArray)
-        
+
         
     }
     
     private func setup() {
         self.automaticallyAdjustsScrollViewInsets = false
-        kRowsCount = dictArray.count
-        cellHeights = Array(repeating: kOpenCellHeight, count: kRowsCount)
         tableView.estimatedRowHeight = kOpenCellHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.backgroundColor = UIColor(hex: "F8F8F8")
@@ -146,7 +132,6 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
     
     
     func getData(completion:@escaping (_ success: Bool) -> ()){
-        ref = Database.database().reference()
         for item in specialty{
             
             self.ref?.child("Request/active/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -175,7 +160,33 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
         completion(true)
         
     }
-    
+    func loadCategory(completion:@escaping (_ success: Bool) -> ()){
+        self.ref?.child("tutors/\(tid)/category").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            //print(snapshot.value as! [String:Int])
+
+            if let specDic = snapshot.value as? [String:Int]{
+                self.specialty = Array(specDic.keys)
+                print(self.specialty)
+                completion(true)
+            }
+            else{
+                let alert = UIAlertController(title: "Category not available", message: "Please send us email to confirm", preferredStyle: .alert)
+                let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                self.hideHub()
+                alert.addAction(okay)
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+        }) { (error) in
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        
+    }
     func expandimage(cellimageview: UIImageView){
         if let image = cellimageview.image{
             let agrume = Agrume(image: image, backgroundColor: .black)
@@ -191,7 +202,7 @@ class MainTableViewController: UITableViewController, rescueButtonPressedProtoco
 extension MainTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return kRowsCount
+        return dictArray.count
     }
     
     
@@ -202,12 +213,7 @@ extension MainTableViewController {
         
         
         cell.backgroundColor = .clear
-        
-        if cellHeights[indexPath.row] == kCloseCellHeight {
-            cell.unfold(false, animated: false, completion:nil)
-        } else {
-            cell.unfold(true, animated: false, completion: nil)
-        }
+        cell.unfold(true, animated: false, completion: nil)
         if !dictArray.isEmpty{
             cell.subject = dictArray[indexPath.row]["category"] as! String
             cell.closeDescription.text = dictArray[indexPath.row]["description"] as? String
@@ -225,14 +231,16 @@ extension MainTableViewController {
         cell.durationsForCollapsedState = durations
         cell.delegate = self
         cell.tableDelegate = self
-        cell.requestorSid = dictArray[indexPath.row]["sid"] as! NSString
-        cell.category = dictArray[indexPath.row]["category"] as! NSString
-        cell.qid = dictArray[indexPath.row]["qid"] as! NSString
+        if !dictArray.isEmpty{
+            cell.requestorSid = dictArray[indexPath.row]["sid"] as! NSString
+            cell.category = dictArray[indexPath.row]["category"] as! NSString
+            cell.qid = dictArray[indexPath.row]["qid"] as! NSString
+        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return cellHeights[indexPath.row]
+        return kOpenCellHeight
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -240,18 +248,15 @@ extension MainTableViewController {
     
     
     
-    func rescueButtonPressed(requestorSid: NSString, category: NSString, qid: NSString, image:UIImage?, description: String?) {
+    func rescueButtonPressed(requestorSid: NSString, category: NSString, qid: NSString, image:UIImage?, description: String?, sender: UIButton) {
         
         let ref = Database.database().reference()
-        let tid = EMClient.shared().currentUsername
-        
-        //print(tid)
-        // TO DO: get current questionId from db
         let qid: String = (qid as String)
         let category: String = (category as String)
-        let refStatus = ref.child("Request/active/" + category + "/" + qid)
+        let refQid = ref.child("Request/active/" + category + "/" + qid)
+        sender.isEnabled = false
         //let refInactive = ref.child("Request/inactive/" + category + "/" + qid)
-        refStatus.runTransactionBlock ({ (currentData: MutableData) -> TransactionResult in
+        refQid.runTransactionBlock ({ (currentData: MutableData) -> TransactionResult in
             //print(currentData.value)
             if var data = currentData.value as? [String: Any] {
                 print("this is data \(data)")
@@ -264,7 +269,7 @@ extension MainTableViewController {
                 } else {
                     status = 1
                     data["status"] = status
-                    data["tid"] = tid
+                    data["tid"] = self.tid
                     // TO DO: assign tutorId to accepted question
                     // TO DO: connect to student to start session -> func startSession(sid)
                     
@@ -284,10 +289,10 @@ extension MainTableViewController {
             //under snap variable has the value of the counter after
             //updates are done
             if commited {
-                
-                print(snap?.value)
+                sender.isEnabled = true
+                //print(snap?.value)
                 let checkNill = snap?.value! as? [String:AnyObject]
-                print(checkNill)
+                //print(checkNill)
                 if (checkNill == nil){
                     
                     let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
@@ -297,7 +302,6 @@ extension MainTableViewController {
                     //print(snap!)
                 }
                 else{
-                    
                     let alert = UIAlertController(title: "Alert", message: "yeah you got the question", preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {
                         (alert: UIAlertAction!) in
@@ -337,7 +341,7 @@ extension MainTableViewController {
                 
             }
             else{
-                
+                sender.isEnabled = true
                 let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {action in self.refresh()}))
                 self.present(alert, animated: true, completion: nil)
