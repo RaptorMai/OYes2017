@@ -26,7 +26,7 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         imageView.contentMode = UIViewContentMode.scaleAspectFill
         
         if let data = UserDefaults.standard.data(forKey: DataBaseKeys.profilePhotoKey){
-            let imageUIImage: UIImage = UIImage(data: data)!
+            let imageUIImage = UIImage(data: data)
             imageView.image = imageUIImage
         }else{
             imageView.image = UIImage(named:"placeholder")
