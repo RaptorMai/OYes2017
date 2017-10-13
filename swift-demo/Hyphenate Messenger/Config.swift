@@ -84,9 +84,13 @@ enum ConfigError: Error {
 }
 
 extension String {
-    func getVersionNumbers() -> (major: Int, minor: Int, maintain: Int) {
+    func getVersionNumbers() -> (major: Int?, minor: Int?, maintain: Int?) {
         let versionArr = self.components(separatedBy: ".")
-        return (major: Int(versionArr[0])!, minor: Int(versionArr[1])!, maintain: Int(versionArr[2])!)
+        if versionArr.count == 3 {
+            return (major: Int(versionArr[0]), minor: Int(versionArr[1]), maintain: Int(versionArr[2]))
+        } else {
+            return (major: 0, minor: 0, maintain: 0)
+        }
     }
 }
 
@@ -333,14 +337,21 @@ class AppConfig {
     /// - Parameter ver: the (maybe) newer version that you want to compare against the current app version
     /// - Returns: true if the current version is lower, false otherwise
     func shouldDisplayUpdateInformation(forRequriedVersion ver: String) -> Bool {
-        let (major, minor, maintain) = ver.getVersionNumbers()
-        if major > appVersion.major {
-            return true
-        } else if minor > appVersion.minor {
-            return true
-        } else if maintain > appVersion.maintain {
-            return true
+        // let (major, minor, maintain) = ver.getVersionNumbers()
+        let requiredVer = ver.getVersionNumbers()
+        
+        if let major = requiredVer.major, let minor = requiredVer.minor, let maintain = requiredVer.maintain {
+            if let appMajor = appVersion.major, let appMinor = appVersion.minor, let appMaintain = appVersion.maintain {
+                if major > appMajor {
+                    return true
+                } else if minor > appMinor {
+                    return true
+                } else if maintain > appMaintain {
+                    return true
+                }
+            }
         }
+        
         return  false
     }
     

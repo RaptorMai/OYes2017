@@ -64,32 +64,32 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         if needRemoveConversations.count > 0 {
             EMClient.shared().chatManager.deleteConversations(needRemoveConversations, isDeleteMessages: true, completion: nil)
         }
-        dataSource =  EMClient.shared().chatManager.getAllConversations() as! [EMConversation]
-        
-        // order the data source according to the date added
-        dataSource = dataSource.sorted(by: {
-            let conv0 = $0 as! EMConversation
-            let conv1 = $1 as! EMConversation
-            if conv0.latestMessage != nil && conv1.latestMessage != nil {
-                return conv0.latestMessage.timestamp > conv1.latestMessage.timestamp
-            }
-            return false
-        })
-        
-        // display no history message when no histry
-        if dataSource.count == 0 {
-            let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-            messageLabel.text = "There's no history yet\nCheck back after asking questions!"
-            messageLabel.textColor = .gray
-            messageLabel.numberOfLines = 2;
-            messageLabel.textAlignment = .center;
-            messageLabel.font = UIFont.systemFont(ofSize: 20)
-            messageLabel.sizeToFit()
+        if var dataSource =  EMClient.shared().chatManager.getAllConversations() as? [EMConversation] {
+            // order the data source according to the date added
+            dataSource = dataSource.sorted(by: {
+                let conv0 = $0
+                let conv1 = $1
+                if conv0.latestMessage != nil && conv1.latestMessage != nil {
+                    return conv0.latestMessage.timestamp > conv1.latestMessage.timestamp
+                }
+                return false
+            })
             
-            tableView.backgroundView = messageLabel;
-            tableView.separatorStyle = .none;
-        } else {
-            tableView.backgroundView = nil
+            // display no history message when no histry
+            if dataSource.count == 0 {
+                let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+                messageLabel.text = "There's no history yet\nCheck back after asking questions!"
+                messageLabel.textColor = .gray
+                messageLabel.numberOfLines = 2;
+                messageLabel.textAlignment = .center;
+                messageLabel.font = UIFont.systemFont(ofSize: 20)
+                messageLabel.sizeToFit()
+                
+                tableView.backgroundView = messageLabel;
+                tableView.separatorStyle = .none;
+            } else {
+                tableView.backgroundView = nil
+            }
         }
         
         DispatchQueue.main.async(execute: {
