@@ -54,8 +54,8 @@ class MyProfileViewControllerTableViewController: UITableViewController {
             // Profile Picture
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "profilePictureCell", for: indexPath) as! profilePictureTableViewCell                
-                if let data = UserDefaults.standard.data(forKey: "profilePicture"){
-                    let imageUIImage: UIImage = UIImage(data: data)!
+                if let data = UserDefaults.standard.data(forKey: DataBaseKeys.profilePhotoKey){
+                    let imageUIImage = UIImage(data: data)
                     cell.profileImageView.image = imageUIImage
                 } else {
                     cell.profileImageView.image = UIImage(named: "placeholder")
