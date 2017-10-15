@@ -64,17 +64,19 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         if needRemoveConversations.count > 0 {
             EMClient.shared().chatManager.deleteConversations(needRemoveConversations, isDeleteMessages: true, completion: nil)
         }
-        if var dataSource =  EMClient.shared().chatManager.getAllConversations() as? [EMConversation] {
+
+        if let dataSource_temp =  EMClient.shared().chatManager.getAllConversations() as? [EMConversation] {
+            self.dataSource = dataSource_temp
             // order the data source according to the date added
             dataSource = dataSource.sorted(by: {
-                let conv0 = $0
-                let conv1 = $1
-                if conv0.latestMessage != nil && conv1.latestMessage != nil {
-                    return conv0.latestMessage.timestamp > conv1.latestMessage.timestamp
+                if let conv0 = $0 as? EMConversation, let conv1 = $1 as? EMConversation{
+                
+                    if conv0.latestMessage != nil && conv1.latestMessage != nil {
+                        return conv0.latestMessage.timestamp > conv1.latestMessage.timestamp
+                    }
                 }
                 return false
             })
-            
             // display no history message when no histry
             if dataSource.count == 0 {
                 let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
@@ -91,7 +93,6 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
                 tableView.backgroundView = nil
             }
         }
-        
         DispatchQueue.main.async(execute: {
             self.tableView.reloadData()
         })
