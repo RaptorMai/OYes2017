@@ -31,33 +31,33 @@ class NameViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var nameChangTextView: UITextField!
 
     // MARK: - Actions
-    @IBAction func SaveText(_ sender: UIButton) {
+    @IBAction func saveText(_ sender: UIBarButtonItem) {
         if textCount(nameChangTextView){
-        MBProgressHUD.showAdded(to: self.view, animated: true)
-        //Upload Name to DB
-        let Name = nameChangTextView.text
-        uploadName(Name!)
-        
-        // Retrive Name from firebase
-        // Store data to UserDefaults
-        self.ref.child("users").child(uid).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.exists(){
-                let val = snapshot.value as? String
-                if (val! != ""){
-                    UserDefaults.standard.set(val, forKey: DataBaseKeys.profileUserNameKey)
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            //Upload Name to DB
+            let Name = nameChangTextView.text
+            uploadName(Name!)
+            
+            // Retrive Name from firebase
+            // Store data to UserDefaults
+            self.ref.child("users").child(uid).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.exists(){
+                    let val = snapshot.value as? String
+                    if (val! != ""){
+                        UserDefaults.standard.set(val, forKey: DataBaseKeys.profileUserNameKey)
+                    }
+                    else{
+                        UserDefaults.standard.set("Unknown", forKey: DataBaseKeys.profileUserNameKey)
+                    }
                 }
-                else{
-                    UserDefaults.standard.set("Unknown", forKey: DataBaseKeys.profileUserNameKey)
-                }
-            }
-             MBProgressHUD.hide(for: self.view, animated: true)
-            self.navigationController?.popViewController(animated: true)
-        }) { (error) in print(error.localizedDescription)}
+                MBProgressHUD.hide(for: self.view, animated: true)
+                self.navigationController?.popViewController(animated: true)
+            }) { (error) in print(error.localizedDescription)}
         } else {
             createNameFormatAlert()
         }
+
     }
-    
     func uploadName(_ Name: String){
         self.ref?.child("users/\(self.uid)").updateChildValues(["username":Name])
     }
@@ -82,7 +82,7 @@ class NameViewController: UIViewController, UITextFieldDelegate {
     // MARK: textfielddelegate
     // handle return press on keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        SaveText(saveButton as! UIButton)
+        saveText(saveButton)
         return true
     }
 }
