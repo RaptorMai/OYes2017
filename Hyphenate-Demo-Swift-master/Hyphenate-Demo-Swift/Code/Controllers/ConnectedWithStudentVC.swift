@@ -8,6 +8,7 @@
 
 import UIKit
 import Hyphenate
+import Firebase
 
 class ConnectedWithStudentVC: UIViewController {
 
@@ -16,6 +17,7 @@ class ConnectedWithStudentVC: UIViewController {
     var qid: String?
     var image: UIImage?
     var questDescription: String?
+    var ref: DatabaseReference?
 
     @IBOutlet weak var questionImage: UIImageView!
     
@@ -25,9 +27,8 @@ class ConnectedWithStudentVC: UIViewController {
     @IBOutlet weak var connect: UIButton!
     
     @IBAction func readyToConnect(_ sender: UIButton) {
-        let addContactViewController = EMAddContactViewController.init(nibName: "EMAddContactViewController", bundle: nil)
-        addContactViewController.contactToAdd = self.requestorSid! as String
-        addContactViewController.sendRequest(addContactViewController.contactToAdd)
+        //set status to 2, means tutor is reayd to chat
+        self.ref?.child("Request/active/\(self.category!)/\(self.qid!)").updateChildValues(["status": 2])
          let sessionController = EMChatViewController.init(requestorSid! as String, EMConversationTypeChat)
          sessionController.category = category!
          sessionController.key = qid!
@@ -40,6 +41,7 @@ class ConnectedWithStudentVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
         navigationController?.isNavigationBarHidden = true
         tabBarController?.tabBar.isHidden = true
         questionImage.image = image

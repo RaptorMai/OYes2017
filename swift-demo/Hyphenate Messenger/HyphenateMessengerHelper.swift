@@ -409,7 +409,7 @@ class HyphenateMessengerHelper: NSObject, EMClientDelegate, EMChatManagerDelegat
             #endif
         }
         
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "kNotification_didReceiveRequest"), object: requestDict, userInfo: requestDict)
+        //NotificationCenter.default.post(name: Notification.Name(rawValue: "kNotification_didReceiveRequest"), object: requestDict, userInfo: requestDict)
     }
     
     
