@@ -21,6 +21,9 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
     var balance:Int = 0
     var threshold = 5
     var connected = false
+    var ready = false
+    var storyBoard = UIStoryboard(name: "TutorConnected", bundle: nil)
+    var tcVC:TutorConnectedVC?
     //questionPic is the UIImageView that holds the question image.
     var questionPic: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight*0.37))
@@ -71,7 +74,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = UIColor.white
-        
+        tcVC = storyBoard.instantiateViewController(withIdentifier: "TutorConnected") as! TutorConnectedVC
         KeyboardAvoiding.avoidingView = self.view
         //        view.backgroundColor = UIColor.init(red: 239, green: 239, blue: 255, alpha: 1)
         view.backgroundColor = UIColor.init(hex: "EFEFF4")
@@ -95,7 +98,8 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
         setupNextButton()
         hideKeyboardWhenTappedAround()
         sid = EMClient.shared().currentUsername!
-        getBalance()
+        //getBalance()
+        self.balance = UserDefaults.standard.integer(forKey: DataBaseKeys.balanceKey)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -130,7 +134,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
         
     }
     
-    func getBalance(){
+/*    func getBalance(){
         let uidWithOne = "+1"+sid!
         ref?.child("users/\(uidWithOne)/balance").observeSingleEvent(of: .value, with: { (snapshot) in
             
@@ -143,7 +147,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
             alert.addAction(okay)
             self.present(alert, animated: true, completion: nil)
         }
-    }
+    }*/
     
     //flag variable monitors which screen we are on. States: -1 = not set, 0 = tutor connecting screen, 1 = tutor connected screen
     var flag = -1
@@ -239,7 +243,14 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
                     //get the tutor id, used to start chat
                     self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))/tid").observeSingleEvent(of: .value, with: { (snapshot) in
                         if let tid = snapshot.value as? String{
-                            self.tutorFound(tid)
+                            //push tutorconnectedVC
+                            MKFullSpinner.hide()
+                            self.tcVC?.questionDescription = self.questionDescription.text
+                            self.tcVC?.questionImage = self.questionPic.image
+                            self.tcVC?.category = self.categorytitle
+                            self.tcVC?.qid = String(describing: self.key!)
+                            self.tcVC?.tid = tid
+                            self.navigationController?.pushViewController(self.tcVC!, animated: true)
                         }
                         
                     }){ (error) in
@@ -247,9 +258,12 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
                     }
                 }
                 //check if status is 2, if 2, tutor is ready to chat, push chatVC
-                else if status == TutorStatus.ready.rawValue  && !self.connected{
-                    self.connected = true
-                    self.ref?.removeObserver(withHandle: handle)
+                else if status == TutorStatus.ready.rawValue  && !self.ready{
+                    self.ready = true
+                    //use this flag in tutorconnectedVC to show tutor is ready can push chatVC
+                    self.tcVC?.didTutorReady = true
+                    
+                    /*self.ref?.removeObserver(withHandle: handle)
                     self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))/tid").observeSingleEvent(of: .value, with: { (snapshot) in
                         ///get the tutor id, used to start chat
                         if let tid = snapshot.value as? String{
@@ -258,7 +272,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
                         
                     }){ (error) in
                         print(error.localizedDescription)
-                    }
+                    }*/
                 }
             }
             
@@ -266,33 +280,6 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
             print(error.localizedDescription)
             })!
     }
-    
-    var didStudentClickOkAfterTutorinChat = false
-    func changeDidStudentClickOkAfterTutorinChat(){
-        didStudentClickOkAfterTutorinChat = true
-    }
-    
-    func tutorFound(_ tid: String){
-        MKFullSpinner.hide()
-        
-        //tcVC - tutorconnectedVC
-        
-        let storyBoard = UIStoryboard(name: "TutorConnected", bundle: nil)
-        let tcVC = storyBoard.instantiateViewController(withIdentifier: "TutorConnected") as! TutorConnectedVC
-        tcVC.questionDescription = self.questionDescription.text
-        tcVC.questionImage = self.questionPic.image
-        tcVC.category = self.categorytitle
-        tcVC.qid = String(describing: self.key!)
-        tcVC.tid = tid
-        tcVC.didStudentCickOkAfterTutorinChat = self.didStudentClickOkAfterTutorinChat
-        navigationController?.pushViewController(tcVC, animated: true)
-        
-        //
-        // self.present(alert, animated: true, completion: nil)
-        //        self.startChatting(requestDict: notification.userInfo as! [String : Any])
-        
-    }
-    
     
     func startChatting(tid: String, image: UIImage, description: String){
         let timeStamp = ["SessionId":String(Date().ticks)]

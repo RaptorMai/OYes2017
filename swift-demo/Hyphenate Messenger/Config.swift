@@ -53,11 +53,13 @@ struct DataBaseKeys {
     static let profileEmailKey = "email"
     static let profilePhotoKey = "profilePicture"
     static let profileGradeKey = "grade"
+     static let balanceKey = "balance"
     
     static let profileUserNameRemoteKey = "username"
     static let profileEmailRemoteKey = "email"
     static let profilePhotoRemoteKey = "profilepicURL"
     static let profileGradeRemoteKey = "grade"
+
     
     static let profileNeedsUpdateKey = "profileNeedsUpdate"
 
@@ -403,7 +405,9 @@ class AppConfig {
                                                  DataBaseKeys.firstLaunchKey: 0,  // TODO: check after user switch
                                                  DataBaseKeys.discountAvailabilityKey: 0,
                                                  DataBaseKeys.discountRate: 1,
-                                                 DataBaseKeys.profileNeedsUpdateKey: 1]
+                                                 DataBaseKeys.profileNeedsUpdateKey: 1,
+                                                 DataBaseKeys.balanceKey: 0
+                                                ]
         
         defaults.register(defaults: initialUserDefaults)
         
@@ -471,7 +475,12 @@ class AppConfig {
                 self.profileDelegate?.didFetchConfigTypeProfile!()
             }
         })
-        
+        //balance
+        ref?.child("users/\(uid)/\(DataBaseKeys.balanceKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value as? Int {
+                self.defaults.set(value, forKey: DataBaseKeys.balanceKey)
+            }
+        })
         defaults.set(0, forKey: DataBaseKeys.profileNeedsUpdateKey)
     }
     

@@ -62,18 +62,20 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         self.navigationItem.leftBarButtonItem = endSessionButton
         
         /* added timer UILabel ********/
-        timerLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-        timerLabel.font = UIFont.systemFont(ofSize: 20)
+        //timerLabel.frame = CGRect(x: 0, y: 0, width: 70, height: 50)
+        timerLabel.frame = CGRect(x: (navigationController?.navigationBar.frame.width)!*7/8, y: 0, width: (navigationController?.navigationBar.frame.width)!/4, height: (navigationController?.navigationBar.frame.height)!)
+        timerLabel.font = UIFont.systemFont(ofSize: 15)
         timerLabel.adjustsFontSizeToFitWidth = true
-        timerLabel.textColor = .red
-        timerLabel.center = CGPoint(x: self.view.frame.width - 50, y: 40)
+        timerLabel.textColor = .blue
+        timerLabel.center = CGPoint(x: (navigationController?.navigationBar.frame.width)!*7/8, y: (navigationController?.navigationBar.frame.height)!/2)
         timerLabel.textAlignment = .center
-        self.view.addSubview(timerLabel)
-        view.bringSubview(toFront: timerLabel)
+        //self.view.addSubview(timerLabel)
+        //view.bringSubview(toFront: timerLabel)
         timerLabel.text = String(time) + " min"
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-        
-        self.navigationItem.titleView = timerLabel
+        navigationController?.navigationBar.addSubview(timerLabel)
+        navigationController?.navigationBar.bringSubview(toFront: timerLabel)
+        //self.navigationItem.rightBarButtonItem = timerLabel
         
         if dismissable == true {
             let rightButtonItem:UIBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ChatTableViewController.cancelAction))
@@ -98,6 +100,8 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     
     override func viewWillDisappear(_ animated: Bool) {
         //removeTimerLable()
+        super.viewWillDisappear(animated)
+        ref?.cancelDisconnectOperations()
         HyphenateMessengerHelper.sharedInstance.chatVC = nil
     }
     
@@ -183,6 +187,8 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         //let sessionDuration = Int(ceil(Double(time)/60))
         //print(sessionDuration)
         self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":duration])
+        let balance = UserDefaults.standard.integer(forKey: DataBaseKeys.balanceKey)
+        AppConfig.sharedInstance.defaults.set((balance-duration), forKey: DataBaseKeys.balanceKey)
         ratingViewController.delegate = self
         self.present(ratingViewController, animated: true)
         
