@@ -183,10 +183,19 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         ratingViewController.category = self.category
         ratingViewController.key = self.key
         removeTimerLable()
-        //time = Date().timeIntervalSince(beginTime)
-        //let sessionDuration = Int(ceil(Double(time)/60))
-        //print(sessionDuration)
-        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":duration])
+        self.ref?.child("Request/active/\(self.category)").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.hasChild("\(self.key)"){
+                
+                self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":duration])
+                
+            }else{
+                
+                self.ref?.child("Request/inactive/\(self.category)/\(self.key)").updateChildValues(["duration":duration])
+            }
+            
+            
+        })
         let balance = UserDefaults.standard.integer(forKey: DataBaseKeys.balanceKey)
         AppConfig.sharedInstance.defaults.set((balance-duration), forKey: DataBaseKeys.balanceKey)
         ratingViewController.delegate = self
