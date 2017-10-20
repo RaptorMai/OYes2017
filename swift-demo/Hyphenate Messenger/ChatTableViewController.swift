@@ -179,10 +179,6 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     
     func endSession(_ duration: Int){
         //calculate time with ceil
-        let ratingViewController = UIStoryboard(name: "Rating", bundle: nil).instantiateViewController(withIdentifier: "rateSession") as! RatingViewController
-        ratingViewController.category = self.category
-        ratingViewController.key = self.key
-        removeTimerLable()
         self.ref?.child("Request/active/\(self.category)").observeSingleEvent(of: .value, with: { (snapshot) in
             
             if snapshot.hasChild("\(self.key)"){
@@ -198,12 +194,11 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         })
         let balance = UserDefaults.standard.integer(forKey: DataBaseKeys.balanceKey)
         AppConfig.sharedInstance.defaults.set((balance-duration), forKey: DataBaseKeys.balanceKey)
-        ratingViewController.delegate = self
-        self.present(ratingViewController, animated: true)
         
 //        let newConvId: String = (self.conversation.conversationId + String(Date().ticks))
 //        self.conversation.conversationId = newConvId
         processSession()
+        
     }
     
     func endSessionfromAppTermination(){
@@ -215,6 +210,17 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
 
         self.ref?.child("Request/active/\(self.category)/\(self.key)").onDisconnectUpdateChildValues(["duration":self.updatedDuration,"rate": 5.0])
     }
+    
+    func showRatingVC() {
+        // present rating controller
+        let ratingViewController = UIStoryboard(name: "Rating", bundle: nil).instantiateViewController(withIdentifier: "rateSession") as! RatingViewController
+        ratingViewController.category = self.category
+        ratingViewController.key = self.key
+        self.removeTimerLable()
+        self.present(ratingViewController, animated: true)
+        ratingViewController.delegate = self
+    }
+    
     func dismissParentVC() {
         //Dismiss Keyboard
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -223,7 +229,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     }
 
     func processSession() {
-
+        showHud(in: view, hint: "Processing")
         // after a session ends, get the last session and copies all messages over to a new session
         let chatManager = EMClient.shared().chatManager
         // create a new conversation, generate a random numerical id first
@@ -278,9 +284,13 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
             newMessage?.status = EMMessageStatusSucceed
             
             newConversation?.insert(newMessage, error: nil)
+            
+            // remove the current conversation from database
+            chatManager?.deleteConversation(self.conversation.conversationId, isDeleteMessages: false, completion: nil)
+
+            self.hideHud()
+            self.showRatingVC()
         })
         
-        // remove the current conversation from database
-        chatManager?.deleteConversation(conversation.conversationId, isDeleteMessages: false, completion: nil)
     }
 }

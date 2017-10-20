@@ -1519,6 +1519,11 @@
             [weakSelf.dataArray addObjectsFromArray:messages];
             [weakSelf.tableView reloadData];
             [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[weakSelf.dataArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            
+            /*if (weakSelf.tableView.contentSize.height > weakSelf.tableView.frame.size.height) {
+                CGPoint point = CGPointMake(0, weakSelf.tableView.contentSize.height - weakSelf.tableView.frame.size.height);
+                [weakSelf.tableView setContentOffset:point animated:YES];
+            }*/
         });
         printf("bonjour1");
     });

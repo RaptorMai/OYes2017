@@ -54,7 +54,6 @@ class RatingViewController: UIViewController, FloatRatingViewDelegate {
         
 
         print(self.floatRatingView.rating)
-        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["rate": self.floatRatingView.rating])
         self.ref?.child("Request/active/\(self.category)").observeSingleEvent(of: .value, with: { (snapshot) in
             
             if snapshot.hasChild("\(self.key)"){
