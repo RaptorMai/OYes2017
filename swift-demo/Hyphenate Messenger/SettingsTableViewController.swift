@@ -107,7 +107,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
             // Help
             case 0:
                 let openMainPageVc = OpenUrlViewController()
-                openMainPageVc.url = "https://www.instasolve.ca/"
+                openMainPageVc.url = "https://www.instasolve.ca/help"
                 tabBarController?.navigationController?.pushViewController(openMainPageVc, animated: true)
                 self.tabBarController?.tabBar.isHidden = true
                 
