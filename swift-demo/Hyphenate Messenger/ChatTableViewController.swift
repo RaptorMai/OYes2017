@@ -148,11 +148,14 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         updatedDuration = Int(ceil(Double(time)/60))
         setWhenDisconnected()
         timerLabel.text = String(minutes) + " min"
-        if minutes >= self.balance{
+        if minutes >= self.balance {
             let alert = UIAlertController(title: "Session finished", message: "Your balance is 0", preferredStyle: .alert)
             let okay = UIAlertAction(title: "Ok", style: .cancel, handler:{_ in self.endSession(minutes)})
             alert.addAction(okay)
             self.present(alert, animated: true, completion: nil)
+            
+            // to prevent that, the alert view show more than once if timer fires again
+            timer?.invalidate()
         }
         
     }
