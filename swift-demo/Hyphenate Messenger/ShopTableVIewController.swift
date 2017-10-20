@@ -483,6 +483,11 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == productMinutes.count{
             updateCard()
+        } else {
+            if let cell = tableView.cellForRow(at: indexPath) as? ShopTableViewCell {
+                tableView.deselectRow(at: indexPath, animated: true)
+                cell.purchaseButton.sendActions(for: .touchUpInside)
+            }
         }
     }
     
