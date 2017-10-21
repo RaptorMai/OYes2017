@@ -146,7 +146,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         time = Date().timeIntervalSince(beginTime)
         let minutes = Int(floor(Double(time)/60))
         updatedDuration = Int(ceil(Double(time)/60))
-        setWhenDisconnected()
+        //setWhenDisconnected()
         timerLabel.text = String(minutes) + " min"
         if minutes >= self.balance {
             let alert = UIAlertController(title: "Session finished", message: "Your balance is 0", preferredStyle: .alert)
@@ -206,6 +206,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     
     func endSessionfromAppTermination(){
         //TODO: add conversationid to user default, the conversation need to be processed next time
+        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":self.updatedDuration,"rate": 5.0])
     }
     
     ///When the app disconnects firebasem the following value will be set
