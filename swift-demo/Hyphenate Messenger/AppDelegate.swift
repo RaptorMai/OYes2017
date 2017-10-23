@@ -66,6 +66,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // configtype first launch is guaranteed to be int
         if (config.getConfigForType(.ConfigTypeFirstLaunch)! as! Int) < 1 {
             config.configAppFirstLaunch()
+            // show alert that only available in US and Canada
+            let alert = UIAlertController(title: "Service notice", message: "Currently, we offer service to Canada and the US ONLY.\nThanks for your support!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            DispatchQueue.main.async {
+                alert.show()
+            }
         }
         
         AppConfig.sharedInstance.configAppLaunch()
