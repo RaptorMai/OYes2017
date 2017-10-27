@@ -352,31 +352,41 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
         questionPic.contentMode = .scaleAspectFit
     }
     
+    let categoryLabelScaleFactor:CGFloat = 0.08
+    
     func setupCategoryLabel() {
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         categoryLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        categoryLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        categoryLabel.heightAnchor.constraint(equalToConstant: screenHeight*categoryLabelScaleFactor).isActive = true
         
         categoryLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         categoryLabel.topAnchor.constraint(equalTo: questionPic.bottomAnchor, constant: 12).isActive = true
         categoryLabel.text = "    Category:"
     }
     
+    let subjectLabelWidthScaleFactor:CGFloat = 0.6
+
     func setupSubjectLabel() {
         subjectLabel.translatesAutoresizingMaskIntoConstraints = false
-        subjectLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        subjectLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        subjectLabel.widthAnchor.constraint(equalToConstant: screenWidth * subjectLabelWidthScaleFactor).isActive = true
+        subjectLabel.heightAnchor.constraint(equalToConstant: screenHeight*categoryLabelScaleFactor).isActive = true
         
-        subjectLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        subjectLabel.topAnchor.constraint(equalTo: questionPic.bottomAnchor, constant: 15).isActive = true
-        subjectLabel.text = "                                                       \(categorytitle)"
+//        subjectLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        subjectLabel.rightAnchor.constraint(equalTo: categoryLabel.rightAnchor, constant: -10).isActive = true
+//        subjectLabel.topAnchor.constraint(equalTo: questionPic.bottomAnchor, constant: 15).isActive = true
+        subjectLabel.centerYAnchor.constraint(equalTo: categoryLabel.centerYAnchor, constant: 0).isActive = true
+        subjectLabel.text = "\(categorytitle)"
+        subjectLabel.minimumScaleFactor = 0.5
+        subjectLabel.adjustsFontSizeToFitWidth = true
+        subjectLabel.sizeToFit()
     }
     
+    let descriptionBoxScaleFactor:CGFloat = 0.25
     
     func setupQuestionDescription() {
         questionDescription.translatesAutoresizingMaskIntoConstraints = false
         questionDescription.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        questionDescription.heightAnchor.constraint(equalToConstant: screenHeight*0.3).isActive = true
+        questionDescription.heightAnchor.constraint(equalToConstant: screenHeight*descriptionBoxScaleFactor).isActive = true
         
         questionDescription.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         questionDescription.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 10).isActive = true
@@ -384,10 +394,12 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
         questionDescription.delegate = self
     }
     
+    let nextButtonScaleFactor:CGFloat = 0.08
+    
     func setupNextButton() {
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        nextButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        nextButton.heightAnchor.constraint(equalToConstant: screenHeight*nextButtonScaleFactor).isActive = true
         
         nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         nextButton.topAnchor.constraint(equalTo: questionDescription.bottomAnchor, constant: 10).isActive = true

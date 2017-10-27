@@ -50,9 +50,10 @@ class PrdouctMenuTableViewCell: UITableViewCell,CAAnimationDelegate {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        productName = UILabel(frame:CGRect(x: 15,y: 15,width: (screenWidth*0.7) - 30,height: 20))
-        productName.font = UIFont.systemFont(ofSize: 15)
+        productName = UILabel(frame:CGRect(x: 15,y: 8,width: (screenWidth*0.7) - 30,height: 40))
+        productName.font = UIFont.systemFont(ofSize: 14)
         productName.textAlignment = NSTextAlignment.left
+        productName.numberOfLines = 0
         contentView.addSubview(productName)
         
 //        self.plusBtn = UIButton(type: UIButtonType.custom)
@@ -92,7 +93,7 @@ class PrdouctMenuTableViewCell: UITableViewCell,CAAnimationDelegate {
             productName.textColor = UIColor.black
         } else {
             productName.textColor = UIColor.gray
-            let comingSoonLabel = UILabel(frame:CGRect(x: 15,y: 35,width: (screenWidth*0.7) - 30,height: 20))
+            let comingSoonLabel = UILabel(frame:CGRect(x: 15,y: 40,width: (screenWidth*0.7) - 30,height: 20))
             comingSoonLabel.font = UIFont.systemFont(ofSize: 12)
             comingSoonLabel.textAlignment = NSTextAlignment.left
             comingSoonLabel.textColor = UIColor.gray
