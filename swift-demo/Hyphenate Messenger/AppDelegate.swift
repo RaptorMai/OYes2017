@@ -66,6 +66,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // configtype first launch is guaranteed to be int
         if (config.getConfigForType(.ConfigTypeFirstLaunch)! as! Int) < 1 {
             config.configAppFirstLaunch()
+            // show alert that only available in US and Canada
+            let alert = UIAlertController(title: "Service notice", message: "Currently, we offer service to Canada and the US ONLY.\nThanks for your support!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            DispatchQueue.main.async {
+                alert.show()
+            }
         }
         
         AppConfig.sharedInstance.configAppLaunch()
@@ -144,7 +150,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.saveContext()
         //first find the top viewcontroller to know what action to take
-        if var topController = UIApplication.shared.keyWindow?.rootViewController{
+        if var topController = UIApplication.shared.keyWindow?.rootViewController {
             //use while loop to go down the hierarchy of viewcontrollers to find the present view controller
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
@@ -296,9 +302,9 @@ extension AppDelegate {
         let uid = "+1" + EMClient.shared().currentUsername!
         AppConfig.sharedInstance.performUserSpecificConfigFor(uid)
         
-        if AppConfig.sharedInstance.profileNeedsUpdate {
-            AppConfig.sharedInstance.getUserProfileAtLogin(uid)
-        }
+        // if AppConfig.sharedInstance.profileNeedsUpdate {
+        AppConfig.sharedInstance.getUserProfileAtLogin(uid)
+        // }
         
         self.mainViewController = MainViewController()
         HyphenateMessengerHelper.sharedInstance.mainVC = mainViewController

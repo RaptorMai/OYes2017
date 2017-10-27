@@ -53,11 +53,13 @@ struct DataBaseKeys {
     static let profileEmailKey = "email"
     static let profilePhotoKey = "profilePicture"
     static let profileGradeKey = "grade"
+     static let balanceKey = "balance"
     
     static let profileUserNameRemoteKey = "username"
     static let profileEmailRemoteKey = "email"
     static let profilePhotoRemoteKey = "profilepicURL"
     static let profileGradeRemoteKey = "grade"
+
     
     static let profileNeedsUpdateKey = "profileNeedsUpdate"
 
@@ -84,9 +86,13 @@ enum ConfigError: Error {
 }
 
 extension String {
-    func getVersionNumbers() -> (major: Int, minor: Int, maintain: Int) {
+    func getVersionNumbers() -> (major: Int?, minor: Int?, maintain: Int?) {
         let versionArr = self.components(separatedBy: ".")
-        return (major: Int(versionArr[0])!, minor: Int(versionArr[1])!, maintain: Int(versionArr[2])!)
+        if versionArr.count == 3 {
+            return (major: Int(versionArr[0]), minor: Int(versionArr[1]), maintain: Int(versionArr[2]))
+        } else {
+            return (major: 0, minor: 0, maintain: 0)
+        }
     }
 }
 
@@ -333,14 +339,21 @@ class AppConfig {
     /// - Parameter ver: the (maybe) newer version that you want to compare against the current app version
     /// - Returns: true if the current version is lower, false otherwise
     func shouldDisplayUpdateInformation(forRequriedVersion ver: String) -> Bool {
-        let (major, minor, maintain) = ver.getVersionNumbers()
-        if major > appVersion.major {
-            return true
-        } else if minor > appVersion.minor {
-            return true
-        } else if maintain > appVersion.maintain {
-            return true
+        // let (major, minor, maintain) = ver.getVersionNumbers()
+        let requiredVer = ver.getVersionNumbers()
+        
+        if let major = requiredVer.major, let minor = requiredVer.minor, let maintain = requiredVer.maintain {
+            if let appMajor = appVersion.major, let appMinor = appVersion.minor, let appMaintain = appVersion.maintain {
+                if major > appMajor {
+                    return true
+                } else if minor > appMinor {
+                    return true
+                } else if maintain > appMaintain {
+                    return true
+                }
+            }
         }
+        
         return  false
     }
     
@@ -392,7 +405,9 @@ class AppConfig {
                                                  DataBaseKeys.firstLaunchKey: 0,  // TODO: check after user switch
                                                  DataBaseKeys.discountAvailabilityKey: 0,
                                                  DataBaseKeys.discountRate: 1,
-                                                 DataBaseKeys.profileNeedsUpdateKey: 1]
+                                                 DataBaseKeys.profileNeedsUpdateKey: 1,
+                                                 DataBaseKeys.balanceKey: 0
+                                                ]
         
         defaults.register(defaults: initialUserDefaults)
         
@@ -460,7 +475,12 @@ class AppConfig {
                 self.profileDelegate?.didFetchConfigTypeProfile!()
             }
         })
-        
+        //balance
+        ref?.child("users/\(uid)/\(DataBaseKeys.balanceKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value as? Int {
+                self.defaults.set(value, forKey: DataBaseKeys.balanceKey)
+            }
+        })
         defaults.set(0, forKey: DataBaseKeys.profileNeedsUpdateKey)
     }
     

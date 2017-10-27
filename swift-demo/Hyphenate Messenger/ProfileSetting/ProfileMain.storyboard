@@ -191,21 +191,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Name" id="5Dx-la-F7e">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="Gzs-os-Nl6">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MsW-y2-6pe">
-                                <rect key="frame" x="264" y="5" width="40" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Save"/>
-                                <connections>
-                                    <action selector="SaveText:" destination="Ra1-J8-NcZ" eventType="touchUpInside" id="3A2-I5-4li"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="GMc-V7-qHJ">
+                            <connections>
+                                <action selector="saveText:" destination="Ra1-J8-NcZ" id="MSp-Ad-Q8Y"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="nameChangTextView" destination="EvD-sI-j1c" id="bAG-tF-t1m"/>
-                        <outlet property="saveButton" destination="Gzs-os-Nl6" id="84Z-CC-Y2G"/>
+                        <outlet property="saveButton" destination="GMc-V7-qHJ" id="6Uz-aa-hkW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LtZ-eP-gbM" userLabel="First Responder" sceneMemberID="firstResponder"/>

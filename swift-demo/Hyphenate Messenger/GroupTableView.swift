@@ -99,6 +99,7 @@ class GroupTableView: UIView,UITableViewDelegate,UITableViewDataSource {
         {
             classifyCell.textLabel?.text = self.productTypeArr[indexPath.row]
             classifyCell.textLabel?.numberOfLines = 0
+            classifyCell.textLabel?.font = UIFont.systemFont(ofSize: 14)
             classifyCell.backgroundColor = UIColor(red: 238, green: 238, blue: 238, alpha: 1)
             classifyCell.selectionStyle = UITableViewCellSelectionStyle.none
                 //默认选中第一个分类

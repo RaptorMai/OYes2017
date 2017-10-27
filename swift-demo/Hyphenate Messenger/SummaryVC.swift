@@ -1,18 +1,15 @@
-//
-//  SummaryVC.swift
-//  Hyphenate Messenger
-//
-//  Created by devuser on 2017-07-25.
-//  Copyright © 2017 Hyphenate Inc. All rights reserved.
-//
-
 import UIKit
 import Firebase
 import FirebaseDatabase
 import Alamofire
 import IHKeyboardAvoiding
 
-class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, ShopPurchaseStatusDelegate {
+enum TutorStatus: Int {
+    case ready = 2
+    case preparing = 1
+}
+
+class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegate {
     //This class is a viewcontroller that gathers and displays the data inputted by the user about their question. This viewcontroler allows the user to double check the data, enter a description of their question, and send the request for help to our platform.
     
     var categorytitle: String = ""
@@ -23,6 +20,10 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
     var sid: String?
     var balance:Int = 0
     var threshold = 5
+    var connected = false
+    var ready = false
+    var storyBoard = UIStoryboard(name: "TutorConnected", bundle: nil)
+    var tcVC:TutorConnectedVC?
     //questionPic is the UIImageView that holds the question image.
     var questionPic: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight*0.37))
@@ -73,7 +74,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = UIColor.white
-        
+        tcVC = storyBoard.instantiateViewController(withIdentifier: "TutorConnected") as! TutorConnectedVC
         KeyboardAvoiding.avoidingView = self.view
         //        view.backgroundColor = UIColor.init(red: 239, green: 239, blue: 255, alpha: 1)
         view.backgroundColor = UIColor.init(hex: "EFEFF4")
@@ -97,7 +98,8 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
         setupNextButton()
         hideKeyboardWhenTappedAround()
         sid = EMClient.shared().currentUsername!
-        getBalance()
+        //getBalance()
+        self.balance = UserDefaults.standard.integer(forKey: DataBaseKeys.balanceKey)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,6 +108,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
+        self.ref?.removeAllObservers()
         //  NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         //NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -131,7 +134,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
         
     }
     
-    func getBalance(){
+/*    func getBalance(){
         let uidWithOne = "+1"+sid!
         ref?.child("users/\(uidWithOne)/balance").observeSingleEvent(of: .value, with: { (snapshot) in
             
@@ -144,7 +147,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
             alert.addAction(okay)
             self.present(alert, animated: true, completion: nil)
         }
-    }
+    }*/
     
     //flag variable monitors which screen we are on. States: -1 = not set, 0 = tutor connecting screen, 1 = tutor connected screen
     var flag = -1
@@ -229,43 +232,58 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
             //label.removeFromSuperview()
         })
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.tutorFound(_:)), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
+        //handle is the observer, used to remove observer
+        var handle:UInt = 0
+        handle = (self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))/status").observe(DataEventType.value, with: { (snapshot) in
+            if let status = snapshot.value as? Int{
+                //if status is 1, tutor is connected, push tutorConnectedVC
+                if status == TutorStatus.preparing.rawValue && !self.connected{
+                    self.connected = true
+                    self.ref?.removeObserver(withHandle: handle)
+                    //get the tutor id, used to start chat
+                    self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))/tid").observeSingleEvent(of: .value, with: { (snapshot) in
+                        if let tid = snapshot.value as? String{
+                            //push tutorconnectedVC
+                            MKFullSpinner.hide()
+                            self.tcVC?.questionDescription = self.questionDescription.text
+                            self.tcVC?.questionImage = self.questionPic.image
+                            self.tcVC?.category = self.categorytitle
+                            self.tcVC?.qid = String(describing: self.key!)
+                            self.tcVC?.tid = tid
+                            self.navigationController?.pushViewController(self.tcVC!, animated: true)
+                        }
+                        
+                    }){ (error) in
+                        print(error.localizedDescription)
+                    }
+                }
+                //check if status is 2, if 2, tutor is ready to chat, push chatVC
+                else if status == TutorStatus.ready.rawValue  && !self.ready{
+                    self.ready = true
+                    //use this flag in tutorconnectedVC to show tutor is ready can push chatVC
+                    self.tcVC?.didTutorReady = true
+                    
+                    /*self.ref?.removeObserver(withHandle: handle)
+                    self.ref?.child("Request/active/\(self.categorytitle)/\(String(describing: self.key!))/tid").observeSingleEvent(of: .value, with: { (snapshot) in
+                        ///get the tutor id, used to start chat
+                        if let tid = snapshot.value as? String{
+                            self.startChatting(tid: tid, image: self.questionPic.image!, description: self.questionDescription.text!)
+                        }
+                        
+                    }){ (error) in
+                        print(error.localizedDescription)
+                    }*/
+                }
+            }
+            
+        }){ (error) in
+            print(error.localizedDescription)
+            })!
     }
     
-    var didStudentClickOkAfterTutorinChat = false
-    func changeDidStudentClickOkAfterTutorinChat(){
-        didStudentClickOkAfterTutorinChat = true
-    }
-    
-    func tutorFound(_ notification: NSNotification){
-        MKFullSpinner.hide()
-        
-        //tcVC - tutorconnectedVC
-        
-        let storyBoard = UIStoryboard(name: "TutorConnected", bundle: nil)
-        let tcVC = storyBoard.instantiateViewController(withIdentifier: "TutorConnected") as! TutorConnectedVC
-        tcVC.questionDescription = self.questionDescription.text
-        tcVC.questionImage = self.questionPic.image
-        tcVC.requestdict = notification.userInfo as? [String : Any]
-        tcVC.delegate = self
-        tcVC.didStudentCickOkAfterTutorinChat = self.didStudentClickOkAfterTutorinChat        
-        //Before the alert is presented we edit the friendrequest observer to call the function didStudentClickOkAfterTutorinChat function to notify the next VC, that the tutor is in chat if the student hasnt clicked ok on the alert before the tutor clicks ready to begin.
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
-        //Add observer to lookout for notification
-        NotificationCenter.default.addObserver(self, selector: #selector(changeDidStudentClickOkAfterTutorinChat), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
-        
-        navigationController?.pushViewController(tcVC, animated: true)
-        
-        //
-        // self.present(alert, animated: true, completion: nil)
-        //        self.startChatting(requestDict: notification.userInfo as! [String : Any])
-        
-    }
-    
-    
-    func startChatting(requestDict:[String: Any], image: UIImage, description: String){
+    func startChatting(tid: String, image: UIImage, description: String){
         let timeStamp = ["SessionId":String(Date().ticks)]
-        let sessionController = ChatTableViewController(conversationID: requestDict["username"] as! String , conversationType: EMConversationTypeChat, initWithExt: timeStamp)
+        let sessionController = ChatTableViewController(conversationID: tid, conversationType: EMConversationTypeChat, initWithExt: timeStamp)
         sessionController?.key = self.key!
         sessionController?.category = self.categorytitle
         //check if description was entered.
@@ -334,31 +352,41 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
         questionPic.contentMode = .scaleAspectFit
     }
     
+    let categoryLabelScaleFactor:CGFloat = 0.08
+    
     func setupCategoryLabel() {
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         categoryLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        categoryLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        categoryLabel.heightAnchor.constraint(equalToConstant: screenHeight*categoryLabelScaleFactor).isActive = true
         
         categoryLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         categoryLabel.topAnchor.constraint(equalTo: questionPic.bottomAnchor, constant: 12).isActive = true
         categoryLabel.text = "    Category:"
     }
     
+    let subjectLabelWidthScaleFactor:CGFloat = 0.6
+
     func setupSubjectLabel() {
         subjectLabel.translatesAutoresizingMaskIntoConstraints = false
-        subjectLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        subjectLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        subjectLabel.widthAnchor.constraint(equalToConstant: screenWidth * subjectLabelWidthScaleFactor).isActive = true
+        subjectLabel.heightAnchor.constraint(equalToConstant: screenHeight*categoryLabelScaleFactor).isActive = true
         
-        subjectLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        subjectLabel.topAnchor.constraint(equalTo: questionPic.bottomAnchor, constant: 15).isActive = true
-        subjectLabel.text = "                                                       \(categorytitle)"
+//        subjectLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        subjectLabel.rightAnchor.constraint(equalTo: categoryLabel.rightAnchor, constant: -10).isActive = true
+//        subjectLabel.topAnchor.constraint(equalTo: questionPic.bottomAnchor, constant: 15).isActive = true
+        subjectLabel.centerYAnchor.constraint(equalTo: categoryLabel.centerYAnchor, constant: 0).isActive = true
+        subjectLabel.text = "\(categorytitle)"
+        subjectLabel.minimumScaleFactor = 0.5
+        subjectLabel.adjustsFontSizeToFitWidth = true
+        subjectLabel.sizeToFit()
     }
     
+    let descriptionBoxScaleFactor:CGFloat = 0.25
     
     func setupQuestionDescription() {
         questionDescription.translatesAutoresizingMaskIntoConstraints = false
         questionDescription.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        questionDescription.heightAnchor.constraint(equalToConstant: screenHeight*0.3).isActive = true
+        questionDescription.heightAnchor.constraint(equalToConstant: screenHeight*descriptionBoxScaleFactor).isActive = true
         
         questionDescription.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         questionDescription.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 10).isActive = true
@@ -366,10 +394,12 @@ class SummaryVC: UIViewController, UITextViewDelegate, TutorConnectedDelegate, S
         questionDescription.delegate = self
     }
     
+    let nextButtonScaleFactor:CGFloat = 0.08
+    
     func setupNextButton() {
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        nextButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        nextButton.heightAnchor.constraint(equalToConstant: screenHeight*nextButtonScaleFactor).isActive = true
         
         nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         nextButton.topAnchor.constraint(equalTo: questionDescription.bottomAnchor, constant: 10).isActive = true

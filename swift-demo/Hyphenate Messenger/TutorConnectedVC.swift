@@ -2,52 +2,86 @@ import UIKit
 import FirebaseDatabase
 
 class TutorConnectedVC: UIViewController {
-    var requestdict: [String: Any]? = nil
+    
     var questionImage: UIImage?
     var questionDescription: String?
-    var didStudentCickOkAfterTutorinChat = false
-    var delegate: TutorConnectedDelegate?
+    var didTutorReady = false
     var ref: DatabaseReference? = Database.database().reference()
+    var tid: String?
+    var category: String?
+    var qid: String?
+    //connected is used to check if chatVC has been pushed
+    var connected = false
     @IBOutlet weak var profilePhotoView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: false)
         
         profilePhotoView.layer.borderWidth = 1
         profilePhotoView.layer.masksToBounds = false
         profilePhotoView.layer.borderColor = UIColor.black.cgColor
         profilePhotoView.layer.cornerRadius = profilePhotoView.frame.height/2
         profilePhotoView.clipsToBounds = true
-
-        let uid = requestdict?["username"] as! String
-        ref?.child("tutors/\(uid)/profilePhoto").observeSingleEvent(of:.value, with:
-            {(snapshot) in
-            print(snapshot.value as! String)
-            let profilePhotoURL = URL(string: snapshot.value as! String)
-            self.profilePhotoView.sd_setImage(with: profilePhotoURL)
-
-        }) {(error) in print(error.localizedDescription)}
-       /* if let profilePhotoURLString = requestdict?[""] {
-            let profilePhotoURL = URL(string: profilePhotoURLString as! String)
-            profilePhotoView.sd_setImage(with: profilePhotoURL)
-        }*/
         
-        //if the student clicks ok on previous alert after the tutor is in the session, hence didStudentClickOkAfterTutorinChat = true, we call the start chat with tutor, else we modify the observer again so that it calls startchatwithtutor once a notification is recieved
-        if didStudentCickOkAfterTutorinChat == true {
-            startChatwithTutor()
-        } else{
-            NotificationCenter.default.addObserver(self, selector: #selector(startChatwithTutor), name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
-        }
+        ref?.child("tutors/\(self.tid!)/profilePhoto").observeSingleEvent(of:.value, with:
+            {(snapshot) in
+                print(snapshot.value as! String)
+                let profilePhotoURL = URL(string: snapshot.value as! String)
+                self.profilePhotoView.sd_setImage(with: profilePhotoURL)
+                
+        }) {(error) in print(error.localizedDescription)}
         navigationController?.navigationBar.isUserInteractionEnabled = false
         navigationItem.setHidesBackButton(true, animated: true)
         showActivityIndicator()
+        
     }
-    
-    func startChatwithTutor(){
-        //Remove observer for friend request notification
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "kNotification_didReceiveRequest"), object: nil)
-        delegate?.startChatting(requestDict: self.requestdict!, image: self.questionImage!, description: self.questionDescription!)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //handle is the observer, used to remove observer
+        if didTutorReady{
+            self.startChatwithTutor(tid: self.tid!, image: self.questionImage!, description: self.questionDescription!)
+        }
+        else{
+            var handle:UInt = 0
+            //check is status is 2, if yes, push chatVC
+            handle = (self.ref?.child("Request/active/\(self.category!)/\(self.qid!)/status").observe(DataEventType.value, with: { (snapshot) in
+                if let status = snapshot.value as? Int{
+                    if status == TutorStatus.ready.rawValue && !self.connected {
+                        self.connected = true
+                        self.ref?.removeObserver(withHandle: handle)
+                        self.startChatwithTutor(tid: self.tid!, image: self.questionImage!, description: self.questionDescription!)
+                    }
+                }
+                
+            })
+            { (error) in
+                print(error.localizedDescription)
+            })!
+        }
+    }
+    func startChatwithTutor(tid: String, image: UIImage, description: String){
+        //code is copied from startChatting in summaryVC
+        let timeStamp = ["SessionId":String(Date().ticks)]
+        let sessionController = ChatTableViewController(conversationID: tid, conversationType: EMConversationTypeChat, initWithExt: timeStamp)
+        sessionController?.key = self.qid!
+        sessionController?.category = self.category!
+        //check if description was entered.
+        var isDescriptionEntered: Bool?
+        if description == "No Description Available" {
+            isDescriptionEntered = false
+        } else {
+            isDescriptionEntered = true
+        }
+        
+        self.navigationController?.isNavigationBarHidden = false
+        if let sessContr = sessionController{
+            sessContr.questionimage = image
+            if isDescriptionEntered == true{
+                sessContr.questiondescription = description
+            }
+            self.navigationController?.pushViewController(sessContr, animated: true)
+        }
     }
     
     func showActivityIndicator() {
@@ -63,7 +97,7 @@ class TutorConnectedVC: UIViewController {
         let fittingSize = titleLabel.sizeThatFits(CGSize(width: 200.0, height: activityIndicatorView.frame.size.height))
         titleLabel.frame = CGRect(x:0 /*activityIndicatorView.frame.origin.x + activityIndicatorView.frame.size.width + 8*/, y:0/* activityIndicatorView.frame.origin.y*/, width: fittingSize.width, height: fittingSize.height)
         activityIndicatorView.frame = CGRect(x: titleLabel.frame.origin.x + titleLabel.frame.size.width + 8, y: titleLabel.frame.origin.y, width: 18, height: 18)
-
+        
         
         let titleView = UIView(frame: CGRect(x: ((activityIndicatorView.frame.size.width + 8 + titleLabel.frame.size.width) / 2), y: ((activityIndicatorView.frame.size.height) / 2), width: (activityIndicatorView.frame.size.width + 8 + titleLabel.frame.size.width), height : (activityIndicatorView.frame.size.height)))
         titleView.addSubview(activityIndicatorView)
@@ -77,6 +111,3 @@ class TutorConnectedVC: UIViewController {
     }
 }
 
-protocol TutorConnectedDelegate{
-    func startChatting(requestDict:[String: Any], image: UIImage, description: String)
-}

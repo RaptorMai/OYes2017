@@ -59,6 +59,12 @@ class OpenUrlViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         view = webView
     }
     
+    /// Dismiss self if modally presented
+    func dismissModal() {
+//        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
     // MARK: - Progress Bar
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if (keyPath == "estimatedProgress") {

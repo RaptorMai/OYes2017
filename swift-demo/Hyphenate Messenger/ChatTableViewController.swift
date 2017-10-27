@@ -62,18 +62,20 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         self.navigationItem.leftBarButtonItem = endSessionButton
         
         /* added timer UILabel ********/
-        timerLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-        timerLabel.font = UIFont.systemFont(ofSize: 20)
+        //timerLabel.frame = CGRect(x: 0, y: 0, width: 70, height: 50)
+        timerLabel.frame = CGRect(x: (navigationController?.navigationBar.frame.width)!*7/8, y: 0, width: (navigationController?.navigationBar.frame.width)!/4, height: (navigationController?.navigationBar.frame.height)!)
+        timerLabel.font = UIFont.systemFont(ofSize: 15)
         timerLabel.adjustsFontSizeToFitWidth = true
-        timerLabel.textColor = .red
-        timerLabel.center = CGPoint(x: self.view.frame.width - 50, y: 40)
+        timerLabel.textColor = .blue
+        timerLabel.center = CGPoint(x: (navigationController?.navigationBar.frame.width)!*7/8, y: (navigationController?.navigationBar.frame.height)!/2)
         timerLabel.textAlignment = .center
-        self.view.addSubview(timerLabel)
-        view.bringSubview(toFront: timerLabel)
+        //self.view.addSubview(timerLabel)
+        //view.bringSubview(toFront: timerLabel)
         timerLabel.text = String(time) + " min"
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-        
-        self.navigationItem.titleView = timerLabel
+        navigationController?.navigationBar.addSubview(timerLabel)
+        navigationController?.navigationBar.bringSubview(toFront: timerLabel)
+        //self.navigationItem.rightBarButtonItem = timerLabel
         
         if dismissable == true {
             let rightButtonItem:UIBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(ChatTableViewController.cancelAction))
@@ -98,6 +100,8 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     
     override func viewWillDisappear(_ animated: Bool) {
         //removeTimerLable()
+        super.viewWillDisappear(animated)
+        ref?.cancelDisconnectOperations()
         HyphenateMessengerHelper.sharedInstance.chatVC = nil
     }
     
@@ -142,13 +146,16 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
         time = Date().timeIntervalSince(beginTime)
         let minutes = Int(floor(Double(time)/60))
         updatedDuration = Int(ceil(Double(time)/60))
-        setWhenDisconnected()
+        //setWhenDisconnected()
         timerLabel.text = String(minutes) + " min"
-        if minutes >= self.balance{
+        if minutes >= self.balance {
             let alert = UIAlertController(title: "Session finished", message: "Your balance is 0", preferredStyle: .alert)
             let okay = UIAlertAction(title: "Ok", style: .cancel, handler:{_ in self.endSession(minutes)})
             alert.addAction(okay)
             self.present(alert, animated: true, completion: nil)
+            
+            // to prevent that, the alert view show more than once if timer fires again
+            timer?.invalidate()
         }
         
     }
@@ -175,24 +182,31 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     
     func endSession(_ duration: Int){
         //calculate time with ceil
-        let ratingViewController = UIStoryboard(name: "Rating", bundle: nil).instantiateViewController(withIdentifier: "rateSession") as! RatingViewController
-        ratingViewController.category = self.category
-        ratingViewController.key = self.key
-        removeTimerLable()
-        //time = Date().timeIntervalSince(beginTime)
-        //let sessionDuration = Int(ceil(Double(time)/60))
-        //print(sessionDuration)
-        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":duration])
-        ratingViewController.delegate = self
-        self.present(ratingViewController, animated: true)
+        self.ref?.child("Request/active/\(self.category)").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.hasChild("\(self.key)"){
+                
+                self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":duration])
+                
+            }else{
+                
+                self.ref?.child("Request/inactive/\(self.category)/\(self.key)").updateChildValues(["duration":duration])
+            }
+            
+            
+        })
+        let balance = UserDefaults.standard.integer(forKey: DataBaseKeys.balanceKey)
+        AppConfig.sharedInstance.defaults.set((balance-duration), forKey: DataBaseKeys.balanceKey)
         
 //        let newConvId: String = (self.conversation.conversationId + String(Date().ticks))
 //        self.conversation.conversationId = newConvId
         processSession()
+        
     }
     
     func endSessionfromAppTermination(){
         //TODO: add conversationid to user default, the conversation need to be processed next time
+        self.ref?.child("Request/active/\(self.category)/\(self.key)").updateChildValues(["duration":self.updatedDuration,"rate": 5.0])
     }
     
     ///When the app disconnects firebasem the following value will be set
@@ -200,6 +214,17 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
 
         self.ref?.child("Request/active/\(self.category)/\(self.key)").onDisconnectUpdateChildValues(["duration":self.updatedDuration,"rate": 5.0])
     }
+    
+    func showRatingVC() {
+        // present rating controller
+        let ratingViewController = UIStoryboard(name: "Rating", bundle: nil).instantiateViewController(withIdentifier: "rateSession") as! RatingViewController
+        ratingViewController.category = self.category
+        ratingViewController.key = self.key
+        self.removeTimerLable()
+        self.present(ratingViewController, animated: true)
+        ratingViewController.delegate = self
+    }
+    
     func dismissParentVC() {
         //Dismiss Keyboard
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -208,7 +233,7 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
     }
 
     func processSession() {
-
+        showHud(in: view, hint: "Processing")
         // after a session ends, get the last session and copies all messages over to a new session
         let chatManager = EMClient.shared().chatManager
         // create a new conversation, generate a random numerical id first
@@ -263,9 +288,13 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
             newMessage?.status = EMMessageStatusSucceed
             
             newConversation?.insert(newMessage, error: nil)
+            
+            // remove the current conversation from database
+            chatManager?.deleteConversation(self.conversation.conversationId, isDeleteMessages: false, completion: nil)
+
+            self.hideHud()
+            self.showRatingVC()
         })
         
-        // remove the current conversation from database
-        chatManager?.deleteConversation(conversation.conversationId, isDeleteMessages: false, completion: nil)
     }
 }

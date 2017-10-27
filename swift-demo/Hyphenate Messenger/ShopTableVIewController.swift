@@ -91,6 +91,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         ref?.child("users/\(uid)/balance").observeSingleEvent(of: .value, with: { (snapshot) in
             if let balance = snapshot.value as? Int {
                 self.balance = balance
+                AppConfig.sharedInstance.defaults.set(balance, forKey: DataBaseKeys.balanceKey)
             }
             
             self.hideHud()
@@ -441,6 +442,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                     let packageIdx = self.prices.index(of: amount) ?? 0
                     let minutesPurchased = self.productMinutes[packageIdx]
                     self.balance += minutesPurchased
+                    AppConfig.sharedInstance.defaults.set(self.balance, forKey: DataBaseKeys.balanceKey)
                     self.tableView.reloadData()
                     let message = "You have purchased \(minutesPurchased) minutes for $\(chargedAmount/100)"
                     
@@ -481,6 +483,11 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == productMinutes.count{
             updateCard()
+        } else {
+            if let cell = tableView.cellForRow(at: indexPath) as? ShopTableViewCell {
+                tableView.deselectRow(at: indexPath, animated: true)
+                cell.purchaseButton.sendActions(for: .touchUpInside)
+            }
         }
     }
     

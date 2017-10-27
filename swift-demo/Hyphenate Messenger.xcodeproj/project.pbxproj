@@ -257,6 +257,7 @@
 		E40E53411F73042A00E12593 /* LoginVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40E533F1F73042900E12593 /* LoginVerificationViewController.swift */; };
 		E40E53431F7306B800E12593 /* AuthenticationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40E53421F7306B800E12593 /* AuthenticationHelper.swift */; };
 		E40E53461F73104700E12593 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E40E533D1F73039A00E12593 /* Authentication.storyboard */; };
+		E47D929C1F95C3F80083A601 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47D929B1F95C3F80083A601 /* PrivacyViewController.swift */; };
 		E4B1A27D1F8C046F00043483 /* ShopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4B1A27C1F8C046F00043483 /* ShopTableViewCell.xib */; };
 		E4B1A2811F8C04F300043483 /* ShopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1A2801F8C04F300043483 /* ShopTableViewCell.swift */; };
 		E4BB684E1F87392200E7296B /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB684D1F87392200E7296B /* Network.swift */; };
@@ -697,6 +698,7 @@
 		E40E533F1F73042900E12593 /* LoginVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVerificationViewController.swift; sourceTree = "<group>"; };
 		E40E53421F7306B800E12593 /* AuthenticationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationHelper.swift; sourceTree = "<group>"; };
 		E40E53481F734CBF00E12593 /* UIViewController+HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIViewController+HUD.swift"; path = "../../../Hyphenate-Demo-Swift-master/Hyphenate-Demo-Swift/Code/Utilities/Category/UIViewController+HUD.swift"; sourceTree = "<group>"; };
+		E47D929B1F95C3F80083A601 /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		E4B1A27C1F8C046F00043483 /* ShopTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopTableViewCell.xib; sourceTree = "<group>"; };
 		E4B1A2801F8C04F300043483 /* ShopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTableViewCell.swift; sourceTree = "<group>"; };
 		E4BB684D1F87392200E7296B /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
@@ -1025,6 +1027,7 @@
 				E40E533F1F73042900E12593 /* LoginVerificationViewController.swift */,
 				9A17BE221D9E20190075EF9F /* LoginViewController.swift */,
 				E40E53421F7306B800E12593 /* AuthenticationHelper.swift */,
+				E47D929B1F95C3F80083A601 /* PrivacyViewController.swift */,
 			);
 			name = Authentication;
 			sourceTree = "<group>";
@@ -2113,6 +2116,7 @@
 				B6346B231D9E6C5100CBEAE2 /* UIImage+EMMultiFormat.m in Sources */,
 				9A17BE311D9E20190075EF9F /* ChatTableViewController.swift in Sources */,
 				B6346AFB1D9E6C5100CBEAE2 /* MBProgressHUD.m in Sources */,
+				E47D929C1F95C3F80083A601 /* PrivacyViewController.swift in Sources */,
 				B6346B871DA24F8700CBEAE2 /* InvitationManager.swift in Sources */,
 				B6346B361D9E6C5100CBEAE2 /* EaseSDKHelper.m in Sources */,
 				5D4342441F266F1700E5CA62 /* Utilities.swift in Sources */,

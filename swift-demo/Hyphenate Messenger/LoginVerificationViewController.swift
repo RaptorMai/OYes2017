@@ -117,15 +117,16 @@ class LoginVerificationViewController: UIViewController {
     @IBAction func verifyCode(sender: UIButton) {
         view.endEditing(true)
         // simulator support, just login
-        if Platform.isSimulator {
-            hyphenateLogin()
-            return
-        }
+//        if Platform.isSimulator {
+//            hyphenateLogin()
+//            return
+//        }
         
         // show hud
         showHud(in: view, hint: "Verifying")
         // key is stored while requesting for the verification code
         if let verificationKey = UserDefaults.standard.string(forKey: "authVID") {
+
             let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationKey, verificationCode: numberField.text!)
             Auth.auth().signIn(with: credential, completion: { (user, error) in
                 if error != nil {
