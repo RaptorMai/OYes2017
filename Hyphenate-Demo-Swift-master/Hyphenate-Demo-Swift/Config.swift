@@ -319,6 +319,14 @@ class AppConfig {
         
         // setting profile photo to placeholder
         defaults.register(defaults: [DataBaseKeys.profilePhotoKey: UIImageJPEGRepresentation(UIImage(named:"placeholder")!, 1)!])
+        defaults.set(-1, forKey: DataBaseKeys.categoryVerKey)
+        defaults.set(-1, forKey: DataBaseKeys.packageVerKey)
+        defaults.set(0, forKey: DataBaseKeys.firstLaunchKey)
+        defaults.set(1, forKey: DataBaseKeys.profileNeedsUpdateKey)
+        defaults.set("example@gmail.com", forKey: DataBaseKeys.profileEmailKey)
+        defaults.set("Please complete profile", forKey: DataBaseKeys.profileUserNameKey)
+        defaults.set("1.0.0", forKey: DataBaseKeys.appRequiredVerKey)
+        defaults.set("1.0.0", forKey: DataBaseKeys.appSuggestedVerKey)
         defaults.synchronize()
     }
     
