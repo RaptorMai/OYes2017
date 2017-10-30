@@ -1,11 +1,3 @@
-//
-//  OpenUrlController.swift
-//  Hyphenate Messenger
-//
-//  Created by Yi Jerry on 2017-09-20.
-//  Copyright © 2017 Hyphenate Inc. All rights reserved.
-//
-
 import UIKit
 import WebKit
 

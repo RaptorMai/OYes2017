@@ -53,8 +53,8 @@ class QuestionsVC: UIViewController, refreshSpinnerProtocol{
         // TODO: delete this hard coded userdefaults
         let imageBuffer = #imageLiteral(resourceName: "photo")
         let imgData = UIImageJPEGRepresentation(imageBuffer, 1)
-        UserDefaults.standard.set(imgData, forKey: "profilePicture")
-        if let data = UserDefaults.standard.data(forKey: "profilePicture"){
+        UserDefaults.standard.set(imgData, forKey: DataBaseKeys.profilePhotoKey)
+        if let data = UserDefaults.standard.data(forKey: DataBaseKeys.profilePhotoKey) {
             self.tutorProfilePicture.image = UIImage(data: data)!
         }else{
             // TODO: MAKE SURE PLACEHOLDER IS THERE
@@ -78,6 +78,8 @@ class QuestionsVC: UIViewController, refreshSpinnerProtocol{
         }else{
             rating=0.0
         }
+        
+        UserDefaults.standard.synchronize()
         
         starView.rating = rating
         starView.text = "\(rating)"

@@ -213,7 +213,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     
     // Mail: error handler
     func showSendMailErrorAlert(){
-        let sendMailErrorAlert = UIAlertController(title: "Mail cannot be sent", message: "Mailbox is not setup properly", preferredStyle: .alert )
+        let sendMailErrorAlert = UIAlertController(title: "Mail cannot be sent", message: "Please setup your mailbox on iOS Settings first", preferredStyle: .alert )
         sendMailErrorAlert.addAction(UIAlertAction(title: "Yes", style: .default) {_ in})
         self.present(sendMailErrorAlert, animated: true)
     }

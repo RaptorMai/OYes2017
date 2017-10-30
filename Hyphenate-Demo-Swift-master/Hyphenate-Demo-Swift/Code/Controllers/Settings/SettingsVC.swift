@@ -1,26 +1,14 @@
-//
-//  SettingsVC.swift
-//  TutorApp
-//
-//  Created by devuser on 2017-08-13.
-//  Copyright © 2017 sul. All rights reserved.
-//
-
 import UIKit
 import Firebase
 import Hyphenate
+import MessageUI
 
-class SettingsVC: UITableViewController {
-/*
-    @IBAction func LogOut(_ sender: Any) {
-        try! Auth.auth().signOut()
-        let LoginScreenNC = UINavigationController(rootViewController: LaunchViewController())
-        LoginScreenNC.navigationBar.barStyle = .blackTranslucent
-        present(LoginScreenNC, animated: true, completion: nil)
+class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "Settings"
+        self.tabBarController?.tabBar.isHidden = false
     }
-    
-*/
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +20,8 @@ class SettingsVC: UITableViewController {
         tableView.register(UINib(nibName: "SwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "switchCell")
         self.tableView.register(UINib(nibName: "LabelTableViewCell", bundle: nil), forCellReuseIdentifier: "labelCell")
         // Do any additional setup after loading the view.
+        
+        tableView.isScrollEnabled = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,19 +61,63 @@ class SettingsVC: UITableViewController {
         
     }
     
+    let profileIndexPath = IndexPath(row: 0, section: 0)
+    let bankAccountIndexPath = IndexPath(row: 0, section: 1)
+    let cashOutIndexPath = IndexPath(row: 1, section: 1)
+    let helpIndexPath = IndexPath(row: 0, section: 2)
+    let feedbackIndexPath = IndexPath(row: 1, section: 2)
+    let aboutIndexPath = IndexPath(row: 2, section: 2)
+    let logoutIndexPath = IndexPath(row: 0, section: 3)
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0:
-            //let proVC = SettingsAboutTableViewController()
-            //navigationController?.pushViewController(settingsAboutVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        print("prssed section \(indexPath.section) row \(indexPath.row)")
+        switch indexPath {
+        case profileIndexPath:
+            let StoryBoard = UIStoryboard(name:"ProfileMain",bundle:nil)
+            let myProfileVC = StoryBoard.instantiateViewController(withIdentifier: "myProfileVC")
+            
+            tabBarController?.tabBar.isHidden = true
+            navigationController?.pushViewController(myProfileVC, animated: true)
+
+        case bankAccountIndexPath:
+            fallthrough
+        case cashOutIndexPath:
+            // not supported
+            let alertView = UIAlertController(title: "Wait...",
+                                              message: "The bank function is not supported in this version, please contact us for any issue",
+                                              preferredStyle: .alert)
+            alertView.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alertView, animated: true, completion: nil)
+        
+        case helpIndexPath:
+            openURL("https://www.instasolve.ca/help")
+        
+        case feedbackIndexPath:
+            if !MFMailComposeViewController.canSendMail(){
+                print("Mail services are not available")
+                // display alert
+                let alertView = UIAlertController(title: "Mail cannot be sent", message: "Please setup your mailbox on iOS Settings first", preferredStyle: .alert )
+                alertView.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+                self.present(alertView, animated: true)
+            } else {
+                let composeVC = MFMailComposeViewController()
+                composeVC.mailComposeDelegate = self
+                // Configure the fields of the interface
+                composeVC.setToRecipients(["instasolve1@gmail.com"])
+                composeVC.setSubject("Feedback - InstaSolve")
+                composeVC.setMessageBody("Please leave us your precious feedback!", isHTML: false)
+                self.present(composeVC, animated: true, completion:nil)
+            }
+            
+        case aboutIndexPath:
+            openURL("https://www.instasolve.ca/help")
+            
+        case logoutIndexPath:
             logoutAction()
-            
-        case 1:
-            let settingsNotificationVC = EMSettingsViewController()
-            navigationController?.pushViewController(settingsNotificationVC, animated: true)
+
         default:break
-            
+
         }
     }
 
@@ -106,7 +140,30 @@ class SettingsVC: UITableViewController {
         }
     }
 
+    func openURL(_ url: String) {
+        let openMainPageVc = OpenUrlViewController()
+        openMainPageVc.url = "https://www.instasolve.ca/help"
+        tabBarController?.tabBar.isHidden = true
+        navigationController?.pushViewController(openMainPageVc, animated: true)
+    }
+    
+    // MARK: - Mail delegate
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result {
+        case MFMailComposeResult.cancelled:
+            print("Mail cancelled")
+        case MFMailComposeResult.saved:
+            print("Mail saved")
+        case MFMailComposeResult.sent:
+            print("Mail sent")
+        case MFMailComposeResult.failed:
+            print("Mail sent failure")
+        }
+        // Dismiss mail view controller and back to setting page
+        self.dismiss(animated:true, completion: nil)
+    }
 
+    
     /*
     // MARK: - Navigation
 

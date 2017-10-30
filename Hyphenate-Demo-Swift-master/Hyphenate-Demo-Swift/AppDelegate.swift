@@ -37,6 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        print("finish launch")
+        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+            print("\(key) = \(value) \n")
+        }
         
 //        UITabBar.appearance().tintColor = KermitGreenTwoColor
 //        UINavigationBar.appearance().tintColor = AlmostBlackColor
@@ -103,28 +107,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         parseApplication(application, didFinishLaunchingWithOptions: launchOptions)
-        //_registerAPNS()
-        
 
-        
-        //let addToken = ["notificationTokens": token] as [String: String?]
-        //self.ref?.child("tutors//").setValue(addToken)
-       // let uid = EMClient.shared().currentUsername!
-        //print("UID: \(uid)")
-        //print("FCM token: \(token ?? "")")
+        // if app is first launch
+        let config = AppConfig.sharedInstance
+        if config.appLaunchCount < 1 {
+            config.configAppFirstLaunch()
+            // show alert that only available in US and Canada
+            let alert = UIAlertController(title: "Service notice", message: "Currently, we offer service to Canada and the US ONLY.\nThanks for your support!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            DispatchQueue.main.async {
+                alert.show()
+            }
+        }
 
+        // fetch and process versions/ package info, etc
+        config.configAppLaunch()
         
         return true
     }
     
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        // check if the user comes back from appstore when force update needed
+        if AppConfig.sharedInstance.appForceUpdateRequired {
+            AppConfig.sharedInstance.displayUpdateAlertForType(.ConfigTypeAppUpdateRequired)
+        }
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        print("Will terminate")
+        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+            print("\(key) = \(value) \n")
+        }
+
+        AppConfig.sharedInstance.saveConfig()
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        print("Will resign")
+        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+            print("\(key) = \(value) \n")
+        }
+        AppConfig.sharedInstance.saveConfig()
+    }
+    
     //add new VC called AutoLoginVC
     func proceedLogin(_ token: String?) {
-        
+        let uid = EMClient.shared().currentUsername!
+        // TODO: have to use flagged version: update on demand
+        AppConfig.sharedInstance.getUserProfileAtLogin(uid)
+
         let autoLogin = AutoLoginVC()
         autoLogin.token = token
         window?.rootViewController = autoLogin
-        
-        
     }
     
     

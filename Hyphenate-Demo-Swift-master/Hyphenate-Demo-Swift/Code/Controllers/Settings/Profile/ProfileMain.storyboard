@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -13,7 +14,7 @@
         <!--Grade-->
         <scene sceneID="lul-Bk-soh">
             <objects>
-                <viewController id="yUO-Mk-2ZK" customClass="GradeViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="yUO-Mk-2ZK" customClass="GradeViewController" customModule="Hyphenate_Demo_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ziB-aP-dbR"/>
                         <viewControllerLayoutGuide type="bottom" id="Vk1-6g-dEn"/>
@@ -23,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y5c-wS-Tje">
-                                <rect key="frame" x="16" y="114" width="288" height="216"/>
+                                <rect key="frame" x="16" y="70" width="288" height="216"/>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,7 +52,7 @@
         <!--Photo-->
         <scene sceneID="VAl-LF-bax">
             <objects>
-                <viewController id="ecy-QU-M6Y" customClass="ProfileSettingViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ecy-QU-M6Y" customClass="ProfileSettingViewController" customModule="Hyphenate_Demo_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="O2m-pp-OFl"/>
                         <viewControllerLayoutGuide type="bottom" id="lsP-LC-noA"/>
@@ -111,7 +112,7 @@
         <!--Email-->
         <scene sceneID="pGm-eh-EVK">
             <objects>
-                <viewController id="2Wq-QP-Ide" customClass="EmailViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="2Wq-QP-Ide" customClass="EmailViewController" customModule="Hyphenate_Demo_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="g4V-vw-y3M"/>
                         <viewControllerLayoutGuide type="bottom" id="0w6-RS-Zfq"/>
@@ -160,7 +161,7 @@
         <!--Name-->
         <scene sceneID="B6S-ku-0mW">
             <objects>
-                <viewController id="Ra1-J8-NcZ" customClass="NameViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ra1-J8-NcZ" customClass="NameViewController" customModule="Hyphenate_Demo_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o1n-Qx-ho3"/>
                         <viewControllerLayoutGuide type="bottom" id="Gbj-kI-aDX"/>
@@ -208,13 +209,13 @@
         <!--My Profile-->
         <scene sceneID="QLm-Al-5r9">
             <objects>
-                <tableViewController storyboardIdentifier="myProfileVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HDR-qw-8aX" customClass="MyProfileViewControllerTableViewController" customModule="Hyphenate_Messenger" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="myProfileVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HDR-qw-8aX" customClass="MyProfileViewControllerTableViewController" customModule="Hyphenate_Demo_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="40" sectionHeaderHeight="1" sectionFooterHeight="1" id="b3u-rF-wTf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="profileHeaderCell" rowHeight="35" id="XKD-S7-wqk" customClass="profileHeaderTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="profileHeaderCell" rowHeight="35" id="XKD-S7-wqk" customClass="profileHeaderTableViewCell" customModule="Hyphenate_Demo_Swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="320" height="35"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XKD-S7-wqk" id="JNF-Jo-Ndj">
@@ -239,7 +240,7 @@
                                     <outlet property="headerLabel" destination="sg0-pP-rae" id="EBW-eb-tbd"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="profilePictureCell" rowHeight="91" id="Fr9-Rt-QWm" customClass="profilePictureTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="profilePictureCell" rowHeight="91" id="Fr9-Rt-QWm" customClass="profilePictureTableViewCell" customModule="Hyphenate_Demo_Swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="90.5" width="320" height="91"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fr9-Rt-QWm" id="HDt-B9-sQS">
@@ -286,7 +287,7 @@
                                     <segue destination="ecy-QU-M6Y" kind="show" id="gEh-Dt-dCw"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nameCell" id="N6p-AA-fin" customClass="nameTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nameCell" id="N6p-AA-fin" customClass="nameTableViewCell" customModule="Hyphenate_Demo_Swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="181.5" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N6p-AA-fin" id="aBq-fZ-bei">
@@ -329,7 +330,7 @@
                                     <segue destination="Ra1-J8-NcZ" kind="show" id="jFg-D3-9Iq"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="informationHeaderCell" rowHeight="35" id="HOr-Og-mrE" customClass="informationHeaderTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="informationHeaderCell" rowHeight="35" id="HOr-Og-mrE" customClass="informationHeaderTableViewCell" customModule="Hyphenate_Demo_Swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="221.5" width="320" height="35"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HOr-Og-mrE" id="uxK-K8-1Wl">
@@ -354,51 +355,8 @@
                                     <outlet property="informationHeaderLabel" destination="Jx5-G3-5BJ" id="Xba-vu-A1p"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="gradeCell" id="MY3-Hs-Zn3" customClass="gradeTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="emailCell" id="Lcv-1I-qEq" customClass="emailTableViewCell" customModule="Hyphenate_Demo_Swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="256.5" width="320" height="40"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MY3-Hs-Zn3" id="5Gn-JY-6BP">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8dc-bh-fN0">
-                                            <rect key="frame" x="18" y="9" width="294" height="19.5"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Grade" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VzO-Mt-brB">
-                                                    <rect key="frame" x="0.0" y="0.0" width="230" height="19.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gr.12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ky2-qd-Uve">
-                                                    <rect key="frame" x="240" y="0.0" width="37" height="19.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon right" translatesAutoresizingMaskIntoConstraints="NO" id="e4w-LZ-mKo">
-                                                    <rect key="frame" x="287" y="0.0" width="7" height="19.5"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="7" id="WSU-ag-k0m"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                        </stackView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="8dc-bh-fN0" firstAttribute="leading" secondItem="5Gn-JY-6BP" secondAttribute="leadingMargin" constant="10" id="13D-XW-dAf"/>
-                                        <constraint firstItem="8dc-bh-fN0" firstAttribute="top" secondItem="5Gn-JY-6BP" secondAttribute="topMargin" constant="1" id="Qkm-fY-igJ"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="8dc-bh-fN0" secondAttribute="trailing" id="kwL-yt-kPE"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="gradeCellLabel" destination="VzO-Mt-brB" id="3Cn-XK-U36"/>
-                                    <outlet property="userGraderLabel" destination="ky2-qd-Uve" id="3kS-8i-Hyj"/>
-                                    <segue destination="yUO-Mk-2ZK" kind="show" id="kFN-kS-knJ"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="emailCell" id="Lcv-1I-qEq" customClass="emailTableViewCell" customModule="Hyphenate_Messenger" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="296.5" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lcv-1I-qEq" id="lIY-il-FFv">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
