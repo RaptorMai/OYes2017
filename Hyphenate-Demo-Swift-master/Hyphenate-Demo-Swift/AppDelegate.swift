@@ -37,11 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        print("finish launch")
-        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
-            print("\(key) = \(value) \n")
-        }
-        
 //        UITabBar.appearance().tintColor = KermitGreenTwoColor
 //        UINavigationBar.appearance().tintColor = AlmostBlackColor
         
@@ -134,20 +129,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        print("Will terminate")
-        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
-            print("\(key) = \(value) \n")
-        }
-
-        AppConfig.sharedInstance.saveConfig()
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        print("Will resign")
-        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
-            print("\(key) = \(value) \n")
-        }
-        AppConfig.sharedInstance.saveConfig()
     }
     
     //add new VC called AutoLoginVC
@@ -177,6 +161,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let RVController = UINavigationController(rootViewController:launchVC)
             RVController.navigationBar.barStyle = .blackTranslucent
             window?.rootViewController = RVController
+            
+            AppConfig.sharedInstance.resetProfileDefaults()
         } else {
             proceedLogin(token)
         }

@@ -64,13 +64,13 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
                     self.createNetworkAlert()
                 } else {
                 print("Uploading profile pic")
-                self.ref.child("users/\(self.uid)").updateChildValues(["profilepicURL": url!])
+                self.ref.child("users/\(self.uid)").updateChildValues([DataBaseKeys.profilePhotoRemoteKey: url!])
                 
                 print("Finished upload")
                 print("Going to download from DB")
                 // Retrive Profile Picture from DB
                 // Store data to UserDefaults
-            self.ref.child("users").child(self.uid).child("profilepicURL").observeSingleEvent(of: .value, with: {(snapshot) in
+            self.ref.child("users").child(self.uid).child(DataBaseKeys.profilePhotoRemoteKey).observeSingleEvent(of: .value, with: {(snapshot) in
                     
                     print("downloaded from DB")
                     var imageBuffer: UIImage

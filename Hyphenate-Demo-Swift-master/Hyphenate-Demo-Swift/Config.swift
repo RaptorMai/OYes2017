@@ -59,6 +59,10 @@ struct DataBaseKeys {
     static let profileEmailRemoteKey = "email"
     static let profilePhotoRemoteKey = "profilepicURL"
     static let profileGradeRemoteKey = "grade"
+    
+    static let profileQuestionCountKey = "totalQuestionNum"
+    static let profileTotalStarKey = "stars"
+    static let profileEarningThisMonthKey = "earningThisMonth"
 
     static let profileNeedsUpdateKey = "profileNeedsUpdate"
 
@@ -102,6 +106,7 @@ class AppConfig {
     let defaults = UserDefaults.standard
     let ref: DatabaseReference! = Database.database().reference()
     
+    // MARK: public vars
     var profileDelegate: ConfigDelegate?
     
     var appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"]! as! String).getVersionNumbers()
@@ -125,10 +130,6 @@ class AppConfig {
             return defaults.integer(forKey: DataBaseKeys.firstLaunchKey)
         }
     }
-
-    private var isAlertShown = false  // used to sync the alert, we show alert again in didBecomeActive, but needs to let it know not to show again
-    
-    // MARK: public vars
     
     var categoryJSONdata: Data? {
         get {
@@ -142,6 +143,24 @@ class AppConfig {
         }
     }
     
+    var starRating: Double {
+        get {
+            if questionCount == 0 {
+                return 5.0  // this is the default value
+            }
+            return defaults.double(forKey: DataBaseKeys.profileTotalStarKey) / Double(questionCount)
+        }
+    }
+    
+    var questionCount: Int {
+        get {
+            return defaults.integer(forKey: DataBaseKeys.profileQuestionCountKey)
+        }
+    }
+    
+    // MARK: private vars
+    private var isAlertShown = false  // used to sync the alert, we show alert again in didBecomeActive, but needs to let it know not to show again
+
     // MARK: methods
     private func storeConfigForKey(_ key: String, withData dataObj: Any) {
         defaults.set(dataObj, forKey: key)
@@ -323,6 +342,9 @@ class AppConfig {
         defaults.set(-1, forKey: DataBaseKeys.packageVerKey)
         defaults.set(0, forKey: DataBaseKeys.firstLaunchKey)
         defaults.set(1, forKey: DataBaseKeys.profileNeedsUpdateKey)
+        defaults.set(0, forKey: DataBaseKeys.profileQuestionCountKey)
+        defaults.set(0.0, forKey: DataBaseKeys.profileTotalStarKey)
+        defaults.set(0.0, forKey: DataBaseKeys.profileEarningThisMonthKey)
         defaults.set("example@gmail.com", forKey: DataBaseKeys.profileEmailKey)
         defaults.set("Please complete profile", forKey: DataBaseKeys.profileUserNameKey)
         defaults.set("1.0.0", forKey: DataBaseKeys.appRequiredVerKey)
@@ -344,7 +366,7 @@ class AppConfig {
     /// - Parameter uid: user ID
     func getUserProfileAtLogin(_ uid: String) {
         // user name
-        ref?.child("users/\(uid)/\(DataBaseKeys.profileUserNameRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref?.child("tutors/\(uid)/\(DataBaseKeys.profileUserNameRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
             if let value = snapshot.value as? String {
                 self.defaults.set(value, forKey: DataBaseKeys.profileUserNameKey)
                 self.profileDelegate?.didFetchConfigTypeProfile!()
@@ -352,7 +374,7 @@ class AppConfig {
         })
         
         // profile photo
-        ref?.child("users/\(uid)/\(DataBaseKeys.profilePhotoRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref?.child("tutors/\(uid)/\(DataBaseKeys.profilePhotoRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
             if let picURLString = snapshot.value as? String {
                 // value is the URL for image, has to download and set to data
                 if let picURL = URL(string: picURLString) {
@@ -366,27 +388,45 @@ class AppConfig {
             }
         })
         
-        // grade
-        ref?.child("users/\(uid)/\(DataBaseKeys.profileGradeRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
-            if let value = snapshot.value as? String {
-                self.defaults.set(value, forKey: DataBaseKeys.profileGradeKey)
-                self.profileDelegate?.didFetchConfigTypeProfile!()
-            }
-        })
-        
         // email
-        ref?.child("users/\(uid)/\(DataBaseKeys.profileEmailRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref?.child("tutors/\(uid)/\(DataBaseKeys.profileEmailRemoteKey)").observeSingleEvent(of: .value, with: { (snapshot) in
             if let value = snapshot.value as? String {
                 self.defaults.set(value, forKey: DataBaseKeys.profileEmailKey)
                 self.profileDelegate?.didFetchConfigTypeProfile!()
             }
         })
+        
         //balance
-        ref?.child("users/\(uid)/\(DataBaseKeys.balanceKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref?.child("tutors/\(uid)/\(DataBaseKeys.balanceKey)").observeSingleEvent(of: .value, with: { (snapshot) in
             if let value = snapshot.value as? Int {
                 self.defaults.set(value, forKey: DataBaseKeys.balanceKey)
             }
         })
+        
+        // question count
+        ref?.child("tutors/\(uid)/\(DataBaseKeys.profileQuestionCountKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value as? Int {
+                self.defaults.set(value, forKey: DataBaseKeys.profileQuestionCountKey)
+                self.profileDelegate?.didFetchConfigTypeProfile!()
+            }
+        })
+        
+        // star count
+        ref?.child("tutors/\(uid)/\(DataBaseKeys.profileTotalStarKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value as? Int {
+                self.defaults.set(value, forKey: DataBaseKeys.profileTotalStarKey)
+                self.profileDelegate?.didFetchConfigTypeProfile!()
+            }
+        })
+        
+        // earning this month
+        ref?.child("tutors/\(uid)/\(DataBaseKeys.profileEarningThisMonthKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value as? Double {
+                self.defaults.set(value, forKey: DataBaseKeys.profileEarningThisMonthKey)
+                self.profileDelegate?.didFetchConfigTypeProfile!()
+            }
+        })
+
         defaults.set(0, forKey: DataBaseKeys.profileNeedsUpdateKey)
         defaults.synchronize()
     }

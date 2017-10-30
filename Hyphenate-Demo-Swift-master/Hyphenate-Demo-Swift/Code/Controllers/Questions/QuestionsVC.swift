@@ -17,7 +17,7 @@ protocol refreshSpinnerProtocol {
 }
 
 
-class QuestionsVC: UIViewController, refreshSpinnerProtocol{
+class QuestionsVC: UIViewController, refreshSpinnerProtocol, ConfigDelegate {
     // function:
     func refreshTable(){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refresh"), object: nil)
@@ -38,6 +38,7 @@ class QuestionsVC: UIViewController, refreshSpinnerProtocol{
     
     @IBOutlet weak var tutorProfilePicture: UIImageView!
     
+    @IBOutlet weak var earningLabel: UILabel!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let segueName = segue.identifier
@@ -49,46 +50,55 @@ class QuestionsVC: UIViewController, refreshSpinnerProtocol{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // profile picture
-        // TODO: delete this hard coded userdefaults
-        let imageBuffer = #imageLiteral(resourceName: "photo")
-        let imgData = UIImageJPEGRepresentation(imageBuffer, 1)
-        UserDefaults.standard.set(imgData, forKey: DataBaseKeys.profilePhotoKey)
+        // profile loading delegate
+        AppConfig.sharedInstance.profileDelegate = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        refreshInformationBanner()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refreshInformationBanner()
+    }
+    
+    
+    /// Refreshes the banner that displays the tutor info
+    func refreshInformationBanner() {
         if let data = UserDefaults.standard.data(forKey: DataBaseKeys.profilePhotoKey) {
-            self.tutorProfilePicture.image = UIImage(data: data)!
-        }else{
-            // TODO: MAKE SURE PLACEHOLDER IS THERE
-            self.tutorProfilePicture.image = UIImage(named:"placeholder")!
-        }
-        // tutor name
-        // TODO: delete this hard coding userdefaults
-        UserDefaults.standard.set("Mike", forKey: "userName")
-        if let name = UserDefaults.standard.string(forKey: "userName"){
-            self.tutorName.text = name
+            tutorProfilePicture.image = UIImage(data: data)!
         } else {
-            self.tutorName.text = "Unknown"
+            // TODO: MAKE SURE PLACEHOLDER IS THERE
+            tutorProfilePicture.image = UIImage(named:"placeholder")!
+        }
+        tutorProfilePicture.layer.masksToBounds = true
+        tutorProfilePicture.layer.cornerRadius = tutorProfilePicture.frame.size.width / 2
+        
+        if let name = UserDefaults.standard.string(forKey: DataBaseKeys.profileUserNameKey){
+            tutorName.text = name
+        } else {
+            tutorName.text = "Unknown"
         }
         // rating
         // TODO: delete this hard coded userdefaults
-        UserDefaults.standard.set("10", forKey: "star")
-        UserDefaults.standard.set("3", forKey: "qnum")
-        var rating: Double = 0.0
-        if let qnum = Double(UserDefaults.standard.string(forKey: "qnum")!), let star = Double(UserDefaults.standard.string(forKey: "star")!){
-            rating = round((star/qnum)*100)/100
-        }else{
-            rating=0.0
-        }
-        
-        UserDefaults.standard.synchronize()
+        let rating: Double = AppConfig.sharedInstance.starRating
         
         starView.rating = rating
-        starView.text = "\(rating)"
+        starView.text = String(format: "%.1f", ceil(rating*100)/100)  // round up
+        
+        earningLabel.text = String(format: "$ %.2f", UserDefaults.standard.double(forKey: DataBaseKeys.profileEarningThisMonthKey))
     }
     
     func removeSpinner(){
     
         MBProgressHUD.hideAllHUDs(for: tableofquestions, animated: true)
     
+    }
+    
+    // Mark: - Config delegate
+    func didFetchConfigTypeProfile() {
+        refreshInformationBanner()
     }
     
 }

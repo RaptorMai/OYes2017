@@ -75,13 +75,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HzZ-d1-quR">
-                                <rect key="frame" x="0.0" y="200" width="375" height="418"/>
+                                <rect key="frame" x="0.0" y="160" width="375" height="458"/>
                                 <connections>
                                     <segue destination="zl1-dg-67s" kind="embed" identifier="magic" id="TjJ-xb-rjW"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhS-nU-3BV">
-                                <rect key="frame" x="0.0" y="112" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="80"/>
                                 <subviews>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="adm-mR-dJF" customClass="CosmosView" customModule="Cosmos">
                                         <rect key="frame" x="83" y="50" width="150" height="24"/>
@@ -134,8 +134,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 1000.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laP-37-Tnb">
-                                        <rect key="frame" x="277" y="17.5" width="90" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 1000.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laP-37-Tnb">
+                                        <rect key="frame" x="283" y="17.5" width="90" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="90" id="ZaM-5V-rIJ"/>
                                         </constraints>
@@ -156,11 +156,11 @@
                                     <constraint firstItem="nSe-HP-keZ" firstAttribute="top" secondItem="dSJ-lb-DRW" secondAttribute="top" constant="8" id="7KC-uK-j7y"/>
                                     <constraint firstItem="dSJ-lb-DRW" firstAttribute="leading" secondItem="hhS-nU-3BV" secondAttribute="leading" constant="8" id="Bbu-4y-yM8"/>
                                     <constraint firstItem="adm-mR-dJF" firstAttribute="width" secondItem="nSe-HP-keZ" secondAttribute="width" id="FeF-Y5-jQj"/>
-                                    <constraint firstItem="qe4-ay-rbO" firstAttribute="trailing" secondItem="laP-37-Tnb" secondAttribute="trailing" id="JCV-jw-jLH"/>
+                                    <constraint firstAttribute="trailing" secondItem="qe4-ay-rbO" secondAttribute="trailing" constant="8" id="Zxa-Ns-ula"/>
                                     <constraint firstItem="nSe-HP-keZ" firstAttribute="leading" secondItem="dSJ-lb-DRW" secondAttribute="trailing" constant="8" id="aGP-yQ-H6w"/>
+                                    <constraint firstItem="laP-37-Tnb" firstAttribute="centerX" secondItem="qe4-ay-rbO" secondAttribute="centerX" id="acn-AK-zfF"/>
                                     <constraint firstItem="adm-mR-dJF" firstAttribute="bottom" secondItem="dSJ-lb-DRW" secondAttribute="bottom" id="b8Q-G3-jJ5"/>
                                     <constraint firstItem="dSJ-lb-DRW" firstAttribute="height" secondItem="hhS-nU-3BV" secondAttribute="height" multiplier="0.85" id="bLd-ek-A5Z"/>
-                                    <constraint firstAttribute="trailing" secondItem="laP-37-Tnb" secondAttribute="trailing" constant="8" id="eQF-Oe-huz"/>
                                     <constraint firstItem="dSJ-lb-DRW" firstAttribute="centerY" secondItem="hhS-nU-3BV" secondAttribute="centerY" id="f18-L3-7zI"/>
                                     <constraint firstItem="qe4-ay-rbO" firstAttribute="top" secondItem="adm-mR-dJF" secondAttribute="top" constant="-8" id="qAQ-ea-AZE"/>
                                     <constraint firstItem="nSe-HP-keZ" firstAttribute="width" secondItem="hhS-nU-3BV" secondAttribute="width" multiplier="0.4" id="sgX-rf-bqe"/>
@@ -190,6 +190,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="earningLabel" destination="laP-37-Tnb" id="o1a-5v-Bo6"/>
                         <outlet property="starView" destination="adm-mR-dJF" id="Y6W-pj-JR3"/>
                         <outlet property="tableofquestions" destination="HzZ-d1-quR" id="6qt-UO-IKi"/>
                         <outlet property="tutorName" destination="nSe-HP-keZ" id="ZAs-xZ-zUN"/>
