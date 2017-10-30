@@ -25,7 +25,7 @@ exports.createStripeUser = functions.auth.user().onCreate(event => {
 				if (error) {
 					console.log("Stripe customerID cannot be written into db: " + error);
 				};
-				admin.database().ref(`/users/${data.phoneNumber}/balance`).set(60, function(error){
+				admin.database().ref(`/users/${data.phoneNumber}/balance`).set(30, function(error){
 					if (error) {
 						console.log("New user balance cannot be created: " + error);
 					};
@@ -68,7 +68,42 @@ exports.createStripeUser = functions.auth.user().onCreate(event => {
 	}
 	// if phoneNumber does not exist, means user is a tutor
 	// Here we can set up tutor in the future
-	else { return console.log("This is a tutor, so no need to create stripe account");}
+	else { 
+		var tid = data.email;
+		tid = tid.replace("@", ""); 
+		tid = tid.replace(".", ""); 
+		admin.database().ref(`/tutors/${tid}/profilepicURL`).set("", function(error){
+					if (error) {
+						console.log("New user profilepicURL cannot be created: " + error);
+					};
+					return console.log("profilepicURL setup");
+		});
+		admin.database().ref(`/tutors/${tid}/username`).set("", function(error){
+					if (error) {
+						console.log("New user username cannot be created: " + error);
+					};
+					return console.log("username setup");
+		});
+		admin.database().ref(`/tutors/${tid}/balance`).set(0, function(error){
+					if (error) {
+						console.log("New user balance cannot be created: " + error);
+					};
+					return console.log("balance setup");
+		});
+		admin.database().ref(`/tutors/${tid}/stars`).set(0, function(error){
+					if (error) {
+						console.log("New user stars cannot be created: " + error);
+					};
+					return console.log("stars setup");
+		});
+		admin.database().ref(`/tutors/${tid}/totalQuestionNum`).set(0, function(error){
+					if (error) {
+						console.log("New user totalQuestionNum cannot be created: " + error);
+					};
+					return console.log("totalQuestionNum setup");
+		});
+		return console.log("This is a tutor, so no need to create stripe account");
+	}
 });
 
 // Create a stripe charge to a customer ID
