@@ -42,10 +42,11 @@ class LoginVC: UIViewController {
         
     }()
     
+    let accountToLabel :CGFloat = 0.1
     func setupUsername(){
         Username.translatesAutoresizingMaskIntoConstraints = false
         Username.rightAnchor.constraint(equalTo: view.rightAnchor, constant:-screenWidth*0.075).isActive = true
-        Username.topAnchor.constraint(equalTo: Instructions.bottomAnchor, constant:125).isActive = true
+        Username.topAnchor.constraint(equalTo: Instructions.bottomAnchor, constant:screenHeight*accountToLabel).isActive = true
         Username.widthAnchor.constraint(equalToConstant: screenWidth*0.65).isActive = true
     }
     
@@ -191,6 +192,9 @@ class LoginVC: UIViewController {
                 else{
                     var usernameNoSign = self.Username.text!.replacingOccurrences(of: "@", with: "")
                     usernameNoSign = usernameNoSign.replacingOccurrences(of: ".", with: "")
+                    usernameNoSign = usernameNoSign.lowercased()
+                    //let uid = EMClient.shared().currentUsername!
+                    AppConfig.sharedInstance.getUserProfileAtLogin(usernameNoSign)
                     weak var weakSelf = self
                     EMClient.shared().login(withUsername: usernameNoSign, password: usernameNoSign) { (username, error) in
                         if error == nil {
@@ -236,13 +240,18 @@ class LoginVC: UIViewController {
             }
         }
     }
+    let buttonWidthFactor:CGFloat = 0.47
+    let buttonHightFacotor: CGFloat = 0.07
+    let buttonIntervalFactor:CGFloat = 0.25
+    let buttonToLabel: CGFloat = 0.16
+    let labelToTop: CGFloat = 0.14
     
     func setupLoginButton(){
         LoginButton.translatesAutoresizingMaskIntoConstraints = false
         LoginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        LoginButton.topAnchor.constraint(equalTo: Password.bottomAnchor, constant:150).isActive = true
-        LoginButton.widthAnchor.constraint(equalToConstant: 250).isActive = true
-        LoginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        LoginButton.topAnchor.constraint(equalTo: Password.bottomAnchor, constant:UIScreen.main.bounds.height*buttonToLabel).isActive = true
+        LoginButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * buttonWidthFactor).isActive = true
+        LoginButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height*buttonHightFacotor).isActive = true
     }
     
     func setupForgotPWButton(){

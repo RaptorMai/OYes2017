@@ -7,7 +7,7 @@ import Hyphenate
 class NameViewController: UIViewController, UITextFieldDelegate {
     // Database
     var ref: DatabaseReference! = Database.database().reference()
-    var uid = "+1" + EMClient.shared().currentUsername!
+    var uid = EMClient.shared().currentUsername!
 
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -33,7 +33,7 @@ class NameViewController: UIViewController, UITextFieldDelegate {
             
             // Retrive Name from firebase
             // Store data to UserDefaults
-            self.ref.child("users").child(uid).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
+            self.ref.child("tutors").child(uid).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
                 if snapshot.exists(){
                     let val = snapshot.value as? String
                     if (val! != ""){
@@ -52,7 +52,7 @@ class NameViewController: UIViewController, UITextFieldDelegate {
 
     }
     func uploadName(_ Name: String){
-        self.ref?.child("users/\(self.uid)").updateChildValues(["username":Name])
+        self.ref?.child("tutors/\(self.uid)").updateChildValues(["username":Name])
     }
     
     // Dismiss Keyboard

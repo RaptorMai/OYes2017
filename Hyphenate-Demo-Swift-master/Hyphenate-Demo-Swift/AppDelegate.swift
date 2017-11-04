@@ -41,6 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        UINavigationBar.appearance().tintColor = AlmostBlackColor
         
         //ref = Database.database().reference()
+        /*for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+            print("\(key) = \(value) \n")
+        }*/
+    
         let options = EMOptions.init(appkey: "1500170706002947#instasolve")     
         
         var apnsCerName = "InstasolveTutorDevCertificates"
@@ -143,6 +147,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let autoLogin = AutoLoginVC()
         autoLogin.token = token
         window?.rootViewController = autoLogin
+//        let ref = Database.database().reference()
+//        let addToken = ["token": token] as [String: String?]
+//        print(uid)
+//        ref.child("tutors/\(uid)").updateChildValues(addToken)
+//
+//        let homeVC = UIStoryboard(name: "CellPrototype", bundle: nil).instantiateViewController(withIdentifier: "MainTabView")
+//        let nav = UINavigationController.init(rootViewController: homeVC)
+//        window?.rootViewController = homeVC
+//        window?.makeKeyAndVisible()
     }
     
     
@@ -169,9 +182,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     func loginStateChange(nofi: NSNotification) {
         if (nofi.object as! NSNumber).boolValue {
-            let mainVC = EMMainViewController()     
-            let nav = UINavigationController.init(rootViewController: mainVC)     
+            let mainVC = EMMainViewController()
+            let nav = UINavigationController.init(rootViewController: mainVC)
             window?.rootViewController = nav
+            window?.makeKeyAndVisible()
         } else {
             let storyboard = UIStoryboard.init(name: "Register&Login", bundle: nil)     
             window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "EMLoginViewController")     
@@ -191,7 +205,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }*/
 
     // Firebase notification received
-    @available(iOS 10.0, *)
+    //@available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter,  willPresent notification: UNNotification, withCompletionHandler   completionHandler: @escaping (_ options:   UNNotificationPresentationOptions) -> Void) {
         
         // custom code to handle push while app is in the foreground

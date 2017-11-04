@@ -25,7 +25,7 @@ exports.createStripeUser = functions.auth.user().onCreate(event => {
 				if (error) {
 					console.log("Stripe customerID cannot be written into db: " + error);
 				};
-				admin.database().ref(`/users/${data.phoneNumber}/balance`).set(60, function(error){
+				admin.database().ref(`/users/${data.phoneNumber}/balance`).set(30, function(error){
 					if (error) {
 						console.log("New user balance cannot be created: " + error);
 					};
@@ -68,7 +68,49 @@ exports.createStripeUser = functions.auth.user().onCreate(event => {
 	}
 	// if phoneNumber does not exist, means user is a tutor
 	// Here we can set up tutor in the future
-	else { return console.log("This is a tutor, so no need to create stripe account");}
+	else { 
+		var tid = data.email;
+		tid = tid.replace("@", ""); 
+		tid = tid.replace(/\./g, "");
+		admin.database().ref(`/tutors/${tid}/profilePhoto`).set("", function(error){
+					if (error) {
+						console.log("New user profilePhotocannot be created: " + error);
+					};
+					return console.log("profilePhoto setup");
+		});
+		admin.database().ref(`/tutors/${tid}/username`).set("", function(error){
+					if (error) {
+						console.log("New user username cannot be created: " + error);
+					};
+					return console.log("username setup");
+		});
+		admin.database().ref(`/tutors/${tid}/balance`).set(0, function(error){
+					if (error) {
+						console.log("New user balance cannot be created: " + error);
+					};
+					return console.log("balance setup");
+		});
+		admin.database().ref(`/tutors/${tid}/stars`).set(0, function(error){
+					if (error) {
+						console.log("New user stars cannot be created: " + error);
+					};
+					return console.log("stars setup");
+		});
+		admin.database().ref(`/tutors/${tid}/totalQuestionNum`).set(0, function(error){
+					if (error) {
+						console.log("New user totalQuestionNum cannot be created: " + error);
+					};
+					return console.log("totalQuestionNum setup");
+		});
+		admin.database().ref(`/tutors/${tid}/email`).set("", function(error){
+					if (error) {
+						console.log("New user email cannot be created: " + error);
+					};
+					return console.log("email setup");
+		});
+		return console.log("This is a tutor, so no need to create stripe account");
+
+	}
 });
 
 // Create a stripe charge to a customer ID
@@ -384,7 +426,7 @@ exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{q
 
 		// Update tutor overall star
 		completeTutorProfile.child("stars").once("value").then(snapshot => {
-			completeTutorProfile.child("stars").set(parseInt(snapshot.val()) + parseInt(rate))
+			completeTutorProfile.child("stars").set(parseInt(snapshot.val()) + parseFloat(rate))
 		});
 
 		// Update tutor overall qnum
@@ -402,24 +444,34 @@ exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{q
 
 		// Update tutor monthly data
 		var year = new Date().getFullYear();
-		var month = new Date().getMonth();
+		var month = new Date().getMonth() + 1;
 
 		var tutorBalanceHistory = admin.database().ref("/tutors/" + tid + "/monthlyBalanceHistory/" + year + month);
-
+		console.log("/tutors/" + tid + "/monthlyBalanceHistory/" + year + month)
 		// Update monthly total
 		tutorBalanceHistory.child("monthlyTotal").once("value").then(snapshot => {
+			console.log("monthlyTotal")
 			if (snapshot.val() == null){
+				console.log("monthlyTotal null")
+				console.log(0 + parseInt(sessionTime))
 				tutorBalanceHistory.child("monthlyTotal").set(0 + parseInt(sessionTime));
 			}
-			tutorBalanceHistory.child("monthlyTotal").set(parseInt(snapshot.val()) + parseInt(sessionTime));
+			else{
+				console.log("monthlyTotal out")
+				console.log(parseInt(snapshot.val()) + parseInt(sessionTime))
+				tutorBalanceHistory.child("monthlyTotal").set(parseInt(snapshot.val()) + parseInt(sessionTime));
+			}
+			
 		});
 
 		// Update monthly stars
 		tutorBalanceHistory.child("stars").once("value").then(snapshot => {
 			if (snapshot.val() == null){
-				tutorBalanceHistory.child("stars").set(0 + parseInt(rate));
+				tutorBalanceHistory.child("stars").set(0 + parseFloat(rate));
 			}
-			tutorBalanceHistory.child("stars").set(parseInt(snapshot.val()) + parseInt(rate));
+			else{
+				tutorBalanceHistory.child("stars").set(parseInt(snapshot.val()) + parseFloat(rate));
+			}
 		});
 
 		// Update monthly total question numbers
@@ -427,7 +479,10 @@ exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{q
 			if (snapshot.val() == null){
 				tutorBalanceHistory.child("qnum").set(1);
 			}
-			tutorBalanceHistory.child("qnum").set(parseInt(snapshot.val()) + 1);
+			else{
+				tutorBalanceHistory.child("qnum").set(parseInt(snapshot.val()) + 1);
+			}
+			
 		});
 	})
 })

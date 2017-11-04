@@ -89,7 +89,8 @@ class EMChatsCell: UITableViewCell {
         let latestMsg = conversation.latestMessage
         if  latestMsg != nil {
             var timeIntervar = latestMsg!.timestamp
-            if timeIntervar > 140000000000 {
+            let someDate: Int64 = 140000000000
+            if timeIntervar > someDate {
                 timeIntervar = timeIntervar / 1000
             }
             

@@ -7,11 +7,9 @@ enum NetworkAPI: String {
     case cancel = "cancel"
 }
 
+let baseURL =  "us-central1-instasolve-d8c55.cloudfunctions.net"
+
 func urlForNetworkAPI(_ api: NetworkAPI) -> URL? {
     // get the baseURLe from firebase
-    if let baseURL = RemoteConfig.remoteConfig().configValue(forKey: DataBaseKeys.serverAddress).stringValue {
-        return URL(string: ["http:/", baseURL, api.rawValue].joined(separator: "/"))
-    } else {
-        return nil
-    }
+    return URL(string: ["http:/", baseURL, api.rawValue].joined(separator: "/"))
 }

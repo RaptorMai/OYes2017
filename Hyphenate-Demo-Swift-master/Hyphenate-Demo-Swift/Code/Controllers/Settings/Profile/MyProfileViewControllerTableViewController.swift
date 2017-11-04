@@ -41,7 +41,7 @@ class MyProfileViewControllerTableViewController: UITableViewController {
             return 2
         // Section: INFORMATION
         case 1:
-            return 1
+            return 2
         default:
             return 0
         }
@@ -85,6 +85,11 @@ class MyProfileViewControllerTableViewController: UITableViewController {
                 cell.emailCellLabel.text = "Email"
                 cell.userEmailLabel.text = UserDefaults.standard.string(forKey: "email")
                 return cell
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "changePWcell", for: indexPath) as! emailTableViewCell
+                cell.emailCellLabel.text = "Change password"
+                return cell
+
             // Should Never Reach
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
@@ -118,6 +123,43 @@ class MyProfileViewControllerTableViewController: UITableViewController {
 
         }
         return 40
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath == IndexPath(row: 1, section: 1) {
+            // change pw
+            resetPW()
+            return
+        }
+        
+        if indexPath == IndexPath(row: 0, section: 1) {
+            // email
+            let alert = UIAlertController(title: "Changing email", message: "Please contact support to change your email address", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+    }
+    
+    func resetPW() {
+        // copied partially from loginvc
+        if let email = UserDefaults.standard.string(forKey: DataBaseKeys.profileEmailKey) {
+            Auth.auth().sendPasswordReset(withEmail: email) { error in
+                if error != nil{
+                    let alert = UIAlertController(title: "Error", message: "\((error?.localizedDescription)!)", preferredStyle: .alert)
+                    let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    alert.addAction(okay)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else{
+                    let alert = UIAlertController(title: "Email Sent", message: "Please check Email and reset password", preferredStyle: .alert)
+                    let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    alert.addAction(okay)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     /*

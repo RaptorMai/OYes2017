@@ -9,7 +9,7 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
     // MARK: - Firebase
     //var ref: DatabaseReference!
     var ref = Database.database().reference()
-    var uid = "+1" + EMClient.shared().currentUsername!
+    var uid = EMClient.shared().currentUsername!
     
     
     // MARK: - View Did Load
@@ -64,13 +64,13 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
                     self.createNetworkAlert()
                 } else {
                 print("Uploading profile pic")
-                self.ref.child("users/\(self.uid)").updateChildValues([DataBaseKeys.profilePhotoRemoteKey: url!])
+                self.ref.child("tutors/\(self.uid)").updateChildValues([DataBaseKeys.profilePhotoRemoteKey: url!])
                 
                 print("Finished upload")
                 print("Going to download from DB")
                 // Retrive Profile Picture from DB
                 // Store data to UserDefaults
-            self.ref.child("users").child(self.uid).child(DataBaseKeys.profilePhotoRemoteKey).observeSingleEvent(of: .value, with: {(snapshot) in
+            self.ref.child("tutors").child(self.uid).child(DataBaseKeys.profilePhotoRemoteKey).observeSingleEvent(of: .value, with: {(snapshot) in
                     
                     print("downloaded from DB")
                     var imageBuffer: UIImage
@@ -163,13 +163,6 @@ class ProfileSettingViewController: UIViewController, UIImagePickerControllerDel
         imagePicker.allowsEditing = true
     }
     
-
-
-    
-    
-
-    
-
     /*
     // MARK: - Navigation
 

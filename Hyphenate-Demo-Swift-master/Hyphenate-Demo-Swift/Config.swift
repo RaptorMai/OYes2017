@@ -57,7 +57,7 @@ struct DataBaseKeys {
     
     static let profileUserNameRemoteKey = "username"
     static let profileEmailRemoteKey = "email"
-    static let profilePhotoRemoteKey = "profilepicURL"
+    static let profilePhotoRemoteKey = "profilePhoto"
     static let profileGradeRemoteKey = "grade"
     
     static let profileQuestionCountKey = "totalQuestionNum"
@@ -143,7 +143,7 @@ class AppConfig {
         }
     }
     
-    var starRating: Double {
+    /*var starRating: Double {
         get {
             if questionCount == 0 {
                 return 5.0  // this is the default value
@@ -156,7 +156,7 @@ class AppConfig {
         get {
             return defaults.integer(forKey: DataBaseKeys.profileQuestionCountKey)
         }
-    }
+    }*/
     
     // MARK: private vars
     private var isAlertShown = false  // used to sync the alert, we show alert again in didBecomeActive, but needs to let it know not to show again
@@ -349,6 +349,7 @@ class AppConfig {
         defaults.set("Please complete profile", forKey: DataBaseKeys.profileUserNameKey)
         defaults.set("1.0.0", forKey: DataBaseKeys.appRequiredVerKey)
         defaults.set("1.0.0", forKey: DataBaseKeys.appSuggestedVerKey)
+        defaults.set(UIImageJPEGRepresentation(UIImage(named:"placeholder")!, 1)!, forKey: DataBaseKeys.profilePhotoKey)
         defaults.synchronize()
     }
     
@@ -402,7 +403,7 @@ class AppConfig {
                 self.defaults.set(value, forKey: DataBaseKeys.balanceKey)
             }
         })
-        
+        /*
         // question count
         ref?.child("tutors/\(uid)/\(DataBaseKeys.profileQuestionCountKey)").observeSingleEvent(of: .value, with: { (snapshot) in
             if let value = snapshot.value as? Int {
@@ -425,7 +426,7 @@ class AppConfig {
                 self.defaults.set(value, forKey: DataBaseKeys.profileEarningThisMonthKey)
                 self.profileDelegate?.didFetchConfigTypeProfile!()
             }
-        })
+        })*/
 
         defaults.set(0, forKey: DataBaseKeys.profileNeedsUpdateKey)
         defaults.synchronize()
@@ -477,7 +478,7 @@ class AppConfig {
             if let uid = user {
                 let key = DataBaseKeys.discountAvailabilityKey
                 let currentDiscountAvailablity = defaults.integer(forKey: key)
-                ref?.child("users/\(uid)/").updateChildValues([key: currentDiscountAvailablity as Any])
+                ref?.child("tutors/\(uid)/").updateChildValues([key: currentDiscountAvailablity as Any])
             } else {
                 throw ConfigError.noUidError
             }

@@ -2,30 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "placeholder.png",
+      "filename" : "tutor.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "tutor-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
-    },
-    {
-      "idiom" : "iphone"
-    },
-    {
-      "idiom" : "iphone",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "iphone",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "iphone",
+      "filename" : "tutor-2.png",
       "scale" : "3x"
     }
   ],

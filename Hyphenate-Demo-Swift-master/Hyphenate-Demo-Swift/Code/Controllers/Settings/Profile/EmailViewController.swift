@@ -16,7 +16,7 @@ import Hyphenate
 class EmailViewController: UIViewController, UITextFieldDelegate {
     // Database
     var ref: DatabaseReference! = Database.database().reference()
-    var uid = "+1" + EMClient.shared().currentUsername!
+    var uid = EMClient.shared().currentUsername!
 
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var emailField: UITextField!
@@ -48,7 +48,7 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
         
         // Retrive Email from firebase
         // Store data to UserDefaults
-        self.ref.child("users").child(uid).child(DataBaseKeys.profileEmailKey).observeSingleEvent(of: .value, with: { (snapshot) in
+        self.ref.child("tutors").child(uid).child(DataBaseKeys.profileEmailKey).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists(){
                 let val = snapshot.value as? String
                 if (val! != ""){
@@ -71,7 +71,7 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
     }
     
     func uploadEmail(_ email: String){
-        self.ref?.child("users/\(self.uid)").updateChildValues(["email":email])
+        self.ref?.child("tutors/\(self.uid)").updateChildValues(["email":email])
     }
     
     // Verify Email format

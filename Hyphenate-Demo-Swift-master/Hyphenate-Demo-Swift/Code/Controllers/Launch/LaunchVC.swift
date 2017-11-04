@@ -29,7 +29,7 @@ class LaunchViewController: UIViewController {
     func setupMainLabel(){
         MainLabel.translatesAutoresizingMaskIntoConstraints = false
         MainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        MainLabel.topAnchor.constraint(equalTo: view.topAnchor, constant:105).isActive = true
+        MainLabel.topAnchor.constraint(equalTo: view.topAnchor, constant:UIScreen.main.bounds.height*labelToTop).isActive = true
     }
     
     let TutorLabel: UILabel = {
@@ -67,10 +67,10 @@ class LaunchViewController: UIViewController {
     
     func setupRegisterButton(){
         RegisterButton.translatesAutoresizingMaskIntoConstraints = false
-        RegisterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -90).isActive = true
-        RegisterButton.topAnchor.constraint(equalTo: TutorLabel.bottomAnchor, constant:350).isActive = true
-        RegisterButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        RegisterButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        RegisterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -UIScreen.main.bounds.width * buttonIntervalFactor).isActive = true
+        RegisterButton.topAnchor.constraint(equalTo: TutorLabel.bottomAnchor, constant:UIScreen.main.bounds.height*buttonToLabel).isActive = true
+        RegisterButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * buttonWidthFactor).isActive = true
+        RegisterButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height*buttonHightFacotor).isActive = true
     }
     
     let LoginButton:UIButton = {
@@ -90,13 +90,18 @@ class LaunchViewController: UIViewController {
         loginVC.token = self.token
         navigationController?.pushViewController(loginVC, animated: true)
     }
-    
+    let buttonWidthFactor:CGFloat = 0.4
+    let buttonHightFacotor: CGFloat = 0.07
+    let buttonIntervalFactor:CGFloat = 0.25
+    let buttonToLabel: CGFloat = 0.58
+    let labelToTop: CGFloat = 0.14
     func setupLoginButton(){
         LoginButton.translatesAutoresizingMaskIntoConstraints = false
-        LoginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 90).isActive = true
-        LoginButton.topAnchor.constraint(equalTo: TutorLabel.bottomAnchor, constant:350).isActive = true
-        LoginButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        LoginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        //LoginButton.centerXAnchor.constrain
+        LoginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: UIScreen.main.bounds.width * buttonIntervalFactor).isActive = true
+        LoginButton.topAnchor.constraint(equalTo: TutorLabel.bottomAnchor, constant:UIScreen.main.bounds.height*buttonToLabel).isActive = true
+        LoginButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * buttonWidthFactor).isActive = true
+        LoginButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height*buttonHightFacotor).isActive = true
     }
     
     override func viewDidLoad() {
@@ -111,6 +116,7 @@ class LaunchViewController: UIViewController {
         setupRegisterButton()
         view.addSubview(LoginButton)
         setupLoginButton()
+        
         
     }
     

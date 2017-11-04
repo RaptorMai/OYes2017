@@ -91,7 +91,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
             present(alertView, animated: true, completion: nil)
         
         case helpIndexPath:
-            openURL("https://www.instasolve.ca/help")
+            openURL("https://www.instasolve.ca/become-a-turor")
         
         case feedbackIndexPath:
             if !MFMailComposeViewController.canSendMail(){
@@ -111,7 +111,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
             }
             
         case aboutIndexPath:
-            openURL("https://www.instasolve.ca/help")
+            openURL("https://www.instasolve.ca")
             
         case logoutIndexPath:
             logoutAction()
@@ -142,7 +142,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
 
     func openURL(_ url: String) {
         let openMainPageVc = OpenUrlViewController()
-        openMainPageVc.url = "https://www.instasolve.ca/help"
+        openMainPageVc.url = url
         tabBarController?.tabBar.isHidden = true
         navigationController?.pushViewController(openMainPageVc, animated: true)
     }

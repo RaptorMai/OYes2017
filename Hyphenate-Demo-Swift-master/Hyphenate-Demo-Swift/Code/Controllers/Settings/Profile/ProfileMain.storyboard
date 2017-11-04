@@ -77,7 +77,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Photo" id="tRa-Z2-yFd">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="lSf-g1-RO4">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="saveButton:" destination="ecy-QU-M6Y" id="B3s-A8-bE6"/>
                             </connections>
@@ -122,7 +122,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter your email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kvf-Vv-Ppn">
-                                <rect key="frame" x="16" y="114" width="288" height="40"/>
+                                <rect key="frame" x="16" y="70" width="288" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="m3m-TT-EzV"/>
                                 </constraints>
@@ -366,19 +366,19 @@
                                             <rect key="frame" x="18" y="9" width="294" height="20.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IlM-iw-5uo">
-                                                    <rect key="frame" x="0.0" y="0.0" width="259" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="276" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OxT-UA-QdL" userLabel="User Email Label">
-                                                    <rect key="frame" x="269" y="0.0" width="8" height="20.5"/>
+                                                    <rect key="frame" x="286" y="0.0" width="8" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon right" translatesAutoresizingMaskIntoConstraints="NO" id="RGj-7P-DQD">
-                                                    <rect key="frame" x="287" y="0.0" width="7" height="20.5"/>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon right" translatesAutoresizingMaskIntoConstraints="NO" id="RGj-7P-DQD">
+                                                    <rect key="frame" x="294" y="0.0" width="7" height="20.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="7" id="NrP-eN-JLD"/>
                                                     </constraints>
@@ -395,7 +395,35 @@
                                 <connections>
                                     <outlet property="emailCellLabel" destination="IlM-iw-5uo" id="ypI-uJ-LVM"/>
                                     <outlet property="userEmailLabel" destination="OxT-UA-QdL" id="abn-D4-QRO"/>
-                                    <segue destination="2Wq-QP-Ide" kind="show" id="vCc-Di-ckp"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="changePWcell" id="gL2-qA-kV1" customClass="emailTableViewCell" customModule="Hyphenate_Demo_Swift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="296.5" width="320" height="40"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gL2-qA-kV1" id="pfg-Dv-coW">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4oJ-Td-efq">
+                                            <rect key="frame" x="18" y="9" width="294" height="18"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Change password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5RF-r0-QtG">
+                                                    <rect key="frame" x="0.0" y="0.0" width="294" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="4oJ-Td-efq" firstAttribute="top" secondItem="pfg-Dv-coW" secondAttribute="topMargin" constant="1" id="05j-9v-DEg"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="4oJ-Td-efq" secondAttribute="trailing" id="NiI-vT-HJZ"/>
+                                        <constraint firstItem="4oJ-Td-efq" firstAttribute="leading" secondItem="pfg-Dv-coW" secondAttribute="leadingMargin" constant="10" id="ZdT-iV-7oA"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="emailCellLabel" destination="5RF-r0-QtG" id="hPL-eA-QtP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
