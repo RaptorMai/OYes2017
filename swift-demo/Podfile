@@ -17,6 +17,7 @@ target 'Hyphenate Messenger' do
     pod 'Firebase/RemoteConfig'
     pod 'Firebase/Auth'
 	pod 'Firebase/Storage'
+    pod 'Firebase/Messaging'
     pod 'IHKeyboardAvoiding'
     pod 'MBProgressHUD', '~> 1.0.0'
     pod 'SDWebImage'
