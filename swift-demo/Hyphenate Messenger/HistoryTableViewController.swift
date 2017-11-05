@@ -24,7 +24,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadDataSource), name: NSNotification.Name(rawValue: kNotification_conversationUpdated), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadDataSource), name: NSNotification.Name(rawValue: kNotification_didReceiveMessages), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadDataSource), name: NSNotification.Name(rawValue: kNotification_didReceiveMessages), object: nil)
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +33,7 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
         self.tabBarController?.tabBar.isHidden = false
         
         reloadDataSource()
+        tableView.reloadData()
     }
     
     open override func viewWillDisappear(_ animated: Bool) {
@@ -46,51 +47,62 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
     /// The function removes sessions that does not have any messages inside,
     /// from DB. It then updates the table view UI
     func reloadDataSource(){
+        let appConfig = AppConfig.sharedInstance
+        var shouldWaitDeletionComplete = true
         self.dataSource.removeAll()
-        
+        let myGroup = DispatchGroup()
         var needRemoveConversations = [EMConversation]()
         if let conversations = EMClient.shared().chatManager.getAllConversations() as? [EMConversation]{
             for conversation: EMConversation in conversations {
-                if conversation.latestMessage == nil {
+                if conversation.latestMessage == nil ||
+                    appConfig.shouldDeleteSessionFromHistory(conversation.conversationId) {
                     needRemoveConversations.append(conversation)
                 }
             }
         }
+        myGroup.enter()
         if needRemoveConversations.count > 0 {
-            EMClient.shared().chatManager.deleteConversations(needRemoveConversations, isDeleteMessages: true, completion: nil)
-        }
-
-        if let dataSource_temp =  EMClient.shared().chatManager.getAllConversations() as? [EMConversation] {
-            self.dataSource = dataSource_temp
-            // order the data source according to the date added
-            dataSource = dataSource.sorted(by: {
-                if let conv0 = $0 as? EMConversation, let conv1 = $1 as? EMConversation{
-                
-                    if conv0.latestMessage != nil && conv1.latestMessage != nil {
-                        return conv0.latestMessage.timestamp > conv1.latestMessage.timestamp
-                    }
-                }
-                return false
+            //EMClient.shared().chatManager.deleteConversations(needRemoveConversations, isDeleteMessages: true, completion: nil)
+            EMClient.shared().chatManager.deleteConversations(needRemoveConversations, isDeleteMessages: true, completion: { (_) in
+                myGroup.leave()
             })
-            // display no history message when no histry
-            if dataSource.count == 0 {
-                let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-                messageLabel.text = "There's no history yet\nCheck back after asking questions!"
-                messageLabel.textColor = .gray
-                messageLabel.numberOfLines = 2;
-                messageLabel.textAlignment = .center;
-                messageLabel.font = UIFont.systemFont(ofSize: 20)
-                messageLabel.sizeToFit()
-                
-                tableView.backgroundView = messageLabel;
-                tableView.separatorStyle = .none;
-            } else {
-                tableView.backgroundView = nil
-            }
         }
-        DispatchQueue.main.async(execute: {
-            self.tableView.reloadData()
-        })
+        
+        usleep(100000)
+        myGroup.notify(queue:.main){
+            if let dataSource_temp =  EMClient.shared().chatManager.getAllConversations() as? [EMConversation] {
+                self.dataSource = dataSource_temp
+                // order the data source according to the date added
+                self.dataSource = self.dataSource.sorted(by: {
+                    if let conv0 = $0 as? EMConversation, let conv1 = $1 as? EMConversation{
+                        
+                        if conv0.latestMessage != nil && conv1.latestMessage != nil {
+                            return conv0.latestMessage.timestamp > conv1.latestMessage.timestamp
+                        }
+                    }
+                    return false
+                })
+                // display no history message when no histry
+                if self.dataSource.count == 0 {
+                    let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
+                    messageLabel.text = "There's no history yet\nCheck back after asking questions!"
+                    messageLabel.textColor = .gray
+                    messageLabel.numberOfLines = 2;
+                    messageLabel.textAlignment = .center;
+                    messageLabel.font = UIFont.systemFont(ofSize: 20)
+                    messageLabel.sizeToFit()
+                    
+                    self.tableView.backgroundView = messageLabel;
+                    self.tableView.separatorStyle = .none;
+                } else {
+                    self.tableView.backgroundView = nil
+                }
+            }
+            DispatchQueue.main.async(execute: {
+                self.tableView.reloadData()
+            })
+        }
+        
     }
     
     func composeConversationAction() {
