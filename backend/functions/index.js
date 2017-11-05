@@ -542,6 +542,42 @@ exports.sendTutorNotification = functions.database.ref('/Request/active/{categor
     });
 })
 
+exports.sendStudentNotification = functions.database.ref('/Request/active/{category}/{qid}/status').onUpdate(event => {
+	const category = event.params.category;
+	event.data.ref.parent.child('sid').on("value", function(snapshot) {
+		var sid = snapshot.val()
+		console.log(sid)
+		if (event.data.val() == 1){
+
+			return loadStudentToken(sid).then(notification => {
+				const payload = {
+				  notification: {
+				    title: `Tutor connected`,
+				    body: `Your ${category} tutor is connected`,
+				    sound: 'default'
+				  }
+				};
+				console.log("back" + notification)
+		        return admin.messaging().sendToDevice(notification, payload);
+	    	});
+
+		}
+		else if(event.data.val() == 2){
+			return loadStudentToken(sid).then(notification => {
+				const payload = {
+				  notification: {
+				    title: `Session begins`,
+				    body: `Your ${category} session begins`,
+				    sound: 'default'
+				  }
+				};
+				console.log("back" + notification)
+		        return admin.messaging().sendToDevice(notification, payload);
+	    	});
+		}
+	})
+})
+
 function loadUsers(category) {
 	let tutorRef = admin.database().ref('/tutors');
 	var notification = [];
@@ -565,6 +601,21 @@ function loadUsers(category) {
         });
     });
     return defer;
+}
+
+function loadStudentToken(sid){
+	let uid = "+1" + sid;
+	console.log("uid" + uid)
+	let studentRef = admin.database().ref(`/users/${uid}/token`);
+	let defer = new Promise((resolve, reject) => {
+		studentRef.on("value", function(snapshot) {
+			console.log(snapshot.val())
+			resolve(snapshot.val());
+		},(err) => {
+            reject(err);
+        });
+	})
+	return defer;
 }
 
 function userFacingMessage(error) {
