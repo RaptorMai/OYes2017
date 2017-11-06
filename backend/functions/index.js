@@ -102,6 +102,12 @@ exports.createStripeUser = functions.auth.user().onCreate(event => {
 					};
 					return console.log("totalQuestionNum setup");
 		});
+		admin.database().ref(`/tutors/${tid}/email`).set(data.email, function(error){
+					if (error) {
+						console.log("New user email cannot be created: " + error);
+					};
+					return console.log("email setup");
+		});
 		return console.log("This is a tutor, so no need to create stripe account");
 	}
 });
