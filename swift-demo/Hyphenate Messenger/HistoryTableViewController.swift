@@ -60,15 +60,16 @@ open class HistoryTableViewController: UITableViewController, EMChatManagerDeleg
                 }
             }
         }
-        myGroup.enter()
+        
         if needRemoveConversations.count > 0 {
             //EMClient.shared().chatManager.deleteConversations(needRemoveConversations, isDeleteMessages: true, completion: nil)
+            myGroup.enter()
             EMClient.shared().chatManager.deleteConversations(needRemoveConversations, isDeleteMessages: true, completion: { (_) in
                 myGroup.leave()
             })
         }
         
-        usleep(100000)
+        //usleep(100000)
         myGroup.notify(queue:.main){
             if let dataSource_temp =  EMClient.shared().chatManager.getAllConversations() as? [EMConversation] {
                 self.dataSource = dataSource_temp
