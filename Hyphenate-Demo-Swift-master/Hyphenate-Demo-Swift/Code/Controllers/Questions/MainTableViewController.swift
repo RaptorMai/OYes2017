@@ -295,14 +295,14 @@ extension MainTableViewController {
                 //print(checkNill)
                 if (checkNill == nil){
                     
-                    let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = UIAlertController(title: "Sorry", message: "Question is taken, better luck next time", preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {action in self.refresh()}))
                     self.present(alert, animated: true, completion: nil)
                     print("Sorry better luck next time")
                     //print(snap!)
                 }
                 else{
-                    let alert = UIAlertController(title: "Alert", message: "yeah you got the question", preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = UIAlertController(title: "Congratulations", message: "You got the question", preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {
                         (alert: UIAlertAction!) in
                         //Once user dismisses the alert: create a chat viewcontroller and embed it in a navigation controller. The navigation controller is then presented with a done button.
@@ -342,7 +342,7 @@ extension MainTableViewController {
             }
             else{
                 sender.isEnabled = true
-                let alert = UIAlertController(title: "Alert", message: "Sorry better luck next time", preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: "Sorry", message: "Question is taken, better luck next time", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {action in self.refresh()}))
                 self.present(alert, animated: true, completion: nil)
                 print("Sorry better luck next time, not commit")
