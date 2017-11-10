@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Instasolve Management Web</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="css/loginStyle.css">
+
+  <!-- Import and configure the Firebase SDK -->
+  <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
+  <!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
+
+  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAOilgk5-qTwQgzSHimWkfgAQEL2LBfIoY",
+      authDomain: "test-b988b.firebaseapp.com",
+      databaseURL: "https://test-b988b.firebaseio.com",
+      projectId: "test-b988b",
+      storageBucket: "test-b988b.appspot.com",
+      messagingSenderId: "810041652918"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
+
+
+   <!-- LOGIN -->
+  <script type="text/javascript">
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+      } else {
+        // No user is signed in.
+      }
+    });
+
+    
+  </script>
+</head>
+
+<body>
+  <div class = "container">
+    <img src="images/tutor.png">
+    <form>
+      <div class="form-input">
+        <input type="emailText" name="Email" placeholder="Enter Email">
+      </div>
+      <div class="form-input">
+        <input id="passwordText" type="password" name="Password" placeholder="Enter Password">
+      </div>
+      <div class="login-button">
+        <button id="loginBtn" class="sign-in-button">LOGIN</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
