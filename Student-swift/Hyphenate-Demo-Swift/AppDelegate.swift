@@ -9,47 +9,101 @@
 import UIKit
 import Hyphenate
 import UserNotifications
-
+import CoreData
+import Fabric
+import Crashlytics
+import Firebase
+import Stripe
+import FirebaseMessaging
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, EMClientDelegate {
-
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, EMClientDelegate, MessagingDelegate{
+    
     var window: UIWindow?
 
+    /** Google Analytics configuration constants **/
+    static let kGaPropertyId = "updateKey"
+    static let kTrackingPreferenceKey = "allowTracking"
+    static let kGaDryRun = false
+    static let kGaDispatchPeriod = 30
+    
+    /** Hyphenate configuration constants **/
+    static let kHyphenatePushServiceDevelopment = "InstasolveDevCertificates"
+    static let kHyphenatePushServiceProduction = "InstaSolveProductionCertificates"
+    
+    func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
+        print("Firebase registration token: \(fcmToken)")
+        //Messaging.messaging().subscribe(toTopic: "topic/newQuestion")
+    }
+    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+        print("Received data message: \(remoteMessage.appData)")
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         UITabBar.appearance().tintColor = KermitGreenTwoColor
         UINavigationBar.appearance().tintColor = AlmostBlackColor
         
-        let options = EMOptions.init(appkey: "hyphenatedemo#hyphenatedemo")     
+        let options = EMOptions.init(appkey: "1500170706002947#studentdev")
         
-        var apnsCerName = ""     
-        #if DEBUG
-            apnsCerName = "DevelopmentCertificate"     
-        #else
-            apnsCerName = "ProductionCertificate"     
-        #endif
         
-        options?.apnsCertName = apnsCerName     
+        var apnsCertName : String? = nil
+        // ignore the Xcode "will never be executed" warning
+        if _isDebugAssertConfiguration() {
+            print("Setting test stripe key")
+            Stripe.setDefaultPublishableKey("pk_test_lTfNGp2OD3CytvWX9XCPA41z")
+            apnsCertName = AppDelegate.kHyphenatePushServiceDevelopment
+        } else {
+            print("Setting production stripe key")
+            Stripe.setDefaultPublishableKey("pk_live_pmb3J5laKj7HXRw4Ro8Z8P2G")
+            apnsCertName = AppDelegate.kHyphenatePushServiceProduction
+        }
+        
+        options?.apnsCertName = apnsCertName
         options?.enableConsoleLog = true     
         options?.isDeleteMessagesWhenExitGroup = false     
         options?.isDeleteMessagesWhenExitChatRoom = false     
         options?.usingHttpsOnly = true     
         
-        EMClient.shared().initializeSDK(with: options)     
+        //TODO: create our own gif with our logo, need to add our gif to "copy bundle researces" under "build phase"
+        //showSplashAnimation()
+        //Register notification
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+            // For iOS 10 data message (sent via FCM
+            Messaging.messaging().delegate = self
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        application.registerForRemoteNotifications()
+        FirebaseApp.configure()
+        let config = AppConfig.sharedInstance
+        //UINavigationBar.appearance().tintColor = UIColor.hiPrimary()
+        UINavigationBar.appearance().backgroundColor = UIColor.clear
+        UINavigationBar.appearance().clipsToBounds = false
+        UINavigationBar.appearance().isTranslucent = true
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(loginStateChange(nofi:)),
-                                               name: NSNotification.Name(rawValue:KNOTIFICATION_LOGINCHANGE),
-                                               object: nil)
+        EMClient.shared().initializeSDK(with: options)
         
-        let storyboard = UIStoryboard.init(name: "Launch", bundle: nil)     
-        let launchVC = storyboard.instantiateViewController(withIdentifier: "EMLaunchViewController")     
-        
-        window = UIWindow.init(frame: UIScreen.main.bounds)
-        window?.backgroundColor = UIColor.white
-        window?.rootViewController = launchVC
-        window?.makeKeyAndVisible()
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(loginStateChange(nofi:)),
+//                                               name: NSNotification.Name(rawValue:KNOTIFICATION_LOGINCHANGE),
+//                                               object: nil)
+//
+//        let storyboard = UIStoryboard.init(name: "Launch", bundle: nil)
+//        let launchVC = storyboard.instantiateViewController(withIdentifier: "EMLaunchViewController")
+//
+//        window = UIWindow.init(frame: UIScreen.main.bounds)
+//        window?.backgroundColor = UIColor.white
+//        window?.rootViewController = launchVC
+//        window?.makeKeyAndVisible()
         
         parseApplication(application, didFinishLaunchingWithOptions: launchOptions)
         _registerAPNS()     
