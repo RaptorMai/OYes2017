@@ -67,6 +67,10 @@ form-input::before{
 
 }
 
+.mdl-layout__header-row{
+  background-color: #2c3338;
+}
+
 
 
 
