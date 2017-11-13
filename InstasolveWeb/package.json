@@ -1,0 +1,14 @@
+{
+  "name": "InstaSolveInternal",
+  "description": "Internal used portal",
+  "version": "1.0.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "express-validator": "^2.20.3"
+  }
+}

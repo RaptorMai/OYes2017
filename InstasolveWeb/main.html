@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Instasolve Management Web</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/mainStyle.css">
 
   <!-- Import Material Design -->
@@ -14,34 +13,6 @@
 </head>
 
 <body>
-
-  <!-- Login Window -->
-  <div class = "login-page">
-  <div class = "container">
-    <img src="images/tutor.png">
-    <p id="loginError"></p>
-    <form>
-      <div class="form-input">
-        <input id="emailText" type="emailText" name="Email" placeholder="Email">
-      </div>
-      <div class="form-input">
-        <input id="passwordText" type="password" name="Password" placeholder="Password">
-      </div>
-      <div class="login-button">
-        <button id="loginBtn" class="sign-in-button" name="data" type="button" onclick="getData()">LOGIN</button>
-      </div>
-      <!-- MDL Progress Bar with Indeterminate Progress -->
-      <div id="login-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-    </form>
-  </div>
-  </div>
-
-
-  <!-- Login Loader -->
-  <div class="login-cover">
-    <div class="page-loader mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
-  </div>
-
   <!-- Main Page -->
   <div class="mdl-layout mdl-js-layout">
     <header class="mdl-layout__header">
@@ -66,26 +37,8 @@
 
   <!-- Script -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <!-- Import and configure the Firebase SDK -->
-    <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
-    <!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
-  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyAOilgk5-qTwQgzSHimWkfgAQEL2LBfIoY",
-      authDomain: "test-b988b.firebaseapp.com",
-      databaseURL: "https://test-b988b.firebaseio.com",
-      projectId: "test-b988b",
-      storageBucket: "test-b988b.appspot.com",
-      messagingSenderId: "810041652918"
-    };
-    firebase.initializeApp(config);
-  </script>
-  <script src="login.js"></script>
 </body>
 </html>
-
 
 
 

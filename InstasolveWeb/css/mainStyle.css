@@ -39,7 +39,7 @@ body{
 }
 
 input{
-  width: 350px;
+  width: 310px;
   height: 45px;
   font-size: 13px;
   margin-bottom: 20px;
@@ -84,6 +84,14 @@ form-input::before{
 
 #loginError{
   display: none;
+}
+
+#account-icon{
+  margin-right: 5px;
+}
+
+#lock-icon{
+  margin-right: 5px;
 }
 
 
