@@ -11,7 +11,7 @@ function login(){
 	};
 
 	$.ajax({
-		url:"/login",
+		url:"/verify",
 		type:"GET",
 		dataType:"text",
 		contentType:"application/json; charset=utf-8",
@@ -21,13 +21,18 @@ function login(){
 				alert("Wrong Password: Please Re-Enter");
 			} else if (response == "invalidEmail"){
 				alert("Invalid Email: Permission Denied");
+
 			} else {
+				console.log(response);
+				window.location='/main';
 				$("html").html(response);
 			}
 		}, error: function (xhr){
 			alert(xhr.responseText);
 		}
 	});
+
+		
 }
 
 

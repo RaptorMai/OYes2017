@@ -4,6 +4,9 @@ $(document).ready(function () {
             allWells = $('.setup-content'),
             allNextBtn = $('.nextBtn');
 
+            //implement previous button
+            allPreBtn = $('.preBtn');
+
     allWells.hide();
 
     navListItems.click(function (e) {
@@ -39,9 +42,14 @@ $(document).ready(function () {
             nextStepWizard.removeAttr('disabled').trigger('click');
     });
 
+
     $('div.setup-panel div a.btn-primary').trigger('click');
 });
 
+function appendText() {
+    var txt2 = $("<button></button>").text("Computer Science");  // Create text with jQuery
+    $("#tagsPanel").append(txt2);     // Append new elements
+}
 
 
 

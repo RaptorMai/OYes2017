@@ -67,6 +67,19 @@
 	border-color: rgb(255, 157, 0);
 }
 
+.tagbtn{
+	background-color: rgb(255, 157, 0);
+	border: none;
+	color: white;
+	border-radius: 5px;
+}
+
+.tagbtn:hover{
+	background-color: rgb(230, 142, 0);
+	border: none;
+	color: white;
+	border-radius: 5px;
+}
 
 
 

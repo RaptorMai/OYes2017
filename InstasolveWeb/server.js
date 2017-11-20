@@ -2,34 +2,22 @@
 var express = require('express');
 var expressValidator = require('express-validator');
 
-/* VARIABLES */
+/* EXPRESS */
 var app = express();
+// app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
+// app.use(express.static(__dirname + '/'));
 
-app.use(express.static(__dirname + '/assets'));
-app.use(express.static(__dirname + '/'));
+/* COOKIES */
+var cookieParser = require('cookie-parser');
+var session = require('cookie-session');
+app.use(cookieParser());
+app.use(session({
+    secret: "Instasolve Admin Login Secrets"
+}));
 
-/* USER */
-var user = {
-    email: "admin@instasolve.ca",
-    password: "123456"
-};
-
-/* FUNCTIONS */
-verify = function(req, res){
-	console.log("============= verifying user =================");
-	var verifyEmail = req.query.email;
-	var verifyPwd = req.query.password;
-
-	if (verifyEmail == user.email){
-		if (verifyPwd == user.password){
-			return res.sendFile('main.html', {root: __dirname});
-		} else {
-			return res.send("wrongPwd");
-		}
-	} else {
-		return res.send("invalidEmail");
-	}
-};
+/* EJS */
+app.set("view engine", "ejs");
 
 
 /* We have to create custom validators:
@@ -63,12 +51,58 @@ app.use(expressValidator({
     }
 })); // This line must be immediately after express.bodyParser()!
 
+/* USER */
+var user = {
+    email: "admin@instasolve.ca",
+    password: "123456"
+};
+
+/* FUNCTIONS */
+verify = function(req, res){
+	console.log("============= verifying user =================");
+	var verifyEmail = req.query.email;
+	var verifyPwd = req.query.password;
+
+	if (verifyEmail == user.email){
+		if (verifyPwd == user.password){
+			req.session.email = verifyEmail;
+			return res.redirect('/main');
+		} else {
+			return res.send("wrongPwd");
+		}
+	} else {
+		return res.send("invalidEmail");
+	}
+};
+
+main = function(req,res){
+	console.log("====verifying section ====");
+	if(req.session.email){
+		console.log("=== Valid session: Logging in === ");
+		res.render("main");
+	} else {
+		console.log("=== Invalid session: User need to login === ");
+		res.render("login");
+	}
+
+};
+
+
 /* EXPRESS GET & POST */
 app.get('/', function(req, res) {
-    res.sendFile('login.html', {root: __dirname});
+	res.redirect('/login');
 });
 
-app.get('/login', verify);
+app.get('/login', function(req, res){
+	res.render("login");
+});
+
+app.get('/verify', verify);
+
+
+app.get('/main', main);
+
+
 
 // Start the server
 app.listen(3000);
