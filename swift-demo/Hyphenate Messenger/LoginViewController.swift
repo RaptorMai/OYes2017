@@ -1,12 +1,14 @@
 import UIKit
 import CoreTelephony
+import Firebase
+import MBProgressHUD
 
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var logoImagView: UIImageView!
-    
+    var ref: DatabaseReference?
     // only display animation once
     var animationDisplayed = false
     
@@ -67,7 +69,7 @@ class LoginViewController: UIViewController {
         return true
     }
 
-    
+
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -78,6 +80,14 @@ class LoginViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        
+        if !AppConfig.sharedInstance.shouleAllowRegistration && identifier == "Signup"{
+            let alert = UIAlertController(title: "Sorry", message: "The number of registration has exceeded our Beta limit.", preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
+            return AppConfig.sharedInstance.shouleAllowRegistration
+        }
         return Platform.isSimulator || carrierServiceExists()
     }
 }

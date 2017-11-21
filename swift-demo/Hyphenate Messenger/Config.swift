@@ -25,6 +25,7 @@ enum ConfigType {
     case ConfigTypeFirstLaunch
     case ConfigTypeDiscountAvailability
     case ConfigTypeDiscountRate
+    case ConfigTypeCanRegister
 }
 
 struct DataBaseKeys {
@@ -64,7 +65,7 @@ struct DataBaseKeys {
     static let profileNeedsUpdateKey = "profileNeedsUpdate"
     
     static let historySessionKey = "historySessionKey"
-
+    static let canRegisterKey = "canRegister"
     
     /// Returns db reference string based on key
     ///
@@ -149,6 +150,12 @@ class AppConfig {
     var profileNeedsUpdate: Bool {
         get {
             return defaults.integer(forKey: DataBaseKeys.profileNeedsUpdateKey) > 0
+        }
+    }
+    
+    var shouleAllowRegistration: Bool {
+        get {
+            return defaults.bool(forKey: DataBaseKeys.canRegisterKey)
         }
     }
     
@@ -298,6 +305,14 @@ class AppConfig {
                 if let discountRate = snapshot.value as? Double {
                     print("Discount rate: \(discountRate)")
                     self.defaults.set(discountRate, forKey: DataBaseKeys.discountRate)
+                }
+            })
+            
+        case .ConfigTypeCanRegister:
+            ref?.child(DataBaseKeys.configDBRef(DataBaseKeys.canRegisterKey)).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let canRegister = snapshot.value as? Double {
+                    print("canRegister: \(canRegister)")
+                    self.defaults.set(canRegister, forKey: DataBaseKeys.canRegisterKey)
                 }
             })
 
@@ -499,11 +514,13 @@ class AppConfig {
         
         // get category update event, the snapshot should be int
         // TODO: handle throw
+        try! handleConfigRequestForType(.ConfigTypeCanRegister)
         try! handleConfigRequestForType(.ConfigTypeAppUpdateRequired)
         try! handleConfigRequestForType(.ConfigTypeAppUpdateSuggested)
         try! handleConfigRequestForType(.ConfigTypePackage)
         try! handleConfigRequestForType(.ConfigTypeCategory)
         try! handleConfigRequestForType(.ConfigTypeDiscountRate)
+        
         
         // increment open counter
         defaults.set(defaults.integer(forKey: DataBaseKeys.firstLaunchKey) + 1, forKey: DataBaseKeys.firstLaunchKey)
