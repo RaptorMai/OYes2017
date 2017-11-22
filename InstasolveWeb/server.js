@@ -82,15 +82,37 @@ main = function(req,res){
 		res.render("main");
 	} else {
 		console.log("=== Invalid session: User need to login === ");
-		res.render("login");
+		res.redirect("/login");
 	}
 
 };
 
+sessionCheck = function(req, res, next){
+	console.log("Cookie Parser: ", req.cookies);
+	console.log("Session: ", req.session);
+	console.log("Session Email: ",req.session.email);
+	if (req.body) {
+    console.log('LOG:',req.method,req.url,req.body)
+  	}
+  	if (!(req.session.email)){
+  		console.log("Session invalid: please login");
+  		// redirect()
+  	}
+  	console.log("=========================================");
+  	next()
+}
+
+/* SESSION MIDDLEWARE */
+app.use(sessionCheck)
+
 
 /* EXPRESS GET & POST */
 app.get('/', function(req, res) {
-	res.redirect('/login');
+	if (req.session.email){
+		res.redirect('/main');
+	} else {
+		res.redirect('/login');
+	}
 });
 
 app.get('/login', function(req, res){
@@ -99,8 +121,21 @@ app.get('/login', function(req, res){
 
 app.get('/verify', verify);
 
-
 app.get('/main', main);
+
+app.get('/setting', function(req, res){
+	res.render('/setting');
+});
+
+app.get('/addtutor', function(req, res){
+	console.log("request to add tutor");
+	if (req.session.email){
+		res.render('addtutor');
+	} else {
+		res.redirect('/login');
+	}
+	// res.render('addtutor');
+});
 
 
 
