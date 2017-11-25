@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 /** Returns fill scale value relative to target size with aspect ratio. */
 
 func ic_CGSizeFitScaleMultiplier(_ size1: CGSize, relativeToSize size2: CGSize) -> CGFloat {

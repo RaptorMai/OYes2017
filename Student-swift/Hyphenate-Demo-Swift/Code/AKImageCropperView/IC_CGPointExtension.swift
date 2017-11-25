@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 /** Return centered origin value relative to other size . */
 
 func ic_CGPointCenters(_ size1: CGSize, relativeToSize size2: CGSize) -> CGPoint {

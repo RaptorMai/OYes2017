@@ -84,7 +84,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Shop"
-        showHud(in: view, hint: "Loading")
+        showHub(inView: view, "Loading")
         productMinutes.removeAll()
         prices.removeAll()
         
@@ -94,11 +94,11 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                 AppConfig.sharedInstance.defaults.set(balance, forKey: DataBaseKeys.balanceKey)
             }
             
-            self.hideHud()
+            self.hideHub()
             self.tableView.reloadData()
         }){ (error) in
             //print(error.localizedDescription)
-            self.hideHud()
+            self.hideHub()
             let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
             let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alert.addAction(okay)
@@ -154,7 +154,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Show the navigation bar on other view controllers
-        self.hideHud()
+        self.hideHub()
         productMinutes.removeAll()
         prices.removeAll()
     }
@@ -335,7 +335,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         print("pay button clicked for amount: \(amount)")
         print(uid)
         
-        showHud(in: view, hint: "Purchasing\nPlease do not leave the app")
+        showHub(inView: view, "Purchasing\nPlease do not leave the app")
         chargeUsingCustomerId(amount)
     }
     
@@ -410,7 +410,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
         //add error listener
         ref?.child("users").child(uid).child("payments/charges").child(paymentId!).child("error").observe(DataEventType.value, with: { (snapshot) in
             if let errorString = snapshot.value as? String {
-                self.hideHud()
+                self.hideHub()
                 let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
                 let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
                 alert.addAction(okay)
@@ -434,7 +434,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                         try! AppConfig.sharedInstance.decrementCountForConfigType(.ConfigTypeDiscountAvailability)
                     }
                     // dismiss loading page
-                    self.hideHud()
+                    self.hideHub()
                     // send alert
                     let title = "Payment successful"
                     let chargedAmount: Double = (self.numDiscountAvailable > 0) ? (Double(amount) * self.discountRate).rounded(.up) : Double(amount)
@@ -467,7 +467,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
                     print("postDict\(String(describing: postDict))")
                     
                     //MKFullSpinner.hide()
-                    self.hideHud()
+                    self.hideHub()
                     let title = "Payment Failed"
                     let message = "Please try again"
                     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
