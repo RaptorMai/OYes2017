@@ -160,21 +160,21 @@
                           <h3> Step 1: Tutor Information</h3>
                           <div class="form-group">
                               <label class="control-label">Email</label>
-                              <input  maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Email:"  />
+                              <input  maxlength="100" type="text" required="required" class="email-input form-control" placeholder="Enter Email:"  />
                           </div>
-                          <div class="form-group">
+                          <!-- <div class="form-group">
                               <label class="control-label">Password</label>
                               <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Password:" />
-                          </div>
+                          </div> -->
                           <div class="form-group">
                             <label class="control-label">Categories</label>
-                            <select data-placeholder="select Categories" class="js-example-basic-multiple form-control" name="states[]" multiple="multiple">
+                            <select class="multiple-selection form-control" name="states[]" multiple="multiple">
                               <option value="CS">Computer Science</option>
                               <option value="HSM">HS Math</option>
                               <option value="M">Math</option>
                             </select>
                           </div>
-                          <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+                          <button class="pass-categories btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
                       </div>
                   </div>
               </div>
@@ -184,18 +184,21 @@
                       <div class="col-md-12">
                           <h3> Step 2: Comfirmation</h3>
                           <div class="form-group">
-                              <label class="control-label">Email: </label>
+                              <label class="email-comfirm control-label">
+                                <span>Email: </span>
+                              </label>
                               <!-- <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" /> -->
                           </div>
                           <div class="form-group">
-                              <label class="control-label">Password: </label>
+                              <label class="control-label">Password: 123456</label>
                               <!-- <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address"  /> -->
                           </div>
                           <div class="form-group">
                               <label class="control-label">Categories: </label>
+                              <ul id="selectedTags"></ul>
+                              <!-- <p id="selectedTags"></p>  -->
                               <!-- <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address"  /> -->
                           </div>
-                          <button class="btn btn-primary preBtn btn-lg pull-left" type="button" >Previous</button>
                           <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Confirm</button>
                       </div>
                   </div>
@@ -234,11 +237,40 @@
 
     <script type="text/javascript">
       $(document).ready(function() {
-        $('.js-example-basic-multiple').select2();
+        $('.multiple-selection').select2({
+          placeholder: "select Categories",
+          allowClear: true
+        });
+      });
+
+      $(function(){
+        $('.multiple-selection').on('change', function(){
+          // var data = $(".multiple-selection option:selected").text();
+          // var list = "<li>"+data+"</li>";
+          //console.log(list);
+
+          var cur_data = $('.multiple-selection').select2('data');
+          console.log(cur_data);
+          for (i=0; i<cur_data.length; i++){
+            var selectedTags = cur_data[i].text;
+            console.log(selectedTags);
+          }
+        })
+
+        $('.pass-categories').on('click', function(){
+          document.getElementById("selectedTags").innerHTML = "";
+          var cur_selection = $('.multiple-selection').select2('data');
+          for (i=0; i<cur_selection.length; i++){
+            var selectedTags = cur_selection[i].text;
+            console.log(selectedTags);
+            var list = "<li>"+selectedTags+"</li>";
+            document.getElementById("selectedTags").innerHTML += list;
+          }
+          var email = $(".email-input").val();
+          $(".email-comfirm span").text('Email: '+email);
+        })
       });
     </script>
-
-
   </body>
 </html>
 
