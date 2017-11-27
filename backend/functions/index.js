@@ -13,7 +13,27 @@ exports.createStripeUser = functions.auth.user().onCreate(event => {
 	// Check if a customer is a student
 	console.log(data.phoneNumber);
 	if (data.phoneNumber != null){
-
+		/*var maxUser = 100;
+		var refNumUser = admin.database().ref("/globalConfig/numCurrentUser");
+		refNumUser.once("value").then(snapshot => {
+			var numUser = snapshot.val();
+			numUser += 1
+			console.log("Number of current user");
+			console.log(numUser);
+			refNumUser.set(numUser, function(error){
+				if (error) {
+					console.log("Set number of current users" + error);
+				};
+						
+			});
+			if (numUser >= maxUser){
+				admin.database().ref("/globalConfig/canRegister").set(false, function(error){
+					if (error) {
+						console.log("Can't set " + error);
+					}
+				})
+			}
+		})*/
 		stripe.customers.create(function(err, customers){
 
 			if(err){ return console.log(err);}
@@ -71,7 +91,8 @@ exports.createStripeUser = functions.auth.user().onCreate(event => {
 	else { 
 		var tid = data.email;
 		tid = tid.replace("@", ""); 
-		tid = tid.replace(".", ""); 
+		tid = tid.replace(/\./g, ""); 
+		console.log(tid)
 		admin.database().ref(`/tutors/${tid}/profilepicURL`).set("", function(error){
 					if (error) {
 						console.log("New user profilepicURL cannot be created: " + error);
