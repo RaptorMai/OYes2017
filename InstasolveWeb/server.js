@@ -13,10 +13,12 @@ app.use(express.static(__dirname + '/public'));
 
 /* COOKIES */
 var cookieParser = require('cookie-parser');
-var session = require('cookie-session');
+var session = require('express-session');
 app.use(cookieParser());
 app.use(session({
-    secret: "Instasolve Admin Login Secrets"
+    secret: "Instasolve Admin Login Secrets",
+    resave: true,
+    saveUninitialized: true
 }));
 
 /* EJS */
@@ -143,6 +145,27 @@ app.get('/addtutor', function(req, res){
 	} else {
 		res.redirect('/login');
 	}
+});
+
+app.get('/user', function(req, res){
+	console.log("request to find user");
+	if (req.session.email){
+		res.render('user');
+	} else {
+		res.redirect('/login');
+	}
+});
+
+app.get('/logout', function(req, res){
+	console.log("logout");
+	console.log(req.session);
+    req.session.destroy(function(err){
+        if(err){
+            console.log("ERROR accurred: " + err);
+        }else{
+            res.redirect('/login');
+        }
+    });
 });
 
 
