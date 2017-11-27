@@ -1,6 +1,7 @@
 /* REQUIRE */
 var express = require('express');
 var expressValidator = require('express-validator');
+var admin = require('./routes/admin-routes');
 
 /* EXPRESS */
 var app = express();
@@ -136,6 +137,8 @@ app.get('/addtutor', function(req, res){
 	}
 	// res.render('addtutor');
 });
+
+app.post('/comfirmAddTutor', admin.addtutor);
 
 
 

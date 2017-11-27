@@ -54,8 +54,35 @@ function appendText() {
 
 
 
+function tutorRegister(){
+    var email = $(".email-input").val();
+    var password = "123456";
+    var cur_selection = $('.multiple-selection').select2('data');
+    var selectedTags = [];
+    for (i=0; i<cur_selection.length; i++){
+        selectedTags.append(cur_selection[i].text);
+    }
 
+    var data = {
+        "email": email,
+        "password": password,
+        "categories": selectedTags
+    }
 
+    $.ajax({
+        url: "/comfirmAddTutor".
+        type: "POST",
+        dataType: "text",
+        contentType: "application/json; charset=utf_8",
+        data: data,
+        success: function(response){
+            alert(response);
+        },
+        error: function(xhr){
+            alert(xhr.responseText);
+        }
+    });
+}
 
 
 

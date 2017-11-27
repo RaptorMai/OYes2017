@@ -3,7 +3,6 @@
   "description": "Internal used portal",
   "version": "1.0.0",
   "private": true,
-  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
@@ -13,6 +12,8 @@
     "ejs": "^2.5.7",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
-    "cookie-session": "^2.0.0-alpha.1"
+    "cookie-session": "^2.0.0-alpha.1",
+    "firebase-admin": "~4.2.1",
+    "firebase-functions": "^0.5.7"
   }
 }
