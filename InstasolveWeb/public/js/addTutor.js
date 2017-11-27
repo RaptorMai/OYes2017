@@ -60,8 +60,11 @@ function tutorRegister(){
     var cur_selection = $('.multiple-selection').select2('data');
     var selectedTags = [];
     for (i=0; i<cur_selection.length; i++){
-        selectedTags.append(cur_selection[i].text);
+        selectedTags.push(cur_selection[i].text);
     }
+    console.log("request email is: " + email);
+    console.log("request pwd is: " + password);
+    console.log("request categories are: " + selectedTags);
 
     var data = {
         "email": email,
@@ -70,13 +73,14 @@ function tutorRegister(){
     }
 
     $.ajax({
-        url: "/comfirmAddTutor".
-        type: "POST",
+        url: "/comfirmAddTutor",
+        type: "post",
         dataType: "text",
         contentType: "application/json; charset=utf_8",
-        data: data,
+        data: JSON.stringify(data),
+        //data: data,
         success: function(response){
-            alert(response);
+            $(".addtutor-status span").text('Status: '+response);
         },
         error: function(xhr){
             alert(xhr.responseText);

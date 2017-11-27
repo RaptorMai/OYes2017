@@ -1,5 +1,7 @@
+let express = require('express');
+let router = express.Router();
 const functions = require('firebase-functions');
-var admin = require("firebase-admin");
+let admin = require("firebase-admin");
 
 var serviceAccount = require("./test-b988b-firebase-adminsdk-2p4c0-96bff53022.json");
 admin.initializeApp({
@@ -9,68 +11,21 @@ admin.initializeApp({
 
 // Get a database reference to our posts
 var db = admin.database();
-// var ref = db.ref("/hahahah");
 
-// // Attach an asynchronous callback to read the data at our posts reference
-// ref.on("value", function(snapshot) {
-//   console.log(snapshot.val());
-// }, function (errorObject) {
-//   console.log("The read failed: " + errorObject.code);
-// });
 
-// var uid = "7svrPaWse5Ww2rxOZAlZUnsBeq82"
-// admin.auth().getUser(uid)
-//   .then(function(userRecord) {
-//     // See the UserRecord reference doc for the contents of userRecord.
-//     console.log("Successfully fetched user data:", userRecord.toJSON());
-//   })
-//   .catch(function(error) {
-//     console.log("Error fetching user data:", error);
-//   });
+router.post('/', function(req, res, next){
+	console.log(req.body.email);
+});
 
-//  var email = "123@gmail.com"
-//  admin.auth().getUserByEmail(email)
-//   .then(function(userRecord) {
-//     // See the UserRecord reference doc for the contents of userRecord.
-//     console.log("Successfully fetched user data:", userRecord.toJSON());
-//   })
-//   .catch(function(error) {
-//     console.log("Error fetching user data:", error);
-//   });
-
-//   admin.auth().createUser({
-//   email: "cooler@example.com",
-//   emailVerified: false,
-//   phoneNumber: "+11234567890",
-//   password: "secretPassword",
-//   displayName: "John Doe",
-//   photoURL: "http://www.example.com/12345678/photo.png",
-//   disabled: false
-// })
-//   .then(function(userRecord) {
-//     // See the UserRecord reference doc for the contents of userRecord.
-//     console.log("Successfully created new user:", userRecord.email);
-//     var tid = userRecord.email;
-//     tid = tid.replace("@", ""); 
-//     tid = tid.replace(/\./g, ""); 
-//     console.log(tid)
-//     admin.database().ref(`/tutors/${tid}/categories`).set("computer science", function(error){
-//        if (error) {
-//         console.log("New user profilepicURL cannot be created: " + error);
-//        };
-//        return console.log("profilepicURL setup");
-//     });
-//   })
-//   .catch(function(error) {
-//     console.log("Error creating new user:", error);
-//   });
 
 exports.addtutor = function(req, res){
 	console.log("============ updateuser ==============");
-	console.log(req.body)
-	var tutorEmail = req.query.email;
-	var tutorPwd = req.query.password;
-	var tutorCategories = req.query.categories;
+	var tutorEmail = req.body.email;
+	var tutorPwd = req.body.password;
+	var tutorCategories = req.body.categories;
+	console.log("adding email: " + tutorEmail);
+	console.log("adding password: " + tutorPwd);
+	console.log("adding tutorCategories: " + tutorCategories);
 
 	admin.auth().createUser({
 		email: tutorEmail,
@@ -80,20 +35,24 @@ exports.addtutor = function(req, res){
 	}).then(function(user){
 		console.log("Successfully created new user: ", user.email);
 		var tid = user.email;
-		tid = tid.replace("@", ""); 
+		console.log(tid);
+		tid = tid.replace("@", "");
     	tid = tid.replace(/\./g, "");
 
     	for (i=0; i<tutorCategories.length; i++){
-        	admin.databse().ref(`/tutors/${tid}/category/${tutorCategories[i]}`).set("true", function(error){
+        	db.ref(`/tutors/${tid}/category/${tutorCategories[i]}`).set("true", function(error){
         		if (error){
-        			console.log("Create new user failed: " + error);
+        			console.log("Create new user failed: " + tutorEmail + " " + error);
         		};
-        		return console.log("Successfully inputed correct information to tutor!");
+
         	});
     	}
+        console.log("Successfully created tutor: " + tutorEmail);
+		return res.send("Successfully created tutor: " + tutorEmail);
 	})
 	.catch(function(error){
 		console.log("Error creating new user: ", error);
+		return res.send("Fail to create tutor: " + tutorEmail +" "+ error);
 	});
 }
 

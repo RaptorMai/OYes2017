@@ -3,6 +3,8 @@ var express = require('express');
 var expressValidator = require('express-validator');
 var admin = require('./routes/admin-routes');
 
+
+
 /* EXPRESS */
 var app = express();
 // app.use(express.static('public'));
@@ -20,7 +22,9 @@ app.use(session({
 /* EJS */
 app.set("view engine", "ejs");
 
-
+var bodyParser = require('body-parser');
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 /* We have to create custom validators:
  * Notice that customValidators is an object with methods defined for
  * each of the inputs we want to validate separately. */
@@ -51,6 +55,7 @@ app.use(expressValidator({
         
     }
 })); // This line must be immediately after express.bodyParser()!
+
 
 /* USER */
 var user = {
@@ -103,6 +108,9 @@ sessionCheck = function(req, res, next){
   	next()
 }
 
+// Start the server
+app.listen(3000);
+
 /* SESSION MIDDLEWARE */
 app.use(sessionCheck)
 
@@ -135,16 +143,15 @@ app.get('/addtutor', function(req, res){
 	} else {
 		res.redirect('/login');
 	}
-	// res.render('addtutor');
 });
 
+
+// app.post('/comfirmAddTutor', admin.addtutor);
 app.post('/comfirmAddTutor', admin.addtutor);
 
 
-
-// Start the server
-app.listen(3000);
 console.log('Listening on port 3000');
+
 
 
 
