@@ -45,7 +45,8 @@ exports.createStripeUser = functions.auth.user().onCreate(event => {
 				if (error) {
 					console.log("Stripe customerID cannot be written into db: " + error);
 				};
-				admin.database().ref(`/users/${data.phoneNumber}/balance`).set(30, function(error){
+
+				admin.database().ref(`/users/${data.phoneNumber}/balance`).set(15, function(error){
 					if (error) {
 						console.log("New user balance cannot be created: " + error);
 					};
@@ -549,6 +550,46 @@ exports.cancel = functions.https.onRequest((req, res) => {
 	})
 
     res.status(200).send(req.query.category);
+  });
+});
+
+exports.promotion = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+  	let code = "Vobii";
+    var uid = req.query.uid;
+    var promotion = req.query.promotion;
+    let increment = 15;
+    var refPro = admin.database().ref(`promotion/${code}/${uid}`);
+    if (promotion == code){
+
+    	refPro.once("value").then(function(snapshot) {
+    		if (snapshot.exists()) {
+    			return res.status(200).send({"result": false, "balance":0});
+    		}
+    		else{
+    			admin.database().ref(`/promotion/${code}/${uid}`).set(true, function(error){
+    				if (error) {
+    					console.log(`promotion ${uid} cannot be set: ` + error);
+    				};
+    				console.log(`/promotion/${code}/${uid} set`);
+    				
+    			});
+    			var refBal = admin.database().ref("/users/" + uid + "/balance");
+    			refBal.once("value").then(snapshot => {
+    				console.log("what is snapshot in balance");
+    				console.log(snapshot.val());
+    				var currentBalance = snapshot.val();
+    				currentBalance += increment;
+    				console.log(currentBalance);
+    				refBal.set(currentBalance);	
+    				return res.status(200).send({"result": true, "balance":currentBalance});	
+    			})
+    		}
+    	})
+    }else{
+    	return res.status(200).send({"result": false, "balance":0});
+    }
+	
   });
 });
 
