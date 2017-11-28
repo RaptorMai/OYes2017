@@ -62,6 +62,8 @@ struct DataBaseKeys {
 
     
     static let profileNeedsUpdateKey = "profileNeedsUpdate"
+    
+    static let historySessionKey = "historySessionKey"
 
     
     /// Returns db reference string based on key
@@ -545,6 +547,27 @@ class AppConfig {
         
         // set the user profile defaults to initial values
         resetProfileDefaults()
+    }
+    
+    // MARK: - handle session id storage
+    func shouldDeleteSessionFromHistory(_ sID: String) -> Bool {
+        if let historyArr = defaults.array(forKey: DataBaseKeys.historySessionKey) as? [String] {
+            if historyArr.contains(sID) {
+                return false
+            }
+        }
+        // no history at all or no session
+        return true
+    }
+    
+    func addSessionIDToHistory(_ sID: String) {
+        if var historyArr = defaults.array(forKey: DataBaseKeys.historySessionKey) {
+            historyArr.append(sID)
+            defaults.set(historyArr, forKey: DataBaseKeys.historySessionKey)
+        } else {
+            // create the array if not present
+            defaults.set([sID], forKey: DataBaseKeys.historySessionKey)
+        }
     }
 }
 

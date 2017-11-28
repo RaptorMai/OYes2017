@@ -291,6 +291,8 @@ class ChatTableViewController: EaseMessageViewController,EaseMessageViewControll
             
             // remove the current conversation from database
             chatManager?.deleteConversation(self.conversation.conversationId, isDeleteMessages: false, completion: nil)
+            
+            AppConfig.sharedInstance.addSessionIDToHistory(newConversationID)
 
             self.hideHud()
             self.showRatingVC()

@@ -8,6 +8,7 @@ import Hyphenate
 import Firebase
 import Stripe
 import UserNotifications
+import FirebaseMessaging
 
 struct Platform {
     static var isSimulator: Bool {
@@ -16,7 +17,7 @@ struct Platform {
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate{
 
     /** Hyphenate configuration constants **/
     static let kHyphenateAppKey = "1500170706002947#instasolve"
@@ -32,7 +33,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var mainViewController: MainViewController?
-
+    
+    func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
+        print("Firebase registration token: \(fcmToken)")
+        //Messaging.messaging().subscribe(toTopic: "topic/newQuestion")
+    }
+    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+        print("Received data message: \(remoteMessage.appData)")
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         var apnsCertName : String? = nil
         // ignore the Xcode "will never be executed" warning
@@ -45,24 +54,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Stripe.setDefaultPublishableKey("pk_live_pmb3J5laKj7HXRw4Ro8Z8P2G")
             apnsCertName = AppDelegate.kHyphenatePushServiceProduction
         }
-        
-        FirebaseApp.configure()
- 
         //TODO: create our own gif with our logo, need to add our gif to "copy bundle researces" under "build phase"
         //showSplashAnimation()
-        
-        let config = AppConfig.sharedInstance
-        
+        //Register notification
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+            // For iOS 10 data message (sent via FCM
+            Messaging.messaging().delegate = self
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
         application.registerForRemoteNotifications()
-        
+        FirebaseApp.configure()
+        let config = AppConfig.sharedInstance
         UINavigationBar.appearance().tintColor = UIColor.hiPrimary()
         UINavigationBar.appearance().backgroundColor = UIColor.clear
         UINavigationBar.appearance().clipsToBounds = false
         UINavigationBar.appearance().isTranslucent = true
-
+        
         hyphenateApplication(application, didFinishLaunchingWithOptions: launchOptions, appKey: AppDelegate.kHyphenateAppKey, apnsCertname: apnsCertName!, otherConfig:[AppDelegate.kSDKConfigEnableConsoleLogger: NSNumber(booleanLiteral: true)])
         
-        registerNotification()
+        //registerNotification()
         // configtype first launch is guaranteed to be int
         if (config.getConfigForType(.ConfigTypeFirstLaunch)! as! Int) < 1 {
             config.configAppFirstLaunch()
@@ -94,29 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-    /*
-    func showSplashAnimation() {
-        let background = UIView(frame: CGRect(x: 0, y: 0, width: (window?.bounds.size.width)!, height: (window?.bounds.size.height)!))
-        background.backgroundColor = UIColor(red: 62/255, green: 92/255, blue: 120/255, alpha: 1)
-        let splash = UIImageView(frame: CGRect(x: 0, y: 0, width: 317, height: 111))
-        splash.center = (window?.center)!
-        let path = Bundle.main.path(forResource: "Splash", ofType: "gif")
-        splash.image = UIImage.animatedImage(withAnimatedGIFURL: URL(fileURLWithPath: path!))
-        background.addSubview(splash)
-        window?.addSubview(background)
-        window?.bringSubview(toFront: background)
-        
-        background.layer.anchorPoint = CGPoint(x: -0.5, y: 0.5)
-        background.frame = CGRect(x: 0, y: 0, width: (self.window?.bounds.size.width)!, height: (self.window?.bounds.size.height)!)
 
-        UIView.animate(withDuration: TimeInterval(0.5), delay: 1.2, options: .curveEaseInOut, animations: {
-            background.layer.transform = CATransform3DRotate(CATransform3DIdentity, -(CGFloat)(Double.pi / 2), 0, 1, 0);
-            }) { (finished) in
-            background.removeFromSuperview()
-        }
-    }
-    */
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -300,6 +297,11 @@ extension AppDelegate {
     // login
     func proceedLogin() {
         let uid = "+1" + EMClient.shared().currentUsername!
+        let token = Messaging.messaging().fcmToken
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        let addToken = ["token": token] as [String: String?]
+        ref?.child("users/\(uid)").updateChildValues(addToken)
         AppConfig.sharedInstance.performUserSpecificConfigFor(uid)
         
         // if AppConfig.sharedInstance.profileNeedsUpdate {
