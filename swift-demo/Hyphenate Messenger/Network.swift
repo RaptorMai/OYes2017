@@ -4,6 +4,8 @@ import Firebase
 enum NetworkAPI: String {
     case category = "getCategory"
     case cancel = "cancel"
+    case promotion = "promotion"
+    
 }
 
 func urlForNetworkAPI(_ api: NetworkAPI) -> URL? {

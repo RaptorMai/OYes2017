@@ -3,6 +3,7 @@ import Stripe
 import FirebaseDatabase
 import Hyphenate
 import BRYXBanner
+import Alamofire
 
 struct Theme {
     let primaryBackgroundColor = UIColor(red:1.00, green:1.00, blue:1.00, alpha:1.00)//UIColor(red:0.96, green:0.96, blue:0.95, alpha:1.00)
@@ -221,7 +222,7 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     // MARK: Table view
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if productMinutes.count != 0{
-            return productMinutes.count + 1
+            return productMinutes.count + 2
         }
         else{
             return productMinutes.count
@@ -245,11 +246,17 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
             cell.addPurchaseAction(self, action: #selector(ShopTableViewController.payAlert(_:)), amount: price)
             
             return cell
-        } else {
+        } else if indexPath.row == productMinutes.count{
             print(indexPath.row)
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
             cell.imageView?.image = #imageLiteral(resourceName: "creditcard")
             cell.textLabel?.text = isPaymentCardPresent ? "Change your card" : "Add payment card"
+            return cell
+        }
+        else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+            cell.imageView?.image = #imageLiteral(resourceName: "promotion")
+            cell.textLabel?.text = "Redeem your free minutes"
             return cell
         }
     }
@@ -329,7 +336,60 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     func updateCard() {
         self.addCard()
     }
-    
+    func redeem(){
+        let alertController = UIAlertController(title: "Promotion Code", message: "Redeem your free minutes", preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (_) in
+            if let field = alertController.textFields?[0] {
+                let promo = field.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                let parameters: Parameters = [
+                    "promotion" : promo,
+                    "uid" : self.uid
+                    ]
+                print(parameters)
+                self.showHud(in: self.view, hint: "Verifying\nPlease do not leave the app")
+                Alamofire.request(urlForNetworkAPI(.promotion)!, method:.get, parameters: parameters, encoding: URLEncoding.default)
+                    .responseJSON { response in
+                        //print("response" + response.result.value!)
+                        self.hideHud()
+                        if let result = response.result.value{
+                            let JSON = result as! NSDictionary
+                            print(JSON)
+                            if let status = JSON["result"] as? Bool, let afterPromo = JSON["balance"] as? Int{
+                                if status == false{
+                                    let alert = UIAlertController(title: "Failed", message: "Your code is wrong or expired", preferredStyle: .alert)
+                                    let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                                    alert.addAction(okay)
+                                    self.present(alert, animated: true, completion: nil)
+                                }else{
+                                    self.balance = afterPromo
+                                    self.tableView.reloadData()
+                                    let alert = UIAlertController(title: "Successful", message: "Redeem free minutes successfully!", preferredStyle: .alert)
+                                    let okay = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                                    alert.addAction(okay)
+                                    self.present(alert, animated: true, completion: nil)
+                                }
+                            }
+                            
+                        }
+                        
+                }
+            } else {
+                // user did not fill field
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter code"
+        }
+        
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
     
     func payButton(_ amount: Int) {
         print("pay button clicked for amount: \(amount)")
@@ -483,7 +543,11 @@ class ShopTableViewController: UITableViewController, STPAddCardViewControllerDe
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == productMinutes.count{
             updateCard()
-        } else {
+        }
+        else if indexPath.row == productMinutes.count + 1{
+            redeem()
+        }
+        else {
             if let cell = tableView.cellForRow(at: indexPath) as? ShopTableViewCell {
                 tableView.deselectRow(at: indexPath, animated: true)
                 cell.purchaseButton.sendActions(for: .touchUpInside)
