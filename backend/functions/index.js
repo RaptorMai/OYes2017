@@ -401,7 +401,7 @@ exports.inactiveQuestion = functions.database.ref('/Request/active/{category}/{q
 
 
 // Update student/tutor balance when they finish a session
-exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{questionId}').onWrite(event => {
+exports.consumeBalance = functions.database.ref('/Request/inactive/{category}/{questionId}').onCreate(event => {
 
 	const qid = event.params.questionId;
 	const category = event.params.category;
