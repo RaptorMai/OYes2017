@@ -24,6 +24,9 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
     var ready = false
     var storyBoard = UIStoryboard(name: "TutorConnected", bundle: nil)
     var tcVC:TutorConnectedVC?
+    var timer:Timer?
+    var second = 0
+    var minute = 0
     //questionPic is the UIImageView that holds the question image.
     var questionPic: UIImageView = {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight*0.37))
@@ -100,6 +103,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
         sid = EMClient.shared().currentUsername!
         //getBalance()
         self.balance = UserDefaults.standard.integer(forKey: DataBaseKeys.balanceKey)
+        cancelFromAppTermination()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,25 +116,56 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
         //  NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         //NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-    func createlabel()->UILabel{
-        
+    let timerLabel: UILabel = {
+        let label = UILabel()
+        label.frame = CGRect.init(x: 100, y: 100, width: 200, height: 200)
+        label.textAlignment = .center
+        label.backgroundColor = UIColor.clear
+        label.textColor = UIColor.white
+        label.text = "Wait time: 0:0"
+        return label
+    }()
+    let timerWidthScaleFactor:CGFloat = 0.4
+    let timerHeightScaleFactor:CGFloat = 0.08
+    func setupTimer(){
+        second = 0
+        minute = 0
+        timerLabel.adjustsFontSizeToFitWidth = true
+        timerLabel.translatesAutoresizingMaskIntoConstraints = false
+        timerLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        timerLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant:100).isActive = true
+        timerLabel.widthAnchor.constraint(equalToConstant: screenWidth*timerWidthScaleFactor).isActive = true
+        timerLabel.heightAnchor.constraint(equalToConstant: screenHeight*timerHeightScaleFactor).isActive = true
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    func updateTimer(){
+        second += 1
+        if second >= 60{
+            minute += 1
+            second = 0
+        }
+        timerLabel.text = "Wait time: \(minute):\(second)"
+    }
+    
+    let inforLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 81))
         label.numberOfLines = 0
         label.textAlignment = .center
         label.textColor = UIColor.white
-        
-        label.font = UIFont(name: "HelveticaNeue", size: CGFloat(22))
-        label.text = "You can cancel this question in few second"
-        
+        label.backgroundColor = UIColor.clear
+        //label.font = UIFont(name: "HelveticaNeue", size: CGFloat(22))
+        label.text = "Wait longer than 3mins? You can cancel the request and we will send question help to your email. (Remember to set email in App)"
         return label
-    }
+    }()
     
+    let labelScaleFactor:CGFloat = 0.10
     func setuplabel(label:UILabel){
         label.translatesAutoresizingMaskIntoConstraints = false
         label.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: self.view.topAnchor, constant:100).isActive = true
-        label.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        label.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:-20).isActive = true
+        label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        label.heightAnchor.constraint(equalToConstant: screenHeight*labelScaleFactor).isActive = true
+        label.sizeToFit()
         
     }
     
@@ -213,16 +248,17 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
         
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        let spinner = MKFullSpinner.show("Uploading question...", view: self.view)
+        let spinner = MKFullSpinner.show("Uploading Question...", view: self.view)
         self.flag = 0
         
-        //let label = createlabel()
-        //self.view.addSubview(label)
-        //setuplabel(label: label)
+        self.view.addSubview(inforLabel)
+        setuplabel(label: inforLabel)
         let button = UIButton(frame: CGRect(x: 0, y: 20, width: 100, height: 50))
         button.setTitle("Cancel", for: .normal)
         button.addTarget(self, action: #selector(self.cancelAction), for: .touchUpInside)
         self.view.addSubview(button)
+        self.view.addSubview(timerLabel)
+        setupTimer()
         
         uploadPicture(data, completion:{ (url) -> Void in
             spinner.title = "Your tutor is on the way"
@@ -310,13 +346,18 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
             "qid" : self.key!,
             ]
         print(parameters)
-        Alamofire.request(urlForNetworkAPI(.cancel)!, method:.get, parameters: parameters, encoding: URLEncoding.default)
-            .responseString { response in
-                print(response.result.value!)
-                
+        if minute < 3{
+            Alamofire.request(urlForNetworkAPI(.cancel)!, method:.get, parameters: parameters, encoding: URLEncoding.default)
+             .responseString { response in
+             print(response.result.value!)
+             
+             }
         }
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         sender.removeFromSuperview()
+        timer?.invalidate()
+        timerLabel.removeFromSuperview()
+        inforLabel.removeFromSuperview()
         MKFullSpinner.hide()
         self.flag = -1
     }
@@ -333,7 +374,7 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
         storageRef.child("image/\(self.categorytitle)/\(self.key!)").putData(data, metadata: nil){(metaData,error) in
             if let error = error {
                 print(error.localizedDescription)
-                completion(nil)
+                //completion(nil)
                 
             } else {
                 //store downloadURL
