@@ -22,4 +22,5 @@ target 'Hyphenate Messenger' do
     pod 'MBProgressHUD', '~> 1.0.0'
     pod 'SDWebImage'
     pod 'BRYXBanner'
+    pod 'EAIntroView'
 end

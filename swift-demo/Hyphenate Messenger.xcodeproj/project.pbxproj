@@ -261,6 +261,8 @@
 		E4B1A27D1F8C046F00043483 /* ShopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4B1A27C1F8C046F00043483 /* ShopTableViewCell.xib */; };
 		E4B1A2811F8C04F300043483 /* ShopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1A2801F8C04F300043483 /* ShopTableViewCell.swift */; };
 		E4BB684E1F87392200E7296B /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BB684D1F87392200E7296B /* Network.swift */; };
+		E4CBAF331FC3E63C00A7AF9F /* IntroScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4CBAF321FC3E63C00A7AF9F /* IntroScreen.storyboard */; };
+		E4CBAF351FC3E74A00A7AF9F /* IntroScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBAF341FC3E74A00A7AF9F /* IntroScreenViewController.swift */; };
 		E4CBB68D1F893C5D0034FFB1 /* AlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBB68C1F893C5D0034FFB1 /* AlertControllerExtension.swift */; };
 		E4CDF1281F8676BC0008C938 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CDF1271F8676BC0008C938 /* Config.swift */; };
 		E4EED04A1F82EA0E00F81986 /* ScaleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EED0491F82EA0E00F81986 /* ScaleImage.swift */; };
@@ -702,6 +704,8 @@
 		E4B1A27C1F8C046F00043483 /* ShopTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopTableViewCell.xib; sourceTree = "<group>"; };
 		E4B1A2801F8C04F300043483 /* ShopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTableViewCell.swift; sourceTree = "<group>"; };
 		E4BB684D1F87392200E7296B /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		E4CBAF321FC3E63C00A7AF9F /* IntroScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IntroScreen.storyboard; sourceTree = "<group>"; };
+		E4CBAF341FC3E74A00A7AF9F /* IntroScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroScreenViewController.swift; sourceTree = "<group>"; };
 		E4CBB68C1F893C5D0034FFB1 /* AlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerExtension.swift; sourceTree = "<group>"; };
 		E4CDF1271F8676BC0008C938 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E4EED0491F82EA0E00F81986 /* ScaleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleImage.swift; sourceTree = "<group>"; };
@@ -940,6 +944,7 @@
 		9A17BE211D9E200B0075EF9F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E4CBAF341FC3E74A00A7AF9F /* IntroScreenViewController.swift */,
 				9A17BE231D9E20190075EF9F /* MainViewController.swift */,
 				E40E53471F734CA400E12593 /* Utility */,
 				5D9F39F31F19494900D388D9 /* Home */,
@@ -1080,6 +1085,7 @@
 		9AC132411DA0EDD800A2BD05 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				E4CBAF321FC3E63C00A7AF9F /* IntroScreen.storyboard */,
 				5DE85BB01F2C142F00200C3E /* Rating.storyboard */,
 				9A7FB37F1DA1EDA7005CC8C3 /* Profile.storyboard */,
 				9A3149911DA42B360081DB04 /* FriendRequest.storyboard */,
@@ -1876,6 +1882,7 @@
 				B6346B501D9E6C5100CBEAE2 /* EMContactDetailedTableViewCell.xib in Resources */,
 				E4B1A27D1F8C046F00043483 /* ShopTableViewCell.xib in Resources */,
 				5D9F39E81F182EA000D388D9 /* GoogleService-Info.plist in Resources */,
+				E4CBAF331FC3E63C00A7AF9F /* IntroScreen.storyboard in Resources */,
 				B6346B351D9E6C5100CBEAE2 /* MWPhotoBrowser.bundle in Resources */,
 				5D43423A1F266F1700E5CA62 /* CameraView.strings in Resources */,
 				5DB951F71F2C1C7700F5C2F7 /* Assets.xcassets in Resources */,
@@ -1925,6 +1932,8 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Hyphenate Messenger/Pods-Hyphenate Messenger-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BRYXBanner/BRYXBanner.framework",
+				"${BUILT_PRODUCTS_DIR}/EAIntroView/EAIntroView.framework",
+				"${BUILT_PRODUCTS_DIR}/EARestrictedScrollView/EARestrictedScrollView.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.4r1/HyphenateFullSDK/Hyphenate.framework",
@@ -1941,6 +1950,8 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BRYXBanner.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EAIntroView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EARestrictedScrollView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hyphenate.framework",
@@ -2121,6 +2132,7 @@
 				E47D929C1F95C3F80083A601 /* PrivacyViewController.swift in Sources */,
 				B6346B871DA24F8700CBEAE2 /* InvitationManager.swift in Sources */,
 				B6346B361D9E6C5100CBEAE2 /* EaseSDKHelper.m in Sources */,
+				E4CBAF351FC3E74A00A7AF9F /* IntroScreenViewController.swift in Sources */,
 				5D4342441F266F1700E5CA62 /* Utilities.swift in Sources */,
 				5D4342281F266F1700E5CA62 /* IC_UIImageExtensions.swift in Sources */,
 				B6346B5C1D9E6C5100CBEAE2 /* EaseBubbleView.m in Sources */,

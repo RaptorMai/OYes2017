@@ -64,6 +64,8 @@ struct DataBaseKeys {
     static let profileNeedsUpdateKey = "profileNeedsUpdate"
     
     static let historySessionKey = "historySessionKey"
+    
+    static let lastVersionKey = "lastVersionKey"  // first set in configFirstLaunch
 
     
     /// Returns db reference string based on key
@@ -88,10 +90,10 @@ enum ConfigError: Error {
 }
 
 extension String {
-    func getVersionNumbers() -> (major: Int?, minor: Int?, maintain: Int?) {
+    func getVersionNumbers() -> (major: Int, minor: Int, maintain: Int) {
         let versionArr = self.components(separatedBy: ".")
         if versionArr.count == 3 {
-            return (major: Int(versionArr[0]), minor: Int(versionArr[1]), maintain: Int(versionArr[2]))
+            return (major: Int(versionArr[0])!, minor: Int(versionArr[1])!, maintain: Int(versionArr[2])!)
         } else {
             return (major: 0, minor: 0, maintain: 0)
         }
@@ -108,7 +110,10 @@ class AppConfig {
     
     var profileDelegate: ConfigDelegate?
     
-    var appVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"]! as! String).getVersionNumbers()
+    let appVersionString = (Bundle.main.infoDictionary?["CFBundleShortVersionString"]! as! String)
+    
+    // lazy waits for appVersionString to be available
+    let  appVersion =  (Bundle.main.infoDictionary?["CFBundleShortVersionString"]! as! String).getVersionNumbers()
     
     var appForceUpdateRequired: Bool {
         get {
@@ -340,23 +345,56 @@ class AppConfig {
     ///
     /// - Parameter ver: the (maybe) newer version that you want to compare against the current app version
     /// - Returns: true if the current version is lower, false otherwise
-    func shouldDisplayUpdateInformation(forRequriedVersion ver: String) -> Bool {
+    func shouldDisplayUpdateInformation(forRequriedVersion requiredVer: String) -> Bool {
         // let (major, minor, maintain) = ver.getVersionNumbers()
-        let requiredVer = ver.getVersionNumbers()
-        
-        if let major = requiredVer.major, let minor = requiredVer.minor, let maintain = requiredVer.maintain {
-            if let appMajor = appVersion.major, let appMinor = appVersion.minor, let appMaintain = appVersion.maintain {
-                if major > appMajor {
-                    return true
-                } else if minor > appMinor {
-                    return true
-                } else if maintain > appMaintain {
-                    return true
-                }
-            }
+        // > 0 means requiredVer is later than appVersion, thus should display
+        return vercmp(requiredVer, with: appVersionString) > 0 ? true : false
+    }
+    
+    
+    /// Call this function to see if the current app is updated since last launch
+    ///
+    /// It compares the current appVersion to the last stored version in the userdefaults. It also sets
+    /// the value in the defaults to the newest version
+    /// - Returns: true if it is
+    func isAppUpdatedSinceLastLaunch() -> Bool {
+        var isUpdated = false
+        if let lastVer = defaults.string(forKey: DataBaseKeys.lastVersionKey) {
+            isUpdated = vercmp(appVersionString, with: lastVer) > 0
         }
         
-        return  false
+        if isUpdated {
+            defaults.set(appVersionString, forKey: DataBaseKeys.lastVersionKey)
+        }
+        
+        return isUpdated
+    }
+    
+    /// Compare two versions
+    ///
+    /// - Parameters:
+    ///   - base: the base version number, in string like 1.1.1
+    ///   - cmp: the version number to compare, format same as base
+    /// - Returns: 1 if base is newer version, 0 if same, -1 if base is older version
+    func vercmp(_ base: String, with cmp: String) -> Int {
+        let baseVer = base.getVersionNumbers()
+        let cmpVer = cmp.getVersionNumbers()
+        
+        if baseVer.major == cmpVer.major &&
+            baseVer.minor == cmpVer.minor &&
+            baseVer.maintain == cmpVer.maintain {
+            return 0
+        }
+        
+        if baseVer.major > cmpVer.major {
+            return 1
+        } else if baseVer.minor > cmpVer.minor {
+            return 1
+        } else if baseVer.maintain > cmpVer.maintain {
+            return 1
+        }
+        
+        return -1
     }
     
     /// Pulls new category Json from cloud
@@ -424,6 +462,8 @@ class AppConfig {
         
         // setting profile photo to placeholder
         defaults.register(defaults: [DataBaseKeys.profilePhotoKey: UIImageJPEGRepresentation(UIImage(named:"placeholder")!, 1)!])
+        
+        defaults.set(appVersionString, forKey: DataBaseKeys.lastVersionKey)
     }
     
     /// Call this function for first time users
@@ -488,6 +528,8 @@ class AppConfig {
     
     /// Do app refresh at launch, it does: 1. handle remote config, 2. check category/package for necessary update, 3. increment open count
     func configAppLaunch() {
+        print("Current app version \(appVersionString)")
+        
         let remoteConfig = RemoteConfig.remoteConfig()
         remoteConfig.setDefaults(DataBaseKeys.defaultDict)
         
