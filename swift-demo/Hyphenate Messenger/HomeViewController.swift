@@ -12,6 +12,7 @@ class HomeViewController: UIViewController{
     
     var croppingEnabled: Bool = false
     var libraryEnabled: Bool = true
+    var didDisplayIntro: Bool = false
     
     
     override func viewDidLoad() {
@@ -33,6 +34,7 @@ class HomeViewController: UIViewController{
         snapButton.contentEdgeInsets = UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
         snapButton.addTarget(self, action: #selector(snap), for: .touchUpInside)
         self.view.addSubview(snapButton)
+        
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +42,14 @@ class HomeViewController: UIViewController{
         self.tabBarController?.navigationItem.title = "InstaSolve"
         self.tabBarController?.tabBar.isHidden = false
         //reloadDataSource()
+        if !didDisplayIntro {
+            if AppConfig.sharedInstance.isAppUpdatedSinceLastLaunch() {
+                let introVC = UIStoryboard(name: "IntroScreen", bundle: nil).instantiateViewController(withIdentifier: "introScreen") as! IntroScreenViewController
+                
+                didDisplayIntro = true
+                present(introVC, animated: true, completion: nil)
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {

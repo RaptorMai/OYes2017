@@ -23,6 +23,12 @@ class LoginViewController: UIViewController {
         
         // setting color of back arrow in navigation bar
         navigationController?.navigationBar.tintColor = UIColor(red: 45.0/255.0, green: 162.0/255.0, blue: 220.0/255.0, alpha: 1.0)
+        
+        if AppConfig.sharedInstance.isAppUpdatedSinceLastLaunch() {
+            let introVC = UIStoryboard(name: "IntroScreen", bundle: nil).instantiateViewController(withIdentifier: "introScreen") as! IntroScreenViewController
+            
+            present(introVC, animated: true, completion: nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

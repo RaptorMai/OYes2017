@@ -92,7 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 alert.show()
             }
         }
-        
+        // pop up the app update intro in two other places: auth vc and homevc
         AppConfig.sharedInstance.configAppLaunch()
         return true
     }
