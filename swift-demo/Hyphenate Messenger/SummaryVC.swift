@@ -349,8 +349,10 @@ class SummaryVC: UIViewController, UITextViewDelegate, ShopPurchaseStatusDelegat
         if minute < 3{
             Alamofire.request(urlForNetworkAPI(.cancel)!, method:.get, parameters: parameters, encoding: URLEncoding.default)
              .responseString { response in
-             print(response.result.value!)
-             
+                //print(response.result.value!)
+                if let result = response.result.value{
+                    print(result)
+                }
              }
         }
         self.navigationController?.setNavigationBarHidden(false, animated: false)
