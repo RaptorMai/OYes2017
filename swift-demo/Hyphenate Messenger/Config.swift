@@ -380,21 +380,25 @@ class AppConfig {
         let baseVer = base.getVersionNumbers()
         let cmpVer = cmp.getVersionNumbers()
         
-        if baseVer.major == cmpVer.major &&
-            baseVer.minor == cmpVer.minor &&
-            baseVer.maintain == cmpVer.maintain {
-            return 0
-        }
-        
         if baseVer.major > cmpVer.major {
             return 1
-        } else if baseVer.minor > cmpVer.minor {
-            return 1
-        } else if baseVer.maintain > cmpVer.maintain {
-            return 1
+        } else if baseVer.major < cmpVer.major {
+            return -1
         }
         
-        return -1
+        if baseVer.minor > cmpVer.minor {
+            return 1
+        } else if baseVer.minor < cmpVer.minor {
+            return -1
+        }
+        
+        if baseVer.maintain > cmpVer.maintain {
+            return 1
+        } else if baseVer.maintain > cmpVer.maintain {
+            return -1
+        }
+        
+        return 0
     }
     
     /// Pulls new category Json from cloud
