@@ -467,7 +467,7 @@ class AppConfig {
         // setting profile photo to placeholder
         defaults.register(defaults: [DataBaseKeys.profilePhotoKey: UIImageJPEGRepresentation(UIImage(named:"placeholder")!, 1)!])
         
-        defaults.set(appVersionString, forKey: DataBaseKeys.lastVersionKey)
+        defaults.set('0.0.0', forKey: DataBaseKeys.lastVersionKey)
     }
     
     /// Call this function for first time users
